@@ -242,16 +242,16 @@ def plot_unimodal_v2(result, outpath, colors):
 
     ax1 = fig.add_subplot(141, projection="3d")
     sphere_scatter(ax1, r["grid_pts"], r["log_rho0"],
-                   title=f"Start (t={r['t0']:g}) log ρ̂", s=6)
+                   title=f"Start ($t={r['t0']:g}$) $\\log\\hat{{\\rho}}$", s=6)
 
     ax2 = fig.add_subplot(142, projection="3d")
     sphere_scatter(ax2, r["grid_pts"], r["log_rhom"],
-                   title=f"Middle (t={r['tm']:g}) log ρ̂", s=6)
+                   title=f"Middle ($t={r['tm']:g}$) $\\log\\hat{{\\rho}}$", s=6)
 
     ax3 = fig.add_subplot(143, projection="3d")
     sphere_scatter(ax3, r["grid_pts"], r["log_rho_avg"],
-                   title=(f"Late-time avg log ρ̂ "
-                          f"(t∈[{r['avg_window'][0]}, {r['avg_window'][1]}])"), s=6)
+                   title=(f"Late-time avg $\\log\\hat{{\\rho}}$ "
+                          f"($t\\in[{r['avg_window'][0]}, {r['avg_window'][1]}]$)"), s=6)
 
     ax4 = fig.add_subplot(144)
     ax4.plot(r["curve_times"], r["kls"], marker="o", markersize=3)

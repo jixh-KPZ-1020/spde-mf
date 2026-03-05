@@ -1,6 +1,10 @@
 import matplotlib
 
-COLORS = {"fuBlue": "#003366", "citeViolet": "#8000ff"}
+COLORS = {
+    "fuBlue":     "#003366",
+    "citeViolet": "#8000ff",
+    "fu_green":   "#CCFF00",   # RGB (204, 255, 0)
+}
 
 _PGF_EXTRA = {
     "pgf.texsystem": "pdflatex",
@@ -23,7 +27,7 @@ def apply_thesis_style(backend=None):
              "pdf" — non-interactive PDF output (for figures.py)
              "pgf" — LaTeX PGF output (for direct \\input{} in thesis)
 
-    Returns the color dict {"fuBlue": ..., "citeViolet": ...}.
+    Returns the color dict {"fuBlue": ..., "citeViolet": ..., "fu_green": ...}.
     """
     if backend is not None:
         matplotlib.use(backend)

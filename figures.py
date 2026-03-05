@@ -10,14 +10,14 @@ Usage
     python figures.py --pgf                    # save .pgf instead of .pdf
     python figures.py --list                   # print available names and exit
 
-Available figure names:  fdr, fdr_riem, mollweide, unimodal
+Available figure names:  fdr, fdr_riem, mollweide, unimodal, sk, ising_tc, white_noise_2d, modulated_energy, kpz
 """
 
 import argparse
 import os
 import sys
 
-FIGURE_NAMES = ["fdr", "fdr_riem", "mollweide", "unimodal"]
+FIGURE_NAMES = ["fdr", "fdr_riem", "mollweide", "unimodal", "sk", "ising_tc", "white_noise_2d", "modulated_energy", "kpz"]
 
 
 def _build_registry():
@@ -36,7 +36,16 @@ def _build_registry():
                                    plot_mollweide_speed)
     from scripts.unimodal_v3 import (simulate_unimodal_v3,
                                      plot_unimodal_v3,
+                                     plot_unimodal_v3_kl,
                                      plot_unimodal_v3_ratio)
+    from scripts.SK_v2 import simulate_SK, plot_SK
+    from scripts.Ising_critical_temp import simulate_ising_tc, plot_ising_tc, plot_ising_lattice
+    from scripts.modulated_energy import simulate_modulated_energy, plot_modulated_energy
+    from scripts.KPZ import simulate_kpz, plot_kpz
+    import importlib
+    _wn = importlib.import_module("scripts.2D_WN")
+    simulate_white_noise_2d = _wn.simulate_white_noise_2d
+    plot_white_noise_2d     = _wn.plot_white_noise_2d
     return {
         "fdr": (
             simulate_fdr,
@@ -54,7 +63,29 @@ def _build_registry():
         "unimodal": (
             simulate_unimodal_v3,
             [(plot_unimodal_v3,       "unimodal"),
+             (plot_unimodal_v3_kl,    "unimodal_kl"),
              (plot_unimodal_v3_ratio, "unimodal_ratio")],
+        ),
+        "sk": (
+            simulate_SK,
+            [(plot_SK, "sk")],
+        ),
+        "ising_tc": (
+            simulate_ising_tc,
+            [(plot_ising_tc,      "ising_tc"),
+             (plot_ising_lattice, "ising_lattice")],
+        ),
+        "white_noise_2d": (
+            simulate_white_noise_2d,
+            [(plot_white_noise_2d, "white_noise_2d")],
+        ),
+        "modulated_energy": (
+            simulate_modulated_energy,
+            [(plot_modulated_energy, "modulated_energy")],
+        ),
+        "kpz": (
+            simulate_kpz,
+            [(plot_kpz, "kpz")],
         ),
     }
 
