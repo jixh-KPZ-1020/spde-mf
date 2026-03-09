@@ -1,0 +1,1060 @@
+\chapter{Dean-Kawasaki equation: Large Deviation}\label{ch:LDP}
+
+\newcommand{\Xiaohao}[1]{\textcolor{red}{#1}}
+In this Chapter, we establish the existence and the zero--noise large deviation principle of the Dean--Kawasaki equation with singular interactions 
+\begin{align}\label{ker-V}
+	\mathcal{V}[\rho] := -(\kappa_1 + \kappa_2 \mathbb{J}) \nabla \mathcal{G} \ast \rho,
+\end{align}
+where $\mathcal{G}$ is the Green function on torus $\mathbb{T}^2$ and $\mathbb{J}$ denotes the $\frac{\pi}{2}$--rotation matrix:
+$$
+\mathbb{J} = \begin{bmatrix} 0 & -1 \\ 1 & 0 \end{bmatrix}.
+$$
+Therefore, $\mathcal{V}$ is a linear combination of Keller--Segel and Biot--Savart kernels. It follows that the interaction potential satisfies 
+\begin{align}\label{eq:Lp-nablaG}
+(\kappa_1 + \kappa_2 \mathbb{J}) \nabla \mathcal{G} \in L^p_{\mathbb{T}^2}, \quad p <2. 
+\end{align}
+More specifically, we first prove the existence of probabilistically weak renormalized kinetic solutions to the Dean--Kawasaki equation with such singular interactions, namely\footnote{In order to be consistent with the notation used in the literature on large--deviation principle of Dean--Kawasaki equations, we use $\varepsilon$ as the index for the inverse  particle numbers approximately, such that 
+\begin{align*}
+\varepsilon \sim \frac{1}{N}
+\end{align*}
+ where $N$ is the particle number used in \ref{ch:weak}.}
+\begin{equation}\label{SPDE-0-intro}
+\partial_t \rho^{\varepsilon} = \Delta \rho^{\varepsilon} - \nabla \cdot \left(\rho^{\varepsilon} \mathcal{V}[\rho^{\varepsilon}]\right) - \sqrt{\varepsilon} \nabla \cdot (\sqrt{\rho^{\varepsilon}} \circ \xi_K), \quad (t,x) \in (0,T] \times \mathbb{T}^2,
+\end{equation}
+where $\xi$ denotes a vector-valued space-time white noise, $\xi_K$ is its ultraviolet cutoff, and $\circ$ indicates the Stratonovich integral. 
+With the help of the existence, we study the zero-noise large deviations for the probabilistic weak solutions of a regularized version of \eqref{SPDE-0-intro}, i.e.
+\begin{equation}\label{SPDE-1}
+\partial_t\rho^{\eta}=\Delta\rho^{\eta} - \nabla\cdot(\rho^{\eta}\mathcal{V}[\rho^{\eta}])-\sqrt{\varepsilon}\nabla\cdot(s_{\eta}(\rho^{\eta})\circ\xi_{K}), 	\ \ (t,x)\in(0,T]\times\mathbb{T}^2, 
+\end{equation}
+where $K(\varepsilon) \to \infty$, $\eta(\varepsilon) \to 0^+$ as $\varepsilon \to 0^+$ and $(s_{\eta}(\cdot))_{\eta > 0}$ is a sequence of smooth approximation of the square--root function on $[0,\infty)$. \\
+
+We will use the convention that $s_{\eta} = \sqrt{\cdot}$ for $\eta = 0$, and mostly omit the dependence of $K$ and $\eta$ on $\varepsilon$ in the notations, so in particular, we have 
+\begin{align*}
+\rho^{\eta} = \rho^{\varepsilon}, \ \text{if} \ \eta \equiv 0,
+\end{align*}
+according to our notation. Due to the singularity of the square--root in \eqref{SPDE-0-intro}, we first introduce the following notion of renormalized kinetic solutions:
+\begin{defi}\label{RKS smooth spde}Let the interaction $\mathcal{V}[\cdot]$ be defined by \eqref{ker-V} and $\rho_0\in L^{1}(\mathbb{T}^2)$. For any $\varepsilon \in (0,1)$ and $\eta \in[0,1)$, a renormalized kinetic solution $\rho$ of \eqref{smooth spde} with initial datum $\rho_0$ is a nonnegative, almost surely continuous $L^1_{\mathbb{T}^2}$-valued $\mathcal{F}_t$-predictable process $\rho \in L^1\left(\Omega \times[0, T] ; L^1_{\mathbb{T}^2}\right)$, such that almost surely for almost every $t \in[0, T]$ and $\psi \in C_{c}^{\infty}(\mathbb{T}^2 \times(0, \infty))$,
+ \begin{equation}
+ \begin{aligned}
+&\int_{\mathbb{R}}\int_{\mathbb{T}^2} \chi(x, \xi, \cdot) \psi(x, \xi) \Big|^t_0= -\int_{0}^{t} \int_{\mathbb{T}^2}\nabla\rho \cdot\nabla_x\psi(x,\rho)
+-\int_{0}^{t} \int_{\mathbb{R}} \int_{\mathbb{T}^2} \partial_{\xi} \psi(x, \xi) \mathrm{d}m\\
+&
+-\int_{0}^{t} \int_{\mathbb{T}^2} \nabla\cdot \left(\rho \mathcal{V}[\rho]\right)\psi(x, \rho)
++\sqrt{\varepsilon}\int_{0}^{t} \int_{\mathbb{T}^2} s_{\eta}(\rho)\xi_{K}\cdot \nabla \psi(x, \rho)\\
+&+\frac{\varepsilon N_k}{2}\int_{0}^{t} \int_{\mathbb{T}^2}[s_{\eta}(\rho)]^2 \partial_{\zeta} \psi(x, \rho),
+\end{aligned}
+\end{equation}
+where $\chi$ is the kinetic function defined by $\chi(x,\xi,t)=\mathbf{1}_{\{0<\xi<\rho(x,t)\}}$, the kinetic measure $m=\delta_0(\xi-\rho)|\nabla\rho|^2$ and 
+\begin{align}
+N_K := \sum_{\substack{k\in \mathbb{Z}^{d}\\|k| \leq K}}|k|^2.
+\end{align}
+\end{defi}
+\Xiaohao{Add regularity}
+
+We emphasize that the renormalized kinetic solution makes sense even for $\eta = 0$, while we can only consider $\eta > 0$, namely mollified square--root function, if we use the usual notion of weak solutions. 
+
+\Xiaohao{Add a remark about the a.e. and compare with Gess-Fehrman.}
+
+\begin{defi}\label{W SPDE-1}
+Let $\mathcal{V}[\cdot]$ and $\rho_0$ be defined as in \ref{RKS smooth spde}, a weak solution  $\rho$ of \eqref{SPDE-1} with initial data $\rho(\cdot, 0)=\rho_0$ is a continuous, nonnegative, $\mathcal{F}_{t}$-predictable process such that for every $\psi \in C^{\infty}_{\mathbb{T}^2}$, almost surely for every $t \in[0, T]$,
+\begin{align}
+\int_{\mathbb{T}^2} \rho(x, t) \psi(x) & =\int_{\mathbb{T}^2} \rho_0 \psi-\int_{0}^{t} \int_{\mathbb{T}^2} \nabla \rho \cdot \nabla \varphi+\int_{0}^{t} \int_{\mathbb{T}^2}(\rho \mathcal{V}[\rho]) \cdot \nabla \psi \nonumber\\
+&+\sqrt{\varepsilon}\int_{0}^{t} \int_{\mathbb{T}^2} s_{\eta}(\rho) \nabla \psi \cdot \xi_{K}-\frac{\varepsilon N_{K}}{2} \int_{0}^{t} \int_{\mathbb{T}^2} \left[s_{\eta}^{\prime}(\rho)\right]^{2} \nabla \rho \cdot \nabla \psi,
+\end{align}
+for any $\varepsilon,\eta \in(0,1)$.
+\end{defi}
+
+The correction term in \eqref{W SPDE-1} may not make sense when $\eta = 0$, as 
+\begin{align*}
+[s_{\eta}^{\prime}(\rho)]^{2} \nabla \rho = \nabla \log(\rho),
+\end{align*}
+which may not even be a well--defined distribution, even if we assume $\rho \in L^2_{[0,T]}W^{1,1}_{\mathbb{T}^2}$, which is natural since it is implied by the a priori entropy estimate. Due to the singularity of the kernel we consider, the interaction term $\nabla\cdot(\rho \mathcal{V}[\rho])$ does not necessarily make sense as a integrable space--time function under mild regularity assumptions on $\rho$ that $\rho \in L^{\infty}_{[0,T]}L^1_{\mathbb{T}^2}$ and $\nabla \sqrt{\rho} \in L^{2}([0,T] \times \mathbb{T}^2)$. Indeed, since 
+\begin{align*}
+\|\rho\|_{L^p} = \|\sqrt{\rho}\|^2_{L_{\mathbb{T}^2}^{2p}} \lesssim \|\nabla\sqrt{\rho}\|^{2 -2/p}_{L_{\mathbb{T}^2}^{2}}\|\rho\|^{1/p}_{L^1_{\mathbb{T}^2}},
+\end{align*}
+for any $1\leq p<\infty$ and $\rho \geq 0$, by Young's inequality $\|\mathcal{V}[\rho]\|_{L^{\infty}} \lesssim \|\nabla \mathcal{G} \ast \rho\|_{L^{\infty}} \lesssim \|\rho\|_{L^p}$ for any $p>2$, and therefore
+%
+\begin{align}\label{eq:interaction is L1}
+ \left\|\nabla\cdot \left(\rho \mathcal{V}[\rho]\right)\right\|_{L^1_{\mathbb{T}^2}} & \lesssim \left\|\sqrt{\rho} \nabla\sqrt{\rho} \cdot \mathcal{V}[\rho]\right\|_{L^1_{\mathbb{T}^2}} + \|\rho\|^2_{L^2_{\mathbb{T}^2}} \nonumber \\
+ & \lesssim \|\nabla \sqrt{\rho}\|^{3 -2/p}_{L^2_{\mathbb{T}^2}}\|\rho\|^{1/p + 1/2}_{L^1_{\mathbb{T}^2}} + \|\nabla\sqrt{\rho}\|_{L_{\mathbb{T}^2}^{2}}\|\rho\|^{1/2}_{L^1_{\mathbb{T}^2}},
+\end{align}
+for any $2<p<\infty$, such that $3 -2/p > 2$. \\
+
+As is frequently used in the investigation of Dean--Kawasaki equations, the right hand side of \eqref{eq:interaction is L1} is controlled by the $L^1$ conservation and the Fisher information ($L^2$ norms of gradient of the square--roots) of the solutions. As crucially realized by \cite{FG24}, entropy estimates provide the desired control (see Proposition \ref{entropy estimate}, Lemma \ref{pathwise-entropy}), and therefore we denote $\Phi(x) := x\log(x)$ and define the space of initial conditions of finite entropy as 
+\begin{align}\label{eq:def-Ent-space}
+    \mathrm{Ent}(\mathbb{T}^2) := \left\{\rho: L^1(\mathbb{T}^2): \rho \geq 0, \int_{\mathbb{T}^2}\Phi(\rho) < \infty\right\}.
+\end{align}
+
+By introducing the smallness condition on the attractive Keller--Segel interaction, that is 
+\begin{align}\label{eq:small-KS}
+\kappa_1 < \frac{4}{C_{\mathrm{GN}}\|\rho_0\|_{L^1_{\mathbb{T}^2}}},
+\end{align}
+where $C_{\mathrm{GN}}$ is the optimal Gagliardo--Nirenberg constant \Xiaohao{Specify}, we can now state the main results of the paper. The first part of this paper is then devoted to construct probabilistically weak solutions in the sense of Definitions \ref{RKS smooth spde} and \ref{W SPDE-1} to \eqref{SPDE-1}. 
+\begin{thm}\label{spde WP}Assume that \eqref{eq:small-KS} holds. Given a fixed $\varepsilon > 0$ and a nonnegative $\rho_0 \in \mathrm{Ent}(\mathbb{T}^2)$ as defined in \eqref{eq:def-Ent-space}, we consider the following two cases: 
+\begin{enumerate}
+\item For the mollified equation, namely $\eta > 0$ in \eqref{SPDE-1}, there exists a probabilistically weak renormalized kinetic solution $\rho^{\eta}$ of \eqref{SPDE-1} with initial data $\rho_0$, which coincides with a weak solution of \eqref{SPDE-1};
+\item For the equation \eqref{SPDE-0-intro}, namely $\eta = 0$ in \eqref{SPDE-1}, there exists a probabilistically weak renormalized kinetic solution.
+\end{enumerate}
+\end{thm}
+
+
+With the existence of the probabilistically weak solutions established, we proceed by establishing a restricted large deviation principle at small noise limit. We define the rate function $\mathcal{I}:L_{[0,T]}^1L_{\mathbb{T}^2}^1\rightarrow [0,\infty]$ by 
+
+\begin{align}\label{I0-intro}
+ \mathcal{I}(\rho)= \sup_{\varphi\in C^{\infty}([0,T]\times\mathbb{T}^2)}\Big\{\langle \rho,\varphi \rangle_{L^2_{\mathbb{T}^2}}\Big|^T_0 & - \langle \rho,(\partial_t - \Delta)\varphi\rangle_{L_{[0,T]}^2L^2_{\mathbb{T}^2}} - \langle\rho \mathcal{V}[\rho],\nabla\varphi\rangle_{L_{[0,T]}^2L^2_{\mathbb{T}^2}}\nonumber\\
+& - \frac{1}{2}\langle \rho\nabla \varphi,\nabla\varphi\rangle_{L_{[0,T]}^2L^2_{\mathbb{T}^2}}\Big\},\ \ \text{if} \ \rho\in \mathcal{E}_{\mathrm{fin}},
+\end{align}
+and $\mathcal{I}(\rho)=+\infty$ otherwise, where the domain $\mathcal{E}_{\mathrm{fin}}$ of finite entropy dissipation is defined by 
+\begin{align}\label{Efin-intro}
+\mathcal{E}_{\mathrm{fin}}:=\Big\{\rho\in L_{[0,T]}^{\infty}L^1_{\mathbb{T}^2}:\|\nabla\sqrt{\rho}\|_{L_{[0,T]}^{2}L^2_{\mathbb{T}^2}}<\infty, \ \text{and} \ \rho\geq0\ \text{a.e.}\Big\}.
+\end{align}
+With the above preparation, we are able to state the main large deviations result. 
+\begin{thm}[Restricted LDP]\label{thm:LDP}
+Assume that \eqref{eq:small-KS} holds, the initial data $\rho_0 \in \mathrm{Ent}(\mathbb{T}^2)$ and $\{\rho^{\eta(\varepsilon)}\}$ is a probabilistically weak solution of \eqref{SPDE-1} with initial data $\rho_0$ in the sense of \eqref{W SPDE-1}. Then under the scaling regime 
+\begin{align}
+\lim_{\varepsilon\rightarrow 0}\varepsilon K^{d+2}=0, \quad  \lim_{\varepsilon\rightarrow 0}\varepsilon \|s'_{\eta}\|^4_{L^{\infty}} =0, \quad \eta \to 0.
+\end{align}
+\Xiaohao{We may improve to $\varepsilon \|s'_{\eta}\|^2_{L^{\infty}} \to 0$} the laws $\mu^{\varepsilon}=\mathbb{P}\circ(\rho^{\eta(\varepsilon)})^{-1}$ satisfy the restricted large deviation principle, namely, for every open set $G$ of $L_{[0,T]}^{1}L^1_{\mathbb{T}^2}$,
+\begin{align}\label{RS E}
+\liminf_{\varepsilon\rightarrow0}\varepsilon  \log \mu^{\varepsilon}(G)\geq-\inf_{\rho\in G\cap\mathcal{C}_0}\mathcal{I}(\rho),
+\end{align}
+\Xiaohao{condition on $\eta$!}where the regularity sub--class for the restriction is defined by
+\begin{align}\label{S-intro}
+\mathcal{C}_0 = \bigcup_{p'>2}\left\{\rho\in L_{[0,T]}^{\infty}L^1_{\mathbb{T}^2} : \rho\in L_{[0,T]}^{\infty}W_{\mathbb{T}^2}^{1,p'}\right\};
+\end{align}
+\Xiaohao{Is the choice of $\mathcal{C}_0$ optimal?}and for any closed set $F$ of $L_{[0,T]}^{1}L^1_{\mathbb{T}^2}$,
+\begin{align}\label{LDP LB}
+\limsup_{\varepsilon\rightarrow0}\varepsilon  \log \mu^{\varepsilon}(F)\leq-\inf_{\rho\in F}\mathcal{I}(\rho).
+\end{align}
+\end{thm}
+
+In the study of large deviations for SPDEs, the associated skeleton equation often plays a central role. For equation \eqref{SPDE-1}, the corresponding skeleton equation is given by
+\begin{equation}\label{ske}
+\partial_t \rho = \Delta \rho - \nabla \cdot (\rho \mathcal{V}[\rho]) - \nabla \cdot \left( \sqrt{\rho}\, g \right),
+\end{equation}
+where the control $g \in L^2_{[0,T]}L^2_{\mathbb{T}^2}(\mathbb{R}^2)$ reflects the Cameron--Martin space associated with space-time white noise. Following a similar formal argument as in \cite{FG23}, the energy--critical space for \eqref{ske} is $L^1([0,T] \times \mathbb{R}^2))$, if we consider instead of $\mathbb{T}^2$ the Euclidean space for the scaling argument, and the choice of Coulomb interaction $\mathcal{V}[\rho] \propto \nabla \mathcal{G} \ast \rho$ makes the equation \eqref{ske} supercritical in $L^1([0,T] \times \mathbb{R}^2))$ due to \eqref{eq:Lp-nablaG}. Therefore, we aim at proving a weak--strong uniqueness result of the skeleton equation \eqref{ske} instead, and more precisely, as long as a renormalized kinetic solution lies in the space $\mathcal{C}_0$, as defined in \eqref{S-intro}, then all renormalized kinetic solutions must coincide with this one. This is exactly how we construct the restriction space $\mathcal{C}_0$.
+
+\section{The existence}\label{sec:existence}
+In this section, we show the existence of a renormalized kinetic solution of the Dean--Kawasaki equation \eqref{SPDE-0-intro} with the full square--root, which we recall to be 
+\begin{align*}
+\partial_t\rho^{\varepsilon}=\Delta\rho^{\varepsilon}-\nabla\cdot\left(\rho^{\varepsilon}\mathcal{V}[\rho^{\varepsilon}]\right) - \sqrt{\varepsilon}\nabla\cdot(\sqrt{\rho^{\varepsilon}}\circ\xi_{K}), 	\ \ (t,x)\in(0,T]\times\mathbb{T}^2, 
+\end{align*}
+namely, we prove the following theorem of existence: 
+\begin{thm}\label{spde WP}
+  For every fixed $\varepsilon > 0$ and $K \in \mathbb{N}$, we let 
+ \begin{align}\label{eq:def-Ent}
+ \rho_0 \in \mathrm{Ent}(\mathbb{T}^2) := \left\{\rho \in L^1_{\mathbb{T}^2}: \int_{\mathbb{T}^2} \Psi(\rho) < \infty \right\}.
+\end{align} 
+Then there exists a probabilistically weak nonnegative renormalized kinetic solution $\rho^{\varepsilon}$ of \eqref{SPDE-0-intro} in the sense of Definition \ref{RKS smooth spde} with initial data $\rho_0$.
+\end{thm}
+
+We will therefore fix an $\varepsilon > 0$ in this chapter. In order to show the existence of the probabilistically weak renormalized kinetic solution to \eqref{SPDE-1}, we introduce a family of stochastic PDEs with regularized coefficients as approximations. The mollification of the square--root is chosen as follows: Let $s_{\eta}:[0, \infty) \rightarrow[0, \infty)$ be a family of smooth non-decreasing functions such that $s_{\eta}(0)=0$, 
+\begin{align}
+0 \leqslant s_{\eta}(\zeta) \lesssim \sqrt{\zeta}, 0 \leq s'_{\eta}(\zeta) \lesssim \frac{1}{\sqrt{\zeta}} \text {, and } s_{\eta} \to \sqrt{\cdot} \ \text{uniformly on compacts},
+\end{align}
+and the index is chosen such that
+\begin{align}
+\left\|s_{\eta}'\right\|_{L^{\infty}} \lesssim \frac{1}{\eta},
+\end{align}
+uniformly in $\eta \in (0,1)$. We also regularize the singular interaction term, that is, we let $\kappa_\gamma( x):=\frac{1}{\gamma^2} \kappa ( \frac{x}{\gamma})$ be the standard convolution kernel on $ \mathbb{T}^2$ and 
+\begin{align}
+\mathcal{V}_{\gamma}[\rho] := \kappa_{\gamma}\ast\mathcal{V}[\rho] =  -(\kappa_1 + \kappa_2 \mathbb{J}) \nabla (\kappa_{\gamma}\ast\mathcal{G}) \ast \rho,
+\end{align}
+and consider the regularized equation with $V_{\gamma}[\cdot]$ and $s_{\eta}(\cdot)$, i.e. 
+\begin{align}\label{smooth spde}
+\partial_t\rho^{\gamma, \eta}=\Delta\rho^{\gamma, \eta} -\nabla\cdot(\rho^{\gamma, \eta}\mathcal{V}_{{\gamma}}[\rho^{\gamma, \eta}])
+- \sqrt{\varepsilon} \nabla\cdot(s_{\eta}(\rho^{\gamma, \eta})\xi_{K})
++\frac{\varepsilon N_{K}}{2}\nabla\cdot([s'_{\eta}(\rho^{\gamma, \eta})]^2\nabla\rho^{\gamma, \eta}).
+\end{align}
+We omit the dependence of the solution of \eqref{smooth spde} on $\varepsilon$ and $\eta$ in the notation and recall \cite[Theorem 5.6 and Proposition 5.9]{WWZ22}, from which the well--posedness of \eqref{smooth spde} immediately follows. \Xiaohao{Why do we need bounded initial condition?}
+\begin{prop}\label{entropy-mollified-DK-existence}
+ For any fixed $\varepsilon,\eta,\gamma\in(0,1)$ and $0 \leq \rho_0 \in \mathrm{Ent}(\mathbb{T}^2)$, there exists a unique probabilistically strong nonnegative solution $\rho^{\gamma, \eta}$ to \eqref{smooth spde} in the sense of Definition \ref{W SPDE-1} with initial data $\rho_0$, which is also a renormalized kinetic solutions of \eqref{smooth spde} in the sense of Definition \ref{RKS smooth spde}.\end{prop}
+
+\Xiaohao{Explain the cutoff of initial condition, $\rho_0 \in L^{\infty}$}
+\subsection{Uniform estimates}
+
+\begin{prop}\label{entropy estimate}\Xiaohao{check the constant}
+ Let the interaction $\mathcal{V}[\cdot]$ be defined by \eqref{ker-V} under the condition that \eqref{eq:small-KS} holds. Given $\rho_0\in L^\infty(\mathbb{T}^2)$ and the solution $\rho^{\gamma, \eta}$ as in Proposition \ref{entropy-mollified-DK-existence}, we have
+\begin{align}\label{entropy0}
+\mathbb{E}\left(\int_{\mathbb{T}^2}\Psi(\rho^{\gamma, \eta}(T))dx\right) + \sigma\mathbb{E}\left(\int_0^T\|\nabla\sqrt{\rho^{\gamma, \eta}}\|_{L^2_{\mathbb{T}^2}}^2ds\right)\leq \int_{\mathbb{T}^2}\Psi_{\delta}(\rho_0)\mathrm{d}x + \varepsilon N_KT, 
+\end{align}
+for some $\sigma > 0$ which is independent of $\gamma$.
+\end{prop}
+\begin{proof}
+For any fixed $\delta\in (0,1)$, we define $\Psi_{\delta} : [0,\infty) \rightarrow \mathbb{R} $ be the unique smooth function satisfying $\Psi_{\delta}(0) =
+0 $ and $\Psi'_{\delta}(\xi) = \log(\xi + \delta)$. It follows from the It\^{o}'s formula and the nonnegativity of $\rho^{\varepsilon}$ that
+\begin{align}\label{PW ET q1}
+\int_{\mathbb{T}^2}\Psi_{\delta}(\rho^{\gamma, \eta})\mathrm{d}x \Big|^T_0 
+= \int_0^T\int_{\mathbb{T}^2}\frac{\rho^{\varepsilon}}{\rho^{\gamma, \eta}+\delta}\mathcal{V}_{{\gamma}}[\rho^{\gamma, \eta}]\cdot\nabla\rho^{\gamma, \eta}\mathrm{d}x\mathrm{d}s
+\nonumber\\
+- 4\int_0^T\int_{\mathbb{T}^2}\frac{\rho^{\gamma, \eta}}{\rho^{\gamma, \eta}+\delta}
+|\nabla\sqrt{\rho^{\gamma, \eta}}|^2\mathrm{d}x\mathrm{d}s \nonumber\\
++ 2\sqrt{\varepsilon}\int_0^T \int_{\mathbb{T}^2}
+\frac{s_{\eta}(\rho^{\gamma, \eta})\sqrt{\rho^{\gamma, \eta}}}{\rho^{\gamma, \eta}+\delta}\nabla\sqrt{\rho^{\gamma, \eta}} \cdot \xi_{K} + \frac{\varepsilon N_k}{2}\int_{0}^{T}\int_{\mathbb{T}^2}\frac{ [s_{\eta}(\rho^{\gamma, \eta})]^2}{\rho^{\gamma, \eta}+\delta}.
+\end{align}
+For for the interaction term, we have in particular the first term on the right of \eqref{PW ET q1} can be rewritten as 
+\begin{align*}
+-\kappa_1 \int_0^T \int_{\mathbb{T}^2}\frac{\rho^{\gamma, \eta}}{\rho^{\gamma, \eta}+\delta} \nabla (\kappa_{\gamma}\ast\mathcal{G}) \ast \rho^{\gamma, \eta}\cdot\nabla\rho^{\gamma, \eta}\mathrm{d}x\mathrm{d}s,
+\end{align*}
+where the term with Biot--Savart kernel vanishes, since $\mathbb{J} \nabla (\kappa_{\gamma}\ast\mathcal{G} \ast \rho^{\gamma, \eta})$ is divergence--free, while it is integrated with the gradient term $\nabla \Psi'_{\delta}(\rho^{\gamma, \eta})$. On the other hand, as $\rho^{\gamma, \eta}$ is a probability measure with $L^1_{\mathbb{T}^2}$ density and $\nabla \sqrt{\rho^{\gamma, \eta}} \in L^2(\Omega; L^2_{[0,T] \times \mathbb{T}^2})$, and 
+\begin{align*}
+\left|\frac{\rho^{\gamma, \eta}}{\rho^{\gamma, \eta}+\delta} (\kappa_{\gamma}\ast\mathcal{G}) \ast \rho^{\gamma, \eta}\cdot\nabla \rho^{\gamma, \eta}\right| \lesssim \|\kappa_{\gamma}\|_{L^{\infty}}\|\rho^{\gamma, \eta}\|_{L^{\infty}_{[0,T]}L^1_{\mathbb{T}^2}} \sqrt{\rho^{\gamma, \eta}} \nabla \sqrt{\rho^{\gamma, \eta}},
+\end{align*}
+we have by dominated convergence and integration by part that
+\begin{align*}
+\lim_{\delta \to 0} \mathbb{E}\int_0^T\int_{\mathbb{T}^2} - \frac{\rho^{\gamma, \eta}}{\rho^{\gamma, \eta}+\delta}\nabla (\kappa_{\gamma}\ast\mathcal{G}) \ast \rho^{\gamma, \eta}\cdot\nabla\rho^{\gamma, \eta}\mathrm{d}x\mathrm{d}s\\
+ =  \mathbb{E} \int_0^T\int_{\mathbb{T}^2} (\kappa_{\gamma} \ast \rho^{\gamma, \eta}) \rho^{\gamma, \eta} \mathrm{d}x\mathrm{d}s \geq 0,
+\end{align*}
+In case of repulsive kernels ($\kappa_1 > 0$), we can therefore neglect the contribution from the interaction term; otherwise we bound
+\begin{align*}
+\sup_{\gamma > 0}\left|\int_0^T\int_{\mathbb{T}^2} (\kappa_{\gamma} \ast \rho^{\gamma, \eta}) \rho^{\gamma, \eta} \mathrm{d}x\mathrm{d}s\right| \leq \|\rho^{\gamma, \eta}\|^2_{L^2_{[0,T]}L^2_{\mathbb{T}^2}} \leq C_{\mathrm{GN}}\|\nabla\sqrt{\rho^{\gamma, \eta}}\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}^2\|\rho_0\|_{L^1(\mathbb{T}^2)},
+\end{align*}
+where the last inequality is due to Sobolev embedding and $L^1$ conservation. By taking expectation, passing the limit $\delta \to 0$ in \eqref{PW ET q1} and using the condition \eqref{eq:small-KS}, we arrive at the desired bound \eqref{entropy0}.
+\end{proof}
+
+
+We remark that the solution $\rho^{\gamma, \eta}$ to \eqref{smooth spde} depends on the parameters $\gamma$ (mollification of interaction), $\eta$ (mollification of the square--root) and $\varepsilon$. For the existence of solution of \eqref{SPDE-0-intro}, we now fix $\varepsilon$ and send $\gamma, \eta \to 0$ in this section.
+
+With the entropy estimate at hand, we aim at proving the tightness of the approximating solutions 
+\begin{align*}
+\{\rho^{\gamma, \eta}\}_{\gamma,\eta\in(0,1)} \subset L^1_{[0, T]} L^1_{\mathbb{T}^2}
+\end{align*}
+using the Aubins-Lions-Simon compactness criterion (\cite[Corollary 5]{Sim87}). As already noticed in \cite{FG24}, it is not apparent at all how to derive temporal regularity of the solution due to the It\^o--Stratonovich correction term, for exactly the same reason that the weak solution of \eqref{SPDE-0-intro} is not well--defined. We therefore follow the idea of \cite{FG24} to introduce a smooth truncation function (at zero) $h_\delta$ as follows: For every $\delta\in(0,1)$, let $\psi_{\delta}\in C^{\infty}([0,\infty))$ be a smooth nondecreasing function satisfying 
+\begin{align}
+0 \leq \psi_{\delta} \leq 1, \quad \psi_{\delta}(\xi)=1, \ \text{if} \ \xi\ge\delta, \quad \psi_{\delta}(\xi)=0, \ \text{if} \ \xi\le \frac{\delta}{2}; \quad h_{\delta}(\xi) := \psi_{\delta}(\xi) \xi.
+\end{align} 
+and $\left|\psi_{\delta}'(\xi)\right|\lesssim \delta^{-1}$. It follows directly from the construction that $h_{\delta}'(\xi)=\psi_{\delta}'(\xi)\xi+\psi_{\delta}(\xi)$ is uniformly bounded in $\delta > 0$, and since 
+\begin{align*}
+\nabla \left[h_{\delta}(\rho^{\gamma, \eta})\right] = 2h'_{\delta}(\rho^{\gamma, \eta}) \sqrt{\rho^{\gamma, \eta}} \nabla \sqrt{\rho^{\gamma, \eta}},
+\end{align*}
+the entropy estimate \eqref{entropy0} and $L^1$ conservation directly lead to the apriori bound
+\begin{align}\label{eq:entropy-truncated}
+\sup_{\eta > 0, \gamma > 0}\mathbb{E}\left(\|h_{\delta}(\rho^{\gamma, \eta})\|^2_{L^{2}_{[0,T]}W^{1,1}_{\mathbb{T}^2}}\right) < \infty.
+\end{align}
+On the other hand, as the singularity of the correction term at zero is truncated, we have the following the temporal regularity estimates of $h_{\delta}(\rho^{\gamma, \eta})$, which is therefore $\delta$--dependent. 
+\begin{lem}\label{spde E T2}Under the same setting as in Proposition \ref{entropy estimate}, for every $\delta\in(0,1)$ fixed, $\beta > 2$ and $0 < \alpha <1/2$, we have
+\begin{align}	
+\sup_{\eta >0, \gamma > 0}\mathbb{E}\left(\|h_{\delta}(\rho^{\gamma, \eta})\|_{W^{\alpha,1}_{[0,T]}H^{-\beta}_{\mathbb{T}^2}}\right) < \infty
+\end{align}
+\end{lem}
+\begin{proof}
+By It\^o's formula, it holds in the sense of distribution that
+\begin{align*}
+h_{\delta}(\rho^{\gamma, \eta}) \Big|_0^t
+& = \int_{0}^{t} \nabla \cdot \big(h'_{\delta}(\rho^{\gamma, \eta}) \nabla \rho^{\gamma, \eta}\big)
+ - \int_{0}^{t} h''_{\delta}(\rho^{\gamma, \eta}) \, |\nabla \rho^{\gamma, \eta}|^{2} \\
+& + \frac{F_K}{2}\int_{0}^{t} \nabla \cdot \big(h'_{\delta}(\rho^{\gamma, \eta}) [s'_{\eta}(\rho^{\gamma, \eta})]^{2} \nabla \rho^{\gamma, \eta}\big) + \frac{\varepsilon N_K}{2} \int_{0}^{t} h''_{\delta}(\rho^{\gamma, \eta}) s_{\eta}^{2}(\rho^{\gamma, \eta})\\
+& + \int_{0}^{t} h'_{\delta}(\rho^{\gamma, \eta}) \nabla \cdot \left[ s_{\eta}(\rho^{\gamma, \eta})  \rho^{\gamma, \eta} \cdot \xi_K\right] -\int_{0}^{t} h'_{\delta}(\rho^{\gamma, \eta})\nabla\cdot(\rho^{\gamma, \eta}\mathcal{V}_{{\gamma}}[\rho^{\gamma, \eta}]),
+\end{align*}
+where $F_K := \#\{k \in \mathbb{Z}^2: |k| \leq K\}$. Following the proof of Proposition 5.13 in \cite{WWZ22}, it suffices to estimate the interaction term, which we rewrite as 
+\begin{align*}
+-\int_{0}^{t}\nabla \cdot \left(h_{\delta}'(\rho^{\gamma, \eta}) \rho^{\gamma, \eta} \mathcal{V}_{\gamma}[\rho^{\gamma, \eta}]\right)+\int_{0}^{t} h_{\delta}''(\rho^{\gamma, \eta}) \nabla \rho^{\gamma, \eta}\cdot \left(\rho^{\gamma, \eta} \mathcal{V}_{\gamma}[\rho^{\gamma, \eta}]\right) =: (\mathrm{I}) + (\mathrm{II}).
+\end{align*}
+Since $\beta > 2$ and $\|h'_{\delta}\|_{L^{\infty}} < \infty$, we have by the same bound as in \eqref{eq:interaction is L1} that
+\begin{align*}
+\sup_{\eta, \gamma > 0}\left\|(\mathrm{I})\right\|_{W_{[0,T]}^{1,1}H^{-\beta}_{\mathbb{T}^2}} \lesssim \sup_{\eta, \gamma > 0}\left\| \mathcal{V}_{\gamma}[\rho^{\gamma, \eta}]\rho^{\gamma, \eta}\right\|_{L^1_{[0,T]}L_{\mathbb{T}^2}^1} \lesssim \sup_{\eta, \gamma > 0}\left\|\nabla\sqrt{\rho^{\gamma, \eta}}\right\|_{L^2_{[0,T]}L_{\mathbb{T}^2}^{2}}\|\rho^{\gamma, \eta}_0\|^{1/2}_{L^1_{\mathbb{T}^2}},
+\end{align*}
+while since $\zeta \mapsto \zeta^{3/2} h''_{\delta}(\zeta)$ is bounded, 
+\begin{align*}
+\sup_{\eta, \gamma > 0}\left\|(\mathrm{II})\right\|_{W_{[0,T]}^{1,1}H^{-\beta}_{\mathbb{T}^2}} \lesssim \sup_{\eta, \gamma > 0}\left\| \mathcal{V}_{\gamma}[\rho^{\gamma, \eta}]\nabla \sqrt{\rho^{\gamma, \eta}}\right\|_{L^1_{[0,T]}L_{\mathbb{T}^2}^1} \lesssim \|\nabla \sqrt{\rho^{\gamma, \eta}}\|^{2}_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}\|\rho^{\gamma, \eta}_0\|^{1/2}_{L^1_{\mathbb{T}^2}}.
+\end{align*}
+\end{proof}
+
+Applying Aubin--Lions-Simon with \eqref{eq:entropy-truncated} and Lemma \ref{spde E T2}, we can now derive the desired tightness result in $L^1_{[0,T]}L^1_{\mathbb{T}^2}$.
+
+\begin{prop}\label{T rho eta}
+Under the same setting as in Proposition \ref{entropy estimate} and for every $\varepsilon \in (0,1)$ fixed, the laws of $\left\{\rho^{\gamma, \eta}\right\}_{\eta ,\gamma \in(0,1)}$ are tight on $L^1_{[0,T]}L^1_{\mathbb{T}^2}$ with the strong topology. Furthermore, for any $\alpha \in(0,1 / 2)$ and $\psi \in \mathrm{C}_c^{\infty}((0, \infty) \times \mathbb{T}^2)$, the family of laws of the martingales $(M^{\varepsilon, \gamma,\eta})_{\eta,\gamma\in(0,1)}$ defined by
+ \begin{align}\label{D M}
+ M_t^{\gamma,\eta}:=\sqrt{\varepsilon}\int_0^t \int_{\mathbb{T}^2} \psi\left(x, \rho^{\gamma, \eta}\right) \nabla \cdot\left[s_{\eta}\left(\rho^{\gamma, \eta}\right) \cdot \xi_{K}\right],  
+\end{align}
+is tight on $\mathcal{C}_{[0, T]}\mathbb{R}$. 
+\end{prop}
+\begin{proof}\Xiaohao{Omit?}
+\end{proof}
+
+
+We can now prove the main theorem of this chapter. 
+
+\begin{proof}[Proof of Theorem \ref{spde WP}]
+Applying the Jakubowski-Skorokhod representation theorem \cite{} with Proposition \ref{entropy estimate} and Proposition \ref{T rho eta}, we can find sequences $\{\gamma_k\}_{k \in \mathbb{N}}$ and $\{\eta_k\}_{k \in \mathbb{N}}$ both converging to zero, together with a probability space $(\Omega, (\mathcal{F}_t)_{t \in [0,T]}, \mathbb{P})$. On this probability space, there exists a family of adapted space--time white noise $\{\xi^k\}_{k \in \mathbb{Z}^2} \cup \{\xi\}$, such that 
+\begin{align}
+\int_0^{\cdot} \langle e_j, \xi^k \rangle \to \int_0^{\cdot} \langle e_j, \xi \rangle, 
+\end{align}
+strongly in $C_{[0,T]}\mathbb{R}^2$ a.s. as $k \to \infty$ for any $j \in \mathbb{Z}^2$. Furthermore, there exists a family of processes $\{\rho^{k}\}_{k \in \mathbb{N}} \cup \{\rho\}$ in $L^{\infty}_{[0,T]}L^1_{\mathbb{T}^2}$, such that \Xiaohao{Explain the convergences briefly}
+\begin{align}\label{eq:strong-L1-convergence}
+\rho^{k} \to \rho,\quad \text{strongly in} \ L^1_{[0,T]}L^1_{\mathbb{T}^2}, \quad \rho^{k} \to \rho, \quad \text{a.e.},
+\end{align}
+and
+\begin{align}\label{eq:weak-grad-square-convergence}
+\nabla\sqrt{\rho^{k}} \rightharpoonup \nabla\sqrt{\rho}, \quad \text{weakly in} \ L^2_{[0,T]}L^2_{\mathbb{T}^2}.
+\end{align}
+Additionally, there exists a family of defect measures $\{m^{k}\}_{k \in \mathbb{N}}$ such that $m^{k} \geq \delta_0(\xi - \rho^{k}) |\nabla \rho^{k}|^2$ and a.s. for every $\psi \in C_c^{\infty}(\mathbb{T}^2 \times \mathbb{R}_+)$ and $t \in [0,T]$, 
+\begin{align}\label{WKS-k}
+&\sqrt{\varepsilon}\int_0^t \int_{\mathbb{T}^2} \psi\left(x, \rho^k\right) \nabla \cdot\left(s_{\eta}(\rho^k) \cdot \xi^k_{K}\right)  =-\int_{\mathbb{R}}\int_{\mathbb{T}^2} \chi^k(x, \xi, \cdot) \psi(x, \xi) \Big|^t_0 \nonumber\\
+&-\int_{0}^{t} \int_{\mathbb{T}^2}\nabla\rho^k\cdot\nabla_x\psi(x,\rho^k)
+-\int_{0}^{t} \int_{\mathbb{T}^2} \nabla\cdot\left(\rho^k \mathcal{V}_{\gamma}[\rho^k])\psi(x, \rho^k\right)\nonumber\\
+&-\int_{0}^{t} \int_{\mathbb{R}} \int_{\mathbb{T}^2} \partial_{\xi} \psi(x, \xi) \mathrm{d}m^k
++\frac{\varepsilon N_K}{2}\int_{0}^{t} \int_{\mathbb{T}^2}\rho^k \partial_{\xi} \psi(x, \rho^k),
+\end{align}
+where $\chi^k$ denotes the renormalized kinetic function of $\rho^k$, $\xi^k_K := P_K \xi^k$ denotes colored space--time white noises and there exists a kinetic measure $m \geq\delta_0(\xi - \rho) |\nabla \rho|^2$. \Xiaohao{Reference to Zhengyan's paper carefully.} We now aim to show that the pair $(\rho, m)$ is a kinetic solution to \eqref{cspde} in the sense of Definition \ref{RKS smooth spde} probabilistically strong with respect to $\xi$. In light of the analysis in \cite[Theorem 5.5]{FG24} and \cite[Theorem 6.3]{WWZ22}, it remains to justify the passage to the limit in the kernel terms, namely we claim that 
+\begin{align}\label{eq:claim-convergence-kernel-kinetic}
+\lim_{k \to \infty}\int_{0}^{t} \int_{\mathbb{T}^2} \psi(x, \rho^k) \nabla \cdot\left(\rho^k \mathcal{V}_{\gamma}[\rho^k]\right) = \int_{0}^{t} \int_{\mathbb{T}^2} \psi(x, \rho) \nabla \cdot\left(\rho \mathcal{V}[\rho]\right),
+\end{align}
+for $t \in [0,T]$ almost surely, which follows from the following two limits:
+\begin{align}\label{eq:conv-kinetic-interaction1}
+\lim_{k \to \infty}\int_{0}^{t} \int_{\mathbb{T}^2} \nabla_x\psi(x, \rho^k)  \cdot \mathcal{V}_{\gamma}[\rho^k] \rho^k  = \int_{0}^{t} \int_{\mathbb{T}^2} \nabla_x\psi(x, \rho)  \cdot \mathcal{V}[\rho] \rho,
+\end{align}
+where $\nabla_x \psi$ is smooth and compactly supported in the velocity variable so that $(x, \zeta) \mapsto \zeta \nabla_x \psi(x,\zeta)$ is smooth and bounded; and 
+\begin{align}\label{eq:conv-kinetic-interaction2}
+\lim_{k \to \infty}\int_{0}^{t} \int_{\mathbb{T}^2} \tilde{\psi}(x, \rho^k)  \kappa_{\gamma} \ast \rho^k  = \int_{0}^{t} \int_{\mathbb{T}^2}  \tilde{\psi}(x, \rho)  \rho,
+\end{align}
+for $\tilde{\psi}(\cdot, \xi):= \int_0^{\xi} \partial_{\zeta}\psi(\cdot,\zeta) \zeta\mathrm{d}\zeta$, since due to integration by parts and chain rule, 
+\begin{align*}
+\int_{\mathbb{T}^2} \psi(x, \rho) \nabla \cdot\left(\rho \mathcal{V}[\rho]\right) = -\int_{\mathbb{T}^2} \nabla_x\psi(x, \rho) \cdot \mathcal{V}[\rho] \rho + \int_{\mathbb{T}^2} \tilde{\psi}(x, \rho) \nabla\cdot \mathcal{V}[\rho].
+\end{align*}
+Recall that $\rho^k \to \rho$ in $L^1([0,T]\times\mathbb{T}^2)$ strongly according to \eqref{eq:strong-L1-convergence}, and it follows from the definition of $\mathcal{V}[\cdot]$ that 
+\begin{align}\label{eq:cor-conv-L1L1}
+\lim_{k \to \infty} \left\|\mathcal{V}_{\gamma}[\rho^k - \rho]\right\|_{L^1_{[0,T]}L^1_{\mathbb{T}^2}} = 0, \quad \lim_{k \to \infty} \left\|\kappa_{\gamma} \ast \rho^k - \rho\right\|_{L^1_{[0,T]}L^1_{\mathbb{T}^2}} = 0,
+\end{align}
+where we use the bound $|\mathcal{V}_{\gamma}[\rho^k] - \mathcal{V}[\rho]| \leq |\kappa_{\gamma} \ast \mathcal{V}[\rho] - \mathcal{V}[\rho]| + \sup_{\gamma > 0}|\mathcal{V}_{\gamma}[\rho^k - \rho]|$ with the convergence of the mollifiers and Young's inequality. Consequently, we have
+\begin{align*}
+\lim_{k \to \infty}\Big|\int_{0}^{t} \int_{\mathbb{T}^2} \nabla_x\psi(x, \rho^k)  \cdot \mathcal{V}_{\gamma}[\rho^k] \rho^k  - \int_{0}^{t} \int_{\mathbb{T}^2} \nabla_x\psi(x, \rho^k)  \cdot \mathcal{V}[\rho] \rho^k\Big| = 0,
+\end{align*}
+since $(x, \zeta) \mapsto \zeta \nabla_x\psi(x, \zeta)$ is bounded. On the other side, as we have the point-wise convergence of $\nabla_x\psi(x, \rho^k) \rho^k$ to $\nabla_x\psi(x, \rho) \rho$ as $k \to \infty$, and $\left|\left[\nabla_x\psi(x, \rho^k) \rho^k - \nabla_x\psi(x, \rho) \rho\right] \cdot \mathcal{V}[\rho]\right| \lesssim \mathcal{V}[\rho] \in L^1_{[0,T]}L^1_{\mathbb{T}^2}$
+we have by dominated convergence that
+\begin{align*}
+\lim_{k \to \infty} \int_{0}^{t} \int_{\mathbb{T}^2} \nabla_x\psi(x, \rho^k)  \cdot \mathcal{V}[\rho] \rho^k  = \int_{0}^{t} \int_{\mathbb{T}^2} \nabla_x\psi(x, \rho)  \cdot \mathcal{V}[\rho] \rho.
+\end{align*}
+The two limits above lead to \eqref{eq:conv-kinetic-interaction1}, while \eqref{eq:conv-kinetic-interaction2} follows from the second limit in \eqref{eq:cor-conv-L1L1} and the identical argument as above. \Xiaohao{Pass to the limit and comment on time a.e., reference to Gess-Fehrman}
+\end{proof}
+
+\section{Exponential estimates}\label{sec-4}
+In this section, we provide exponential estimates for the solutions to \eqref{SPDE-1} under suitable scaling of $(\varepsilon, K, \eta)$, which we rewrite in the form of It\^o's integral as
+\begin{equation}\label{cspde}
+\partial_t\rho^{\eta}=\Delta\rho^{\eta}-\nabla\cdot\left(\rho^{\eta}\mathcal{V}[\rho^{\eta}]\right)
+-\sqrt{\varepsilon}\nabla\cdot\left(s_{\eta}(\rho^{\eta})\cdot\xi_{K}\right)
++\frac{\varepsilon N_{K}}{2}\nabla\cdot \left([s'_{\eta}(\rho^{\eta})]^2\nabla\rho^{\eta}\right).
+\end{equation}
+
+\begin{prop}\label{exponential-tight}
+Let $\mathcal{V}[\cdot]$ be defined by \eqref{ker-V} such that \eqref{eq:small-KS} holds and consider the scaling \Xiaohao{condition on $\eta$}
+\begin{equation}\label{scale1}
+\varepsilon K^{d+2}\rightarrow 0 
+ \end{equation}
+ as $\varepsilon\rightarrow 0$,
+For every probabilistically weak renormalized kinetic solution $\rho^{\eta}$ to \eqref{cspde}, in the sense of Definition \ref{RKS smooth spde} with initial data $\rho_0$ of finite entropy, we let $\mu^{\eta}$ be the law of $\rho^{\eta}$. Then there exists a sequence of compact set $\{\mathcal{K}_M\}_{M\in\mathbb{N}}$ in $L^1_{[0,T]}L^1_{\mathbb{T}^2}$, such that
+\begin{equation}\label{ec2-2}
+  \lim_{M\to \infty}\limsup_{\varepsilon\to 0}\varepsilon \log\mu^{\varepsilon}(\mathcal{K}^c_M) = -\infty.
+\end{equation}
+\end{prop}
+
+\subsection{Exponential entropy dissipation estimates}
+
+\Xiaohao{Hightlight that we only pass $\gamma$ to the limit but not $\eta$! This is not the same as the last chapter.}
+
+We begin with the following pathwise entropy dissipation estimates.
+\begin{lem}\label{pathwise-entropy}Under the same setting as in Proposition \ref{exponential-tight}, it holds 
+\begin{align*}
+\int_{\mathbb{T}^2}\Psi(\rho^{\varepsilon})\mathrm{d}x \Big|^t_0 +\int_0^t\int_{\mathbb{T}^2}
+|\nabla\sqrt{\rho^{\varepsilon}}|^2\mathrm{d}x\mathrm{d}s
+\leq&2\sqrt{\varepsilon}\int_0^t\int_{\mathbb{T}^2}
+\nabla\sqrt{\rho^{\varepsilon}} \cdot
+\xi_{K}
++\varepsilon K^{d+2}T,
+\end{align*}
+for all $t \in [0,T]$ almost surely.
+\end{lem}
+\begin{proof}
+	
+\end{proof}
+
+
+It follows from the pathwise entropy estimate that the exponential moment of the time--averaged Fisher information is finite. 
+
+\begin{lem}\label{exponential-entropy}
+Under the same setting as in Proposition \ref{exponential-tight}, there exist constants $\delta_0>0$ such that for every $\delta <\delta_0$,
+\begin{align}\label{eq:exp-moment-fisher}
+ \varepsilon \log
+\mathbb{E}\exp\left\{\frac{\delta}{\varepsilon }\left[\int_{\mathbb{T}^2}\Psi(\rho^{\varepsilon}(t))\mathrm{d}x+\|\nabla \sqrt{\rho^{\varepsilon}}\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}^{2}\right]\right\} < \infty,
+  \end{align}
+uniformly in $\varepsilon$. 
+\end{lem}
+
+\begin{proof}
+It follows from the pathwise entropy estimate Lemma \ref{pathwise-entropy} that for any $\delta > 0$, it holds almost surely that
+\begin{align}\label{vious et1}
+  \exp\left\{\frac{\delta }{\varepsilon }\Big(\int_{\mathbb{T}^2}\Psi(\rho^{\varepsilon}(t))\mathrm{d}x+\|\nabla \sqrt{\rho^{\varepsilon}}\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}^{2}\Big)\right\}
+  \leq&\exp\left\{\frac{\delta}{\varepsilon }\Big(\int_{\mathbb{T}^2}\Psi(\rho_0(x))\mathrm{d}x+\varepsilon K^{d+2}T\Big)\right\}\notag\\
+  &\cdot\exp\left\{\frac{2\delta}{\sqrt{\varepsilon}}\int_0^t\int_{\mathbb{T}^2}\nabla\sqrt{\rho^{\varepsilon}}\cdot\xi_K\right\}.
+\end{align}
+Since the quadratic variation of the martingale term can by It\^o isometry:
+\begin{align*}
+   \left\langle\int_{0}^{\cdot}\int_{\mathbb{T}^2}
+\nabla\sqrt{\rho^{\varepsilon}}\cdot \xi_K\right\rangle(t) \leq \int_{0}^{t}
+   \|\nabla\sqrt{\rho^{\varepsilon}}\|_{L^2(\mathbb{T}^2)}^2\mathrm{d}s,
+\end{align*}
+we can multiply both sides of \eqref{vious et1} by $\exp(
+-\frac{2\delta^2}{\varepsilon }\int_{0}^{t}
+   \int_{\mathbb{T}^2}|\nabla\sqrt{\rho^{\varepsilon}}|^2\mathrm{d}x\mathrm{d}s)$, take expectations and derive, as the right hand side is a supermartingale, that 
+\begin{align}\label{Et sqrt}
+\mathbb{E}\exp\left\{\frac{\delta-2\delta^2}{\varepsilon }\|\nabla \sqrt{\rho^{\varepsilon}}\|_{L^2([0,T];L^2(\mathbb{T}^2))}^{2}\right\}\leq \mathbb{E}\exp\left\{\frac{\delta }{\varepsilon }\left(\int_{\mathbb{T}^2}\Psi(\rho_0(x))\mathrm{d}x+\varepsilon K^{d+2}T\right)\right\}.
+\end{align}
+The desired bound \eqref{eq:exp-moment-fisher} then follows from \eqref{Et sqrt} and that $(\varepsilon, K(\varepsilon))$ satisfy the scaling $\varepsilon [K(\varepsilon)]^{d+2}\rightarrow 0$.
+\end{proof}
+It is a direct consequence of \eqref{exponential-entropy} and the Markov inequality that  
+\begin{align}
+\lim_{M\rightarrow \infty}\limsup_{\varepsilon\rightarrow 0^+} \left\{\varepsilon \log\mathbb{P}\left(\|\nabla\sqrt{\rho^{\varepsilon}}\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}^2>M\right)\right\}=-\infty. 	
+\end{align}
+
+\subsection{Proof of Proposition \ref{exponential-tight}}We recall the following classical estimates of martingales due to Flandoli--Gatarek \cite{} for readers convenience. 
+\begin{lem}Given $p \ge 2$, $\alpha < \tfrac{1}{2}$ and separable Hilbert spaces $H$ and $K$, we have, for any progressively measurable process 
+$f \in L^p(\Omega \times [0,T]; L_2(K,H))$, that
+\begin{align}\label{eq:FlandoliGatarek}
+\mathbb{E}\left\|I(f)\right\|_{W^{\alpha,p}_{[0,T]}H}^p 
+\leq C^p p^{\frac{p}{2}}  \mathbb{E} \left( \int_0^T \|f(t)\|_{\mathcal{L}_2(K,H)}^p \mathrm{d}t\right),
+\end{align}
+where $\mathcal{L}_2(K,H)$ denotes the Hilbert--Schmidt space, and $I(f)$ denotes the It\^o integral of $f$ with respect to the cylindrical Wiener process on $K$.
+\end{lem}
+
+
+%\begin{lem}
+%Under the same setting as in Proposition \ref{exponential-tight}. For every $\delta>0$ and $\varphi \in C^2\left(\mathbb{T}^2\right)$, let
+%\begin{align*}
+%q_{\varphi}^{\varepsilon}(\delta):=\sup \Big\{\left\langle\varphi, \rho^{\varepsilon}(t)-\rho^{\varepsilon}(s)\right\rangle: s, t \leq T,|s-t| \leq \delta\Big\} .
+%\end{align*}
+%Then for every $\theta>0$, 
+%\begin{align*}
+%\limsup_{\delta\rightarrow0}\limsup_{\varepsilon\rightarrow0} \varepsilon\log \mathbb{P}^{\varepsilon}\Big(q_{\varphi}^{\varepsilon}(\delta)>\theta\Big)=-\infty. 
+%\end{align*}
+%\end{lem}
+
+
+
+\begin{proof}[Proof of Proposition \ref{exponential-tight}]
+Given a weak solution $\rho^{\varepsilon}$ to \eqref{cspde}, we claim that 
+\begin{align}\label{timereg-AC}
+\left\|\rho^{\varepsilon} + \sqrt{\varepsilon}\int_0^{\cdot}\nabla\cdot\left(s_{\eta}(\rho^{\varepsilon})\cdot\xi_{K}\right)\right\|_{\mathcal{C}_{[0,T]}^{\frac{1}{3}} H^{-\beta}_{\mathbb{T}^2}} \lesssim \| \rho^{\varepsilon}(0)\|_{L_{\mathbb{T}^2}^1}\nonumber 
++  \|\rho^{\varepsilon}(0)\|_{L^1_{\mathbb{T}^2}}^{\frac{1}{3}} \|\nabla\sqrt{\rho^{\varepsilon}}\|_{L_{[0,T]}^2L^2_{\mathbb{T}^2}}^{\frac{4}{3}} \\ 
++  \frac{1}{\eta}\|\rho^{\varepsilon}(0)\|_{L^1_{\mathbb{T}^2}}\|\nabla\sqrt{\rho^{\varepsilon}}\|_{L_{[0,T]}^2L^2_{\mathbb{T}^2}} \lesssim 1 + \|\nabla\sqrt{\rho^{\varepsilon}}\|_{L_{[0,T]}^2L^2_{\mathbb{T}^2}}^{2} + \frac{1}{\eta^2},
+\end{align}
+where the implicit constant depends on $\|\rho^{\varepsilon}(0)\|_{L^1_{\mathbb{T}^2}}$ but not on $\varepsilon$.   Indeed, as \eqref{cspde} holds for $\rho^{\varepsilon}$ in the sense of distribution, it suffices to bound the terms separately by 
+\begin{align}\label{timereg-AC1}
+\left\|\int_0^{\cdot} \Delta \rho^{\varepsilon}\right\|_{\mathcal{C}_{[0,T]}^{1} H_{\mathbb{T}^2}^{-\beta}} \lesssim \| \rho^{\varepsilon}\|_{L_{[0,T]}^{\infty} H_{\mathbb{T}^2}^{2-\beta}} \lesssim \| \rho^{\varepsilon}\|_{L_{[0,T]}^{\infty} L_{\mathbb{T}^2}^1} \leq \| \rho^{\varepsilon}(0)\|_{L_{\mathbb{T}^2}^1},
+\end{align}
+since $\beta >3$, and \eqref{cspde} preserves $L^1$ norm;
+\begin{align}\label{timereg-AC2}
+\left\|\int_{0}^{\cdot} \nabla \cdot \left(\rho^{\varepsilon} \mathcal{V}[\rho^{\varepsilon}]\right)\right\|_{\mathcal{C}_{[0,T]}^{\frac{1}{3}} H_{\mathbb{T}^2}^{-\beta}} \lesssim  \|\rho^{\varepsilon}(0)\|_{L^1_{\mathbb{T}^2}}^{\frac{1}{3}}\|\nabla\sqrt{\rho^{\varepsilon}}\|_{L_{[0,T]}^2L^2_{\mathbb{T}^2}}^{\frac{4}{3}},
+\end{align}
+since for any $0\leq s\leq t \leq T$, 
+\begin{align*}
+\left\|\int_{s}^{t} \nabla \cdot \left(\rho^{\varepsilon} \mathcal{V}[\rho^{\varepsilon}]\right)\right\|_{H_{\mathbb{T}^2}^{-\beta}} \leq \left\|\int_{s}^{t} \rho^{\varepsilon} \mathcal{V}[\rho^{\varepsilon}]\right\|_{L_{\mathbb{T}^2}^1} \leq |t-s|^{\frac{1}{3}} \left\|\rho^{\varepsilon} \mathcal{V}[\rho^{\varepsilon}]\right\|_{L^{\frac{3}{2}}_{[0,T]}L_{\mathbb{T}^2}^1},
+\end{align*}
+and we know that $\|\rho^{\varepsilon} \mathcal{V}[\rho^{\varepsilon}]\|_{L^{\frac{3}{2}}_{[0,T]}L_{\mathbb{T}^2}^1} \lesssim  \|\rho^{\varepsilon}(0)\|_{L^1_{\mathbb{T}^2}}^{\frac{1}{3}}\|\nabla\sqrt{\rho^{\varepsilon}}\|_{L_{[0,T]}^2L^2_{\mathbb{T}^2}}^{\frac{4}{3}}$ by interpolation. For the correction term, we have similarly
+\begin{align}\label{timereg-AC3}
+\left\|\int_0^{\cdot}\nabla\cdot \left([s'_{\eta}(\rho^{\varepsilon})]^2\nabla\rho^{\varepsilon}\right)\right\|_{\mathcal{C}_{[0,T]}^{\frac{1}{2}} H_{\mathbb{T}^2}^{-\beta}} \lesssim \|[s'_{\eta}(\rho^{\varepsilon})]^2\nabla\rho^{\varepsilon}\|_{L_{[0,T]}^2L^1_{\mathbb{T}^2}} \lesssim \frac{1}{\eta}\|\rho^{\varepsilon}(0)\|_{L^1_{\mathbb{T}^2}}\|\nabla\sqrt{\rho^{\varepsilon}}\|_{L_{[0,T]}^2L^2_{\mathbb{T}^2}},
+\end{align}
+as we have $\|s'_{\eta}\|_{L^{\infty}} \lesssim \frac{1}{\sqrt{\eta}}$. Combining the estimates~\eqref{timereg-AC1}--\eqref{timereg-AC3}, we arrive at the first inequality in \eqref{timereg-AC}, while the second inequality follows directly from Young's inequality. For the martingale part, we have for any $p \in 2\mathbb{N}$ and $\alpha \in (0, \frac{1}{2})$ that 
+\begin{align}\label{eq:timereg-MG}
+\mathbb{E}\left\| \int_0^{\cdot} \nabla \cdot \left[s_{\eta}(\rho^{\varepsilon})  \cdot \xi_{K}\right]\right\|_{W_{[0,T]}^{\alpha,p}H_{\mathbb{T}^2}^{-\beta}}^p \leq  C^pp^{\frac{p}{2}} \|\rho^{\varepsilon}(0)\|^{\frac{p}{2}}_{L^1},
+\end{align}
+where the generic constant $C$ is independent of $p$. Indeed, we abbreviate $I(f^{\varepsilon}) := \int_0^{\cdot}  \nabla \cdot [s_{\eta}(\rho^{\varepsilon})  \cdot \xi_{K}]$ and bound it according to \eqref{eq:FlandoliGatarek} by
+\begin{align}
+\mathbb{E}\left\| I(f^{\varepsilon})\right\|_{\dot{W}_{[0,T]}^{\alpha,p}H^{-\beta}_{\mathbb{T}^2} }^p 
+& \leq C^p p^{\frac{p}{2}}  \mathbb{E} \left( \int_0^T \|f^{\varepsilon}(t)\|_{\mathcal{L}_2(L_{\mathbb{T}^2}^2,H_{\mathbb{T}^2}^{-\beta})}^p \mathrm{d}t\right) 
+\end{align}
+where since we choose $\beta > 1$, 
+\begin{align*}
+\|f^{\varepsilon}(t)\|^2_{\mathcal{L}_2(L_{\mathbb{T}^2}^2,H_{\mathbb{T}^2}^{-\beta})} \lesssim \sum_{k \in \mathbb{Z}^2} \frac{1}{\langle k \rangle^{2\beta}}  \left \| \nabla \left[s_{\eta}(\rho^{\varepsilon}) e_k\right] \right\|_{H_{\mathbb{T}^2}^{-\beta}}^2 \lesssim \|s_{\eta}(\rho^{\varepsilon}) \|^2_{L_{\mathbb{T}^2}^2} \leq \|\rho^{\varepsilon}(0)\|_{L^1}.
+\end{align*}
+Consequently, we have by Stirling's formula and \eqref{eq:timereg-MG} \Xiaohao{May explain the change of expectation with sum?}
+\begin{align}\label{eq:exp-moment-MG}
+\mathbb{E}\exp\left(\frac{\delta}{\sqrt{\varepsilon}} \left\|  I(f^{\varepsilon})\right\|_{W_{[0,T]}^{\alpha,1}H_{\mathbb{T}^2}^{-\beta}}\right) \lesssim \mathbb{E}  \left[\sum_{p \in 2\mathbb{N}}\frac{1}{p!} \left(\frac{\delta}{\sqrt{\varepsilon}}\right)^p \left\|  I(f^{\varepsilon})\right\|_{W_{[0,T]}^{\alpha,1}H_{\mathbb{T}^2}^{-\beta}}^p\right] \lesssim \exp\left(\frac{C\delta^2}{\varepsilon}\right),
+\end{align}
+where the constant $C$ depends on $\|\rho^{\varepsilon}(0)\|_{L^1}$ and we use in the last inequality that 
+\begin{align*}
+\sum_{p \in 2\mathbb{N}} \frac{1}{p!} (C\delta)^pp^{\frac{p}{2}} \varepsilon^{-\frac{p}{2}} \lesssim e^{\frac{C\delta^2}{\varepsilon}}. 
+\end{align*}
+We now combine \eqref{timereg-AC} and \eqref{eq:exp-moment-MG} and derive by Young's inquality that 
+\begin{align}
+\mathbb{E} \left[ \exp \left( \delta \|\rho^{\varepsilon}\|_{W_{[0,T]}^{\frac{1}{3},1}H_{\mathbb{T}^2}^{-\beta}} \right) \right] \lesssim \mathbb{E} \left[ \exp \left( C\delta \left[ 1 + \|\nabla\sqrt{\rho^{\varepsilon}}\|_{L_{[0,T]}^2L^2_{\mathbb{T}^2}}^{2} + \frac{1}{\eta^2}\right] \right) \right] + \exp\left(\frac{C\delta^2}{\varepsilon}\right),
+\end{align}
+and consequently 
+\begin{align}
+\limsup_{\varepsilon \to 0^{+}} \varepsilon\log \left\{\mathbb{E} \left[ \exp \left( \delta \|\rho^{\varepsilon}\|_{W_{[0,T]}^{\frac{1}{3},1}H_{\mathbb{T}^2}^{-\beta}} \right) \right]\right\} < \infty, 
+\end{align}
+since \eqref{eq:exp-moment-fisher} holds and \Xiaohao{$\frac{\varepsilon}{\eta^2} \lesssim 1$}. It then follows directly from Aubin--Lions--Simon \cite{} and Markov inequality that $\rho^{\varepsilon}$ is exponential tight with respect the following sequence $\{\mathcal{K}_M\}$ of compact sets in $L^1_{[0,T]}L^1_{\mathbb{T}^2}$:
+\begin{align}
+\mathcal{K}_M := \left\{\rho \in L_{[0,T]}^{\infty}L^{1}_{\mathbb{T}^2}: \left\|\rho\right\|_{L_{[0,T]}^{2}W^{1,1}_{\mathbb{T}^2}} \vee \left\|\rho\right\|_{W_{[0,T]}^{\frac{1}{3},1}H^{-3}_{\mathbb{T}^2}} \leq M\right\}.
+\end{align}
+\end{proof}
+
+\section{Lower bound for large deviations}\label{sec:LB-LDP}
+In this section, we prove the lower bound of restricted large deviations. The proof relies on the method of relative entropy, for which we set up first an abstract Lemma. Let $E$ be a Polish space, and denote by $\mathcal{P}(E)$ the set of all probability measures on $E$. For any $\nu, \mu \in \mathcal{P}(E)$, the relative entropy $\mathcal{H}(\nu \mid \mu)$ is defined by
+\begin{align*}
+\mathcal{H}\left (\nu\mid\mu\right):=\int_E \log \left(\frac{\mathrm{d} \nu}{\mathrm{d} \mu}\right) \mathrm{d} \nu .
+\end{align*}
+\begin{lem}[\cite{M10}, Lemma 7]\label{entropymethod}
+Let $E$ be a Polish space, $I: E\rightarrow[0,+\infty]$ be a positive functional and $\{\mu^{\varepsilon}\}_{\varepsilon>0} $ be a family of probability measures on $E$. Suppose that for every $\rho \in E$, there exists a family $\{\nu^{\varepsilon,x}\}_{\varepsilon>0}$ such that $\nu^{\varepsilon,\rho}\rightharpoonup\delta_{\rho}$ weakly, and
+\begin{align}\label{eq:relative-entropy-bound}
+\limsup_{\varepsilon\rightarrow0}\varepsilon \mathcal{H}\left(\nu^{\varepsilon,\rho}|\mu^{\varepsilon}\right)\leq I(\rho).
+\end{align}
+Then $\{\mu^{\varepsilon}\}_{\varepsilon>0}$ satisfies the lower bound of large deviation at speed $\varepsilon^{-1}$ and rate $I$.
+\end{lem}
+
+\Xiaohao{More details}For any $\rho\in L^1_{[0, T]}L^1_{\mathbb{T}^2}$ such that $\mathcal{I}(\rho)=+\infty$, we can take
+\begin{align*}
+\nu^{\varepsilon, \rho} \equiv \delta_{\rho}, \ \text{for} \ \varepsilon > 0, 
+\end{align*}
+and the conditions in Lemma \ref{entropymethod} were satisfied trivially; thus we only focus on the case of $\mathcal{I}(\rho)<+\infty$. We also notice that, for any $\rho \in \mathcal{C}_0$ with $\mathcal{I}(\rho)<+\infty$, where $\mathcal{C}_0$ is defined in \eqref{S-intro}, $\rho$ can be represented as a weak solution to a skeleton equation. 
+
+\begin{lem}\label{ske-lem}
+Let $\mathcal{V}[\cdot]$ be defined by \eqref{ker-V}, and $\rho$ be a nonnegative function satisfying $\mathcal{I}(\rho)<+\infty$, then there
+exists a function $\Psi^{\rho}$, such that $\sqrt{\rho}\nabla\Psi^{\rho} \in L^2_{[0,T]}L^2_{\mathbb{T}^2}$, and $\rho$ is a weak solution of 
+\begin{equation}\label{eq-riesz}
+\partial_t\rho+\nabla\cdot(\rho \mathcal{V}[\rho])=\Delta\rho-\nabla\cdot(\rho\nabla\Psi^{\rho}),
+\end{equation}
+and the rate function $\mathcal{I}$ defined in \eqref{I0-intro} has an equivalent representation
+\begin{align}\label{RF low}
+\mathcal{I}(\rho)=\frac{1}{2}\|\sqrt{\rho}\nabla\Psi^{\rho}\|_{L_{[0,T]}^2L^2_{\mathbb{T}^2}}^2.
+\end{align}
+If we further assume that $\rho \in L^\infty_{[0,T]}L^\infty_{\mathbb{T}^2}$,  then $\rho$ is also a renormalized kinetic solution with control $g$. 
+\end{lem}
+\begin{proof}
+With the help of \cite[Theorem 3.5]{WZ24}, it is sufficient to verify the condition \cite[(3.22)]{WZ24}. Since we impose regularity $\rho\in L^\infty([0,T];L^\infty(\mathbb{T}^2))$, by the integrability of $V$ and convolutional Young's inequality, we have that $\rho|V\ast\rho|^2\in L^1([0,T];L^1(\mathbb{T}^2))$ and $V\ast\rho\in L^2([0,T];L^2(\mathbb{T}^2))$. Therefore \cite[(3.22)]{WZ24} holds, and $\rho$ is a renormalized kinetic solution of \eqref{eq-riesz}. This completes the proof. 
+	
+\end{proof}
+
+\Xiaohao{This discussion is quite essential, and it should be as clear as possible!} Based on the representation of $\rho$ in Lemma \ref{ske-lem}, it is intuitive to construct the approximating sequence $\nu^{\varepsilon, \rho}$ in Lemma \ref{entropymethod} for fixed $\rho \in \mathcal{C}_0$ as the laws of probabilistically weak renormalized kinetic solutions $\rho^{\flat,\varepsilon}$ of the equations
+\begin{equation}\label{SCPDE}
+  \partial_{t} \rho^{\flat,\varepsilon}=\Delta \rho^{\flat,\varepsilon} - \nabla\cdot \left(\rho^{\flat,\varepsilon}\mathcal{V}[\rho^{\flat,\varepsilon}]\right)
+-\sqrt{\varepsilon}\nabla\cdot \left( s_{\eta}(\rho^{\flat,\varepsilon})\circ \xi_{K} \right)-\nabla\cdot \left[ s_{\eta}(\rho^{\flat,\varepsilon}) P_{K}\left(\sqrt{\rho}\nabla\Psi^{\rho}\right)\right],
+\end{equation}
+where $P_{K}$ is the Fourier projection onto the first $K$\textsuperscript{th} modes. We now explain the reason for introducing \eqref{SCPDE} as follows: For any fixed $\varepsilon > 0$, we fix a probabilistically weak solution $\rho^{\eta}$ of \eqref{SPDE-1} on some probability space $(\Omega, (\mathcal{F}_t)_{t \in [0,T]}, \mathbb{P})$ together with the adapted space--time white noise $\xi$ and consider the martingales
+\begin{equation}\label{martingale}
+M^{\rho}(t) := -\frac{1}{\sqrt{\varepsilon}}\int_0^t\int_{\mathbb{T}^2} \sqrt{\rho}\nabla\Psi^{\rho} \cdot \xi_{K}, \quad \mathcal{E}(M^{\rho}) := \exp\left(M^{\rho}-\frac{1}{2}\langle M^{\rho}\rangle\right).
+\end{equation}
+We define the new probability measure
+\begin{equation}\label{Qmeasure}
+\mathrm{d}\mathbb{Q}^{\rho} := \mathcal{E}(M^{\rho})\mathrm{d}\mathbb{P}, 
+\end{equation}
+and $\nu^{\varepsilon,\rho}$ and $\mu^{\varepsilon}$ as the law of the weak solution $\rho^{\eta}$ of \eqref{SPDE-1} under $\mathbb{Q}^{\rho}$ and $\mathbb{P}$ respectively. \Xiaohao{Reference and check condition, be sure about the equation, or just write the proof} By Girsanov theorem, $\rho^{\eta}$ is exactly a weak solution to \eqref{SCPDE} under $\mathbb{Q}^{\rho}$, as we use the fact that $P^2_K = P_K$, while the desired bound \eqref{eq:relative-entropy-bound} on the relative entropy follows, as
+\begin{align*}
+\varepsilon \mathcal{H}\left(\nu^{\varepsilon,\rho}\mid
+\mu^{\varepsilon}\right) \leq \varepsilon \mathcal{H}\left(\mathbb{Q}^{\rho}
+\mid\mathbb{P}\right) = \varepsilon \int_{\Omega} 
+\left(M^{\rho}_T-\langle M^{\rho}\rangle_T+\frac{1}{2}\langle M^{\rho}\rangle_T\right)\mathrm{d}\mathbb{Q}^{\rho} = \frac{\varepsilon}{2} \int_{\Omega} 
+\langle M^{\rho}\rangle_T\mathrm{d}\mathbb{Q}^{\rho},
+\end{align*}
+where the first inequality is due to Jensen's inequality and last equality is due to Girsanov theorem, which implies that $M^{\rho} -\langle M^{\rho}\rangle$ is a martingale under $\mathbb{Q}^{\rho}$ \Xiaohao{details}. It follows that 
+\begin{align}\label{entropy-check}
+\varepsilon\mathcal{H}\left(\nu^{\varepsilon,\rho}\mid
+\mu^{\varepsilon}\right)
+\leq \frac{1}{2}
+\int_0^T\int_{\mathbb{T}^2} \rho \left|\nabla\Psi^{\rho}\right|^2 = \mathcal{I}(\rho)
+\end{align}
+according to \eqref{RF low}. Therefore, it suffices to prove that $\nu^{\varepsilon, \rho}$, the family of laws of the weak solutions of \eqref{SCPDE}, is well--defined and concentrates at the dirac measure $\delta_{\rho}$. The existence of $\nu^{\varepsilon, \rho}$ for $\varepsilon > 0$ is addressed in the following proposition:
+
+\begin{prop}\label{cspde WPE}
+Let the interaction $\mathcal{V}[\cdot]$ be defined by \eqref{ker-V} and the initial condition $\rho_0$  be of finite entropy, and we assume that
+\begin{align*}
+g \in L^2_{[0,T]}L^2(\mathbb{T}^2;\mathbb{R}^2). 
+\end{align*}
+There exists a nonnegative probabilistically weak renormalized kinetic solution $\rho^{\flat,\varepsilon}$ of \eqref{SCPDE} with initial data $\rho^{\flat}_0$ and control $g_{\rho}$, in the sense that for every $t\in[0,T]$ and $\psi \in \mathrm{C}_{c}^{\infty}\left(\mathbb{T}^2\times(0,\infty)\right)$, it holds almost surely that \Xiaohao{Check!}
+%
+\begin{align}\label{MC kenitic solution}
+&\int_{\mathbb{R}}\int_{\mathbb{T}^2} \chi^{\flat,\varepsilon}(x, \zeta, \cdot) \psi(x, \zeta)\Big|_0^t = -\int_{0}^{t} \int_{\mathbb{R}} \int_{\mathbb{T}^2}\nabla\rho^{\flat,\varepsilon}\cdot\nabla_x\psi(x,\rho^{\flat,\varepsilon}) -\int_{0}^{t} \int_{\mathbb{R}} \int_{\mathbb{T}^2} \partial_{\zeta} \psi(x, \zeta) \mathrm{d}m^{\flat,\varepsilon}\nonumber\\
+& - \int_{0}^{t} \int_{\mathbb{T}^2} \nabla\cdot (\rho^{\flat,\varepsilon} \mathcal{V}[\rho^{\flat,\varepsilon}])\psi(x, \rho^{\flat,\varepsilon})
++ \int_{0}^{t} \int_{\mathbb{T}^2} s_{\eta}(\rho^{\flat,\varepsilon})P_{K}g \cdot \nabla_x\psi(x, \rho^{\flat,\varepsilon})\nonumber\\
+& + \int_{0}^{t} \int_{\mathbb{T}^2} s_{\eta}(\rho^{\flat,\varepsilon})P_{K}g \cdot \nabla\rho^{\flat,\varepsilon} \partial_\zeta\psi(x, \rho^{\flat,\varepsilon})+\sqrt{\varepsilon}\int_{0}^{t} \int_{\mathbb{T}^2} s_{\eta}(\rho^{\flat,\varepsilon}) \xi_{K}\cdot \nabla \psi(x, \rho^{\flat,\varepsilon})\nonumber\\
+&+\frac{\varepsilon N_K}{2}\int_{0}^{t} \int_{\mathbb{T}^2} \rho^{\flat,\varepsilon} \partial_{\zeta} \psi(x, \rho^{\flat,\varepsilon}),
+\end{align}
+%
+and
+%
+\begin{align}\label{L1-rho-flat}
+\|\rho^{\flat,\varepsilon}\|_{L^{1}\left(\mathbb{T}^2\right)}\equiv \|\rho^{\flat}_0\|_{L^{1}(\mathbb{T}^2)}, \quad \mathbb{E}\int_0^T\int_{\mathbb{T}^2} |\nabla \sqrt{\rho^{\flat,\varepsilon}}|^2 < \infty,
+\end{align}
+and further the nonnegative kinetic measure $m^{\flat,\varepsilon}$ satisfies
+% 
+\begin{align}\label{rho-flat-kinetic-measure}
+4\delta_{0}(\zeta-\rho^{\flat,\varepsilon})\zeta |\nabla \sqrt{\rho^{\flat,\varepsilon}}|^{2}\le m^{\flat,\varepsilon},\quad \liminf_{M\to \infty} \mathbb{E}\big[m^{\flat,\varepsilon}(\mathbb{T}^2\times [0,T]\times [M,M+1])\big]=0,
+\end{align}
+%
+where $\zeta$ stands for the velocity variable.
+\end{prop}
+
+We will majorly consider controls $g = \sqrt{\rho} \nabla \Psi^{\rho}$. As the measures $\nu^{\varepsilon, \rho}$ are now constructed, we proceed to prove that those measures concentrate at $\delta_{\rho}$ by using the compactness--uniqueness argument, namely we first show that the family $\{\nu^{\varepsilon, \rho}\}_{\varepsilon > 0}$ is tight on $L^1_{[0,T]}L^1_{\mathbb{T}^2}$ equipped with the strong topology in Lemma \ref{tight} below, and then we prove that any limit point of a convergent subsequence is a solution to the skeleton equation \eqref{eq-riesz} in Lemma \ref{C1}. \Xiaohao{explain clearly that formal limit gives skeleton.} We now specify the notion of solution of the (slightly more general) skeleton equations as follows: Let
+\begin{align}\label{control-1}
+\partial_t \rho=\Delta\rho-\nabla\cdot(\rho \mathcal{V}[\rho])-\nabla \cdot\left(\sqrt{\rho} g\right),
+\end{align}
+with $g \in L^2_{[0,T]}L^2(\mathbb{T}^2;\mathbb{R}^2)$. For a given nonnegative solution $\rho$ of (\ref{control-1}), recall that the kinetic function of $\rho$ is defined by $\chi(x,\xi,t)=\mathbf{1}_{\{0<\xi<\rho(x, t)\}}$.
+
+\begin{defi}\label{ske-kinetic}
+Let $\mathcal{V}[\cdot]$ be defined by \eqref{ker-V} such that \eqref{eq:small-KS} holds, and let $\rho_0 \in \operatorname{Ent}\left(\mathbb{T}^2\right)$ and $g\in L^2_{[0,T]}L^2(\mathbb{T}^2;\mathbb{R}^2)$. A  nonnegative function $\rho\in L^\infty_{[0,T]}L^1_{\mathbb{T}^2}$ is  a renormalized kinetic solution of (\ref{control-1}) with initial  $\rho_0$ and control $g$, if $\rho$ satisfies
+%
+\begin{align}\label{eq:skeleton-l1-fisher}
+\|\rho(\cdot,t)\|_{L^{1}\left(\mathbb{T}^2\right)} = \left\|\rho_0\right\|_{L^{1}\left(\mathbb{T}^2\right)}, \text{ a.e. }  \quad \nabla\sqrt{\rho}\in L^2_{[0,T]}L^2(\mathbb{T}^2;\mathbb{R}^2),
+\end{align}
+%
+and furthermore, there exists a nonnegative kinetic measure $m$ such that
+%
+\begin{align}\label{KM R}
+4\delta_{0}(\xi-\rho)\xi|\nabla \sqrt{\rho}|^{2}\le m,
+\end{align}
+on $\mathbb{T}^2\times(0,\infty)\times[0,T]$, and
+\begin{align}\label{KM VI}
+\liminf_{M\to \infty}\big[m(\mathbb{T}^2\times [0,T]\times [M,M+1])\big]=0.
+\end{align}
+%
+For every $\psi\in\mathrm{C}_{c}^{\infty}\left(\mathbb{T}^2\times(0,\infty)\right)$ and a.e. $t \in [0,T]$, it holds
+%
+\begin{align}\label{cspde KSE}
+\int_{\mathbb{R}}\int_{\mathbb{T}^2} \chi(x, \xi, \cdot) \psi(x, \xi)\Big|_0^t
+ & =\int_{0}^{t} \int_{\mathbb{R}} \int_{\mathbb{T}^2}\chi(x, \xi, t)\Delta_x\psi(x,\xi) - \int_{0}^{t} \int_{\mathbb{R}} \int_{\mathbb{T}^2} \partial_{\xi} \psi(x, \xi) \mathrm{d}m\nonumber\\
+&-\int_{0}^{t} \int_{\mathbb{T}^2} \nabla\cdot(\rho \mathcal{V}[\rho])\psi(x, \rho)
++\int_{0}^{t} \int_{\mathbb{T}^2}\sqrt{\rho}g\cdot\nabla_x\psi(x, \rho)\nonumber\\
+&+2\int_{0}^{t} \int_{\mathbb{T}^2}\rho\nabla\sqrt{\rho}\cdot g\partial_\xi\psi(x, \rho).
+\end{align}
+%
+\end{defi}
+
+
+
+\begin{lem}\label{tight}
+For every $\varepsilon>0$ and under the same condition as Proposition \ref{cspde WPE}, we let $\rho^{\flat,\varepsilon}$  be the  probabilistically weak renormalized kinetic solution for \eqref{SCPDE} with initial data $\rho_0$ and control $g$ constructed therein. Then the family of laws of the sequence $\{\rho^{\flat,\varepsilon}\}_{\varepsilon>0}$ is tight on $L^{1}([0, T] \times \mathbb{T}^2)$ with respect to the strong topology.
+\end{lem}
+
+With the tightness of the measures $\nu^{\varepsilon,\rho}$ obtained above, we intend to use the Skorohod representation to construct a large enough probability space, on which we construct the renormalized kinetic solutions to \eqref{SCPDE} and send $\varepsilon \to 0$.  We now demonstrate that the convergence of those solutions to a solution of the skeleton equation \eqref{eq-riesz} with respect to the strong topology on $L^{1}_{[0, T] } L^{1}_{\mathbb{T}^2}$ in the following Proposition. 
+
+\begin{prop}\label{C1}Let the interaction $\mathcal{V}[\cdot]$ be defined by \eqref{ker-V} and \Xiaohao{unify the scaling as one condition at the beginning.}
+\begin{align*}
+\varepsilon K^{d+2}\rightarrow 0 \text{~and~} \Xiaohao{\eta ...}
+\end{align*}
+Given any initial condition $\rho_{0}$ be of finite entropy and some $\rho\in \mathcal{C}_0$ with $\rho(0) = \rho_0$ satisfying $\mathcal{I}(\rho)<+\infty$, there exists a family $(\rho^{\flat,\varepsilon})_{\varepsilon > 0}$ defined on a probability space $(\Omega, (\mathcal{F}_t)_{t \in [0,T]},\mathbb{P})$, such that $\rho^{\flat,\varepsilon}$ is a probabilistically weak renormalized solution to \eqref{SCPDE}, and further a.s. we have
+\begin{align}
+\rho^{\flat,\varepsilon} \rightarrow \rho^{\flat},
+\end{align}
+strongly in $L^1_{[0,T]}L^1_{\mathbb{T}^2}$, as $\varepsilon \to 0$, where $\rho^{\flat}$ is a kinetic solution of the skeleton equation \eqref{eq-riesz}. 
+\end{prop}
+\begin{proof}\Xiaohao{As we skip the detailed use of Skorohod, we need to summarize what can be directly inferred from Gess-Fehrman. If we want to mention how the kinetic measure is derived, we have to do it in full details. It would also be reasonable to pass the whole equation to the limit in this proof, and be concise in the next proof with Skorohod, especially the noise term, as the proposition essentially says that it vanishes in the limit formally.}
+Following the same argument as in \cite[Theorem 5.29]{FG21} and with the aid of Jakubowski--Skorokhod representation theorem \cite{}, it follows from Lemma \ref{tight} and Proposition \ref{entropy estimate} that there exists a filtered probability space on which for each $\varepsilon > 0$, $(\rho^{\flat, \varepsilon}, \xi^{\varepsilon})$ solves \eqref{MC kenitic solution}, and further
+%
+\begin{align}\label{CM rho L1}
+\rho^{\flat,\varepsilon}\rightarrow \rho^{\flat}\text { strongly in } L^1_{[0, T]}L^1_{\mathbb{T}^2} \ \text{and point-wise}, \text{a.s.}
+\end{align}
+%
+\begin{align}\label{CM nabla rho L2H1}
+\nabla\sqrt{\rho^{\flat,\varepsilon}} \rightarrow \nabla \sqrt{\rho^{\flat}} \text{ weakly in } L^2_{[0, T]} L^2_{\mathbb{T}^2}, \text{a.s.} \text{ and in } L^2(\Omega, L^2_{[0, T]} L^2_{\mathbb{T}^2}),
+\end{align}
+%
+It follows directly from the preservation of mass for $\rho^{\flat, \varepsilon}$, \eqref{CM rho L1} and \eqref{CM nabla rho L2H1} that \eqref{eq:skeleton-l1-fisher} holds. To construct the kinetic measure in the limit, we define for every $\psi\in\mathrm{C}_{c}^{\infty}\left(\mathbb{T}^2\times(0,\infty)\right)$ the map 
+\begin{align*}
+H_{\psi}:L^{1}\left([0, T] \times \mathbb{T}^2\right)\times \mathrm{C}\left([0, \infty) ; \mathbb{R}^2\right)^{\mathbb{Z}^{2}}\rightarrow\mathbb{R}
+\end{align*}
+as
+\begin{align}
+H_{\psi}(\rho^{\flat,\varepsilon},\xi^{\varepsilon}) & := - \int_{\mathbb{R}}\int_{\mathbb{T}^2} \chi^{\flat,\varepsilon}(x, \zeta, \cdot) \psi(x, \zeta)\Big|_0^t - \int_{0}^{t} \int_{\mathbb{R}} \int_{\mathbb{T}^2}\nabla \rho^{\flat,\varepsilon}\cdot\nabla_x\psi(x,\rho^{\flat,\varepsilon})
+\nonumber\\
+& - \int_{0}^{t} \int_{\mathbb{T}^2} \nabla \cdot (\rho^{\flat,\varepsilon} \mathcal{V}[\rho^{\flat,\varepsilon}])\psi(x, \rho^{\flat,\varepsilon})
++\int_{0}^{t} \int_{\mathbb{T}^2}\sqrt{\rho^{\flat,\varepsilon}}P_{K}g\cdot\nabla_x\psi(x, \rho^{\flat,\varepsilon})\nonumber\\
+&+2\int_{0}^{t} \int_{\mathbb{T}^2} \rho^{\flat,\varepsilon}\nabla \sqrt{\rho^{\flat,\varepsilon}}\cdot P_{K}g \partial_\zeta\psi(x, \rho^{\flat,\varepsilon})+\sqrt{\varepsilon}\int_{0}^{t} \int_{\mathbb{T}^2} \sqrt{\rho^{\flat,\varepsilon}} \xi_{K}\cdot \nabla \psi(x,\rho^{\flat,\varepsilon})\nonumber\\
+&+\frac{\varepsilon N_K}{2}\int_{0}^{t} \int_{\mathbb{T}^2} \rho^{\flat,\varepsilon} \partial_{\zeta} \psi(x, \rho^{\flat,\varepsilon}),
+\end{align}
+so that $m^{\flat,\varepsilon}([0,t];\psi) = H_{\psi}(\rho^{\flat,\varepsilon},\xi^{\varepsilon})$. Using the same argument as in \cite[Theorem 6.2]{WZ22} and as $\varepsilon K^{d+2}\lesssim 1$, for every $r\in\mathbb{N}$ we have
+\begin{align}\label{MC L1 KE'}	
+\sup_{\varepsilon > 0}\mathbb{E}\left(m^{\flat,\varepsilon}([0,T]\times\mathbb{T}^2\times[0,r])\right)^2 \lesssim 1, 
+\end{align}
+namely, $m^{\flat,\varepsilon}$ is uniformly bounded in $L^2(\Omega; \mathcal{M}_r)$, where $\Omega$ is the probability space constructed at the beginning of the proof and $\mathcal{M}_r$ denote the space of bounded Borel measures over $\mathbb{T}^2\times [0,T]\times [0,r]$ (with norm given by the total variation of measures). 
+
+By the Banach--Alaoglu theorem and a diagonal processes, there exists a Radon measure $m^{\flat}$ on $\mathbb{T}^2\times [0,T]\times [0,\infty)$ such that $m^{\flat,\varepsilon}\rightharpoonup m^{\flat}$ -- weak${}^{\ast}$ in $L^2(\Omega; \mathcal{M}_r)$ for every $r\in \mathbb{N}$. Moreover, combining \eqref{CM rho L1} and \eqref{CM nabla rho L2H1}, \Xiaohao{Precise ref!} we have
+\begin{equation}\label{MC KQ1}
+  m^{\flat} \geq 4\delta_0(\zeta - \rho^{\flat})\zeta|\nabla\sqrt{\rho^{\flat}}|^2,\quad \text{a.s.}
+\end{equation}
+ and
+\begin{align*}
+  &\liminf _{M \rightarrow \infty} \mathbb{E} m^{\flat}\left([0, T] \times \mathbb{T}^2 \times[M, M+1]\right)=0.
+\end{align*}
+which implies with Fatou Lemma that a.s.
+\begin{align}\label{MC KQ2}
+\liminf _{M \rightarrow \infty}  m^{\flat}\left([0, T] \times \mathbb{T}^2 \times[M, M+1]\right)=0
+\end{align}
+Therefore, in combination with \eqref{MC KQ1} and \eqref{MC KQ2},  it follows that the measure $m^{\flat}$ satisfies the conditions in Definition \ref{ske-kinetic}. We now aim to show that the limit $(\rho^{\flat},\beta^{\flat},m^{\flat})$ of $\{(\rho^{\flat,\varepsilon},\beta^{\flat,\varepsilon},m^{\flat,\varepsilon})\}_{\varepsilon > 0}$ is \textbf{a} renormalized kinetic solution of the skeleton equation \eqref{control-1} in the sense of Definition \ref{ske-kinetic}, as for any $\psi \in \mathrm{C}_{c}^{\infty}\left(\mathbb{T}^2 \times(0, \infty)\right)$, we have \eqref{MC kenitic solution} holds for $(\rho^{\flat,\varepsilon},\beta^{\flat,\varepsilon},m^{\flat,\varepsilon})$ for each fixed $\varepsilon > 0$. It follows from the definition of $\chi^{\flat,\varepsilon}(\cdot, \zeta) = \mathbf{1}_{\{0 < \zeta < \rho^{\flat,\varepsilon}\}}$ and \eqref{CM rho L1} that
+\begin{align*}
+\chi^{\flat,\varepsilon} \to \chi^{\flat}, 
+\end{align*}
+so we apply dominated convergence theorem and derive for every $t \in [0,T]$ that
+%
+\begin{align}\label{MC K P}
+\lim_{\varepsilon\to 0} \mathbb{E}\left|\int_{\mathbb{R}}\int_{\mathbb{T}^2}\chi^{\flat,\varepsilon}(x,\zeta,t)\psi(x,\zeta)
+-\int_{\mathbb{R}}\int_{\mathbb{T}^2} \chi^{\flat}(x,\zeta,t)\psi(x,\zeta)\right| = 0;
+\end{align}
+%
+while by splitting the difference, we have
+\begin{align}\label{b lap}
+\mathbb{E}\left|\int_{0}^{t} \int_{\mathbb{T}^2} \nabla \rho^{\flat} \cdot\nabla_x \psi(x, \rho^{\flat})-\nabla \rho^{\flat,\varepsilon} \cdot\nabla_x\psi (x, \rho^{\flat,\varepsilon})\right|
+\lesssim \mathrm{I}_1+\mathrm{I}_2,
+\end{align}
+with
+\begin{align*}
+\mathrm{I}_1 & = \mathbb{E}\int_{0}^{t} \int_{\mathbb{T}^2}\left|\left(\nabla \sqrt{\rho^{\flat}}-\nabla \sqrt{\rho^{\flat,\varepsilon}}\right) \cdot \sqrt{\rho^{\flat}}\nabla_x\psi  (x, \rho^{\flat})\right| \to 0, \\
+\mathrm{I}_2 & = \mathbb{E}\int_{0}^{t} \int_{\mathbb{T}^2}\left|\nabla \sqrt{\rho^{\flat,\varepsilon}} \cdot\left(\sqrt{\rho^{\flat}}\nabla_x\psi  (x, \rho^{\flat})-\sqrt{\rho^{\flat,\varepsilon}} \nabla_x\psi  (x, \rho^{\flat,\varepsilon})\right)\right| \to 0.
+\end{align*}
+The convergence of $\mathrm{I}_1$ follows directly from \eqref{CM nabla rho L2H1} and 
+$\sqrt{\rho^{\flat}}\nabla_x\psi  (x, \rho^{\flat}) \in L^{\infty}([0,T] \times \mathbb{T}^2)$, and for the term $\mathrm{I}_2$, by H\"older's inequality and the uniform entropy estimate \Xiaohao{ref}, 
+\begin{align*}
+\mathrm{I}_2 \lesssim \Big(\mathbb{E}\int_{0}^{t} \int_{\mathbb{T}^2}\left|\left(\sqrt{\rho^{\flat}}\nabla_x\psi  (x, \rho^{\flat})-\sqrt{\rho^{\flat, \varepsilon}} \nabla_x\psi  (x, \rho^{\flat,\varepsilon})\right)\right|^2\Big)^{1/2} \sup_{\varepsilon > 0} \Big(\mathbb{E}\int_{0}^{T} \int_{\mathbb{T}^2}\left|\nabla \sqrt{\rho^{\flat,\varepsilon}} \right|^2\Big)^{1/2},
+\end{align*}
+which converges to zero by \eqref{CM rho L1} and the dominated convergence theorem,
+as the smoothness and compact support of $\psi$ leads to the bound
+\begin{align*}
+\left|\left(\sqrt{\rho^{\flat}}\nabla_x\psi  (x, \rho^{\flat})-\sqrt{\rho^{\flat, \varepsilon}} \nabla_x\psi  (x, \rho^{\flat,\varepsilon})\right)\right| \lesssim 1,
+\end{align*}
+which is uniform in $\varepsilon > 0$. For the kernel term, we have
+\begin{align}\label{b ker}
+\left|\int_{0}^{t} \int_{\mathbb{T}^2} \psi (x, \rho^{\flat,\varepsilon}) \nabla \cdot\left(\rho^{\flat,\varepsilon} \mathcal{V}[\rho^{\flat,\varepsilon}]\right) - \psi (x, \rho^{\flat}) \nabla \cdot\left(\rho^{\flat} \mathcal{V}[\rho^{\flat}]\right)\right| \lesssim \mathrm{II}_{1} + \mathrm{II}_{2},
+\end{align}
+with
+\begin{align*}
+\mathbb{E}\mathrm{II}_{1} & := \mathbb{E}\left|\int_{0}^{t} \int_{\mathbb{T}^2} \psi (x, \rho^{\flat,\varepsilon}) \nabla \rho^{\flat,\varepsilon} \cdot \mathcal{V}[\rho^{\flat,\varepsilon}] - \psi (x, \rho^{\flat}) \nabla \rho^{\flat} \cdot \mathcal{V}[\rho^{\flat}]\right| \to 0,\\
+\mathrm{II}_{2} & := \left|\int_{0}^{t} \int_{\mathbb{T}^2} \psi (x, \rho^{\flat,\varepsilon}) |\rho^{\flat,\varepsilon}|^2 - \psi (x, \rho^{\flat}) |\rho^{\flat}|^2\right| \to 0, \ \text{a.s.}
+\end{align*}
+as $\varepsilon \to 0^+$. The convergence of $\mathrm{II}_{2}$ follows directly from the dominated convergence and \eqref{CM rho L1} thanks to the smoothness and compact support of $\psi$, and we may rewrite the integral in $\mathrm{II}_{1}$ by integration by part as 
+\begin{align*}
+\int_{\mathbb{T}^2} \psi (x, \rho^{\flat}) \nabla \rho^{\flat} \cdot \mathcal{V}[\rho^{\flat}] = \kappa_1\int_{\mathbb{T}^2} \int_0^{\rho^{\flat}}\psi (x,\zeta)\mathrm{d}\zeta \rho^{\flat}.
+\end{align*}
+The convergence of $\mathrm{II}_{1}$ then follows from 
+\begin{align*}
+\Big|\int_0^t\int_{\mathbb{T}^2}  \int_0^{\rho^{\flat,\varepsilon}}\psi (x,\zeta)\mathrm{d}\zeta (\rho^{\flat,\varepsilon} - \rho^{\flat} )\Big| \lesssim \| \rho^{\flat,\varepsilon} - \rho^{\flat} \|_{L^1_{[0,T]}L^1_{\mathbb{T}^2}} \to 0, 
+\end{align*}
+as $\xi \to  \int_0^{\xi}\psi (x,\zeta)\mathrm{d}\zeta$ is bounded; and since $\int_0^{\rho^{\flat,\varepsilon}}\psi (x,\zeta)\mathrm{d}\zeta \to \int_0^{\rho^{\flat}}\psi (x,\zeta)\mathrm{d}\zeta$ pointwise,
+\begin{align*}
+\int_0^t\int_{\mathbb{T}^2} \Big| \Big(\int_0^{\rho^{\flat,\varepsilon}}\psi (x,\zeta)\mathrm{d}\zeta - \int_0^{\rho^{\flat,\varepsilon}}\psi (x,\zeta)\mathrm{d}\zeta \Big) \rho^{\flat} \Big| \to 0,
+\end{align*}
+due to dominated convergence. For the first control term, we have $\nabla_x\psi(x, \rho^{\flat,\varepsilon}) s_{\eta}(\rho^{\flat,\varepsilon})$ approximates $\nabla_x\psi(x, \rho^{\flat}) \sqrt{\rho^{\flat}}$ point-wise, since $s_{\eta}$ approximates $\sqrt{\cdot}$ uniformly on compact sets of $(0,\infty)$, $\nabla_x\psi$ is compactly supported and $\rho^{\flat,\varepsilon} \to \rho^{\flat}$ point-wise according to \eqref{CM rho L1}, and therefore
+\begin{align}\label{eq:conv-grho-11}
+& \ \Big|\int_{0}^{t} \int_{\mathbb{T}^2} P_{K}\big(\sqrt{\rho} \nabla \Psi^{\rho}\big) \cdot \left[\nabla_x\psi(x, \rho^{\flat,\varepsilon}) s_{\eta}(\rho^{\flat,\varepsilon}) - \nabla_x\psi(x, \rho^{\flat}) \sqrt{\rho^{\flat}}\right]\Big| \nonumber\\
+\leq & \ \|\sqrt{\rho} \nabla \Psi^{\rho}\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}\left\|\nabla_x\psi(x, \rho^{\flat,\varepsilon}) s_{\eta}(\rho^{\flat,\varepsilon}) - \nabla_x\psi(x, \rho^{\flat}) \sqrt{\rho^{\flat}}\right\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}} \to 0, 
+\end{align}
+where the limit is due to dominated convergence and the boundedness of $(x, \zeta) \mapsto \nabla_x\psi(x, \zeta) s_{\eta}(\zeta)$ uniformly in $\eta \geq 0$. Meanwhile, 
+\begin{align}\label{eq:conv-grho-12}
+\Big|\int_{0}^{t} \int_{\mathbb{T}^2} (1 - P_{K})\big(\sqrt{\rho} \nabla \Psi^{\rho}\big) \cdot \nabla_x\psi(x, \rho^{\flat}) \sqrt{\rho^{\flat}}\Big| \lesssim \|(1 - P_{K})\big(\sqrt{\rho} \nabla \Psi^{\rho}\big)\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}} \to 0,
+\end{align}
+as $\sqrt{\rho} \nabla \Psi^{\rho} \in L^2([0,T] \times \mathbb{T}^2)$. Similarly, we have the bound for the second term with control that
+\begin{align}\label{eq:conv-grho-21}
+\lim_{\varepsilon \to 0} \int_{0}^{t} \int_{\mathbb{T}^2} s_{\eta}(\rho^{\flat,\varepsilon})\nabla\rho^{\flat,\varepsilon} \cdot (1 - P_{K}) \big(\sqrt{\rho} \nabla \Psi^{\rho}\big)\partial_\zeta\psi(x, \rho^{\flat,\varepsilon}) = 0,
+\end{align}
+as $s_{\eta}(\rho^{\flat,\varepsilon})\nabla\rho^{\flat,\varepsilon} \partial_\zeta\psi(x, \rho^{\flat,\varepsilon})$ is bounded in $L^2([0,T] \times \mathbb{T}^2)$ uniformly in $\eta \geq 0$ and $\varepsilon > 0$ according to \eqref{CM nabla rho L2H1}; also directly by \eqref{CM nabla rho L2H1}
+\begin{align}\label{eq:conv-grho-22}
+\left|\int_{0}^{t} \int_{\mathbb{T}^2} \rho^{\flat} \left(\nabla\sqrt{\rho^{\flat,\varepsilon}} -\nabla\sqrt{\rho^{\flat}}\right)\cdot \nabla \Psi^{\rho} \sqrt{\rho}\partial_\zeta\psi(x, \rho^{\flat})\right| \to 0.
+\end{align}
+Furthermore, using dominated convergence, we have
+\begin{align}
+& \ \left|\int_{0}^{t} \int_{\mathbb{T}^2} \left(\rho^{\flat}\partial_\zeta\psi(x, \rho^{\flat})-\rho^{\flat,\varepsilon}\partial_\zeta\psi(x, \rho^{\flat,\varepsilon})\right) \nabla\sqrt{\rho^{\flat,\varepsilon}}\cdot  \nabla \Psi^{\rho} \sqrt{\rho} \right| \nonumber\\
+\lesssim & \ \left\| \left(\rho^{\flat}\partial_\zeta\psi(x, \rho^{\flat})-\rho^{\flat,\varepsilon}\partial_\zeta\psi(x, \rho^{\flat,\varepsilon})\right) \nabla \Psi^{\rho} \sqrt{\rho} \right\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}} \to 0, 
+\end{align}
+since $\rho^{\flat}\partial_\zeta\psi(x, \rho^{\flat}) \to \rho^{\flat,\varepsilon}\partial_\zeta\psi(x, \rho^{\flat,\varepsilon})$ pointwise and $(x, \zeta) \mapsto \zeta \partial_\zeta\psi(x, \zeta)$ is bounded. In combination of \eqref{eq:conv-grho-11}--\eqref{eq:conv-grho-22}, we have proved that
+\begin{equation}\label{eq:conv-grho}
+  \lim_{\varepsilon\rightarrow 0} \int_{0}^{t} \int_{\mathbb{T}^2} s_{\eta}(\rho^{\flat,\varepsilon})\nabla\rho^{\flat,\varepsilon} \cdot P_{K}\big(\sqrt{\rho} \nabla \Psi^{\rho}\big)\partial_\zeta\psi(x, \rho^{\flat,\varepsilon}) = \int_{0}^{t} \int_{\mathbb{T}^2} \sqrt{\rho^{\flat}}\nabla\rho^{\flat} \cdot  P_{K} \big(\sqrt{\rho} \nabla \Psi^{\rho}\big)\partial_\zeta\psi(x, \rho^{\flat}),
+\end{equation}
+for all $t \in [0,T]$ a.s. For the martingale term, we apply the BDG inequality and derive
+\begin{align}\label{MC M P}
+\mathbb{E}\left[\sup_{t\in[0,T]}\left|\sqrt{\varepsilon}\int_0^t
+\int_{\mathbb{T}^2}\nabla \left[\psi(x,\rho^{\flat,\varepsilon})\right] \cdot \xi_{K} \right|^2 \right] & \lesssim \varepsilon \mathbb{E} \int_0^T\int_{\mathbb{T}^2} |\nabla_x\psi(x,\rho^{\flat,\varepsilon})|^2 + \left|\partial_{\zeta}\psi(x,\rho^{\flat,\varepsilon})\nabla{\sqrt{\rho^{\flat,\varepsilon}}}\right|^2\rho^{\flat,\varepsilon}  \nonumber\\
+& \lesssim \varepsilon \left(1 +  \|\nabla{\sqrt{\rho^{\flat,\varepsilon}}}\|^2_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}\right) \to 0;
+\end{align}
+while the scaling $\varepsilon K^{d+2}\rightarrow 0$ ensures that \begin{align}\label{MC V P}
+\lim_{\varepsilon\rightarrow 0}\frac{\varepsilon N_K}{2}\int_{0}^{t} \int_{\mathbb{T}^2} \rho^{\flat,\varepsilon} \partial_{\zeta} \psi(x, \rho^{\flat,\varepsilon}) = 0.
+\end{align}
+\end{proof}
+
+The concentration of measures is then established, once we prove that the given $\rho^{\flat}$ is the unique renormalized kinetic solution to \eqref{eq-riesz} in the sense of Definition \ref{ske-kinetic} with control $g = \sqrt{\rho} \nabla \Psi^{\rho}$, since then for any subsequence $\{\nu^{\varepsilon, \rho}\}_{\varepsilon > 0}$, we have found a subsubsequence that converges in law to $\rho = \rho^{\flat}$ in $L^1_{[0,T]}L^1_{\mathbb{T}^2}$ with the strong topology. We claim that the following Proposition holds, the proof of which is postponed to the next section \ref{sec-ws!}. 
+\begin{prop}\label{L1uniq}
+Given interaction $\mathcal{V}[\cdot]$ as in \eqref{ker-V} under the condition that \eqref{eq:small-KS} holds, we let $\rho^1_0,\rho^2_0 \in \mathrm{Ent}(\mathbb{T}^2)$. If $\rho^1$ and $\rho^2$ are renormalized kinetic solutions of  \eqref{control-1} in the sense of Definition \ref{ske-kinetic} with control $g$ and initial condition initial  $\rho^1_0$ and $\rho^2_0$ respectively, and further 
+\begin{align}\label{eq:strong-rho2}
+\rho^2 \in \mathcal{C}_0,
+\end{align}
+then we have
+\begin{equation}\label{qq-31-1}
+\|\rho^1-\rho^2\|_{L^{\infty}_{[0,T]}L^1_{\mathbb{T}^2}}\lesssim \|\rho_0^1-\rho_0^2\|_{L^1_{\mathbb{T}^2}}, 
+\end{equation}
+for some implicit constant which depends on $\rho^2$.
+\end{prop} \Xiaohao{Add the identification of kinetic solution with weak solution of skeleton! Ref Zhengyan.}
+
+The large deviations lower bound restricted to $\mathcal{C}_0$ then follows directly from Lemma \ref{entropymethod}.
+\begin{proof}[Proof of \eqref{RS E} in Theorem \ref{thm:LDP}]
+It follows from Lemma \ref{C1} that 
+\begin{equation}\label{RL MC}
+\nu^{\varepsilon;\rho}\rightharpoonup\delta_{\rho},
+\end{equation}
+weakly in $\mathcal{P}(L^1([0,T] \times \mathbb{T}^2))$ as $\varepsilon\rightarrow0$, and \eqref{entropy-check} verifies the condition \eqref{eq:relative-entropy-bound} in Lemma \ref{entropymethod}, from which \eqref{RS E} follows.
+\end{proof}
+
+\section{Weak-strong uniqueness}\label{sec-ws!}
+A function $\rho$ is called a strong renormalized kinetic solution of Eq. (\ref{control-1}) with initial  $\rho_0$ and control $g$, if $\rho$ be a renormalized kinetic solution of it in the sense of Definition \ref{ske-kinetic} with initial  $\rho_0$ and control $g$, and further 
+\begin{align*}
+\rho\in L^\infty([0,T];L^\infty(\mathbb{T}^2))\cap L^\infty([0,T];W^{1,p'}(\mathbb{T}^2)), 
+\end{align*}
+for an arbitrary $p'>2$. We recall from \eqref{S-intro} the definition of the restriction set as 
+\begin{align*}
+\mathcal{C}_0 = \bigcup_{p'>2}\left\{\rho\in L_{[0,T]}^{\infty}L^1_{\mathbb{T}^2} : \rho\in L_{[0,T]}^{\infty}L^{\infty}_{\mathbb{T}^2} \cap L_{[0,T]}^{\infty}W_{\mathbb{T}^2}^{1,p'}\right\},
+\end{align*}
+and therefore a strong renormalized kinetic solution is just a renormalized kinetic solution that lives in the restriction space $\mathcal{C}_0$. Since the following lemma can be derived similarly to Theorem in \cite[Theorem 4.6]{FG21}, the proof is omitted. \Xiaohao{Where did we use this?}
+\begin{lem}\label{KM V0 remark}
+Let $\rho$ be a renormalized kinetic solution of \eqref{control-1} in the sense of Definition \ref{ske-kinetic} and let $m$ be  the corresponding kinetic measure. Then we have
+\begin{equation}\label{KM V0}
+  \lim _{\beta \rightarrow 0}\left[\beta^{-1} m\left(\mathbb{T}^2 \times[0, T] \times[\beta / 2, \beta]\right)\right]=0.
+\end{equation}
+
+\end{lem}
+
+The weak-strong uniqueness of skeleton equation \eqref{control-1} can now be proved.
+\begin{proof}
+ Let $\chi^i$ and $m^i$ be the renormalized kinetic function and the kinetic measure of $\rho^i$ respectively, for $i = 1,2$. Let $\kappa^{\mathrm{s}}$ and $\kappa^{\mathrm{v}}$ be nonnegative smooth kernels on $\mathbb{T}^2$ and $\mathbb{R}^2$ respectively. For every $ \nu,\delta\in(0,1)$, we further define 
+\begin{align*} 
+\kappa_{\mathrm{s}}^{\nu}(x,y) := \frac{1}{\nu^{2}}\kappa^{\mathrm{s}}\left(\frac{\mathrm{d}_{\mathbb{T}^2}(x,y)}{\nu}\right), \quad \kappa_{\mathrm{v}}^{\delta}(\xi,\eta) := \frac{1}{\delta}\kappa^{\mathrm{v}}\left(\frac{\xi - \eta}{\delta}\right),
+\end{align*}
+and
+\begin{align*}
+\kappa^{\nu,\delta}(x,y,\xi,\eta) := \kappa_{\mathrm{s}}^{\nu}(x,y) \kappa_{\mathrm{v}}^{\delta}(\xi,\eta), \quad \chi^{i,\nu,\delta}(y,\eta) := \int_{\mathbb{R}}\int_{\mathbb{T}^2}\chi^i(x,\xi)\kappa^{\nu,\delta}(x,y,\xi,\eta)\mathrm{d}x\mathrm{d}\xi,
+\end{align*}
+for $i = 1,2$ and $\nu,\delta\in(0,1)$.
+For every $M>0$, let the cutoff function $\zeta^M:\mathbb{R}\rightarrow[0,1]$ be defined such that 
+\begin{align*}
+\zeta^M(\xi) = 0, \ \text{if} \ \xi \leq \frac{1}{M} \ \text{or} \ \xi > M+1; \quad \zeta^M(\xi)  = 1, \ \text{if} \ \frac{2}{M} \leq \xi \leq M, 
+\end{align*}
+and linear interpolation in between. Then for a.s. $t \in (0,T]$, we have \Xiaohao{reason?}
+\begin{align}\label{qq-28} 
+\int_{\mathbb{R}}\int_{\mathbb{T}^2}|\chi_t^1-\chi_t^2|^2\zeta^M(\eta)\mathrm{d}y\mathrm{d}\eta = \lim_{\nu,\delta\rightarrow0}\int_{\mathbb{R}}\int_{\mathbb{T}^2}\left|\chi_t^{1,\nu,\delta}-\chi_t^{2,\nu,\delta}\right|^2\zeta^M(\eta)\mathrm{d}y\mathrm{d}\eta = \lim_{\nu,\delta\rightarrow0}\mathbb{I}_t^{\nu,\delta,M},
+\end{align}
+where 
+\begin{equation}\label{rr-11}
+\mathbb{I}_t^{\nu,\delta,M}
+= \int_{\mathbb{R}}\int_{\mathbb{T}^2}\Big(\chi_t^{1,\nu,\delta}
++\chi_t^{2,\nu,\delta}-2\chi_t^{1,\nu,\delta}\chi_t^{2,\nu,\delta}\Big)\zeta^M(\eta)\mathrm{d}y\mathrm{d}\eta,
+\end{equation}
+for $M\in(0,\infty)$, $\delta\in(0,1/M)$ and $\nu\in(0,1)$. It follows from Definition \ref{ske-kinetic} of renormalized kinetic solution that, it holds as distributions on $\mathbb{T}^2\times \mathbb{R}\times[0,T]$ for $i = 1,2$,
+\begin{align}\notag
+ \partial_t \chi^{i,\nu,\delta}_t(y,\eta) &= \int_{\mathbb{R}}\int_{\mathbb{T}^2}\chi_t^i\Delta_x\kappa^{\nu,\delta}(x,y,\xi,\eta)\mathrm{d}x\mathrm{d}\xi
+  \notag
+  -\int_{\mathbb{R}}\int_{\mathbb{T}^2}m^i_t\partial_{\xi}\kappa^{\nu,\delta}(x,y,\xi,\eta)\mathrm{d}x\mathrm{d}\xi\\
+  \notag
+  &+2\int_{\mathbb{T}^2}\rho^ig(x,t)\cdot\nabla_x\sqrt{\rho^i}\partial_{\xi}\kappa^{\nu,\delta}(x,y,\rho^i,\eta)\mathrm{d}x\mathrm{d}\xi\\
+  &+\int_{\mathbb{T}^2}\sqrt{\rho^i}g(x,t)\cdot\nabla_x\kappa^{\nu,\delta}(x,y,\rho^i,\eta)\mathrm{d}x\mathrm{d}\xi -\int_{\mathbb{T}^2} \nabla_x\cdot\left(\rho^i\mathcal{V}[\rho^i]\right) \kappa^{\nu,\delta}(x,y,\rho^i,\eta)\mathrm{d}x.  \label{kineticsmooth}
+\end{align}
+We use variables $(x, \xi) \in \mathbb{T}^2 \times \mathbb{R}$ for the kinetic function $\chi^1$, and variables $\left(x^{\prime}, \xi^{\prime}\right) \in \mathbb{T}^2 \times \mathbb{R}$ for the kinetic function $\chi^2$ for clarity, and let
+\begin{align*}
+\bar{\kappa}_{t, i}^{\nu, \delta}(\cdot, y, \eta)=\kappa^{\nu, \delta}\left(\cdot, y, \rho^1(\cdot, t), \eta\right),
+\end{align*}
+for $i = 1,2$. Proceeding as \cite[Theorem 3.3]{FG},  we can decompose the temporal derivative of \eqref{rr-11} into the five terms
+\begin{equation}\label{full}
+  \partial_t\mathbb{I}^{\nu,\delta,M}_t=\partial_t\mathbb{I}^{\nu,\delta,M}_{t,\mathrm{par}}
+  +\partial_t\mathbb{I}^{\nu,\delta,M}_{t,\mathrm{hyp}}+\partial_t\mathbb{I}^{\nu,\delta,M}_{t,\mathrm{con}}
+  +\partial_t\mathbb{I}^{\nu,\delta,M}_{t,\mathrm{vel}}+\partial_t\mathbb{I}^{\nu,\delta,M}_{t,\mathrm{ker}},
+\end{equation}
+where the first four terms are the same as in \cite[(3.10)]{FG}. It is sufficient to prove for the kernel term
+\begin{align}\label{t-1}
+\mathbb{I}^{\nu,\delta,M}_{t,\mathrm{ker}} &= \int_0^t \int_{\mathbb{R}}\int_{(\mathbb{T}^2)^2} \nabla_x\cdot \left( \rho^1 \mathcal{V}[\rho^1] \right) \bar{\kappa}^{\nu,\delta}_{1,s}\left(2\chi_s^{2,\nu,\delta}-1\right)\zeta^M(\eta)\mathrm{d}x\mathrm{d}y\mathrm{d}\eta \mathrm{d}s\nonumber\\
+ & + \int_0^t\int_{\mathbb{R}}\int_{(\mathbb{T}^2)^2} \nabla_{x'}\cdot \left(\rho^2 \mathcal{V}[\rho^2]\right) \bar{\kappa}^{\nu,\delta}_{2,s}\left(2\chi_s^{1,\nu,\delta}-1\right)\zeta^M(\eta)\mathrm{d}x'\mathrm{d}y\mathrm{d}\eta  \mathrm{d}s,
+\end{align}
+that 
+\begin{align}\label{V-2}
+  \lim_{M\rightarrow\infty}\lim_{\delta\rightarrow 0} \lim_{\nu\rightarrow 0}\mathbb{I}^{\delta,M}_{t,\mathrm{ker}}
+  \lesssim  \int^t_0\int_{\mathbb{T}^2} |\rho^2 - \rho^1| \rho^2 + \int^t_0\int_{\mathbb{T}^2} \left| \mathcal{V}[\rho^1 - \rho^2]\cdot \nabla\rho^2\right|,
+\end{align}
+since by H\"{o}lder's inequality and the convolutional Young inequality, we can further bound the term on the right by
+\begin{align}\label{G3-1}
+\int^t_0\int_{\mathbb{T}^2}\sgn(\rho^2-\rho^1)\nabla\rho^2 \cdot
+ & \nabla \mathcal{G}\ast (\rho^1-\rho^2)\mathrm{d}y\mathrm{d}s \nonumber \\ & \lesssim \|\rho^2\|_{L^\infty_{[0,T]}W^{1,p'}_{\mathbb{T}^2}}\|\nabla \mathcal{G}\|_{L^p_{\mathbb{T}^2}}\int^t_0\|\rho^1-\rho^2\|_{L^1_{\mathbb{T}^2}}\mathrm{d}s.
+\end{align}
+Combining \eqref{V-2} and \eqref{G3-1}, we derive that for every $t\in[0,T]$,
+\begin{align}\label{WS K M F}
+   \lim_{M\rightarrow\infty}\lim_{\delta\rightarrow 0} \lim_{\nu\rightarrow 0}\mathbb{I}^{\delta,M}_{t,\mathrm{ker}}\leq  \|\rho^2\|_{L_{[0,T]}^\infty W^{1,p'}_{\mathbb{T}^2}}\|V\|_{L^p_{\mathbb{T}^2}}\int_{0}^{t}\|\rho^1-\rho^2\|_{L^{1}_{\mathbb{T}^2}}\mathrm{d}s.
+\end{align}
+Following the proof of \cite[Theorem 3.3]{FG} and the property of kinetic functions that
+\begin{align*}
+\int_{\mathbb{R}}|\chi^1-\chi^2|^2\mathrm{d}\xi = |\rho^1(x,t)-\rho^2(x,t)|,
+\end{align*}
+we conclude the proof of \eqref{qq-31-1} by the Grönwall inequality in combination with \eqref{qq-28}, \eqref{rr-11} and \eqref{WS K M F}. We therefore focus on the proof of \eqref{WS kernel delta}. \\
+
+We first notice that the spatial mollification can be removed, since for every $t\in[0,T]$, $M\in(0,\infty)$ and $\delta\in(0,1/M)$, by the definitions of $\kappa_{\mathrm{v}}^{\delta}$, $\zeta^M$, it follows that
+\begin{align*}
+(t, \eta, x) \mapsto \nabla_x\cdot \left( \rho^1 \mathcal{V}[\rho^1] \right) {\kappa}_{\mathrm{v}}^{\delta}\left(\rho^1(x),\eta\right)\zeta^M(\eta) \in L^1([0,T]\times\mathbb{R}\times\mathbb{T}^2),
+\end{align*}
+By  the
+definition of $\kappa^{\nu,\delta}$, the boundedness of the kinetic functions and the dominated convergence theorem,  taking $\nu\rightarrow 0$ in \eqref{t-1}, it gives
+\begin{align}\label{WS kernel delta}
+\lim_{\nu\rightarrow 0}\mathbb{I}^{\nu,\delta,M}_{t,\mathrm{ker}}
+&= \int^t_0\int_{\mathbb{R}}\int_{\mathbb{T}^2}\left(2\chi^{2,\delta}_t(y)-1\right)  \nabla_y\cdot (\rho^1 \mathcal{V}[\rho^1] ) \bar{\kappa}^{\delta}_{1,t}\zeta^M(\eta)\mathrm{d}y\mathrm{d}\eta\mathrm{d}s\\ \notag
+& + \int^t_0\int_{\mathbb{R}}\int_{\mathbb{T}^2}\left(2\chi^{1,\delta}_t(y)-1\right)  \nabla_y\cdot(\rho^2  \mathcal{V}[\rho^2] ) \bar{\kappa}^{\delta}_{2,t}\zeta^M(\eta)\mathrm{d}y\mathrm{d}\eta\mathrm{d}s,
+\end{align}
+where
+\begin{align*}
+\chi_s^{i,\delta}(y,\eta)=\int_{\mathbb{R}}\chi^i_s(y,\xi) \kappa^{\delta}_{\mathrm{v}}(\xi-\eta)\mathrm{d}\xi, \quad \bar{\kappa}^{\delta}_{i,s} = \kappa_{\mathrm{v}}^{\delta}(\rho^i(y,s),\eta),
+\end{align*}
+for $i = 1,2$. As $\bar{\kappa}^{\delta}_{i}$ approximates the Dirac measure of $\delta(\rho^i(y)-\eta)$ by construction, we claim that 
+\begin{align}\label{t-2}
+\lim_{\delta\rightarrow 0}\left|\int^t_0 \int_{\mathbb{R}}\int_{\mathbb{T}^2}\bar{\kappa}^{\delta}_{i,s}\left(2\chi^{2,\delta}_s-1\right)\nabla_y\cdot\left(\rho^i\mathcal{V}[\rho^i]\right) \left(\zeta^M(\eta)-\zeta^M(\rho^i)\right)\mathrm{d}y\mathrm{d}\eta \mathrm{d}s\right|=0, 
+\end{align}
+for $i = 1,2$. Indeed, for every  $M\in(0,\infty)$ and $\delta < 1/(2M)$, we have 
+\begin{align*}
+\int_{\mathbb{R}}\left|\bar{\kappa}^{\delta}_{i,s}\left(\zeta^M(\eta)-\zeta^M(\rho^i)\right)\right|\mathrm{d}\eta \leq \|(\zeta^M)'\|_{L^{\infty}} \mathbf{1}_{I_{\delta,M}}(\rho^i)\int_{\mathbb{R}}\left|\kappa_{\mathrm{v}}^{\delta}(\rho^i(y,s),\eta)\left(\eta-\rho^i\right)\right|\mathrm{d}\eta \lesssim M\delta \mathbf{1}_{I_{M}}(\rho^i),
+\end{align*}
+where $I_M := [1/(2M),2/M] \cup [M-1,M+2]$, and further, since $\bar{\kappa}^{\delta}_{i,s}$ are uniformly bounded and
+\begin{align}\label{eq:integrable-rVr-1M}
+\left|\nabla\cdot\left(\rho^i \mathcal{V}[\rho^i]\right)\mathbf{1}_{I_{M}}(\rho^i)\right| \lesssim_M 1 + \nabla \sqrt{\rho^i} \cdot \mathcal{V}[\rho^i] \in L^1_{[0,T]}L^1_{\mathbb{T}^2},
+\end{align}
+the limit \eqref{t-2} follows from dominated convergence. Thanks to \eqref{t-2}, we can then replace $\zeta_M(\eta)$ by $\zeta_M(\rho^i)$ and furthermore, it follows from \cite[(4.30)]{FG21} that, when $2\delta<\rho^i(y,s)$,  \Xiaohao{check}
+\begin{align*}
+\int_{\mathbb{R}^2}\kappa_{\mathrm{v}}^{\delta}(\xi-\eta)\kappa_{\mathrm{v}}^{\delta}(\eta-\xi')\chi^{i}_s(y,\xi')\mathrm{d}\eta \mathrm{d}\xi' = \left\{
+  \begin{array}{ll}
+   0, & {\rm{if}}\ \xi\leq -2\delta\ {\rm{or}}\ \xi\geq \rho^i(y,s)+2\delta, \\
+    1/2, & {\rm{if}}\ \xi=0\ {\rm{or}}\ \xi = \rho^i(y,s), \\
+    1, & {\rm{if}}\ 2\delta<\xi< \rho^i(y,s)-2\delta.
+  \end{array}
+\right.
+\end{align*}
+With the aid of the fact that $\zeta^M(0)=0$, we obtain that point-wise limit that
+\begin{align}\label{t-4}
+  \lim_{\delta\rightarrow 0}\left(\int_{\mathbb{R}}\bar{\kappa}^{\delta}_{1,s}(2\chi^{2,\delta}_s-1)\mathrm{d}\eta\right)\zeta_M(\rho^1)
+  = \left(\mathbf{1}_{\rho^1=\rho^2}+2\mathbf{1}_{\rho^1<\rho^2}-1\right)\zeta^M(\rho^1) = \sgn(\rho^2 - \rho^1)\zeta^M(\rho^1);
+\end{align}
+meanwhile, as for every fixed $M\in(0,\infty)$ and $\delta\in(0,1/M)$, 
+\begin{align*}
+\left|\left(\int_{\mathbb{R}}\bar{\kappa}^{\delta}_{1,s}(2\chi^{2,\delta}_s-1)d\eta\right)\nabla\cdot
+(\rho^1\mathcal{V}(\rho^1)) \zeta_M(\rho^1)\right| \lesssim \mathbf{1}_{I_M}(\rho^1) \left|\nabla\cdot
+(\rho^1\mathcal{V}[\rho^1])\right|,
+\end{align*}
+which is integrable as shown in \eqref{eq:integrable-rVr-1M}, so we obtain by the dominated convergence theorem
+\begin{align}
+\lim_{\delta\rightarrow 0} \lim_{\nu\rightarrow 0}\mathbb{I}^{\nu,\delta,M}_{t,\mathrm{ker}} & = \int^t_0\int_{\mathbb{T}^2} \sgn(\rho^2 - \rho^1) \Big\{ \zeta^M(\rho^1) \nabla\cdot(\mathcal{V}[\rho^1]\rho^1) - \zeta^M(\rho^2) \nabla\cdot(\mathcal{V}[\rho^2]\rho^2)\Big\}\nonumber\\
+& = - \kappa_1 \int^t_0\int_{\mathbb{T}^2} \sgn(\rho^2 - \rho^1) \Big\{ \zeta^M(\rho^1) |\rho^1|^2 - \zeta^M(\rho^2) |\rho^2|^2\Big\}\label{WS K M1}\\
+& + \int^t_0\int_{\mathbb{T}^2} \sgn(\rho^2 - \rho^1)  \zeta^M(\rho^2) \mathcal{V}[\rho^1 - \rho^2]\cdot \nabla\rho^2\label{WS K M2}\\
+& + \int^t_0\int_{\mathbb{T}^2} \sgn(\rho^2 - \rho^1) \mathcal{V}[\rho^1]\cdot \left[\zeta^M(\rho^1) \nabla \rho^1 -\zeta^M(\rho^2) \nabla \rho^2\right]\label{WS K M3},
+\end{align}
+where we use the definition \eqref{ker-V} in \eqref{WS K M1} and directly pass $M\to \infty$ in \eqref{WS K M1} and \eqref{WS K M2} by monotone convergence and dominated convergence as we assume \eqref{eq:strong-rho2}. For \eqref{WS K M3}, we can rewrite it with $\tilde{\zeta}^M(\xi) := \int_0^{\xi} \zeta^M(\xi')\mathrm{d}\xi'$ and using integration by part as 
+\begin{align}
+- \int^t_0\int_{\mathbb{T}^2} \nabla [\sgn(\rho^2 - \rho^1)] \cdot \mathcal{V}[\rho^1]\cdot \left[\tilde{\zeta}^M(\rho^1)  -\tilde{\zeta}^M(\rho^2) \right]\label{WS K M4}\\
++ \kappa_1 \int^t_0\int_{\mathbb{T}^2} \sgn(\rho^2 - \rho^1) \rho^1  \left[\tilde{\zeta}^M(\rho^1)  -\tilde{\zeta}^M(\rho^2) \right].\label{WS K M5}
+\end{align}
+We now claim that the integral in \eqref{WS K M4} vanishes, namely, 
+\begin{align}\label{WS K M4 = 0}
+\lim_{M \to \infty} \int^t_0\int_{\mathbb{T}^2} \nabla [\sgn(\rho^2 - \rho^1)] \cdot \mathcal{V}[\rho^1] \left[\tilde{\zeta}^M(\rho^1)  -\tilde{\zeta}^M(\rho^2) \right] = 0, 
+\end{align}
+from which it follows that the desired bound \eqref{V-2} holds, that is, 
+\begin{align*}
+\lim_{M \to \infty}\lim_{\delta\rightarrow 0} \lim_{\nu\rightarrow 0}\mathbb{I}^{\nu,\delta,M}_{t,\mathrm{ker}} \lesssim \int^t_0\int_{\mathbb{T}^2} |\rho^2 - \rho^1| \rho^2 + \int^t_0\int_{\mathbb{T}^2} \left| \mathcal{V}[\rho^1 - \rho^2]\cdot \nabla\rho^2\right|,
+\end{align*}
+as we take the limit in \eqref{WS K M1}--\eqref{WS K M3} using dominated convergence and monotone convergence, and we combine \eqref{WS K M1} with \eqref{WS K M5}. The first term on the right of \eqref{V-2} follows from the direct calculation that $(\rho^1)^2 - (\rho^2)^2 - (\rho^1)^2 + \rho^1\rho^2 = \rho^2(\rho^1 - \rho^2)$. We are now left with the proof of \eqref{WS K M4 = 0}, and we consider the approximations of the integral therein by 
+\begin{align}\label{WS K M4 approx}
+\delta\int^t_0\int_{\mathbb{T}^2} \nabla(\rho^2 - \rho^1) \cdot \mathcal{V}[\rho^1] \frac{\tilde{\zeta}^M(\rho^1) -\tilde{\zeta}^M(\rho^2)}{\delta} \kappa^{\mathrm{v}}\left(\frac{\rho^2 - \rho^1}{\delta}\right).
+\end{align}
+As the approximation is uniform in $M$ \Xiaohao{May need to prove this}, it suffices to prove that the above integral vanishes as $M \to \infty$, for any fixed $\delta > 0$. By the construction of $\zeta^M$, we have $|\tilde{\zeta}^M(\rho^1) -\tilde{\zeta}^M(\rho^2)| \leq |\rho^1 - \rho^2|$, and therefore, 
+\begin{align*}
+\left|\frac{\tilde{\zeta}^M(\rho^1) -\tilde{\zeta}^M(\rho^2)}{\delta} \kappa^{\mathrm{v}}\left(\frac{\rho^2 - \rho^1}{\delta}\right)\right| \lesssim \mathbf{1}_{\{|\rho^1 - \rho^2| \leq 1\}},
+\end{align*}
+while 
+\begin{align*}
+\left|\nabla(\rho^2 - \rho^1)\mathbf{1}_{\{|\rho^1 - \rho^2| \leq 1\}}\right| \lesssim |\nabla\rho^2| +  |\nabla\sqrt{\rho^1}|\sqrt{\rho^2 + 1}.
+\end{align*}
+It then follows from the condition on $\rho^2$ that the term in \eqref{WS K M4 approx} converges to zero as $\delta \to 0$, uniformly in $M$. \Xiaohao{Can we make $L^{\infty}$ in time weaker?}
+\end{proof}
+
+\section{Upper bound for large deviations}\label{sec:LDP-UB} In this section, the upper bound of large deviations is obtained the exponential martingale approach. We recall from \eqref{I0-intro} and \eqref{Efin-intro} that, if we define $\Lambda:\mathcal{E}_{\mathrm{fin}}\times C^{\infty}([0,T]\times\mathbb{T}^2)\rightarrow \mathbb{R}$ be defined by
+\begin{equation}\label{Lambda}
+\Lambda(\rho,\varphi)=F_{\rho}(\varphi)-\frac{1}{2} \left\langle \sqrt{\rho}\nabla \varphi,\sqrt{\rho}\nabla\varphi\right\rangle_{L_{[0,T]}^2L^2_{\mathbb{T}^2}},
+\end{equation}
+where $F_{\rho}(\varphi)$ is defined by 
+\begin{align}\label{F}
+F_{\rho}(\varphi) := \langle \rho,\varphi \rangle_{L^2_{\mathbb{T}^2}}\Big|^T_0 & - \langle \rho,(\partial_t - \Delta)\varphi\rangle_{L_{[0,T]}^2L^2_{\mathbb{T}^2}} - \langle\rho \mathcal{V}[\rho],\nabla\varphi\rangle_{L_{[0,T]}^2L^2_{\mathbb{T}^2}},
+\end{align}
+then the rate function $\mathcal{I}$ has the following equivalent representation
+\begin{equation}
+\mathcal{I}(\rho)=\sup_{\varphi\in C^{\infty}([0,T]\times\mathbb{T}^2)}\Lambda(\rho,\varphi).
+\end{equation}
+
+\begin{lem}[L.S.C. of Rate Function]\label{Iup L-S-C}
+Let $\mathcal{V}[\cdot]$ be defined by \eqref{ker-V} such that \eqref{eq:small-KS} holds. For each fixed $\varphi \in C^{\infty}([0,T]\times\mathbb{T}^2)$, $\Lambda(\cdot,\varphi)$ as defined in \eqref{Lambda} is continuous on $L^1([0,T] \times \mathbb{T}^2)$, and consequently \Xiaohao{check}, the rate function $\mathcal{I}$ is lower semi-continuous  with respect to the strong $L^1$ topology, namely, for every $(\rho_n)_{n\geq1}$ and $\rho$ in $\mathcal{E}_{\mathrm{fin}}$, 
+  \begin{equation}\label{IUP LSC}
+\lim_{n \to \infty}\rho_n = \rho \ \text{in} \ L^1_{[0,T]}L^1_{\mathbb{T}^2} \quad \Rightarrow \quad \liminf_{n \to \infty}\mathcal{I}(\rho_n)\geq \mathcal{I}(\rho).
+  \end{equation}
+\end{lem}
+\begin{proof}
+    If $\liminf_{\rho_n\rightarrow \rho}\mathcal{I}(\rho_n)=+\infty$, then \eqref{IUP LSC} is trivial. Therefore, we only consider the case that
+$\liminf_{n \to \infty}\mathcal{I}(\rho_n)<\infty$, which implies that there exists a subsequence $\left\{\rho_{k}\right\}_{k\in \mathbb{N}} \subset \left\{\rho_{n}\right\}_{n\in \mathbb{N}}$ such that it converges to $\rho$ in  $ L^1_{[0,T]}L^1_{\mathbb{T}^2}$ and
+\begin{align}\label{limit-subseq-rhonk}
+   \lim_{k \rightarrow\infty}\mathcal{I}(\rho_{k})=\liminf_{n \rightarrow \infty}\mathcal{I}(\rho_n). 
+\end{align}
+According to Lemma \ref{ske-lem} and \eqref{limit-subseq-rhonk}, we find a $\Psi^{k}$ for each $k \in \mathbb{N}$ such that $\rho_{k}$ is a weak solution to the skeleton equation
+\begin{align*}
+\partial_t\rho_{k}=\Delta\rho_{k}-\nabla\cdot(\rho_{k} \mathcal{V}[\rho_{k}]) & - \nabla\cdot(\rho_{k}\nabla\Psi^{k}), \\ & \quad \text{with} \ \sup_{k \in \mathbb{N}}\mathcal{I}(\rho_{k})=\sup_{k \in \mathbb{N}}\frac{1}{2}\|\sqrt{\rho_{k}}\nabla\Psi^{k}\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}^2 < \infty.
+\end{align*}
+With the same argument as used in Proposition \ref{entropy estimate}, we derive the following entropy estimate\Xiaohao{Check constant!}
+\begin{align}\label{SK EE}
+\int_{\mathbb{T}^2}\Psi(\rho_k)\mathrm{d}x \Big|_0^T+2\int_0^T\int_{\mathbb{T}^2}|\nabla\sqrt{\rho_k}|^2{d}x{d}t
+\leq \frac{1}{2}\|\sqrt{\rho_{k}}\nabla\Psi^{k}\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}^2,
+\end{align}
+which implies that the $L^2$ norms of the Fisher information is bounded uniformly in $k$. It follows that $\{\rho_k\}_{k \in \mathbb{N}}$ in bounded in $L^2([0,T] \times \mathbb{T}^2)$, and therefore by further taking a subsequence that we still label by $k \in \mathbb{Z}$ with  a slight abuse of notation, $\rho_k \rightharpoonup \rho$ weakly in $L^2([0,T] \times \mathbb{T}^2)$, and in particular $\rho \in L^2([0,T] \times \mathbb{T}^2)$. Besides, we have according to the Gagliardo-Nirenberg inequality that 
+\begin{align}\label{eq:Lp'-solution}
+\|\rho_k\|_{L^{p'}_{\mathbb{T}^2}} = \|\sqrt{\rho_k}\|^2_{L_{\mathbb{T}^2}^{2p'}} \lesssim  \| \nabla \sqrt{\rho_k}\|^{2/p}_{L_{\mathbb{T}^2}^{2}} \|\sqrt{\rho_k}\|^{2/p'}_{L_{\mathbb{T}^2}^{2}} = \| \nabla \sqrt{\rho_k}\|^{2/p}_{L_{\mathbb{T}^2}^{2}} \|\sqrt{\rho_k}\|^{1/p'}_{L_{\mathbb{T}^2}^{1}},
+\end{align}
+where $p \in (1,2)$ and $1/p + 1/p' = 1$. For every $\varphi\in C^{\infty}([0,T]\times\mathbb{T}^2)$, in order to show the continuity of $\Lambda(\cdot,\varphi)$, it is sufficient to prove that
+\begin{align}
+ \lim_{k \to \infty}\left\langle (\rho_{k} - \rho) \mathcal{V}[\rho],\nabla\varphi \right\rangle = 0, \label{eq:conv-interaction1}\\
+  \lim_{k \to \infty}\left\langle  \rho_{k} \mathcal{V}[\rho_{k} - \rho],\nabla\varphi \right\rangle = 0.\label{eq:conv-interaction2}
+\end{align}
+As $\mathcal{V}[\rho] \in L^2([0,T] \times \mathbb{T}^2)$, \eqref{eq:conv-interaction2} directly follows from weak convergence of $\rho_k$, and \eqref{eq:conv-interaction1} is due to \eqref{eq:Lp'-solution} and the $L^1$ conservation, since
+\begin{align*}
+\left\|\rho_{k} \mathcal{V}[\rho_{k} - \rho]\right\|_{L^1([0,T] \times \mathbb{T}^2)}\leq &\int_{0}^{T}\|\rho_{k}\|_{L^{p'}_{\mathbb{T}^2}} \left\|\nabla \mathcal{G}\ast (\rho_{k}-\rho) \right\|_{L^p_{\mathbb{T}^2}}\mathrm{d}s\\
+& \lesssim \|\rho_{k}\|_{L^\infty_{[0,T]}L^1_{\mathbb{T}^2}}^{\frac{1}{p'}}
+\int_{0}^{T}\|\nabla\sqrt{\rho_{k}}\|_{L^2(\mathbb{T}^2)}^{\frac{2}{p}}
+  \|\rho_{k}-\rho \|_{L^1_{\mathbb{T}^2}}\mathrm{d}s,
+\end{align*}
+where we use \eqref{eq:Lp'-solution} and $\nabla \mathcal{G} \in L^p$ for any $p < 2$ in the last inequality, and 
+\begin{align*}
+\int_{0}^{T}\|\nabla\sqrt{\rho_{k}}\|_{L^2(\mathbb{T}^2)}^{\frac{2}{p}}
+ \|\rho_{k}-\rho \|_{L^1_{\mathbb{T}^2}}\mathrm{d}s  \leq \|\nabla\sqrt{\rho_{k}}\|_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}^{\frac{2}{p}}
+\left(\int_{0}^{T}\|\rho_{k} - \rho\|_{L^1_{\mathbb{T}^2}}^{\frac{p}{p-1}}ds\right)^{\frac{p-1}{p}}\\ 
+\lesssim 
+\|\rho_{k}-\rho \|_{L^1_{[0,T]}L^1_{\mathbb{T}^2}}^{\frac{p-1}{p}},
+\end{align*}
+for any $p \in (1,2)$, where we use the $L^1$ conservation of $\{\rho_k\}$ and $\rho$ in the last step.  Consequently, $\Lambda(\rho,\varphi)$ is a continuous function of $\rho$ with respect to the strong topology on $L^1([0,T] \times \mathbb{T}^2)$ and therefore, $\mathcal{I}$ is lower semi--continuous. 
+\end{proof}
+
+The following upper bound of large deviations will be proved by using an exponential martingale method and the exponential tightness Lemma \ref{exponential-tight}. 
+
+\begin{proof}[Proof of \eqref{LDP LB} in Theorem \ref{thm:LDP}]
+    For every $t\in[0,T]$, $\varphi\in C^{\infty}([0,T]\times\mathbb{T}^2)$, we define $\mathcal{N}^{\varphi}:[0,T]\times \mathcal{E}_{\mathrm{fin}}$ as
+\begin{align*}
+\mathcal{N}_t^{\varphi}(\rho) = \langle \rho,\varphi \rangle_{L^2_{\mathbb{T}^2}} \Big|_0^t-\left\langle \rho,(\partial_t - \Delta)\varphi\right\rangle_{L^2_{[0,T]}L^2_{\mathbb{T}^2}} - \left\langle\rho \mathcal{V}[\rho],\nabla\varphi \right\rangle_{L^2_{[0,T]}L^2_{\mathbb{T}^2}}.
+\end{align*}
+According to the definition of $\mathcal{N}^{\varphi}$ and $\mu^{\varepsilon}$, we obtain that
+ $\mathcal{N}_{\cdot}^{\varphi}(\rho^{\varepsilon})$ is a $\mu^{\varepsilon}$--martingale with quadratic variation
+\begin{align*}
+\langle\mathcal{N}^{\varphi}\rangle(t,\rho^{\varepsilon})
+\leq\varepsilon \int_0^t\|\sqrt{\rho^{\varepsilon}}\nabla\varphi\|_{L^2_{\mathbb{T}^2}}^2\mathrm{d}s,
+\end{align*}
+and we further denote $\mathcal{Q}^{\varphi}$ as the exponential martingale with respect to $\mathcal{N}^{\varphi}$, i.e. 
+\begin{equation*}
+\mathcal{Q}_t^{\varphi}(\rho^{\varepsilon})
+:=\exp\Big\{\mathcal{N}_t^{\varphi}(\rho^{\varepsilon})
+-\frac{1}{2}\langle\mathcal{N}^{\varphi}\rangle(t,\rho^{\varepsilon})\Big\},
+\end{equation*}
+and then for every compact set $F$ of $L^1([0,T] \times \mathbb{T}^2)$, we can then bound its probability from above by
+\begin{align*}
+\mu^{\varepsilon}(F) & \leq \left[\sup_{\rho\in F} Q_T^{\varphi}(\rho)\right]^{-1}\int_{F}Q_T^{\varphi}(\rho)\mu^{\varepsilon}(\mathrm{d}\rho) \\ & \leq \exp\Big\{-\inf_{\rho\in F}\Big(\mathcal{N}_t^{\varphi}(\rho)-\frac{\varepsilon }{2}\int_0^t\|\sqrt{\rho}\nabla\varphi\|_{L^2_{\mathbb{T}^2}}^2\mathrm{d}s\Big)\Big\},
+\end{align*}
+where we use the fact that $\mathcal{Q}^{\varphi}(\rho^{\varepsilon})$ is a non-negative $\mu^{\varepsilon}$--martingale in the last inequality, which can be rewritten as
+\begin{align*}
+\varepsilon \log\mu^{\varepsilon}(F) \leq -\inf_{\rho\in F}\Big(\mathcal{N}_t^{\varepsilon \varphi}(\rho)-\frac{1}{2}\int_0^t\|\sqrt{\rho}\nabla(\varepsilon\varphi)\|_{L^2_{\mathbb{T}^2}}^2\mathrm{d}s\Big)
+\end{align*}
+Consequently, taking infimum with respect to $\varphi\in C^{\infty}([0,T]\times\mathbb{T}^2)$ and applying the min--max Lemma in \cite[Lemma 3.2]{KL}, we get from the construction of $\mathcal{N}^{\varphi}$ that
+\begin{align*}
+\limsup_{\varepsilon\rightarrow 0}\varepsilon \log\mu^{\varepsilon}(F)
+\leq - \inf_{\rho\in F}\sup_{\varphi\in C^{\infty}([0,T]\times\mathbb{T}^2)}\Big\{ \langle \rho,\varphi \rangle_{L^2_{\mathbb{T}^2}} \Big|_0^t - \left\langle \rho,(\partial_t - \Delta)\varphi\right\rangle_{L^2_{[0,T]}L^2_{\mathbb{T}^2}} \qquad \\ - \left\langle\rho \mathcal{V}[\rho],\nabla\varphi \right\rangle_{L^2_{[0,T]}L^2_{\mathbb{T}^2}} - \frac{1}{2}\int_0^t\|\sqrt{\rho}\nabla\varphi\|_{L^2(\mathbb{T}^2)}^2ds\Big\},
+\end{align*}
+Recalling the definition of the rate function from \eqref{I0-intro}, we conclude that for every compact set $F\subset L^1([0,T]\times \mathbb{T}^2)$, 
+\begin{align*}
+&\limsup_{\varepsilon\rightarrow0}\varepsilon \log\mu^{\varepsilon}(F)\leq-\inf_{\rho\in F}\mathcal{I}(\rho). 
+\end{align*}
+The upper bound of LDP \eqref{LDP LB} then holds for every closed set of $L^1([0,T]\times \mathbb{T}^2)$ due to the exponential tightness of $\mu^{\varepsilon}$ established in Proposition \ref{exponential-tight}. 
+\end{proof}

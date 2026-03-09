@@ -1,0 +1,530 @@
+\chapter{Introduction}
+
+The thesis focuses on the effective description of the dynamics of mean--field particle systems using stochastic partial differential equations (SPDEs thereafter), as the effective description of particle systems serves as one of the major motivations for the study of SPDEs \cite{funaki1984scaling,hairer2013kpz, goncalves2015kpz}. Compared with free particle systems, different types of interactions indeed lead to algebraic complications that impose significant mathematical challenges, so complicated that only reduced effective theories are expected.\\
+
+We restrict ourselves to Markovian particle systems with the mean--field interactions, where each particle `feels' its peers as an averaged field. As put by Sznitman \cite{sznitman1991topics}, the symmetric evolution of particles is `not an innocent assumption', as it is crucial for the phenomenon of propagation of chaos, that is particles behave independently and identically in law asymptotically as the number of particles tends to infinity, and in the context of quantum many--body systems, this was predicted by physicists in the 1920s, where the phenomenon now bears the names `Bose--Einstein condensation', and the permutation--symmetry property defines the particles to be `Bosons'. In 1924, after Bose’s revolutionary paper  \cite{Bose1924} on the statistical mechanics of photons was rejected by leading journals, he sent it to Einstein, who—recognizing its brilliance—personally translated it into German and ensured its publication. Einstein further applied Bose's method to material atoms \cite{Einstein1925}, introducing the word condensation to the theory: 
+\begin{quote}
+``Es tritt eine eigenartige Entartung des Gases ein, welche bei tiefen Temperaturen den Charakter einer Kondensation annimmt.''
+\end{quote}
+
+On the other hand, the Markovian assumption\footnote{Other Markovian particle systems, including zero--range process and exclusion processes, are of physical importance and also enjoy beautiful probabilistic interpretations, c.f. \cite{Liggett1985,Guo1988,Kipnis1986}. One can describe the hydrodynamic limit and equilibrium fluctuations of those systems using (S)PDEs as well, c.f. \cite{Bertini1997, Spohn1991,Giacomin2005, Quastel2012, Jara2009} and many others.  We will however not discuss about them further in this thesis.} on the microscopic level was another simplification introduced by Kac\footnote{We refer the readers to \cite{MischlerMouhot2013} for the modern development of the Kac's program.} in his study of Boltzmann equation~\cite{kac1956foundations}, and it is technically convenient as we later strive for an effective description of system by (stochastic) partial differential equations. 
+
+\section{Many--Body Particle Systems}
+
+As alluded to in the abstract, we mainly focus on two specific systems of mean--field type in this thesis; while the goal of this chapter is to present a broader perspective on related topics and to draw links to existing literatures. 
+
+\subsection{Mean--Field Particle Systems}
+\label{sec:MFT-physics}
+
+Mean--field theory (MFT) is one of the central tools in the physics of
+interacting many--body systems. Its origin can be traced to the work of
+Weiss (1907) on ferromagnetism, where the influence of neighboring spins
+was replaced by an averaged ``molecular field''. In its simplest form, MFT replaces a set of coupled degrees of freedom by
+the interaction with an effective average field. For example, in the study of the
+Ising model, the resulting prediction of a continuous phase transition at
+the critical temperature is one of the major successes of MFT, although critical
+exponents differ from those observed in low spatial dimensions.
+A systematic phenomenological formulation is given by Landau theory,
+discussed in detail in Goldenfeld~\cite{goldenfeld1992lectures}.
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.25\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/ising_lattice.pdf}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.7\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{figures/ising_tc.pdf}
+  \end{minipage}
+  \caption{\footnotesize Left: snapshot of a Monte Carlo simulation of the two–dimensional square-lattice Ising model near the critical region, showing the emergence of correlated spin domains. Right: comparison of the critical temperature $T_c$ as a function of the coupling constant $J$ (with $k_B=1$). The Landau mean-field prediction $T_c^{\mathrm{MF}}=zJ$ with coordination number $z=4$ is compared with the exact Onsager result $T_c=\frac{2J}{\ln(1+\sqrt{2})}\approx 2.269185\,J$. The mean-field approximation systematically overestimates the critical temperature because it neglects spatial fluctuations that become important in two dimensions.}
+  \label{fig:ising_simulation_and_tc_comparison}
+\end{figure}
+
+A major development in the late 20th century was the extension of MFT to
+disordered systems, most prominently the Sherrington--Kirkpatrick (SK)
+model for spin glasses.
+The broken replica--symmetry solution by Parisi and its mathematical
+formulation constitute one of the deepest applications of MFT beyond
+standard phase transitions. An authoritative treatment is given by
+M{\'e}zard, Parisi, and Virasoro~\cite{mezard1987spinGlass}.
+These methods influenced fields as diverse as neural networks, Bayesian
+inference, optimization in random media and many others.
+
+\begin{figure}[H]
+    \centering
+    % Replace with your actual image filename
+    \includegraphics[width=0.7\textwidth]{figures/sk.pdf}
+    \caption{\footnotesize\textbf{Overlap distribution $P(q)$ for the Sherrington-Kirkpatrick (SK) model.} 
+    The histogram displays the probability density $P(q)$ of finding a specific overlap $q_{\alpha\beta}$ between two independent replicas of the system, defined as $q_{\alpha\beta} = \frac{1}{N}\sum_{i=1}^{N}\sigma_i^\alpha\sigma_i^\beta$. Here, replicas ($\alpha, \beta$) are identical copies of the spin glass that share the exact same quenched disorder (the random interaction matrix $J_{ij}$) but undergo independent thermal fluctuations. 
+    \textbf{High Temperature ($T > T_c$, blue):} Thermal energy dominates the rugged energy landscape. Replicas act essentially as paramagnets, freely exploring uncorrelated configurations without getting trapped. This results in a single Gaussian peak centered at $q=0$, preserving Replica Symmetry (RS). 
+    \textbf{Low Temperature ($T < T_c$, red):} The system freezes into a spin glass phase. The energy landscape dictates the dynamics, trapping replicas into deep, mutually inaccessible valleys (local energy minima). When replicas fall into the same valley (or its global inversion), they exhibit high similarity, causing $P(q)$ to split into distinct peaks at $\pm q_{EA}$ (the Edwards-Anderson order parameter). This splitting and the emergence of multiple structural overlaps is the direct manifestation of Replica Symmetry Breaking (RSB).}
+    \label{fig:sk_pq_distribution}
+\end{figure}
+
+The mathematical concept of propagation of chaos was refined through the nonlinear Markov process framework of McKean~\cite{mckean1966class} after the foundational work by Kac, who introduced what are now known as McKean--Vlasov stochastic differential equations, whose ``coefficients depend on the distribution of the process itself''. They were further developed into a general theory by Sznitman~\cite{sznitman1991topics}. In this setting, empirical measures of $N$--particle systems converge to solutions of nonlinear Fokker--Planck equations, and quantitative versions of propagation of chaos provide explicit convergence rates under Lipschitz or monotone interaction assumptions.\\
+
+Due to the singularity of the interactions that are physically relevant, e.g. Coulomb or Riesz potentials, the rigorous justification of the mean--field limit PDE together with its corresponding particle systems has only been achieved by the works of Serfaty, Jabin--Wang and others. The modulated energy was introduced by Serfaty \cite{S20}, whose dynamic was monitored via a Grönwall--type inequality. The technique was later combined with the relative entropy method by Jabin, Wang and Bresch \cite{JW18,BJW19} to quantify the mean--field limit for a general class of singular kernels including the Biot--Savart law and Patlak--Keller--Segel kernel. We refer the readers to \cite{serfaty2024lecturescoulombrieszgases} for a comprehensive overview on related topics in classical mechanics.
+
+\subsection{Many-Body Quantum Systems}\label{sec:intro:MB Quantum}
+
+We now turn to the quantum perspective. After the foundational works on (non--interacting) Bosons and Fermions \cite{Bose1924, Einstein1925,Pauli1925,Fermi1926,Dirac1926}, the effective description of many-body quantum systems with interactions \cite{Lee1957A,Lee1957B,Lee1958} was one of the central topic of quantum physics around 1950s, while the rigorous justification has been a highly active field ever since. Second quantization was introduced as an effective formalism for handling many-body combinatorics. This includes creation and annihilation operators, their canonical (anti-)commutation relations, and the representation of many-body Hamiltonians as \textbf{quartic} operator polynomials. Further components of the classical theory were concerned mainly about the quadratic Hamiltonians, namely their diagonalization via coherent states \cite{Schrodinger1926,Glauber1963A,Glauber1963B} and Bogoliubov transformations \cite{Bogoliubov1947}, and the emergence of quasi-free (Gaussian) states characterized through Wick’s theorem \cite{Bratteli1987}. In particular, Bogoliubov transformations effectively diagonalize the quadratic term appearing in the quartic many--body Hamiltonian, c.f. Theorem 9.9 in \cite{Solovej2014}. \\
+
+In the mean-field regime, Bogoliubov's original theory successfully provides an effective description as shown in \cite{Serfaty2009} and others formalizing Bogoliubov's original idea; while for dilute gases, more sophisticated renomalization procedures are required. The major reason is that for long--range interactions, the cubic and quartic terms are negligible, and one may appeal directly to the Bogoliubov transformation after a good control of the number of excited particles. For the short--range interactions, the asymptotic spectral analysis, in particular the ground state and excitation spectrum of Bosons in the Gross--Pitaevskii regime and the aforementioned works of Lee--Huang--Yang for Bosons and the Huang--Yang formula for Fermions are much more challenging and have only been derived in  \cite{boccato2019bogoliubov,haberberger2023free,giacomelli2024huang,fournais2023energy} and many others in recent years, while the rigorous derivation of the Bose--Einstein condensation in the hydrodynamic limit remains a major open problem in mathematical physics.\\
+
+From the parallel perspective of the dynamics, the convergence of linear many-body Schr{\"o}dinger equation to the
+Hartree-Fock nonlinear Schr{\"o}dinger equation is investigated extensively both in the physics
+and mathematics literature, see for example the nice survey {\cite{R21}}. The first proof of
+qualitative convergence of many-body Bosonic system was obtained by Spohn
+{\cite{S80}} under the assumption that the potential is bounded under the
+framework of the BBGKY (Bogoliubov--Born--Green--Kirkwood--Yvon)
+hierarchy, which was then further extended to Coulomb interactions in the
+seminal work of Erd{\H o}s and Yau {\cite{EY01}}, c.f. also {\cite{BGM00}}.
+The Gross-Pitaevskii limit was extensively studied in a series of important
+works of Elgart-Erd{\H o}s-Schlein-Yau {\cite{EESY06,EESY062,ESY07,ESY09,ESY10}}, and the uniqueness of the
+BBGKY hierarchy was also promoted by {\cite{KM08, CP14,CH16}} and many others. \\
+
+While those works above exploit the BBGKY
+hierarchy, a quantitative convergence can be derived by introducing the
+Bosonic Fock space following, see {\cite{H74}}. Various methods have beed
+developed ever since, including the technique of coherent states
+{\cite{GV79-1}}, {\cite{GV79-2}}; Pickl's method of excited particles
+{\cite{KP10}}, {\cite{P11}}, {\cite{P15}} and Egorov's method {\cite{FGS07}},
+{\cite{FKP07}}. See also
+{\cite{EntropyDeVecchi1,EntropyDeVecchi2,EntropyDeVecchi3}} where a
+probabilistic approach using Nelson's stochastic mechanics and stochastic
+optimal control was used to prove the convergence of the $N$--particle system
+to the Bose--Einstein condensate. Concluding our discussions on the many--body particle systems, we now introduce another major role of this thesis.
+
+\section{Stochastic Partial Differential Equations}\label{sec:SPDE}
+
+As the name suggests, SPDEs are PDEs with randomness. A foundational probabilistic formulation of SPDEs was provided by Walsh \cite{walsh1986spde}, who introduced stochastic integration with respect to martingale measures and constructed random-field solutions for parabolic SPDEs.  A variational technique due to Pardoux and later Krylov–Rozovskiĭ \cite{krylovrozovskii1981} was then developed, where SPDEs were treated as evolution equations on Gelfand triples, allowing robust existence and uniqueness for monotone or coercive nonlinearities, including stochastic Navier–Stokes in two dimensions and reaction–diffusion systems. The textbook \cite{LR15} gives an elegant introduction on the topic of variational approach. One can also treat SPDEs as stochastic evolution equations in mild formulation on Hilbert spaces using semigroup theory as elaborated by Da Prato and Zabczyk in \cite{dapratozabczyk1992}. \\
+
+The methods mentioned above often generates a continuous flow on a Hilbert space, which however is not natural for some particular classes of stochastic PDEs, since the structure of the equation requires considering the equation elsewhere.  
+This include stochastic PDEs with conservative noise, and especially those in the framework of stochastic scalar conservation laws. The investigation has been an active topic since the pioneering works of Lions--Souganidis, Kim and Feng--Nualart \cite{LS98-1,Kim2003, FengNualart2008}. We refer the readers to \cite{LPS13,LPS14, FG16, GS15,GS17,DG20,KKRS18,KKRS20} for the entropy--kinetic solution theories for related equations, the incorporation with the rough--path techniques and the analytic and probabilistic properties of the solutions. On the other hand, \cite{RSZ22} provides a variational framework sufficient for the well-posedness of SPDEs driven by multiplicative noise with fully local monotone coefficients, which is quite handy for regular conservative noises. \\
+
+However, classical approaches, including those mentioned above, break down when nonlinearities must be evaluated on distribution-valued random fields even just for additive noises, in which case we conventionally say that the equation is `singular'. A refinement in the early 2000s was the Da Prato–Debussche trick\footnote{A similar trick was already realized by Bourgain \cite{Bourgain1996} in the setting of nonlinear wave equations. } \cite{dapratodebussche2003}, which decomposes solutions into a rough linear part and a smoother remainder, allowing treatment of certain subcritical singular SPDEs such as $\Phi^4_2$. However, such a postulation does not provide straightforward generalization and more structures are needed for more singular equations.
+
+\subsection{Stochastic Elliptic/Parabolic SPDEs}
+It was then gradually realized by probabilists that the full generalization of the rough--path theory by Lyons \cite{Lyons1998}  sufficed for the desired structure. The pathwise local solution theory of singular SPDEs was established after the introduction of powerful tools like regularity structures {\cite{H14}}, paracontrolled calculus {\cite{GIP15}} and renormalization flow \cite{Ku16,D21}. Roughly speaking, those methods allow to solve via fixed-point argument scaling--subcritical singular SPDEs by treating the nonlinearity of the equation perturbatively in some sense. In particular, an abstract algebraic renormalization procedure on models has then been established by \cite{bruned2019algebraic} in the framework of regularity structure. The analytic counterpart, providing a canonical renormalized model independent of the approximation procedure, was established by \cite{chandrahairer2016bphz, LOTT24}. All combined, the regularity structure now provides a quite complete local solution theory for subcritical singular elliptic and parabolic equations, the significant implications of which include: 
+
+\begin{itemize}
+\item Crucial steps in the rigorous stochastic quantization \cite{ParisiWu1981} towards probabilistic construction of the Euclidean quantum field of $\Phi^4$ \cite{Shen2021,broux2025multi,duch2023parabolic,barashkov2025markovpropertyvarphi43cylinder}, sine--Gordon \cite{CHS18,gubinelli2024fbsde} , Yang--Mills  \cite{CCHS24,BS24} , and etc. 
+\item The validation of universal scaling laws, particularly those belonging to the Kardar-Parisi-Zhang (KPZ) universality class\footnote{The KPZ universality class describes the large-scale, long-time stochastic fluctuations of a vast array of far-from-equilibrium systems of random surface growth \cite{Corwin2014}, turbulence with e.g. Burgers' equation \cite{Bouchaud1995, Frisch1995}, interacting particle systems \cite{huang2025scalinglimitweaklyasymmetric} and directed polymers in random media \cite{Amir2011,Corwin2014}.
+} \cite{Kardar1986}, c.f. \cite{Corwin2012}. 
+\end{itemize}
+
+In the second half of the thesis, we encounter another closely--related problem, namely, the construction of the continuum Anderson Hamiltonian, which has the form 
+\begin{align*}
+\mathcal{H} = \Delta + \xi - \infty
+\end{align*}
+with spatial white noise $\xi$ and can be thought of
+describing the motion of particles in a random environment. The analysis of
+such random operators is also motivated by the phenomenon called
+Anderson localization after the seminal work {\cite{A58}}, which
+describes the absence of diffusion of waves in a
+disordered medium. Anderson showed that in 3D the bottom of
+the spectrum of the discrete Anderson Hamiltonian consists
+of localized eigenfunctions. Mathematically, the (de)localization of the
+Anderson Hamiltonian is more well-understood in the discrete\footnote{which we
+mean to be either the discretization on lattices $\mathbb{Z}^d$ or the
+Schr{\"o}dinger operators on the continuum spaces with discretized random
+potentials.} setting, c.f. the nice books and lecture notes {\cite{K07}},
+{\cite{S11}}, {\cite{CL12}} and {\cite{K16}} and references therein for a more complete overview of the vast field of research. \\
+
+Meanwhile, the rigorous justification of the Anderson (de--)localization with the continuum operator has been well-studied only in 1D with the recent breakthroughs {\cite{DL20}} and {\cite{DL24}}. In fact, the construction of the continuum operator is already highly nontrivial. Using the theory of Dirichlet forms, Fukushima and Nakao {\cite{FN77}}
+constructed the continuum Anderson Hamiltonian on boxes with finite length with Dirichlet boundary condition, while the construction is more challenging for dimensions two and three. This was only resolved after the introduction of the powerful tools of singular SPDEs introduced above. \\
+
+The first construction of the (singular) continuum Anderson Hamiltonian was in {\cite{AC15}} on $\mathbb{T}^2$ using paracontrolled calculus. This construction was extended and reformulated in {\cite{GUZ20}} also to $\mathbb{T}^3$ using paracontrolled calculus combined with an exponential ansatz inspired by {\cite{HL15}} and {\cite{DW18}}. Labb{\'e} {\cite{Lab19}} used regularity structures to construct the operator in dimensions up to three with periodic and Dirichlet boundary conditions. Let us also mention the following related constructions and results on bounded domains/compact manifolds {\cite{CvZ21,MvZ22,BDM22,M22,MOsimple}} and on the full space {\cite{Ueki}}, {\cite{HL24}}. We refer the readers to \cite{shen2024globalwellposedness2dgeneralized,chandra2025prioribounds2dgeneralised} for the treatment of parabolic Anderson model with singular SPDE techniques, which is is built to characterize the reaction--diffusion process in a white random environment. 
+
+\subsection{Random Dispersive Equation}\label{sec:intro-ANLS}
+
+It is natural to ask: what about the wave analogue of the parabolic Anderson model? In Chapter~\ref{ch:ANLS} we study an NLS where
+the linear part is given by the Anderson Hamiltonian operator and the
+non-linearity is of Hartree-Fock type. More precisely, we consider
+the following formal (stochastic) PDE
+\begin{align}\label{eq:main1}
+  i \partial_t u (t, x) = - \frac{1}{2} (\Delta + \xi (x) - \infty) u (t, x) +
+  u (t, x) V \ast | u (t, \cdot) |^2 (x), 
+\end{align}
+for $(t, x) \in \mathbb{R}_+
+  \times \mathbb{T}^3$, where $\xi$ is white noise on $\mathbb{T}^3$, the symbol $- \infty$
+indicates a suitable renormalization procedure, and $V \geqslant 0$
+is an interaction potential on $\mathbb{T}^3$. From an analytical perspective, although the linear part of Eq.~\eqref{eq:main1} lacks the smoothing properties inherent in its parabolic counterpart, we nonetheless expect to exploit its \textbf{dispersive} nature.  \\
+
+There have been marvelous developments on singular dispersive SPDEs emcompassing Eq.\eqref{eq:main1}, an interesting line of inquiry that largely started with {\cite{GKO23}} and {\cite{GKOT22}}, where nonlinear wave equations with additive space-time white noise are considered. See also {\cite{OOR20}} and {\cite{ORSW21}} amongst others in a similar vein. In a methodologically related but separate development, dispersive equations with random initial data have been studied widely, mainly as part of studying invariant (Gibbs) measures following the pioneering works {\cite{F85}}, {\cite{Z91}}, {\cite{LRS88}} and {\cite{B94}} in dimension one and {\cite{Bourgain1996}} in dimension two. More recently, in {\cite{DNY24}}, {\cite{DNY22}} and {\cite{BDNY24}} the new theory of \textbf{random tensors} was introduced by Deng and coauthors and implemented to vastly extend Bourgain's results on 2d NLS with general power nonlinearity and to 3d
+cubic nonlinear wave. Similar techniques have been used by Deng, Hani and coauthers in the derivation of kinetic wave equations \cite{DengHani2020} and their revolutionary work on Boltzmann equation \cite{DengHaniMa2024,DengHaniMa2025}.\\
+
+Despite the effectiveness of the random averaging techniques for additive noise and random initial condition, they crucially rely on the compact Abelian ambient space, which enables the transition of the random averaging estimates to additive combinatorics. It is not clear how they could be utilized for multiplicative noises as in \eqref{eq:main1}, as the geometry is intrinsically changed by the noise. \\
+
+
+The study of well-posedness results of nonlinear Schr{\"o}dinger equations
+with multiplicative spatial white noise was initiated by {\cite{DW18}}, who studied the cubic equation on
+$\mathbb{T}^2$, and was extended to the sub-cubic case on $\mathbb{R}^2$ in
+{\cite{DM19}}. In a similar vein, i.e. using the same kind of exponential
+transform (inspired by {\cite{HL15}}), {\cite{TZ23a}} and {\cite{TV23b}}
+extended the results of {\cite{DW18}} on $\mathbb{T}^2$ to arbitrary power
+nonlinearities using Strichartz estimates and modified energies introduced in
+\ {\cite{PTV17}} and in {\cite{DLTV24}} the analogous result was proved on
+$\mathbb{R}^2$.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{figures/nls.pdf}
+    \caption{\footnotesize
+        Relative growth of the Sobolev $H^s$ norm
+        $\|u(t)\|_{H^s}/\|u(0)\|_{H^s}$ (log scale)
+        for the 2D cubic NLS equation on $[0,2\pi)^2$,
+        integrated via the split-step Fourier method
+        with a Gaussian spectral initial condition.
+        Each curve corresponds to a different regularity exponent: regularity exponent: $s=2$ {\color[HTML]{8000FF}\rule[0.4ex]{0.5cm}{1.5pt}}, $4$ {\color[rgb]{0.35,0.28,0.78}\rule[0.4ex]{0.5cm}{1.5pt}} and $8$ {\color[HTML]{003366}\rule[0.4ex]{0.5cm}{1.5pt}}.}
+    \label{figures:nls_hs_norm}
+\end{figure}
+
+The crucial idea in \cite{PTV17} is to monitor the growth of the modified energy (which is comparable to the squared Sobolev norms of the solutions of the NLS)
+        \begin{align*}
+        \mathcal{E}_{2k}(u) = \|\partial_t^k u\|_{L^2}^2 - \frac{p-1}{4} \int_{M^d} |\partial_t^{k-1}\nabla_g(|u|^2)|_g^2 |u|^{p-3} \mathrm{dvol}_g\\ - \int_{M^d} |\partial_t^{k-1}(|u|^{p-1}u)|^2 \mathrm{dvol}_g
+        \end{align*}
+        for the corresponding NLS $i \partial_t u + \Delta_g u = |u|^{p-1} u$ evolving on a given manifold $M^d$, where $k \in \mathbb{N}$ and $p > 1$, and to use Strichartz estimates on the right hand side of the dynamic. \\
+
+The same kind of equation was studied in {\cite{GUZ20}} in
+slightly different spaces using a paracontrolled description of the Anderson
+Hamiltonian on $\mathbb{T}^2$ and $\mathbb{T}^3$ obtaining global
+well-posedness of the cubic equation on $\mathbb{T}^2$ and local
+well-posedness on $\mathbb{T}^3$ as well as global existence of energy solutions on
+$\mathbb{T}^2 .$ These results were extended to compact surfaces \cite{M22},
+{\cite{MZ24}} where in the latter also Strichartz estimates were proved and
+local well-posedness was proved in low-regularity spaces independent of the
+noise. Also using Strichartz estimates and modified energies, global
+well-posedness in the energy space and in the domain of the Anderson
+Hamiltonian was shown in {\cite{Z19}} for general nonlinearities. \\
+
+The dispersion is expected to be much weaker than the classical case, since due to Anderson localization, any dynamic wave packet placed in this system is decomposed into this basis of strictly localized states; as time evolves, these individual components merely undergo local phase rotations rather than continuous outward propagation, effectively halting macroscopic spatial dispersion. Therefore the estimates realized in \cite{Z19} is truly delicate. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{figures/ah_eigen_wn.pdf}
+    \caption{ \footnotesize
+        Log-density profiles of the lowest four eigenfunctions for the two-dimensional Anderson Hamiltonian $H = -\Delta + c \xi$ on the periodic torus $\mathbb{T}^2 = [0, L)^2$ for suitable coupling $c$. For genuine Anderson localization to be observed, the domain size $L$ must be significantly larger than the characteristic localization length. Once this properly scaled regime is reached, the random potential completely shatters the continuous spectrum of the free Laplacian into a pure point spectrum, meaning all energy eigenstates are spatially trapped.
+    }
+    \label{fig:ah_eigen_wn}
+\end{figure}
+
+In a very similar way, the cubic nonlinear wave equation with multiplicative white noise
+was shown to be globally well-posed in {\cite{GUZ20}} on $\mathbb{T}^2$ and
+$\mathbb{T}^3$ in both the strong and energy settings. Using finite speed of
+propagation, this equation was studied on the full space in {\cite{Zfinite}}
+and its invariant Gibbs measure on $\mathbb{T}^2$ was constructed in
+{\cite{BDVZ23}} combining the singular SPDE ideas of {\cite{GUZ20}} with the
+methods of {\cite{OT20}} to show invariance of Gibbs measures for wave
+equations. We also refer to the papers {\cite{CG15}}, {\cite{WXY24}} and the
+references therein for similar results for (Hartree) Schr{\"o}dinger equations
+with multiplicative noise which is white in time but more regular
+in space.\\
+
+Regarding the physical relevance of Eq.~\eqref{eq:main1}, the present discussion can be unified with the previous treatment in Section~\ref{sec:intro:MB Quantum}, as Schr{\"o}dinger equations of the form \eqref{eq:main1} with a Hartree-Fock nonlinearity (without the noise term $\xi$) physically describe the Bose-Einstein condensation\footnote{As the formal derivation of this fact requires some further technical setups, we postpone it to Section \ref{sec:ANLS-derivation}.} in either the mean-field limit, dilute gas or the Gross-Pitaevskii limits. The Schr{\"o}dinger equation combining the
+Anderson Hamiltonian and a Hartree-Fock non-linearity can then be used to
+model the behaviour of a Bose-Einstein condensate in a random environment. Such a model has been tested in some experiments having the main aim of
+showing and studying the Anderson localization in a Bose--Einstein condensate {\cite{billy2008direct,Nature08}} (see also Section 22.3 in
+{\cite{pitaevskii2016bose}} and the theoretical physics discussion of the
+problem in {\cite{shapiro2012cold}}).
+
+\subsection{(Some) Supercritical SPDEs}
+Despite the huge success of singular SPDE theories that has been discussed so far, the effectiveness of such tools is only expected for `subcritical' equations, i.e. the equations whose nonlinearity vanishes as one zooms into smaller and smaller scales, while the well-posedness of `supercritical' equations is not expected to be derived in the path-wise sense due to scaling arguments. Does this imply that we have reached a dead end?\\
+
+The short answer is no, and one could still hope for the existence of solution with a weaker notion, while the uniqueness is definitely more challenging and requires more knowledge of the structure of the specific equation. Fundamental results of the energy solution theory have been achieved by Gubinelli--Perkowski in \cite{GubinelliPerkowski2018, GubinelliPerkowski2020} for KPZ--Burgers equation\footnote{The original results obtained in \cite{GubinelliPerkowski2018, GubinelliPerkowski2020} are still restricted to subcritical equations, but it turns out that the methodology extends to critical and supercritical setting in comparison with pathwise techniques. We also refer the readers to \cite{graefner2024weakwellposednessenergysolutions,graefner2025energysolutionssdessupercritical} for similar techniques used for SDEs with singular drifts}, where the Gaussian invariant measure and the underlying Fock--Bosonic structure is crucially used, and it is realized that the corresponding infinite--dimensional Kolmogorov equation mimics the structure of the transport--diffusion equation.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{figures/kpz.pdf}
+\caption{\footnotesize Time--evolution plot of a one-dimensional KPZ interface simulated on a periodic domain via Euler--Maruyama discretisation. Higher the interface, brighter the color.}
+\label{fig:intro_KPZ}
+\end{figure}
+
+Specifically, the Bosonic--Fock structure can be more easily identified within the Sasamoto--Spohn discretization \cite{sasamoto2009superdiffusivity}, whose Hamiltonian can be specifically written down as $H = H_0 + \lambda (A - A^{\ast})$, where $H_0$ is the second quantization of the discrete Laplacian, $A$ is cubic in annihilation and creation and $\lambda$ is the coupling constant. In \cite{GubinelliPerkowski2018, GubinelliPerkowski2020}, the ground state transform from the generator to the Hamiltonian is rigorously extended using Wiener-Itô integral. In comparison with the asymptotic spectral analysis of the Hamiltonian using unitary transformations discussed in section \ref{sec:intro:MB Quantum}, it is more canonical in the field of Markovian process to consider the resolvent of the generator exploiting the three--diagonal structure of the Hamiltonian and the so--called Itô's trick c.f. \cite[Definition 4.12 ($\textrm{iii}$)]{GubinelliPerkowski2020}. \\
+
+In the critical regime of some equations, such as the 2D Stochastic Burgers Equation, it has then been proven that standard diffusive scaling breaks down in favor of logarithmic super--diffusivity, yet the system ultimately converges to a linear Stochastic Heat Equation with an enhanced effective diffusion coefficient. This triviality extends to the supercritical regime, where recent rigorous results in the weak coupling limit confirm that the nonlinearity becomes irrelevant at macroscopic scales, causing the fluctuations to converge to Gaussian limits, thereby ruling out stable non-Gaussian field theories in these dimensions without new non-perturbative mechanisms. We refer the readers to \cite{CannizzaroGubinelliToninelli2024,CannizzaroErhardToninelli2023} and references therein for details and to \cite{graefner2024energysolutionssingularspdes} for more equations that enjoy similar structures. On the other hand, some other equations admit non--Gaussian scaling limit in the critical regime as for instance shown in \cite{CSZ2023, caravenna2024critical2dstochasticheat, grafner2025critical}. \\
+
+Another example of supercritical SPDE of great physical interest is the Dean-Kawasaki equations
+\begin{align}\label{eq:reduced-DK-main}
+    \mathrm{d}\rho^N_t = \Delta \rho^N_t \mathrm{d}t + \nabla \cdot \big(\rho^N_t  \nabla W \ast \rho^N_t \big)\mathrm{d}t + \frac{2}{\sqrt{N}}\nabla \cdot \big(\sqrt{\rho^N} \cdot \mathrm{d}W_t\big),
+\end{align}
+where $W$ is an interaction potential and $\mathrm{d}W$ denotes the space--time white noise. Although Eq.~\eqref{eq:reduced-DK-main} is widely recognized as effective approximate descriptions of empirical distributions of Brownian particle systems by a conservative SPDEs, it is highly singular due to the irregularity of the space-time white noise, worsened by the divergence on the noise term. Furthermore, the square root in front of the noise leads to degeneracy as the solution hits zero, which makes the equation difficult to handle even if the white noise is replaced by spatially colored noise. It has recently been shown in \cite{KLvR19,KLvR20} that under appropriate conditions on the coefficients there is weak uniqueness for the martingale problem formulation of~\eqref{eq:reduced-DK-main}, and that the only solutions are given by the empirical measures of the particle system.\\
+
+
+Consequently, in order to obtain a well-posed equation, we need to approximate the noise so that the equation is at least subcritical with regard to parabolic scaling. Moreover, even for spatially constant noise the It\^o correction together with the degeneracy and singularity of the square root leads to arbitrarily fast negative diffusion near zeros of the solution, which means that despite its appearance the SPDE is not parabolic. This problem can be avoided by replacing the It\^o noise with Stratonovich noise, and in that case there has been significant progress with the help of (stochastic) entropy solution and kinetic solution theory to tackle the square root \cite{FG21,DG20,GGK22}.
+
+\subsection{Large Deviation Principle}
+
+It is most natural to consider the probabilistic properties of the solution after the establishment of the existence and uniqueness of an SPDE. Here we discuss briefly about the small--noise LDP of the solutions to some SPDEs as a transition from the solution theory in Section \ref{sec:SPDE} to the following discussion on hydrodynamic fluctuation, in accordance with the macroscopic fluctuation theory (MFT) \cite{Bertini2015}. In short, the MFT theory justifies the approximation of particle systems with SPDEs and provides a unified large deviation framework for systems out of equilibrium.\\
+
+Regarding the simplified case of SDEs of the form $\mathrm{d}X_t = b(X_t) + \sqrt{\varepsilon}\sigma(X_t)\cdot \mathrm{d}B_t$, it is well-known that the classical Freidlin--Wentzell theory \cite{Freidlin1998} asserts the large deviation principle with rate function
+\begin{align*}
+\mathcal{I}(\rho) = \frac{1}{2} \int_0^T \left\| \sigma^{-1}(\rho_t) \left[ \dot{\rho}_t - b(\rho_t) \right] \right\|^2 \mathrm{d}t,
+\end{align*}
+
+under regularity conditions on the coefficients and as $\varepsilon \to 0$. The extension of such results into infinite--dimensional settings is a classical topic in SPDEs, and we refer the readers to Faris, Jona--Lasinio, Mitter and many others \cite{FJ82,JM90,QY98,M10,CM11,HW15}, direct consequences including the exponential--tail control of exit times, exploited in e.g.\ \cite{Tsatsoulis2020}.\\
+
+The weak convergence approach of \cite{DE11,BDM11} has been used to derive small--noise LDP by translating the problem into the well-posedness and stability of the so-called \textbf{skeleton equations}. The philosophy behind is that the core of the weak--convergence method, namely the Boué--Dupuis formula, formally linearizes the estimates of exponential moments with control, and the skeleton equation is exactly the perturbation of the SPDEs in the direction of the Cameron--Martin space of the space--time white noise. \\
+
+In terms of the approximation of the particle systems using the Dean--Kawasaki equation, large deviation principles have been established in \cite{FG23,WZ22} using the method of weak convergence. \cite{FG23} further showed that the rate function of the zero-range process coincides with its lower semi-continuous envelope on all trajectories with finite entropy dissipation, owing to the well-posedness and stability of the associated skeleton equation. Building on this, \cite{GessHeydecker2023} established a full large deviation principle for a rescaled zero-range process using a pathwise entropy dissipation approach. \\
+
+Regarding dynamical large deviations for stochastic systems without pathwise uniqueness, particularly when the associated skeleton equation lacks uniqueness for trajectories, the establishment of a full large deviation principle presents significant challenges. In \cite{Heydecker2023}, Heydecker provides counterexamples indicating that the full lower bound for large deviations may fail in the context of Boltzmann equations, due to the lack of uniqueness for the skeleton equation. Subsequently, \cite{GessHeydeckerWu2023} established a restricted large deviation principle for the three-dimensional Landau--Lifshitz--Navier--Stokes equations, where the lower bound matches the upper bound on the closure of the weak-strong uniqueness class.
+
+\section{Hydrodynamic Fluctuation and Wasserstein Space}\label{sec:Wasserstein-LDP}
+
+Formulating the connection between SPDEs and particle systems through hydrodynamic fluctuations necessitates a precise understanding of the ambient space, namely the space of probability measures. The calculus on the Wasserstein space, i.e. the space of probability measures equipped with suitable topology, is a central topic at the intersection of probability, analysis and geometry, and the crucial observation by Otto \cite{Otto2001,Jordan1998} states that formally the Fokker--Planck equations with mean--field interactions 
+\begin{align}\label{eq:FKP-general}
+\partial_t \rho = \Delta \rho + \nabla \cdot \left[\rho \nabla (V + W * \rho) \right]
+\end{align}
+can be interpreted as the $\mathcal{W}_2$--gradient flow of the free energy functional $\mathcal{F}[\rho] = \int (\rho \log \rho + V \rho) + \frac{1}{2} \iint \rho W\ast \rho$, that is, we can formally rewrite \eqref{eq:FKP-general} as 
+\begin{align*}
+\partial_t \rho = -\nabla_{\mathcal{M}}\mathcal{F}[\rho] = - M[\rho] \frac{\delta}{\delta \mu}\mathcal{F}[\rho],
+\end{align*}
+where the inverse Riemannian tensor is given by $M[\rho] = - \nabla \cdot [\rho \nabla (\cdot)]$ so that the right hand side coincides with \eqref{eq:FKP-general}.\\
+
+Such a structure of gradient flow also has fundamental probabilistic implications, as it formally identifies the rate function of the dynamical large deviation principle of the corresponding particle system with the weighted squared norm of the deviation from the deterministic gradient flow trajectory, i.e. the mean--field limit, according to \cite{adams2013large}. Specifically as stated in \cite[(19)]{adams2013large}, the rate function is given by
+\begin{align*}
+\mathcal{I}[\rho] &= \frac{1}{2}\int^T_0 \Big\|\partial_t \rho + M[\rho]\frac{\delta \mathcal{F}}{\delta \mu}[\rho] \Big\|^2_{\rho,\ast}
+\end{align*}
+where $\|\cdot\|_{\rho,\ast}$ denotes the dual norm with respect to 
+$\|\xi\|_{\rho}^2 = \int \xi M[\rho](\xi) = \int \rho |\nabla \xi|^2$. Dawson--G\"artner \cite{DJ87,DJ89}, Feng--Kurtz \cite{FengKurtz2006}\footnote{The major technical ingredient of  \cite{FengKurtz2006}  is to prove the comparison principle for the viscous solutions to some Hamilton--Jacobi equations with a large enough family of forcing terms, which is also closely related to the discussion on Lions' Calculus in section \ref{sec:Wasserstein-Lions}.}, Barr\'e--Bernardin--Ch\'etrite, Chopra--Mariani \cite{BBCCM19} and Gvalani--Schlichting \cite{GS20} have also demonstrated the large deviation results of mean-field interacting particle systems using different methods. 
+
+
+\subsection{Dean--Kawasaki Equations}\label{sec:DK-derivation}
+We now illustrate how the geometric picture suggests the consideration of the Dean--Kawasaki equation~\eqref{eq:reduced-DK-main} with Stratonovich as the approximation of particle systems out of equilibrium\footnote{While Dean--Kawasaki equation should characterize the non--Gaussian out--of--equilibrium fluctuation of the particle systems, it is also intriguing to consider the Gaussian fluctuation as is accomplished in \cite{WZZ21} using Gaussian analysis. On the other hand, the central limit theorem (CLT) (Gaussian fluctuations) of interacting particles systems have been previously investigated by Tanaka and Hitsuda \cite{TH81}, Tanaka \cite{T84}, Fernandez and
+M\'el\'eard \cite{FM97}.}, which reads
+\begin{align*}
+    \mathrm{d}\rho^N_t = \Delta \rho^N_t \mathrm{d}t + \nabla \cdot \big(\rho^N_t  \nabla W \ast \rho^N_t \big)\mathrm{d}t + \frac{2}{\sqrt{N}}\nabla \cdot \big(\sqrt{\rho^N} \circ \mathrm{d}W_t\big).
+\end{align*}
+The discussion in this section follows \cite{Gess2025Fluctuations} closely, and we refer the reader to it for comprehensive discussions on the topic of fluctuations in continuum with the focus on conservative SPDEs.\\
+
+In the finite--dimensional setting, the fluctuation--dissipation relation (FDR) asserts that the SDE
+\begin{align}\label{eq:SDE_FDR}
+\mathrm{d}X_t = -M(X_t)\nabla \mathcal{F}(X_t)\mathrm{d}t + \sqrt{2\beta^{-1}M(X_t)} \circ \mathrm{d}B_t
+\end{align}
+is invariant under the Gibbs measure with Stratonovich noise
+\begin{align*}
+\mu^{\mathrm{inv}}(\mathrm{d}x) \propto \mathrm{exp}\left(-\beta\mathcal{F}(x)\right) \mathrm{d}x,
+\end{align*}
+given the free energy $\mathcal{F}$, the mobility $M$ and the inverse temperature $\beta$, where we interpret $M = \sqrt{M} \cdot \sqrt{M}^{\mathrm{t}}$. Indeed, the Fokker-Planck equation for the SDE is 
+\begin{align*}
+\partial_t\mu =-\nabla \cdot \big(M (\mu\nabla \mathcal{F} + \beta^{-1}\nabla \mu)\big),
+\end{align*}
+where $\mu$ denotes the evolution of the probability measure, as part of the diffusion term cancels with the It\^o--Stratonovich correction, and apparently $\mu^{\mathrm{inv}}$ belongs to the kernel of the adjoint of the generator.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=1\textwidth]{figures/unimodal.pdf}
+\caption{\footnotesize Heat map snorapshots of the Stratonovich SDE \eqref{eq:SDE_FDR} on $S^2$ started from an arbitrary initial distribution, where the mobility is given by the inverse Riemannian tensor and we consider the potential to be unimodal (peak at the north pole). As time evolves, the empirical density relaxes toward the Gibbs invariant measure.}
+\label{fig:intro_FDR}
+\end{figure}
+
+With the geometric intuition, we formally derive the Dean--Kawasaki equation~\eqref{eq:reduced-DK-main}, which corresponds to the particle system according to the FDR by setting the external potential $V= 0$ in \eqref{eq:FKP-general} and the stochastic integration is chosen to be Stratonovich respecting the underlying geometry. In this case the invariant measure $\mu^{\mathrm{inv}}$ of \eqref{eq:reduced-DK-main} is formally given by the Gibbs one, which formally has the density with respect to the ``Lebesgue measure'' on the Wasserstein space
+\begin{align*}
+\mu^{\mathrm{inv}}(\mathrm{d}\rho) \propto \mathrm{exp}\left(\frac{-N\mathcal{F}[\rho]}{2}\right) \text{``$\mathrm{d}\rho$''}, 
+\end{align*}
+as the noise term in \eqref{eq:reduced-DK-main} can be interpreted as $(2\beta^{-1})^{1/2}M^{1/2}[\rho]\circ \mathrm{d}W$ with inverse temperature $\beta = N/2$, and the mobility is given by the inverse Riemannian tensor $M[\rho] = - \nabla \cdot [\rho \nabla (\cdot)]$. With all the observations above combined, \eqref{eq:reduced-DK-main} with Stratonovich noise is exactly designed to respect the fluctuation--dissipation relation together with the prescribed free energy and the Wasserstein geometry. \\
+
+Despite the choice of Stratonovich integrations in the thermal noises motivated from the geometric interpretation, the original idea of Kawasaki and Dean \cite{K73, D96} suggests using the It\^o integration instead. The latter can be explained using elementary stochastic analysis, as we will do next.\\
+
+We consider the general weakly interacting particle system
+\begin{align}\label{eq:def-IPS}
+\mathrm{d}X^i_t = b(X_t^i, {\rho}_{X_t})\mathrm{d}t +\sqrt{2}\Sigma(X_t^i, {\rho}_{X_t})\cdot \mathrm{d}W^i_t, 
+\end{align}
+on the $d$-dimensional torus, where $i \in  \{1, ..., N\}$ is the particle index, the coefficients $b: \mathbb{T}^d \times \mcl{P}(\mathbb{T}^d) \to \mathbb{R}^{d}$ and $\Sigma: \mathbb{T}^d \times \mcl{P}(\mathbb{T}^d) \to \mathbb{R}^{d\times d}$ are periodic functions, $\{W^i\}_{i=1}^N$ are independent $d$-dimensional Brownian motions,  and the empirical measure\footnote{When writing ${\rho}_{X_t} \in \mcl{P}(\mathbb{T}^d)$ we have already used that the periodicity of the coefficients allows us to interpret $X$ as a $(\mathbb{T}^d)^N$-valued Markov process, which we will always do.}  is defined by
+\begin{equation*}
+{\rho}_{X_t} := \frac{1}{N} \sum_{i=1}^N \delta_{X_t^i} \in \mcl{P}(\mathbb{T}^d).
+\end{equation*}
+Using It\^o's formula for $\langle f, {\rho}_{X_t} \rangle$ with a test function $f \in C^{\infty}(\mathbb{T}^d)$, we have
+\begin{equation*}
+\begin{split}
+    \mathrm{d}\langle f, {\rho}_{X_t}\rangle & = \Big\langle \big[b(\cdot, {\rho}_{X_t}) \cdot \nabla\big] f, {\rho}_{X_t} \Big\rangle \mathrm{d}t + \mathrm{d}M_t \\
+    & + \Big\langle \Big\{\Big[\Sigma (\cdot, {\rho}_{X_t})  \cdot \Sigma (\cdot, {\rho}_{X_t})^{\transpose}\Big] : \nabla^2 \Big\}f, {\rho}_{X_t} \Big\rangle \mathrm{d}t,
+   \end{split}
+\end{equation*} 
+where $(M_t)_{t \geq 0}$ is a continuous martingale, and $:$ is the Frobenius product of matrices. If we pretend for the moment that $\rho_{X_t}$ is a probability density, the quadratic variation of $(M_t)_{t \geq 0}$ is further given by
+\begin{align*}
+    \mathrm{d}[M]_t = \mathrm{d}[\langle f, {\rho}_{X_{\cdot}}\rangle]_t 
+    & = \frac{2}{N}\Big \langle \Big|\big[\Sigma (\cdot, {\rho}_{X_t})^{\transpose} \cdot \nabla\big]f\Big|^2, {\rho}_{X_t} \Big\rangle \mathrm{d}t\\
+    & = \frac{2}{N}\Big(\int_{\mathbb{T}^d}\Big|\sqrt{{\rho}_{X_t}}\big[\Sigma (\cdot, {\rho}_{X_t})^{\transpose} \cdot \nabla\big]f\Big|^2\mathrm{d}x\Big)\mathrm{d}t\\
+    & = \frac{2}{N} \sum_{k \in \mathbb{Z}^d}\Big|\Big\langle\sqrt{{\rho}_{X_t}}\big[\Sigma (\cdot, {\rho}_{X_t})^{\transpose} \cdot \nabla\big]f, e_k\Big\rangle\Big|^2\mathrm{d}t,
+\end{align*}
+where $\{e_k\}_{k \in \mathbb{Z}^d}$ is the Fourier orthonormal basis of $L^2(\mathbb{T}^d, \mathbb{C})$ and we applied Plancherel's identity. We define that
+\begin{equation*}
+    a(x,\mu) := \Sigma(x,\mu) \cdot \Sigma(x,\mu)^{\transpose},
+\end{equation*}
+so the above calculation suggests that $\rho_{X_t}$ is a solution to the following SPDE:
+\begin{equation}\label{eq:DK_full}
+\begin{split}
+\mathrm{d}\rho^N_t =  \nabla^2 : \big[a(\cdot, \rho^N_t) \rho^N_t\big]\mathrm{d}t - \nabla \cdot \big[ b(\cdot, \rho^N_t) \rho^N_t \big]\mathrm{d}t\\ + \frac{\sqrt{2}}{\sqrt{N}}\nabla \cdot\big[(\rho^N_t)^{\frac{1}{2}} \Sigma (\cdot, \rho^N_t) \cdot \mathrm{d}W_t\big],
+\end{split}
+\end{equation}
+where $(W_t)_{t \geq 0}$ is the $d$-dimensional real cylindrical Wiener process on $L^2(\mathbb{T}^d)$, that is the time integral of the space-time white noise. It is also not hard to see that \eqref{eq:DK_full} is a nonlinear generalization of \eqref{eq:reduced-DK-main} if we neglect the difference of the stochastic integrations.\\
+
+As for stochastic transport equations~\cite{Kunita1990} we could then hope to solve \eqref{eq:DK_full} with absolutely continuous initial condition to obtain a description of the flow of particles without resolving individual particles.  However, this is impossible by the triviality result from \cite{KLvR19,KLvR20}, which says that~\eqref{eq:DK_full} is a tautologic description of the original particle system which does not allow for any simplification or model reduction. Therefore, we follow \cite{FG21,DKP23} in considering a regularized version of \eqref{eq:DK_full}, 
+\begin{equation}\label{eq:DK_reg-intro}
+\begin{split}
+    \mathrm{d}m^N_t = \nabla^2: \big[a(\cdot, m^N_t) m^N_t\big]\mathrm{d}t - \nabla \cdot \big[ b(\cdot, m^N_t)m^N_t \big]\mathrm{d}t \\ + \frac{\sqrt{2}}{\sqrt{N}}\nabla \cdot (f^N(m^N_t) \Sigma (\cdot, m^N_t) \cdot \mathrm{d}W^N_t),
+\end{split}
+\end{equation}
+where
+$$
+m \mapsto \nabla^2 :[ a(\cdot, m)m] + \nabla \cdot [ b(\cdot, m)m]
+$$
+is the nonlinear Fokker-Planck operator governing the evolution of the law of the mean-field limit of~\eqref{eq:main_particle}, $f^N: \mathbb{R} \to \mathbb{R}^+ \cup \{0\}$ is a well-chosen approximation of the square root, and the noise $W^N$ is colored in space and white in time and it approximates the space-time white noise.\\
+
+To quantify the effectiveness of \eqref{eq:DK_full} approximating the particle systems \eqref{eq:def-IPS}, it is then natural to compare arbitrary statistics of the two dynamics at any given time, namely the weak--error rate of the approximation. From the perspective of stochastic analysis, this problem boils down to the ``regularity'' of corresponding Kolmogorov equations. In the previous work \cite{DKP23}, it is realized however that if we simplify the model by setting the drift to be zero and the diffusion coefficient to be constant, then the corresponding Kolmogorov equation decouples on each ``chaos'' (sectors of fixed particle numbers), namely each homogeneity component of the test polynomial functionals, and the problem is reduced to the analysis of a family of finite--dimensional Hamilton--Jacobi equations with smooth initial conditions. It turns out that for a fully nonlinear system as \eqref{eq:DK_reg-intro}, a rigorous analytic setup of the Wasserstein space is required. 
+
+
+\subsection{Wasserstein Space and Lions' Calculus}\label{sec:Wasserstein-Lions}
+
+While Otto's calculus focuses on the formal geometric intuition on the Wasserstein spaces with local Hilbertian structures at tangentials, another perspective (sometimes called `Lions Calculus' in the literature) is taken by Cardaliaguet, Delarue, Lasry and Lions in the rigorous treatment of mean--field game and control, and the idea is that one could consider the space of $L^2$ random variables as covering of the Wasserstein spaces. We refer the readers to \cite{C10, BLPC17, CDLL19, CD22} for detailed discussions on the materials that are presented. \\
+
+Throughout, we equip the space of probability measures on $\mathbb{T}^d$ with weak topology, or equivalently, with the Wasserstein distance $\mcl{W}_2(\cdot,\cdot)$. Given $\mcl{F}: \mcl{P}(\mathbb{T}^d) \to \mathbb{R}$ continuous, we define the directional derivative $\delta \mcl{F}/\delta \mu: \mcl{P}(\mathbb{T}^d) \times \mathbb{T}^d \to \mathbb{R}$ to be continuous and satisfy 
+\begin{align*}
+    \lim_{\epsilon \to 0^+} \frac{1}{\epsilon} \Big\{\mcl{F}[\epsilon \rho' + (1 - \epsilon)\rho ] - \mcl{F}[\rho]\Big\}= \int_{\mathbb{T}^d} \frac{\delta \mcl{F}}{\delta \mu}[\rho](x)  \mathrm{d}(\rho' - \rho)(x),
+ \end{align*}
+for any $\rho, \rho' \in \mcl{P}$, and
+\begin{align*}
+\int_{\mathbb{T}^d}  \frac{\delta \mcl{F}}{\delta \mu}[\rho](x)\mathrm{d}\rho(x) = 0.
+\end{align*} 
+If $\delta \mcl{F} / \delta \mu : \mcl{P}(\mathbb{T}^d) \times \mathbb{T}^d \to \mathbb{R}$ is further continuously differentiable with respect to the spatial variable, we define the interior derivative (which therefore coincides with the $\mathcal{W}_2$ derivative in Otto Calculus) to be 
+\begin{align*}
+D_{\mu} \mcl{F}[\rho](x) := \nabla_x \frac{\delta \mcl{F}}{\delta \mu}[\rho](x).
+\end{align*}
+
+Given $\mcl{F}: \mcl{P}(\mathbb{T}^d) \to \mathbb{T}^d$ and a (atomless Polish) probability space $(\Omega, \mcl{F}, \mathbf{P})$, we define the lift $\tilde{\mcl{F}}$ of $\mcl{F}$ onto $L^2(\Omega; \mathbb{R}^d)$ to be 
+\begin{align*}
+L^2(\Omega, \mathbb{R}^d) \ni X \mapsto \tilde{\mcl{F}}(X) := \mcl{F}[\mcl{L}(\tau_X(0))],
+\end{align*}
+where $(\tau_x)_{x\in\mathbb{R}^d}$ is the group of translations on $\mathbb{T}^d$ and $x \mapsto \tau_x(0)$ is the canonical projection from $\mathbb{R}^d$ to $\mathbb{T}^d$. In other word, $\tau_X(0)$ is the periodization of $X$. For any $\mu \in \mcl{P}(\mathbb{T}^d)$, if there exists $X_0 \in L^2(\Omega; \mathbb{R}^d)$ with $\mcl{L}(\tau_{X_0}(0)) = \mu$ such that $\tilde{\mcl{F}}$ is Fr\'ech\'et differentiable at $X_0$, then it is Fr\'ech\'et differentiable at any $X \in L^2(\Omega; \mathbb{R}^d)$ with $\mcl{L}(\tau_X(0)) = \mu$ and the law of the derivative (identified as an element in $L^2(\Omega; \mathbb{R}^d)$) doesn't depend on the choice $X$. If we assume that the Fr\'ech\'et derivative of $\tilde{\mcl{F}}$ at any $X \in L^2(\Omega; \mathbb{R}^d)$, denoted as 
+$$
+D\tilde{\mcl{F}}[X] \in L^2(\Omega; \mathbb{R}^d),
+$$
+exists and is continuous with respect to $X$, then for any $\mu \in \mcl{P}(\mathbb{T}^d)$, there exists a lift $\xi_{\mu} \in L^2_{\mu}(\mathbb{T}^d; \mathbb{R}^d)$ s.t. 
+$$
+ D\tilde{\mcl{F}}[X] = \xi_{\mu}(\tau_X(0)), \quad \mathbf{P} \ \text{a.s.}
+ $$
+for any $X \in L^2(\Omega; \mathbb{R}^d)$ with $\mcl{L}(\tau_X(0)) = \mu$. A detailed proof can be found in \cite{C10}. The interior derivative now comes into play, since it is just the lift function given above, in the sense that for any continuous map $\mcl{F}$ on $\mcl{P}(\mathbb{T}^d)$ s.t. $D_{\mu}\mcl{F}$ exists and is continuous, $\tilde{\mcl{F}}$ is Fr\'ech\'et continuously differentiable on $L^2(\Omega, \mathbb{R}^d)$, and we have
+\begin{align*}
+\widetilde{D\mcl{F}}[\mu](x) = D_{\mu}\mcl{F}[\mu](x),
+\end{align*}
+for any $x \in \mathbb{T}^d$ and $\mu \in \mcl{P}(\mathbb{T}^d)$. Conversely, if $\tilde{\mcl{F}}$
+defined is Fr\'ech\'et continuously differentiable at any $X \in L^2(\Omega, \mathbb{R}^d)$, $D_{\mu}\mcl{F}$ then exists and the equality holds as well. The original proof can be found in \cite{CDLL19}. Due to the covering interpretation, one can often translate the original analytic problem into a probabilistic one, and vice versa. In order to prove for instance the convergence towards the so--called Nash equilibrium of the mean--field games, it is crucial to study the infinite--dimensional Hamilton--Jacobi equation (which is also named the master equation) of the form
+\begin{align}\label{eq:MFG-Master}
+    -\partial_t \mcl{F}(t, x, \mu) & - 2\Delta_x \mcl{F}(t, x, \mu) + H(x, \nabla_x \mcl{F}(t, x, \mu)) \nonumber \\
+     & - 2\int_{\mathbb{T}^d} (\nabla_y +  \nabla_x) \cdot [D_{\mu} \mcl{F}](t, x, \mu, y) \mathrm{d}\mu(y) \nonumber\\
+     & + \int_{\mathbb{T}^d} D_\mu \mcl{F}(t, x, \mu, y) \cdot \nabla_p H(y, \nabla_y \mcl{F}(t, y, m)) \mathrm{d}\mu(y)\nonumber \\
+    &- \int_{\mathbb{T}^d \times \mathbb{T}^d} \mathrm{Tr}[D_{\mu}^2 \mcl{F}(t, x, \mu, y, y')] \mathrm{d}\mu(y) \mathrm{d}\mu(y') = \mcl{G}(x, \mu), 
+\end{align}
+with given terminal conditions, where $\mcl{G}$ is a given forcing term and $H$ is the Hamiltonian of the problem. \\
+
+Closely related to \eqref{eq:MFG-Master} is the derivation of the weak error rate for the approximation of the weakly interacting diffusion with the corresponding SPDEs with thermal noise that we have discussed in the last section. Our approach is strongly influenced by \cite{T21,CD22}, which in term follows from the literature on mean--field game and control above, as we encounter a Kolmogorov--type equation \eqref{eq:master} 
+\begin{align*}
+\int_{\mathbb{T}^d} \Big\{a[\mu](x):\nabla D_{\mu}\mcl{G}(t,\mu,x) + b[\mu](x)\cdot D_{\mu}\mcl{G}(t,\mu,x)\Big\}\mathrm{d}\mu(x)\\
++ \partial_t \mcl{G}(t,\mu) = 0
+\end{align*}
+as a reduced linear version of \eqref{eq:MFG-Master}. Since the generator of the SPDE \eqref{eq:DK_reg-intro} is designed to mimic that of the particle system, we will see that the rest of the analysis is mainly technical as we compare the Kolmogorov equations.
+\newpage
+
+\section{Content Overview}
+
+The content of the thesis is summarized in the following Table \ref{table:thesis-content}.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{9cm}|>{\centering\arraybackslash}m{2cm}|}
+\hline
+ & Content & Reference \\
+\hline
+Chapter \ref{ch:weak} & Weak Error of Dean--Kawasaki equation with Smooth Interactions & \cite{djurdjevac2025weak} \\
+\hline
+Chapter \ref{ch:LDP} & Restricted LDP of Dean--Kawasaki equation with Coulomb interactions  & \cite{ji2025regularizedDeanKawasaki} \\
+\hline
+Chapter \ref{ch:ANLS} & Well--posedness of Anderson NLS & \cite{de2025stochastic}  \\
+\hline
+Chapter \ref{ch:BEC} & Qualitative and Quantitative Dynamical Bose--Einstein condensation in white potentials & \cite{de2025stochastic,zachhuber2025meanfield} \\
+\hline
+\end{tabular}
+\caption{Summary Table for Chapters \ref{ch:weak}--\ref{ch:BEC}}
+\label{table:thesis-content}
+\end{table}
+
+Chapter \ref{ch:weak} of the thesis is devoted to the weak--error estimate of the Dean--Kawasaki equation. In Section \ref{ch:GWP}, we prove the existence and uniqueness of the equation in Corollary \ref{thm:main_thm_1_full} under the regularity Assumption~\ref{assu:b_Sigma}. The proof combines the variational solutions provided by \cite{RSZ22} in a Gelfand tripe suitable for the gradient multiplicative structure of the noise, a taming procedure (\ref{eq:var_AB_tamed}) and the $L^1$ conservation law for non-negative initial data in Remark \ref{rem:positivity_DK_reg}. In Section \ref{sec:ito-Kol}, we derive an It\^o formula for the SPDE and for the empirical measure by using the approximation arguments, following \cite{CD22}. We also quantify the difference of the generators of these two measure-valued processes in Lemma \ref{lem:approximation_quadratic_variation} which relies on the key technical Lemma \ref{lem:approx_delta_x(y)}. In this estimate, the Fisher information of the SPDE appears and this can be controlled by the entropy estimate Lemma \ref{lem:entropy_DK_reg} which mimicks \cite{FG21}. In Section \ref{sec:weak_error}, we derive our weak error estimate by using the Kolmogorov backward (transport) equation for the mean-field limit together with Lemma \ref{lem:approximation_quadratic_variation}, whose conditions (essentially the $W^{2,\infty}$-bound in (\ref{eq:apprximation of V_F})) are translated into  spatial regularity assumptions for the solution to the Kolmogorov backward equation, which we establish in (\ref{eq:reg_D_mu2}) in Corollary \ref{thm:reg_D_mu2F_m_mu}. The main result is then stated and proved in Theorem \ref{thm:main_weak_error}.\\
+
+In Chapter \ref{ch:LDP}, we consider the LDP of Dean--Kawasaki equations with the singular interaction kernels of Coulomb type. Section \ref{sec:existence} is devoted the existence of renormalized kinetic solutions to equation \eqref{SPDE-0-intro} via compactness argument. In Section \ref{sec-4}, we derive exponential estimates that indicate the exponential tightness of the laws of solutions to \eqref{SPDE-1} in the space $L^1([0,T] \times \mathbb{T}^2))$. In Section \ref{sec:LB-LDP}, we focus the derivation of the lower bound with the entropy method of the LDP 
+in Theorem \ref{thm:LDP}, and crucially use the weak-strong uniqueness Proposition \ref{L1uniq} for the associated skeleton equation, whose proof is presented in Section \ref{sec-ws!}. More specifically, the verification of the entropy method requires the construction of a sequence of probability measures concentrating on an arbitrarily chosen trajectory. We show in Proposition \ref{C1} that the compactness is relatively easier to achieve and the passage to the limit for the skeleton equation \eqref{ske} still hold as in \cite{FG24,WZ22}, and as the the skeleton equation is supercritical, we verify the entropy method partially by selecting a trajectory within the more regular class $\mathcal{C}_0$ as defined in \eqref{S-intro}, and establish the uniqueness therein. We complete the proof of Theorem \ref{thm:LDP} in Section \ref{sec:LDP-UB} by proving the corresponding upper bound using the exponential martingale approach and min--max principle, which also concludes our discussion on Dean--Kawasaki equations.\\
+
+
+In Chapter \ref{ch:ANLS}, we investigate the well--posedness of the Anderson nonlinear Schrödinger equation. More precisely, in Corollary \ref{cor:energy-gwp}, Theorem \ref{thm:main}, Theorem \ref{thm:Vinfdomain} and
+Proposition \ref{thm:Vinftyenergywellposedeness}, we establish the
+well-posedness results of the Anderson NLS \eqref{eq:main1} under different
+conditions\footnote{We remark here that since we follow the general methodology of {\cite{GUZ20}}, all of the
+solutions we obtain are also limits of solutions of regularised equations as
+was proved rigorously therein.}, and the proofs are divided into several concrete steps. As the first step, we obtain all the necessary properties of the Anderson Hamiltonian: The rigorous definitions of the domain and form domain of the operator are given in Section \ref{sec:AH} using paracontrolled calculus, together with various ``musical transformations'' of the Anderson Hamiltonian. The transformation introduced in Lemma \ref{lem:homeom-Theta} is in particular essential for the method of modified energy. In Section \ref{sec:strichartz}, Strichartz estimates concerning the transformed Anderson Hamiltonian are established using micro--local argument. Secondly, we obtain local--wellposedness result in Section \ref{chapter-LWP} and blowup alternatives of the ANLS with the help of the classical fixed--point argument. Lastly in Section \ref{chapter:GWP}, we combine all the ingredients above with the modified energy method in the ``nonlinear Strichartz'' Lemma \ref{lem:nonlinear-strichartz} to derive global well--posedness results for the ANLS. \\
+
+In the last Chapter \ref{ch:BEC}, we justify the use of the ANLS as an effective description of the condensation of many--body Bosons with a white external potential. The formal derivation is performed in Section \ref{sec:ANLS-derivation}, which we make rigorous in the following Sections
+\ref{sec:conv-bbgky-proof} and \ref{section:uniqueness} respectively under
+different conditions of the interaction potential. In Theorem
+\ref{thm:convergencehierarchy} we justify of the limit of the many--body Schrödinger equations to
+the BBGKY hierarchy \eqref{eq:bbgky} assuming Coulomb interactions. On the other hand, we show in Theorem \ref{thm:unique-BBGKY-Linf} the uniqueness of
+solution to the BBGKY hierarchy when the interaction is bounded, as
+a direct consequence of which, the convergence of the Bosonic system to the
+solution of the equation \eqref{eq:main1} is validated. This implies that
+\eqref{eq:main1} indeed describes effectively the condensation, when the number of particles is
+sufficiently large, which is the content of Corollary \ref{corollary:main}.\\
+
+\newpage
+
+\subsection*{Omitted Details}
+For brevity and readability of the thesis, we omit some technical details that either are tangential to the main focus on the thesis or follow directly from classical arguments; we refer interested readers to the corresponding papers for details and summarize those points with the precise reference to the literature in the following table \ref{tab:omit}. 
+
+{\footnotesize
+\begin{longtable}{|m{3.6cm}|m{3.2cm}!{\vrule width 1pt}m{3.6cm}|m{3.2cm}|}
+\hline
+\textbf{Statement} & \textbf{Reference} & \textbf{Statement} & \textbf{Reference} \\
+\hline
+\endfirsthead
+\endhead
+\endfoot
+\caption{Omitted Technical Details}
+\label{tab:omit}
+\endlastfoot
+Coercivity of quasilinear elliptic operators in $H^{-1}$ in Lemma \ref{lem:Delta^v}.
+& \cite[Lemma A.1]{djurdjevac2025weak} and the proof below
+& Properties of the Mollifiers in Lemma \ref{lem:approx_id_kappa}
+& \cite[Lemma A.2]{djurdjevac2025weak} \\
+\hline
+Moment Bounds Eq. \eqref{eq:moment-bound-tamed-reg-eq} in the Gelfand Triple.
+& \cite[Section A.2]{djurdjevac2025weak}
+& Entropy estimates in Lemma \ref{lem:entropy_DK_reg}
+& \cite[Lemma 3.2]{djurdjevac2025weak} \\
+\hline
+Smooth Approximation of Cylindrical Functionals in Lemma \ref{lem:density_cylindrical}, \ref{lem:density_cylindrical2}.
+& \cite[Lemma 3.3 \& Section A.3.2]{djurdjevac2025weak}
+& It\^o's formulae in Proposition \ref{prop:ito_particle} and \ref{prop:ito_spde_DK}.
+& \cite[Proposition 3.5 \& 3.6]{djurdjevac2025weak} \\
+\hline
+Schauder estimates  with low regularity Lemma \ref{lem:heat-kernel}.
+& \cite[Lemma 4.3]{djurdjevac2025weak}
+& Forcing term in the second--order linearization $\mathcal{T}^{\mu}$ in Lemma \ref{lem:duality} and \ref{eq:reg-forcing-TR}.
+& \cite[Eq. (A.36) \& Lemma A.8]{djurdjevac2025weak} \\
+\hline
+Heat Kernel Estimates of $\mathcal{H}^{\sharp}$ in Lemma \ref{lem:heat-kernel-Hsharp}.
+& \cite[Lemma 2.12 \& B.1]{de2025stochastic}
+& Characterization of some Sobolev spaces with 
+$\mathcal{H}^{\sharp}$ in Lemma \ref{lem:space-equiv}. & \cite[Lemma 3.5]{de2025stochastic} \\
+\hline
+Classical LWP of ANLS in the (form) domain of $\mathcal{H}$ in Proposition \ref{prop-lwp-domain} and Theorem \ref{thm:naivegwp}.
+& \cite[Proposition 4.1, Theorem 5.3]{de2025stochastic}
+& Hardy inequality Lemma \ref{lem:Hardy}, \ref{rem:Vinequality} & \cite[Lemma 6.6 \& 6.7]{de2025stochastic} \\
+\hline
+Conservation Law in Lemma \ref{lem:boundrhoN}
+& \cite[Lemma 6.9]{de2025stochastic}
+& Reduction of mild to weak--mild formulation in Lemma \ref{lem:weakmild}
+& \cite[Lemma 6.13]{de2025stochastic} \\
+\hline
+\end{longtable}
+}
+

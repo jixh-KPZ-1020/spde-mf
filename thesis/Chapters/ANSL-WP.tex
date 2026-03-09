@@ -1,0 +1,2090 @@
+\chapter{Anderson Nonlinear Schrödinger Equation}\label{ch:ANLS}
+
+We recall the nonlinear Anderson NLS defined in \eqref{eq:main1} as 
+\begin{align*}
+  i \partial_t u (t, x) = - \frac{1}{2} (\Delta + \xi (x) - \infty) u (t, x) +
+  u (t, x) V \ast | u (t, \cdot) |^2 (x),
+\end{align*}
+where $\xi$ is the spatial white noise and $V$ denotes the interaction potential. In this chapter, we focus on the global well--posedness of \eqref{eq:main1} with suitably chosen initial conditions, as the connection of such an equation with many--body quantum systems via Bose--Einstein condensation is already motivated in the Introduction \ref{sec:intro-ANLS} and will be discussed in the following Chapter \ref{ch:BEC}.\\
+
+There are several technical challenges that one has to overcome in order to analyze \eqref{eq:main1}, and the first one encounters is the construction of the Anderson Hamiltonian $\Delta + \xi - \infty$ as a well--defined unbounded operator. This has been carried out in the literature via for instance the para--controlled calculus. Roughly speaking, elements in the domain of the operator is postulated to be the sum of some paraproducts and a smooth remainder, where the roughness is fully represented by the enhancement of the noise in the high--frequency of the paraproducts. Despite the abstract nature of the Hamiltonian itself, we can then concretely formulate how the Hamiltonian acts on the smooth remainder.
+
+\section{Anderson Hamiltonian on the 3D Torus}\label{sec:AH}
+
+\subsection{Construction}\label{sec:construction-AH}
+
+For the reader's convenience, we review briefly the construction and basic
+properties of the Anderson Hamiltonian on the 3D torus. We start, using
+largely the same notation as in {\cite{GUZ20}}, with a spatial white
+noise on $\mathbb{T}^3$, that is $\xi \in \mathcal{C}^{- 3 / 2 - \varepsilon}
+(\mathbb{T}^3)$, a.s. for $\varepsilon > 0$ arbitrarily small. We set
+$\xi_{\delta} := a_{\delta} \ast \xi$ with mollifiers
+$(a_{\delta})_{\delta > 0}$ and the mollified enhancement as
+\begin{eqnarray}
+  X_{\delta} := (1 - \Delta)^{- 1} \xi_{\delta}, &  & X_{\delta}^{\zzone}
+  := (1 - \Delta)^{- 1} (| \nabla X_{\delta} |^2 - c^1_{\delta}),
+  \nonumber\\
+  X_{\delta}^{\zztwo} := 2 (1 - \Delta)^{- 1} \left( \nabla X_{\delta}
+  \cdot \nabla X_{\delta}^{\zzone} \right), &  & W_{\delta} := X_{\delta}
+  + X_{\delta}^{\zzone} + X_{\delta}^{\zztwo},  \label{eqn:X2formal}
+\end{eqnarray}
+where $(c^1_{\delta})_{\delta > 0} \sim 1 / \delta$ is family of
+renormalization constants which tends to $+ \infty$ as $\delta
+\rightarrow 0^+$ and which should counteract the divergence of the stochastic
+objects in the limit. We make the following exponential ansatz inspired by
+{\cite{HL15}}:
+\begin{equation}
+  u_{\delta} = \exp (W_{\delta}^M) u_{\delta}^{\flat}, \label{ansatz:exp1}
+\end{equation}
+where $W^M_{\delta} := P_{> M} W_{\delta}$ is the high-frequency cut-off
+of $W_{\delta}$ defined in (\ref{eqn:X2formal}) by Fourier multiplier $P_{> M}
+= 1_{| \cdot | > 2^M} (D)$. It follows then by construction that
+\begin{equation}
+  \mathcal{H}_{\delta} u_{\delta} = (\Delta + \xi_{\delta} - c_{\delta})
+  u_{\delta} = \exp (W^M_{\delta}) (\Delta u_{\delta}^{\flat} + 2 \nabla
+  W^M_{\delta} \cdot \nabla u_{\delta}^{\flat} + [(1 - \Delta) Z_{\delta}]
+  u_{\delta}^{\flat}), \label{eq:def-mollifiedAH}
+\end{equation}
+where $c_{\delta} := c^1_{\delta} + c^2_{\delta}$ for another family of
+renormalization constant $(c^2_{\delta})_{\delta > 0} \sim \ln (1 /
+\delta)$ that also tends to $+ \infty$ as $\delta \rightarrow 0^+$, and $Z$
+depends on $M$ as well for now.
+
+\
+
+We emphasize that the $M$ parameter is not present in {\cite{GUZ20}}
+and it is needed in order to refine the mixed exponential-paracontrolled
+ansatz. This is the only place where we differ from the {\cite{GUZ20}}
+construction of the Anderson Hamiltonian. We specify the following random
+objects as
+\begin{eqnarray*}
+  (1 - \Delta) Z^M_{\delta} & = & \left| \nabla X_{\delta}^{\zzone} \right|^2
+  - c^2_{\delta} + \left| \nabla X_{\delta}^{\zztwo} \right|^2 + 2 \nabla
+  X_{\delta} \cdot \nabla X_{\delta}^{\zztwo} + 2 \nabla X_{\delta}^{\zzone}
+  \cdot \nabla X_{\delta}^{\zztwo} + W_{\delta}\\
+  &  & - 2 \nabla (P_{\leqslant M} W_{\delta}) \cdot \nabla W_{\delta} +
+  \Delta [\exp (- P_{\leqslant M} W_{\delta})] \exp (P_{\leqslant M}
+  W_{\delta}), \label{eq:def-Zdelta}
+\end{eqnarray*}
+and
+\begin{equation}
+  R^1_{\delta} = \nabla W_{\delta} \odot (1 - \Delta)^{- 1} \nabla^2
+  W_{\delta}, \quad R^2_{\delta} = \nabla Z_{\delta} \odot \nabla W_{\delta} .
+\end{equation}
+We will also call the family of stochastic objects
+\begin{equation}
+  \Xi_{\delta} (\omega) := \left( X_{\delta} (\omega),
+  X_{\delta}^{\zzone} (\omega), X_{\delta}^{\zztwo} (\omega), Z_{\delta}
+  (\omega), R^1_{\delta} (\omega), R^2_{\delta} (\omega) \right)
+  \label{eq:moll-enhance}
+\end{equation}
+the mollified enhancement and refer the readers to {\cite{GUZ20}} for the
+detailed construction of Anderson Hamiltonian on $\mathbb{T}^3$ and
+{\cite{CC18}} for the construction of the enhancement and the proof of the
+convergence of the enhancement established in the space
+\begin{equation}
+  \mathfrak{X}_{\varepsilon} := \mathcal{C}_{\mathbb{T}^3}^{\frac{1}{2} -
+  \varepsilon} \times \mathcal{C}_{\mathbb{T}^3}^{1 - \varepsilon} \times
+  \mathcal{C}_{\mathbb{T}^3}^{\frac{3}{2} - \varepsilon} \times
+  \mathcal{C}_{\mathbb{T}^3}^{\frac{3}{2} - \varepsilon} \times
+  \mathcal{C}_{\mathbb{T}^3}^{- \varepsilon} (\mathbb{R}^3) \times
+  \mathcal{C}_{\mathbb{T}^3}^{- \varepsilon}, \label{def:spaceXeps}
+\end{equation}
+equipped with the product topology. Note that the formulation is slightly
+different from the definition of the enhanced noise in {\cite{GUZ20}} but is
+essentially equivalent, since we have only subtracted the smooth objects
+$P_{\leq M} W_{\delta}$.
+
+\begin{lem}
+  \label{lem:conv-enhancement}There exists a choice of $(c^1_{\delta})_{\delta
+  > 0}$ and $(c^2_{\delta})_{\delta > 0}$ such that for any $\varepsilon > 0$,
+  $\omega$-a.s. it holds that up to a subsequence the mollified enhancement in
+  (\ref{eq:moll-enhance}) converge in $\mathfrak{X}_{\varepsilon}$ as $\delta
+  \rightarrow 0^+$, whose limit we denote as
+  \begin{equation}
+    \Xi_{\omega} := \left( X (\omega), X^{\zzone} (\omega), X^{\zztwo}
+    (\omega), Z (\omega), R^1 (\omega), R^2 (\omega) \right)
+    \label{eq:enhance} .
+  \end{equation}
+\end{lem}
+
+  Since the value of $\varepsilon > 0$ in \eqref{def:spaceXeps} is irrelevant,
+  we will usually drop it from our notation. Furthermore, we drop the fixed
+  realization $\omega$ so we will write for brevity
+  \[ \| \Xi \|_{\mathfrak{X}} := \| \Xi (\omega)
+     \|_{\mathfrak{X}_{\varepsilon}} \]
+  and so on. With all the probabilistic results at hand, it is crucially observed in
+{\cite{GIP15}} that, by imposing the paracontrolled Ansatz, i.e.
+\begin{equation}
+  u^{\flat} = P_{> N} [u^{\flat} \olessthan (1 - \Delta)^{- 1} Z + 2 \nabla
+  u^{\flat} \olessthan (1 - \Delta)^{- 1} \nabla W^M + B_{\Xi} (u^{\flat})] +
+  u^{\sharp}, \quad u^{\sharp} \in H_{\mathbb{T}^3}^2, \label{eq:para-ansatz}
+\end{equation}
+for some $N \in \mathbb{N}$ large enough and some continuous and linear random
+function $B_{\Xi} : H_{\mathbb{T}^3}^{3 / 2 -} \rightarrow
+H_{\mathbb{T}^3}^2$, whose explicit form we postpone to \eqref{eq:def-B}, and
+\begin{equation}
+  u = \exp (W^M) u^{\flat}, \label{def:flat}
+\end{equation}
+one can exploit the smoothing effect of certain well-chosen commutators and
+then rigorously define the limit of $(\Delta + \xi_{\delta} -
+c_{\delta})_{\delta > 0}$ in a suitable sense.
+
+\begin{prop}[{\cite{GUZ20}}]
+  \label{prop:construction-AH}Given a realization $\Xi$ of the enhancement as
+  in Lemma \ref{lem:conv-enhancement}, we define the domain of the Anderson
+  Hamiltonian $\mathcal{D} (\mathcal{H})$ to be
+  \begin{equation}
+  \begin{split}
+    \mathcal{D} (\mathcal{H}) = & \exp (W^M) \mathcal{D}^{\flat}, \\
+    & \mathrm{where }\mathcal{D}^{\flat} = \left\{ u^{\flat} \in L_{\mathbb{T}^3}^2 : u^{\flat}
+    \mathrm{satisfies} \left( \ref{eq:para-ansatz} \right) \mathrm{with}
+    \mathrm{some} u^{\sharp} \in H_{\mathbb{T}^3}^2 \right\},
+    \end{split}
+  \end{equation}
+  and the renormalized Anderson Hamiltonian is defined on $\mathcal{D}
+  (\mathcal{H}) \ni u$ by
+  \begin{equation}
+    \mathcal{H} u = \exp (W^M) (\Delta u^{\sharp} + [(1 - \Delta) Z] \odot
+    u^{\sharp} + 2 \nabla W^M \odot \nabla u^{\sharp} + G (u^{\flat})) -
+    K_{\Xi} u,
+  \end{equation}
+  where the linear functions $B_{\Xi} (\cdot)$ and $G (\cdot)$ are specified
+  in Appendix \ref{appendix:AH} and $K_{\Xi} < \infty$ is defined to be large
+  enough only depending on $\| \Xi \|_{\mathfrak{X}}$, such that
+  \begin{equation}
+    (u, - \mathcal{H} u) \geqslant \| u \|^2_{L_{\mathbb{T}^3}^2} .
+    \label{ineq:specgap}
+  \end{equation}
+  It holds that $(\mathcal{H}, \mathcal{D} (\mathcal{H}))$ is a densely
+  defined, closed and self-adjoint operator on $L_{\mathbb{T}^3}^2$ with
+  discrete spectrum.
+\end{prop}
+
+
+One can show by using paraproduct estimates that any $u^{\flat}$ given by
+\eqref{eq:para-ansatz} satisfies automatically
+\[
+u^{\flat} \in H_{\mathbb{T}^3}^{3 / 2 -}.
+\] 
+Moreover, it is straightforward that the
+  operator and its domain do not depend on the parameters $M$ and $N$, but
+  they only appear in the parametrization of the domain. The argument can be
+  found in Remark 2.44 in {\cite{GUZ20}}.
+
+\subsection{Perturbative
+Characterizations}\label{sec:perturb-AH-characterization}
+
+We now address the Fourier cutoffs $P_{> N}$ in (\ref{eq:para-ansatz}) giving
+rise to the so-called $\Gamma$-map introduced in {\cite{GUZ20}},
+which serves as the homeomorphism between a para-controlled variable and its
+smooth remainder in suitable spaces, when $N \in \mathbb{N}$ is chosen to be
+large enough only depending on the realization of the enhanced noise
+$\Xi$.
+
+\begin{lem}[$\Gamma$-map, {\cite{GUZ20}}]
+  \label{lem:con-Gamma}For a fixed realisation $\Xi$ as in Lemma
+  \ref{lem:conv-enhancement}, there exists an $N = N (\| \Xi
+  \|_{\mathfrak{X}})$ s.t. there is a linear map $\Gamma$ given implicitly by
+  \[ \Gamma u^{\sharp} = P_{> N} [\Gamma u^{\sharp} \olessthan (1 - \Delta)^{-
+     1} Z + 2 \nabla \Gamma u^{\sharp} \olessthan (1 - \Delta)^{- 1} \nabla
+     W^M + B_{\Xi} (\Gamma u^{\sharp})] + u^{\sharp} \]
+  which satisfies for any $\gamma \in \left( - \frac{1}{2}, 1 \right]$, $\beta
+  \in \left[0, \frac{3}{2}\right)$ and $p \in [1, \infty]$ that
+  \begin{itemize}
+    \item $\Gamma: H_{\mathbb{T}^3}^2 \to e^{- W}
+    \mathcal{D} (\mathcal{H})$ and $\Gamma: W^{\beta, p}_{\mathbb{T}^3}\to W^{\beta, p}_{\mathbb{T}^3}$ are homeomorphisms\footnote{where $\mathcal{D}^{\flat}$ is equipped with the inner product $ \|u^{\flat} \|^2_{\mathcal{D}^{\flat}} = \| u^{\flat}
+    \|^2_{H_{\mathbb{T}^3}^{\frac{3}{2} -}} + \| u^{\sharp}
+    \|_{H_{\mathbb{T}^3}^2}^2$,
+    which is Definition 2.42 in {\cite{GUZ20}}.},
+    
+    \item $\Gamma - \mathrm{id}$ is regularizing at low regularities, more
+    precisely
+    \begin{equation}
+      \Gamma - \mathrm{id} : W^{\gamma, p}_{\mathbb{T}^3} \rightarrow W^{\gamma
+      + \frac{1}{2} -, p}_{\mathbb{T}^3}  \text{is bounded} .
+      \label{eq:cont-G-id}
+    \end{equation}
+  \end{itemize}
+\end{lem}
+
+The proof of Lemma \ref{lem:con-Gamma} is a slight extension of Proposition
+2.46 in {\cite{GUZ20}} and we need to choose $N$ to be large enough due to the
+implicit definition of $\Gamma$ via fixed-point argument.
+
+\
+
+We now collect some facts that we will use in Section \ref{chapter:MFL-MB} about the approximation of the
+Anderson Hamiltonian $\mathcal{H}$ by $\mathcal{H}_{\delta}$ defined in
+\eqref{eq:def-mollifiedAH} and refer the readers to {\cite{GUZ20} for further
+details. 
+
+\begin{rem}[Mollification]\label{rem:mollif-AH}
+  We recall from \eqref{ansatz:exp1} the ansatz for
+  mollified enhancement \eqref{eq:moll-enhance} reads $u = \exp (W_{\delta}^M)
+  u^{\flat}$, and we define the $\Gamma_{\delta}$-map implicitly by
+  \begin{equation}
+  \begin{split}
+    u^{\flat} = \Gamma_{\delta} u^{\sharp}
+    = P_{> N} [& \Gamma_{\delta}
+    u^{\sharp} \olessthan (1 - \Delta)^{- 1} Z_{\delta} \\
+    & + 2 \nabla
+    \Gamma_{\delta} u^{\sharp} \olessthan (1 - \Delta)^{- 1} \nabla
+    W_{\delta}^M + B_{\Xi_{\delta}} (\Gamma_{\delta} u^{\sharp})] +
+    u^{\sharp}, \label{eq:def-Gamma-delta}
+    \end{split}
+  \end{equation}
+  or equivalently $\Gamma^{- 1}_{\delta} u^{\flat} = u^{\flat} - P_{> N} [u^{\flat}
+     \olessthan (1 - \Delta)^{- 1} Z_{\delta} + 2 \nabla u^{\flat} \olessthan
+     (1 - \Delta)^{- 1} \nabla W_{\delta}^M + B_{\Xi_{\delta}} (u^{\flat})]$. It follows by linearity that
+  \begin{equation*}
+  \begin{split}
+  (\Gamma^{- 1}_{\delta} - \Gamma^{- 1}) u^{\flat} = P_{> N} [& u^{\flat}
+     \olessthan (1 - \Delta)^{- 1} (Z - Z_{\delta}) \\ 
+     & + 2 \nabla u^{\flat}
+     \olessthan (1 - \Delta)^{- 1} \nabla (W^M - W_{\delta}^M) + B_{\Xi -
+     \Xi_{\delta}} (u^{\flat})], 
+     \end{split}
+    \end{equation*} 
+  which implies by the regularity of \eqref{eq:moll-enhance} and
+  \eqref{eq:bounded-B} that for any small $\varepsilon > 0$,
+  \begin{equation}
+    \| \Gamma^{- 1}_{\delta} - \Gamma^{- 1} \|_{\mathcal{L}
+    (H_{\mathbb{T}^3}^{- \frac{1}{2} + \varepsilon}, L_{\mathbb{T}^3}^2)}
+    \rightarrow 0, \quad \exp (W^M_{\delta}) \rightarrow \exp (W^M) \ \mathrm{in} \
+    \mathcal{C}_{\mathbb{T}^3}^{\frac{1}{2} - \varepsilon} \quad \delta
+    \rightarrow 0^+, \label{eq:convergence-exp-Gamma}
+   \end{equation}
+  where $\mathcal{L}$ denotes the operator norm. On the other hand, we can write
+  \begin{equation}
+    \mathcal{H}_{\delta}^{\sharp} u^{\sharp} = \Gamma^{- 1}_{\delta} (\Delta
+    u^{\sharp} + [(1 - \Delta) Z_{\delta}] \odot u^{\sharp} + 2 \nabla
+    W_{\delta}^M \odot \nabla u^{\sharp} + G_{\delta} (u^{\flat})) - K_{\Xi}
+    u^{\sharp} . \label{eq:def-Hdelta-sharp}
+  \end{equation}
+  so that $(\mathcal{H}_{\delta}^{\sharp} - \mathcal{H}^{\sharp}) u^{\sharp} =
+    (\Gamma^{- 1}_{\delta} - \Gamma^{- 1}) (\Delta u^{\sharp} + [(1 - \Delta)
+    Z_{\delta}] \odot u^{\sharp} + 2 \nabla W_{\delta}^M \odot \nabla
+    u^{\sharp} + G_{\delta} (u^{\flat}))
+    + \Gamma^{- 1} ([(1 - \Delta) (Z_{\delta} - Z)] \odot u^{\sharp} + 2
+    \nabla (W_{\delta}^M - W^M) \odot \nabla u^{\sharp} + (G_{\delta} - G)
+    (u^{\flat}))$. It follows from \eqref{eq:convergence-exp-Gamma}, the regularity of
+  \eqref{eq:moll-enhance} and \eqref{eq:bounded-G} that for any small
+  $\varepsilon > 0$
+  \begin{equation}
+    \| \mathcal{H}_{\delta}^{\sharp} - \mathcal{H}^{\sharp} \|_{\mathcal{L}
+    (H_{\mathbb{T}^3}^{\frac{3}{2} + \varepsilon}, L_{\mathbb{T}^3}^2)} \rightarrow
+    0, \label{eq:conv-Hsharp-delta-3/2}
+  \end{equation}
+  as $\delta \rightarrow 0^+$. 
+\end{rem}}
+
+A very useful consequence of Lemma \ref{lem:con-Gamma} are the following
+bounds which we will use liberally. We denote the energy domain
+$\mathcal{D}(\sqrt{- \mathcal{H}})$ of the Anderson Hamiltonian
+to be the closure of the domain under the norm defined by 
+\[
+\| u
+\|^2_{\mathcal{D} \left( \sqrt{- \mathcal{H}} \right)} = (u, - \mathcal{H}
+u).
+\]
+
+\begin{lem}[Embeddings and Equivalence of Norms]
+  \label{lem:embed}Recall that $(\cdot, \cdot)$ denotes the inner product in
+  $L_{\mathbb{T}^3}^2$. The following norm equivalences are true:
+  \begin{eqnarray}
+    (- u, \mathcal{H} u)^{\frac{1}{2}} =: \| u \|_{\mathcal{D} \left(
+    \sqrt{- \mathcal{H}} \right)} & \asymp & \| e^{- W} u
+    \|_{H_{\mathbb{T}^3}^1} \asymp \| e^{- W^M} u \|_{H_{\mathbb{T}^3}^1}, 
+    \label{eq:Dom-equiv-H1}\\
+    \| \mathcal{H} u \|_{L^2} =: \| u \|_{\mathcal{D} (\mathcal{H})}
+    & \asymp & \| (e^W \Gamma)^{- 1} u \|_{H_{\mathbb{T}^3}^2} \asymp \|
+    (e^{W^M} \Gamma)^{- 1} u \|_{H_{\mathbb{T}^3}^2},  \label{eq:Dom-equiv-H2}
+  \end{eqnarray}
+  Moreover, one has the embeddings
+  \begin{eqnarray}
+  e^{- W^M} H_{\mathbb{T}^3}^1 =\mathcal{D} \big( \sqrt{- \mathcal{H}}
+    \big) \hookrightarrow W_{\mathbb{T}^3}^{s, p}, \quad & 0 \leqslant
+    s < \frac{1}{2}, \quad p = \frac{6}{1 + 2 s},\\ \label{eq:emb-energydom-Wsp}
+    e^{- W^M} \mathcal{D} (\mathcal{H}) \hookrightarrow W_{\mathbb{T}^3}^{s,
+    p}, \quad & \frac{1}{2} < s < \frac{3}{2}, \quad p = \frac{6}{2 s -
+    1},\\
+    H_{\mathbb{T}^3}^2 = \Gamma^{- 1} e^{- W^M} \mathcal{D} (\mathcal{H})
+    \hookrightarrow W_{\mathbb{T}^3}^{s, p}, & \frac{1}{2} < s <
+    2, \quad p = \frac{6}{2 s - 1},  
+  \end{eqnarray}
+  and lastly 
+  \begin{equation}
+   \Gamma^{- 1} e^{- W^M} \mathcal{D} (\mathcal{H}) \hookrightarrow
+    \mathcal{C}_{\mathbb{T}^3}^{\frac{1}{2} -}, e^{- W^M} \mathcal{D}
+    (\mathcal{H}) \hookrightarrow \mathcal{C}_{\mathbb{T}^3}^{\frac{1}{2} -},
+    \mathcal{D} (\mathcal{H}) \hookrightarrow
+    \mathcal{C}_{\mathbb{T}^3}^{\frac{1}{2} -}. 
+    \end{equation}
+  \end{lem}
+
+\begin{proof}[Proof.]
+ The first two points were already proven in {\cite{GUZ20}}, Proposition
+ 2.57, and the embeddings follow from the Besov embeddings, c.f. e.g.
+  {\cite{W22}}, Chapter 16, and the boundedness of multiplication of $\exp
+  (\pm W)$ in $W_{\mathbb{T}^3}^{s, p}$ for $s < \frac{1}{2}$ and the boundedness
+  of $\Gamma$ on $W^{s, p}$ for $s < \frac{3}{2}$ from Lemma \ref{lem:con-Gamma}.
+\end{proof}
+
+\begin{cor}
+  \label{cor:uniformdelta}We have the following bounds
+  for the regularized objects
+  \begin{align*}
+    \| f \|_{W_{\mathbb{T}^3}^{s, p}} \lesssim \| f \|_{\mathcal{D} \left(
+    \sqrt{-\mathcal{H}_{\delta}} \right)} \asymp \| e^{- W_{\delta}}
+    f \|_{H_{\mathbb{T}^3}^1}, \quad & 0 \leqslant s < \frac{1}{2}, \quad p = \frac{6}{1 + 2
+    s}
+  \end{align*}
+  uniformly in $\delta > 0$.
+\end{cor}
+
+So far the construction is essentially identical to that in {\cite{GUZ20}},
+since the exponential Ansatz (\ref{ansatz:exp1}) differs from that in
+{\cite{GUZ20}} only by a smooth function $\exp (P_{\leqslant M} W)$, while the
+merit of considering a high-frequency cutoff is shown in the following
+lemmata. We will use essentially such a transformation in the control of the
+second-order energy in Section \ref{sec:high-order-energy}, the use of which
+will be clarified in Remark \ref{rem:neces-exp-ansatz}.
+
+\begin{lem}[$\Theta$-map]
+  \label{lem:homeom-Theta}Let $\Theta : \mathcal{S}' (\mathbb{T}^3)
+  \rightarrow \mathcal{S}' (\mathbb{T}^3)$ be defined by
+  \begin{equation}
+    \Theta (u^{\sharp}) := - (1 - \Delta)^{- 1} ([\exp (W^M) - 1]
+    \olessthan \Delta u^{\sharp}) + u^{\sharp} . \label{eq:def-Theta-map}
+  \end{equation}
+  We have for any $s \in \mathbb{R}$ that $\Theta : W_{\mathbb{T}^3}^{s, p}
+  \rightarrow W_{\mathbb{T}^3}^{s, p}$ is continuous for $p \in [1, \infty)$,
+  and further there exists an $M = M (\| \Xi \|_{\mathfrak{X}})$ large enough,
+  such that $\Theta$ is invertible and $\Theta^{- 1} : W_{\mathbb{T}^3}^{s, p}
+  \rightarrow W_{\mathbb{T}^3}^{s, p}$ is continuous.
+  
+  \begin{proof}[Proof.]
+    It suffices to notice that by the paraproduct estimates from Lemma
+    \ref{lem:para} that
+    \begin{eqnarray*}
+      \| (1 - \Delta)^{- 1} ([\exp (W^M) - 1] \olessthan \Delta u^{\sharp})
+      \|_{W_{\mathbb{T}^3}^{s, p}} & \lesssim & \| \exp (W^M) - 1
+      \|_{L_{\mathbb{T}^3}^{\infty}} \| u^{\sharp} \|_{W_{\mathbb{T}^3}^{s,
+      p}}\\
+      & \lesssim & \| W^M \|_{L_{\mathbb{T}^3}^{\infty}} \| u^{\sharp}
+      \|_{W_{\mathbb{T}^3}^{s, p}},
+    \end{eqnarray*}
+    where we can further control $\| W^M \|_{L_{\mathbb{T}^3}^{\infty}} = \|
+    P_{> M} W \|_{L_{\mathbb{T}^3}^{\infty}} \lesssim 2^{- M / 2 +} \| W
+    \|_{\mathcal{C}_{\mathbb{T}^3}^{\frac{1}{2} -}}$ by Bernstein's inequality and
+    derive
+    \begin{equation}
+      \| (1 - \Delta)^{- 1} ([\exp (W^M) - 1] \olessthan \Delta u^{\sharp})
+      \|_{W_{\mathbb{T}^3}^{s, p}} \leq \frac{1}{2} \| u^{\sharp}
+      \|_{W_{\mathbb{T}^3}^{s, p}},
+    \end{equation}
+    by choosing $M$ large enough. This shows that $\Theta$ is in fact
+    invertible.
+  \end{proof}
+\end{lem}
+
+We now state two perturbative results which are true if one includes the
+$\Theta$ but which are not clear if one simply uses the mixed
+exponential-paracontrolled ansatz from {\cite{GUZ20}}. In the two-dimensional
+case, one often uses a similar result e.g. in {\cite{Z19}} and {\cite{MZ24}}.
+The transformation that accomplishes both \eqref{eq:diff-G-id} and
+\eqref{eq:diff-HeWG-Lap} is the one of the technical novelties of this paper.
+
+\begin{lem}
+  \label{lem:Lambda}Let $p \in [2, \infty],$ given a realization $\Xi$ of the
+  enhancement (\ref{eq:enhance}) of the spatial white noise $\xi$, we have
+  that the map $\Lambda := \exp (W^M) \Gamma \Theta^{- 1}$ has the
+  following perturbative properties:
+  \begin{eqnarray}
+    \Lambda - \mathrm{id} : & W_{\mathbb{T}^3}^{\beta, p} {\rightarrow
+    W_{\mathbb{T}^3}^{\frac{1}{2} + \beta -, p}} ,  \label{eq:diff-G-id}\\
+    \Lambda^{- 1} \mathcal{H} \Lambda - \Delta : &
+    W_{\mathbb{T}^3}^{\frac{3}{2} + \beta, p} {\rightarrow
+    W_{\mathbb{T}^3}^{\beta -, p}}   \label{eq:diff-HeWG-Lap}
+  \end{eqnarray}
+  are bounded for $\beta \in \left( - \frac{1}{2}, \frac{1}{2} \right)$. The
+  map $\Lambda$ equivalently parametrises the domain of $\mathcal{H}$, i.e.
+  $\mathcal{D} (\mathcal{H}) = e^W \Gamma (H_{\mathbb{T}^3}^2) = \Lambda
+  (H_{\mathbb{T}^3}^2)$.
+\end{lem}
+
+\begin{proof}[Proof.]
+  For the first bound, we use Lemmas \ref{lem:con-Gamma} and
+  \ref{lem:homeom-Theta} on $(1 - \Delta) [\exp (W^M) \Gamma u^{\sharp} -
+  \Theta u^{\sharp}]$ to derive\footnote{We recall the abbreviation $f
+  \succcurlyeq g : = f \ogreaterthan g + f \odot g$ for distributions $f$ and
+  $g$. }
+   \begin{eqnarray*}
+    (1 - \Delta) [\exp (W^M) \Gamma u^{\sharp} - \Theta u^{\sharp}] &
+    \overset{\left( \ref{eq:def-Theta-map} \right)}{=} & (1 - \Delta) ([\exp
+    (W^M) - 1] \Gamma u^{\sharp}) + (1 - \Delta) \Gamma u^{\sharp}\\
+    &  -  &(1 - \Delta) u^{\sharp} + [\exp (W^M) - 1] \olessthan \Delta
+    u^{\sharp}\\
+    & = &  (1 - \Delta) ([\exp (W^M) - 1] \succcurlyeq \Gamma u^{\sharp}) \\
+    & + & (1
+    - \Delta) (\Gamma - \mathrm{id}) u^{\sharp}\\
+    &   + & [\exp (W^M) - 1] \olessthan \Gamma u^{\sharp} - \Delta [\exp
+    (W^M)] \olessthan \Gamma u^{\sharp}\\
+    &  -  &2 \nabla [\exp (W^M)] \olessthan \nabla \Gamma u^{\sharp}\\
+    &  + & [\exp (W^M) - 1] \olessthan \Delta [(\Gamma - \mathrm{id})
+    u^{\sharp}],
+      \end{eqnarray*}
+  together with (\ref{eq:cont-G-id}) which implies that the second and the
+  last term on the right gains $\frac{1}{2} -$ regularity as desired. Now notice
+  that the left hand side above is $(1 - \Delta)$ applied to
+  \[ \exp (W^M) \Gamma u^{\sharp} - \Theta u^{\sharp} = [\exp (W^M) \Gamma
+     \Theta^{- 1} - \mathrm{id}] \Theta u^{\sharp} = (\Lambda - \mathrm{id})
+     \Theta u^{\sharp}, \]
+  and \eqref{eq:diff-G-id} follows using also the boundedness of $\Theta^{\pm
+  1}$ from Lemma \ref{lem:homeom-Theta}. For the second bound, we have
+  \begin{eqnarray*}
+    {}[\mathcal{H} \exp (W^M) \Gamma - \Delta \Theta] u^{\sharp} &
+    \overset{\left( \ref{eq:def-Theta-map} \right)}{=} & \exp (W^M) (\Delta
+    u^{\sharp} + [(1 - \Delta) Z] \odot u^{\sharp}\\
+    & + & 2 \nabla W^M \odot \nabla
+    u^{\sharp} + G (u^{\flat}))\\
+    & + & (1 - \Delta) u^{\sharp} - [\exp (W^M) - 1] \olessthan \Delta
+    u^{\sharp} - \Theta (u^{\sharp})\\
+    & = & [\exp (W^M) - 1] \succcurlyeq \Delta u^{\sharp} \\
+    & - & (1 - \Delta)^{-
+    1} ([\exp (W^M) - 1] \olessthan \Delta u^{\sharp}) + G (u^{\flat}))\\
+    & + & \exp (W^M) ([(1 - \Delta) Z] \odot u^{\sharp} + 2 \nabla W^M \odot
+    \nabla u^{\sharp}.
+  \end{eqnarray*}
+  We have used crucially the transformation (\ref{eq:def-Theta-map}) such that
+  the worst terms $(1 - \Delta) ([\exp (W^M) - 1] \olessthan \Gamma
+  u^{\sharp})$ and $[\exp (W^M) - 1] \olessthan \Delta u^{\sharp}$ have a
+  cancellation, since
+  \[ (1 - \Delta) \Theta (u^{\sharp}) = (1 - \Delta) u^{\sharp} - [\exp (W^M)
+     - 1] \olessthan \Delta u^{\sharp}, \]
+  and
+  \[ u^{\sharp} - \Theta (u^{\sharp}) = (1 - \Delta)^{- 1} ([\exp (W^M) - 1]
+     \olessthan \Delta u^{\sharp}) . \]
+\end{proof}
+
+\begin{nota*}
+  We see in Lemma \ref{lem:homeom-Theta} that we only need to fix the value of
+  $M$ globally depending on the norm of the noise enhancement and similarly we
+  will fix $N$ and we will largely drop these harmless parameters in order to
+  not clutter the notation. Moreover, we usually do not refer to the fixed
+  realisation $\omega$ of the noise. In particular, $M$ and $N$ can both be
+  chosen to hold uniformly in $\delta$ if one has a smooth approximation
+  $\Xi_{\delta}$ as in \eqref{eq:enhance}.
+\end{nota*}
+
+To conclude the discussion on the transformations of
+Anderson Hamiltonian as a perturbation of the Laplacian, we prove that $(-
+\mathcal{H}_{\delta})^{- \frac{1}{2}} \rightarrow (- \mathcal{H})^{- \frac{1}{2}}$ as
+$\delta \rightarrow 0^+$ w.r.t. the operator norm, which plays a role in the
+proof of the convergence to the BBGKY hierarchy in Section
+\ref{sec:conv-bbgky-proof}. For that purpose, we need the short-time heat
+kernel estimate of the $\mathcal{H}^{\sharp}$ in Lemma
+\ref{lem:heat-kernel-Hsharp} and we refer the readers to {\cite{BDM22}} for
+the detailed analysis performed with the Anderson Hamiltonian on surfaces,
+without seeking a complete description of the heat flow generated by
+$\mathcal{H}$ on $\mathbb{T}^3$.
+
+\begin{lem}
+  \label{lem:heat-kernel-Hsharp}The following heat-kernel estimate of $(e^{t
+  \mathcal{H}^{\natural}})_{t \geqslant 0}$ holds for $t > 0$:
+  \begin{equation}
+    \| e^{t \mathcal{H}^{\natural}} u \|_{H_{\mathbb{T}^3}^{\gamma}} \lesssim
+    t^{- \frac{\gamma}{2}} \| u \|_{L_{\mathbb{T}^3}^2} \quad 0 \leqslant
+    \gamma \leqslant 2. \label{eq:heat-kernel-shorttime-Hsharp}
+  \end{equation}
+  We have also the additional regularization of the flow
+  \begin{equation}
+    \| e^{t \mathcal{H}^{\natural}} u \|_{W_{\mathbb{T}^3}^{2, \infty}}
+    \lesssim \lceil t \rceil^{1 +} t^{- \frac{7}{4} -} \| u
+    \|_{L_{\mathbb{T}^3}^2}, \label{eq:bound-sharp-heat-flow}
+  \end{equation}
+  for any $t > 0$ and the following boundedness property
+  \begin{equation}
+    \| e^{t \mathcal{H}^{\natural}} u \|_{W_{\mathbb{T}^3}^{s, p}} \lesssim \|
+    u \|_{W_{\mathbb{T}^3}^{s, p}} \label{Wsp-heatbounded}
+  \end{equation}
+  for $0 \leqslant t \leqslant 1$ and $\frac{3}{2} < s \leqslant 2$, $p \in
+  [2, \infty]$.
+\end{lem}
+
+The proof can be found in \cite[Lemma 2.12 \& B.1]{de2025stochastic}. The lemma on
+the convergence of square-root resolvent of the Anderson Hamiltonian now
+follows by the standard functional calculus for self-adjoint operators, see
+  e.g. Theorem VIII.20 in {\cite{RS80}}.
+
+\begin{lem}
+  \label{lem:L2-green-AH}For any given realization of the enhancement $\Xi$ we
+  have the operator-norm convergence
+  \begin{equation}
+    \| (- \mathcal{H}_{\delta})^{-\frac{1}{2}} - (- \mathcal{H})^{- \frac{1}{2}}
+    \|_{\mathcal{L} (L_{\mathbb{T}^3}^2)} \rightarrow 0,
+    \label{eq:unif-conv-mnssqrt-AH}
+  \end{equation}
+  as $\delta \rightarrow 0^+$. 
+\end{lem}
+
+\section{Strichartz Estimates}\label{sec:strichartz}
+
+In this section, we give a micro--local proof of the Strichartz-type estimates for the Anderson
+Hamiltonian on the three-dimensional torus following closely {\cite{Z19}} and
+the Strichartz estimates established in {\cite{DJLM23}}, which in turn uses
+the celebrated decoupling result of Bourgain-Demeter {\cite{BD15}}.
+
+\begin{thm}[{\cite{DJLM23}}]
+  \label{thm-Strichartz-Torus}For any $\varepsilon > 0$ and Strichartz pair
+  $(q, r)$ such that
+  \begin{equation}
+    \frac{2}{q} + \frac{3}{r} \geqslant \frac{3}{2}, \quad q \in \left[
+    \frac{10}{3}, \infty \right], \quad r \in \left[ 2, \frac{10}{3} \right],
+    \label{eq:Strichartz-pair}
+  \end{equation}
+  we have the homogeneous Strichartz estimate for any $s \in \mathbb{R}$ that
+  \begin{align}
+    \left\| e^{- i t \Delta} u \right\|_{L_{t ; [0, 1]}^q W_{\mathbb{T}^3}^{s, r}}
+    \lesssim_{q, r, \varepsilon} \| u \|_{H_{\mathbb{T}^3}^{s + \varepsilon}}
+    . \label{eq:Strichartz-Torus}
+  \end{align}
+\end{thm}
+
+It follows immediately from (\ref{eq:Strichartz-Torus}) and Minkowski
+inequality that for any $0 \leqslant t_0 < t_1 \leqslant 1$
+\begin{equation}
+\begin{split}
+  \left\| \int^t_{t_0} e^{- i (t - s) \Delta} v (s) \mathrm{d}s \right\|_{L_{t ;
+  [t_0, t_1]}^q W_{\mathbb{T}^3}^{s, r}} &\leq \int^{t_1}_{t_0} \left\| e^{- i (t -
+  s) \Delta} v (s) \right\|_{L_{t ; [s, t_1]}^q W_{\mathbb{T}^3}^{s, r}} \mathrm{d}s\\
+  & \overset{\left( \ref{eq:Strichartz-Torus} \right)}{\lesssim} \| v
+  \|_{L_{[t_0, t_1]}^1 H_{\mathbb{T}^3}^{s + \varepsilon}}.
+ \end{split}
+\end{equation}
+
+The essential observation for the perturbative argument\footnote{For the perturbative argument, it is natural to consider the linear
+  flow of the transformed equations $(e^{- i t \mathcal{H}^{\sharp}})_{t \in
+  \mathbb{R}}$ and respectively $(e^{- i t \mathcal{H}^{\natural}})_{t \in
+  \mathbb{R}}$, which are defined to be the solution maps of
+  \begin{equation}
+    i \partial_t u^{\sharp} = \mathcal{H}^{\sharp} u^{\sharp} = (e^W
+    \Gamma)^{- 1} \mathcal{H} (e^W \Gamma) u^{\sharp}, \text{ so } e^{- i t
+    \mathcal{H}^{\sharp}} := (e^W \Gamma)^{- 1} e^{- i t \mathcal{H}}
+    \Gamma e^W \label{def:eisharp}
+  \end{equation}
+  and respectively
+  \begin{equation}
+    i \partial_t u^{\natural} = \mathcal{H}^{\natural} u^{\natural} :=
+    \Lambda^{- 1} \mathcal{H} \Lambda u^{\sharp}, \quad \text{so } e^{- i t
+    \mathcal{H}^{\natural}} := \Lambda^{- 1} e^{- i t \mathcal{H}}
+    \Lambda . \label{def:einatural}
+  \end{equation}
+  One derives immediately the equivalence of equations
+  \[ \left\{\begin{array}{ll}
+       i \partial_t u & = \mathcal{H} u\\
+       u (0) & = u_0
+     \end{array}\right. \quad \Leftrightarrow \quad \left\{\begin{array}{ll}
+       i \partial_t u^{\sharp} & = \mathcal{H}^{\sharp} u^{\sharp}\\
+       u^{\sharp} (0) & = (e^W \Gamma)^{- 1} u_0
+     \end{array}\right. \Leftrightarrow \quad \left\{\begin{array}{ll}
+       i \partial_t u^{\natural} & = \mathcal{H}^{\natural} u^{\natural}\\
+       u^{\natural} (0) & = \Lambda^{- 1} u_0
+     \end{array}\right. \]
+  since the transforms are all invertible in the spaces under consideration.} is the following bound
+for any $\varepsilon > 0$, $\beta \in [\varepsilon, \frac{1}{2}]$ and $p \in [1,
+\infty]$:
+\begin{equation}
+  \| (\mathcal{H}^{\natural} - \Delta) u^{\natural}
+  \|_{W_{\mathbb{T}^3}^{\beta - \varepsilon, p}} \lesssim \| u^{\natural}
+  \|_{W_{\mathbb{T}^3 }^{\beta + 3 / 2, p}}, \label{eq:pertu-H-sharp}
+\end{equation}
+see Lemma \ref{lem:Lambda}. We first need to show the continuity of the flows $(e^{- i t
+\mathcal{H}^{\sharp}})_{t \in \mathbb{R}}$ and $(e^{- i t
+\mathcal{H}^{\natural}})_{t \in \mathbb{R}}$:
+
+\begin{lem}
+  \label{lem:cont-e-itHsharp}The linear flows $(e^{- i t
+  \mathcal{H}^{\sharp}})_{t \in \mathbb{R}}$ and $(e^{- i t
+  \mathcal{H}^{\natural}})_{t \in \mathbb{R}}$ are strongly continuous groups
+  on $H_{\mathbb{T}^3}^s$ for $s \in [0, 2] .$
+\end{lem}
+
+\begin{proof}
+  By the construction of the unitary group $(e^{- i t \mathcal{H}})_{t \in
+  \mathbb{R}}$ in {\cite{GUZ20}}, $t \mapsto e^{- i t \mathcal{H}}$ is
+  continuous both on the domain $\mathcal{D} (\mathcal{H})$ and
+  $L_{\mathbb{T}^3}^2$, which implies that $(e^{- i t
+  \mathcal{H}^{\sharp}})_{t \in \mathbb{R}}$ and $(e^{- i t
+  \mathcal{H}^{\natural}})_{t \in \mathbb{R}} $are strongly continuous on
+  $H_{\mathbb{T}^3}^2$ due to (\ref{eq:Dom-equiv-H2}) and continuous on
+  $L_{\mathbb{T}^{3,}}^2$ since $e^W, \Gamma$, $\Theta$ and their inverses are
+  continuous on $L_{\mathbb{T}^3}^2$. The claim then follows by interpolation
+  as in {\cite{Z19}} and {\cite{MZ24}}.
+\end{proof}
+
+As alluded to above, the first Strichartz-type estimate we have for the
+transformed Anderson Hamiltonian $\mathcal{H}^{\natural}$ follows from Theorem
+\ref{thm-Strichartz-Torus} and a perturbative argument inspired by
+{\cite{BGT04}}, which however only works in the low-regularity
+regime.
+
+\begin{lem}
+  \label{lem:Strichartz-AH-low} The homogeneous Strichartz-type estimate
+  of $\mathcal{H}^{\natural}$ holds, that is
+  \begin{equation}
+    \| e^{- i t \mathcal{H}^{\natural}} u^{\natural} \|_{L_{[0, 1]}^{^q}
+    W_{\mathbb{T}^3}^{s - \frac{3}{2 q} - \varepsilon, r}} \lesssim \|
+    u^{\natural} \|_{H_{\mathbb{T}^3}^s}, \label{eq:AH-Strichartz-low}
+  \end{equation}
+for any $\varepsilon > 0$, $s \in \left[
+  \frac{3}{2 q} + \varepsilon, {\color[HTML]{000000}\frac{3}{2 q} +
+  \frac{1}{2}} \right]$ and Strichartz pair $(q, r)$ as in
+  (\ref{eq:Strichartz-pair}).
+\end{lem}
+\begin{proof}[Proof.]
+We have due to
+  \[ 
+  \left[e^{- i (t - t_0) \mathcal{H}^{\natural}} - e^{- i (t - t_0) \Delta}\right]
+     u^{\natural} = - i \int^t_{t_0} e^{- i (t - s) \Delta}
+     (\mathcal{H}^{\natural} - \Delta) e^{- i (s - t_0)
+     \mathcal{H}^{\natural}} u^{\natural} \mathrm{d}s 
+     \]
+  that for each $\varepsilon > 0$, any $j^{\mathrm{th}}$ Littlewood-Paley block
+  $\Delta_j u$ of $u$ for $j \geqslant - 1$ and arbitrary partion $\{ I \}$ of
+  $[0, 1]$,
+  \begin{equation*}
+  \begin{split}
+    \|e^{- i t \mathcal{H}^{\natural}} \Delta_j u^{\natural} \|^q_{L_{[0,
+    1]}^q W_{\mathbb{T}^3}^{s, r}}  & = {\sum_{I = [t_0, t_1]}}  \int_I \|
+    e^{- i (t - t_0) \mathcal{H}^{\natural}} e^{- i t_0
+    \mathcal{H}^{\natural}} \Delta_j u^{\natural} \|^q_{W_{\mathbb{T}^3}^{s,
+    r}} \mathrm{dt}\\
+    & \lesssim {\sum_{I = [t_0, t_1]}}  \int_I \| e^{- i (t - t_0) \Delta}
+    e^{- i t_0 \mathcal{H}^{\natural}} \Delta_j u^{\natural}
+    \|^q_{W_{\mathbb{T}^3}^{s, r}} \mathrm{dt}\\
+    &   + {\sum_{I = [t_0, t_1]}}  \int_I \left\| \int^t_{t_0} e^{- i (t -
+    s) \Delta} (\mathcal{H}^{\natural} - \Delta) e^{- i s
+    \mathcal{H}^{\natural}} \Delta_j u^{\natural} \mathrm{ds}
+    \right\|^q_{W_{\mathbb{T}^3}^{s, r}} \mathrm{dt}\\
+    & \overset{\left( \ref{eq:Strichartz-Torus} \right)}{\lesssim}  \sum_{I
+    = [t_0, t_1]} \| e^{- i t_0 \mathcal{H}^{\natural}} \Delta_j u^{\natural}
+    \|^q_{H_{\mathbb{T}^3}^{s + \varepsilon}} + \sum_{I = [t_0, t_1]} \| e^{-
+    i s \mathcal{H}^{\natural}} \Delta_j u^{\natural} \|^q_{ L_{s ; I}^1
+    H_{\mathbb{T}^3}^{s + \frac{3}{2} + 2 \varepsilon}}\\
+    & \lesssim \# (I) \left[ \| \Delta_j u^{\natural}
+    \|^q_{H_{\mathbb{T}^3}^{s + \varepsilon}} + \sum_{I = [t_0, t_1]}
+    2^{\frac{3}{2} j q} | I | ^q \| \Delta_j u^{\natural} \|^q_{
+    H_{\mathbb{T}^3}^{s + 2 \varepsilon}} \right],
+  \end{split}
+  \end{equation*}
+  for any $s \in [0, \frac{1}{2} - 2 \varepsilon]$, where we have used Lemma
+  \ref{lem:cont-e-itHsharp} for the last inequality. If we further choose for
+  each frequency $j \geqslant - 1$ the partition of the time interval $| I_j |
+  \sim 2^{- 3 j / 2}$, we have
+  \begin{equation}
+  \begin{split}
+    \| e^{- i t \mathcal{H}^{\natural}} u^{\natural} \|_{L_{[0, 1]}^q W^{s,
+    r}_{\mathbb{T}^3}} & \leq \sum_{j \geq - 1} {{\| e^{- i t
+    {\mathcal{H}^{\natural}} } \Delta_j u^{\natural} \|_{L_{[0, 1]}^q
+    W_{\mathbb{T}^3}^{s, r}}} }\\
+     &\lesssim \sum_{j \geq - 1} {2 }^{\frac{3}{2
+    q} j} \| \Delta_j u^{\natural} \|_{H^{s + 2 \varepsilon}} \lesssim \|
+    u^{\natural} \|_{H^{\frac{3}{2 q} + s + 3 \varepsilon}},
+    \end{split}
+  \end{equation}
+  where we have applied Bernstein inequality. This then gives
+  (\ref{eq:AH-Strichartz}) for $s \in [\frac{3}{2q} + \varepsilon, \frac{3}{2q} + \frac{1}{2}]$.
+\end{proof}
+
+Clearly the same statement is true for $e^{- i t \mathcal{H}^{\sharp}}$ by the
+boundedness of $\Theta .$ In order to extend Lemma \ref{lem:Strichartz-AH-low}
+up to $s = 2$, we need the following characterization of Sobolev norms with
+the transformed operator $\mathcal{H}^{\natural}$.
+
+\begin{lem}
+  \label{lem:space-equiv}For any $\beta$ such that $3 / 2 < \beta \leqslant 2$
+  and $p \in [2, \infty)$, the following bounds for the operator
+  \[ (- \mathcal{H}^{\natural})^{\beta / 2} := \Lambda^{- 1} (-
+     \mathcal{H})^{\beta / 2} \Lambda \]
+  hold:
+  \begin{equation}
+    \| u^{\natural} \|_{W_{\mathbb{T}^3}^{\beta -, p}} \lesssim \left\| (1 -
+    \Delta)^{\frac{\beta}{2}} u^{\natural} \right\|_{L_{\mathbb{T}^3}^p}
+    \asymp \left\| (- \mathcal{H}^{\natural})^{\frac{\beta}{2}} u^{\natural}
+    \right\|_{L_{\mathbb{T}^3}^p} \lesssim \| u^{\natural}
+    \|_{W_{\mathbb{T}^3}^{\beta, p}} . \label{eq:equiv-norm-Hb/2}
+  \end{equation}
+\end{lem}
+
+The proof can be found in \cite[Lemma 3.5]{de2025stochastic}. Due to the continuity estimates of $\Theta$ and its inverse established in
+Lemma \ref{lem:homeom-Theta}, it is straightforward to translate the
+Strichartz estimate established in Lemma \ref{lem:Strichartz-AH-low} for the
+group $(e^{- i t \mathcal{H}^{\natural}})_{t \in \mathbb{R}}$ and $(e^{- i t
+\mathcal{H}^{\sharp}})_{t \in \mathbb{R}}$.
+
+\begin{cor}
+  \label{cor:anderson-strichartz}For any $\varepsilon > 0$ small enough, we have the
+  homogeneous Strichartz-type estimate holds for $\mathcal{H}^{\sharp}$ and
+  $\mathcal{H}^{\natural}$, that is
+  \begin{equation}
+    \| e^{- i t \mathcal{H}^{\sharp}} u^{\sharp} \|_{L_{[0,
+    1]}^{^{\frac{10}{3}}} W_{\mathbb{T}^3}^{s - \frac{9}{20} - \varepsilon,
+    \frac{10}{3}}} \lesssim \| u^{\sharp} \|_{H_{\mathbb{T}^3}^s},
+    \label{eq:AH-Strichartz}
+  \end{equation}
+  and
+  \begin{equation}
+    \| e^{- i t \mathcal{H}^{\natural}} u^{\natural} \|_{L_{[0,
+    1]}^{^{\frac{10}{3}}} W_{\mathbb{T}^3}^{s - \frac{9}{20} - \varepsilon,
+    \frac{10}{3}}} \lesssim \| u^{\natural} \|_{H_{\mathbb{T}^3}^s},
+    \label{eq:AH-Strichartz-natural}
+  \end{equation}
+  where $s \in \left[ \frac{9}{20} + \varepsilon, 2 \right]$. 
+\end{cor}
+
+\begin{proof}
+  The bound (\ref{eq:AH-Strichartz}) follows from
+  (\ref{eq:AH-Strichartz-natural}) and Lemma \ref{lem:homeom-Theta}, while the
+  latter with $s = 2$ is shown directly as follows
+  \begin{eqnarray*}
+    \| e^{- i t \mathcal{H}^{\natural}} u^{\natural} \|_{L_{t ; [0,
+    1]}^{^{\frac{10}{3}}} W_{\mathbb{T}^3}^{\frac{31}{20} - 2 \varepsilon,
+    \frac{10}{3}}} & \overset{\left( \ref{eq:equiv-norm-Hb/2}
+    \right)}{\lesssim} & \left\| \left( - \mathcal{H}^{\natural} \right)
+    ^{\frac{31}{40} - \varepsilon} e^{- i t \mathcal{H}^{\natural}}
+    u^{\natural} \right\|_{L_{t ; [0, 1]}^{^{\frac{10}{3}}}
+    L_{\mathbb{T}^3}^{\frac{10}{3}}}\\
+    & \overset{\left( \ref{eq:AH-Strichartz-low} \right)}{\lesssim} & \left\|
+    \left( - \mathcal{H}^{\natural} \right)^{\frac{31}{40} - \varepsilon}
+    u^{\natural} \right\|_{H_{\mathbb{T}^3}^{\frac{9}{20} + 2 \varepsilon}}
+    \overset{\left( \ref{eq:equiv-norm-Hb/2} \right)}{\lesssim} \|
+    u^{\natural} \|_{H_{\mathbb{T}^3}^2} .
+  \end{eqnarray*}
+  We can then conclude the proof with an interpolation argument. 
+\end{proof}
+
+\section{Local Well-posedness of ANLS}\label{chapter-LWP}
+
+Consider now a symmetric potential $V_{\beta} \in W^{\beta, 1}$ with $\beta
+\in (0, 3)$, one can think of the generalised Coulomb potential, which is
+\begin{equation}
+  V_{\beta} = \frac{c_{\beta}}{| \cdot |^{3 - \beta}} \quad \text{near the origin\footnote{In particular, we have $V_{\beta}
+  \in L^{\frac{3}{3 - \beta}}_w (\mathbb{T}^3)$.}}, \label{eq:def-Vbeta}
+\end{equation}
+and smooth elsewhere. In this section, we prove local well-posedness (LWP) of the nonlinear
+Schr{\"o}dinger equation with the Anderson Hamiltonian and Hartree
+nonlinearity
+\begin{equation}
+  i \partial_t u = \mathcal{H} u \pm u (| u |^2 \ast V_{\beta}) \quad
+  \mathrm{on} [0, T] \times \mathbb{T}^3, \label{eq:ANLS-Hartree}
+\end{equation}
+for some $T$ depending on the initial data, while the initial data are given
+either in the domain or the energy domain of $\mathcal{H}$ defined in
+Definition \ref{prop:construction-AH} and right above Lemma \ref{lem:embed}
+respectively. When the initial data are in the domain of $\mathcal{H}$, we
+will instead consider the (more general) local-wellposedness of the nonlinear
+(focusing or defocusing) Schr{\"o}dinger equation with the Anderson
+Hamiltonian $\mathcal{H}$ and polynomial nonlinearity on $\mathbb{T}^3$:
+\begin{equation}
+  i \partial_t u = \mathcal{H} u \pm u | u |^{p - 1} \quad \mathrm{on} [0, T]
+  \times \mathbb{T}^3, \label{eq:ANLS-general}
+\end{equation}
+where $p > 1$. The LWP of (\ref{eq:ANLS-Hartree}) in the domain of
+$\mathcal{H}$ follows from exactly the same argument as that of
+(\ref{eq:ANLS-general}), since the convolution with $V_{\beta}$ only improves
+the regularity. We thus focus on the latter in this section. \
+
+\subsection{Initial Datum in the Domain}\label{sec:lwpdomain}
+
+We consider in this section the LWP problem of
+(\ref{eq:ANLS-general}) in the domain of $\mathcal{D} (\mathcal{H})$ with the
+mild formulation and Banach's fixed point argument, that is, with
+\begin{equation}
+  u (t) = e^{- it \mathcal{H}} u_0 \mp i \int_0^t e^{- i s \mathcal{H}} [u (t
+  - s) |u (t - s) |^{p - 1}] \mathrm{d}s, \label{eq:NLS-mild}
+\end{equation}
+and $u_0 \in \mathcal{D} (\mathcal{H})$, and equivalently (according to Lemma
+\ref{lem:con-Gamma})
+\begin{equation}
+  u^{\natural} (t) = e^{- it \mathcal{H}^{\natural}} \Lambda^{- 1} u_0 \mp i
+  \int_0^t e^{- i s \mathcal{H}^{\natural}} \Lambda^{- 1} [\Lambda u^{\sharp}
+  (t - s) | \Lambda u^{\sharp} (t - s) |^{p - 1}] \mathrm{d}s .
+  \label{eq:main_mild_sharp}
+\end{equation}
+The result of the LWP of (\ref{eq:ANLS-general}) reads as follows:
+
+\begin{prop}
+  \label{prop-lwp-domain}For fixed enhancement $\Xi = \Xi_{\omega}$,
+  (\ref{eq:NLS-mild}) is locally well-posedness, in the sense that given any
+  initial data $u_0 \in \mathcal{D} (\mathcal{H})$, there exists
+  \[ T = T (\Xi, \| \mathcal{H} u_0 \|_{L^2}) \in (0, \infty], \]
+  such that there exists a unique solution $u \in C ([0, T], \mathcal{D}
+  (\mathcal{H})) \cap C^1 ([0, T], L_{\mathbb{T}^3}^2)$, depending
+  continuously on the data, and one has the blow-up alternative: there either
+  exists a maximal time $T_{\max} < \infty$ with
+  \begin{equation}
+    \lim_{t \to T_{\max}} \| \mathcal{H} u (t) \|_{L^2} = \infty,
+    \label{eq:blow-up-T-}
+  \end{equation}
+  or $T_{\max} = \infty$.
+\end{prop}
+The proof is a direct application of the classical fixe--point argument, which is quite similar to the proof of Theorem 3.6 in {\cite{GUZ20}} and the classical local well-posedness of semilinear NLS in the energy space in \cite{cazenave2003semilinear}. We therefore refer the reader to Proposition \cite[Proposition 4.1]{de2025stochastic}. 
+
+\subsection{Initial Datum in the Energy Domain}\label{sec:LWPenergy}
+
+Now we consider the LWP of the equation (\ref{eq:ANLS-Hartree}) when the
+initial datum is in the energy domain $\mathcal{D} (\mathcal{H})$ of
+$\mathcal{H}$, using in particular the Strichartz estimates that we have
+established in Lemma \ref{lem:Strichartz-AH-low}. We recall that $u \in
+\mathcal{D} (\mathcal{H})$ if and only if $(e^W \Gamma)^{- 1} u \in
+H_{\mathbb{T}^3}^2$ according to \eqref{eq:Dom-equiv-H2} and
+\begin{equation}
+  \| u \|_{\mathcal{D} \left( \sqrt{- \mathcal{H}} \right)} \asymp \| e^{- W}
+  u \|_{H_{\mathbb{T}^3}^1} \asymp \| (e^W \Gamma)^{- 1} u
+  \|_{H_{\mathbb{T}^3}^1},
+\end{equation}
+where the second equivalence follows from the continuity of $\Gamma^{- 1} :
+H_{\mathbb{T}^3}^{\beta} \rightarrow H_{\mathbb{T}^3}^{\beta}$ for $\beta < \frac{3}{2}$, see Lemma \ref{lem:con-Gamma}. It is technically more convenient to
+consider the transformed equation for $u^{\sharp} = (e^W \Gamma)^{- 1} u$ with
+initial datum $u_0^{\sharp} := (e^W \Gamma)^{- 1} u_0 \in
+H_{\mathbb{T}^3}^1$:
+\begin{eqnarray}
+  u^{\sharp} (t) & = & e^{- i t \mathcal{H}^{\sharp}} u_0^{\sharp} \mp i
+  \int^t_0 e^{- i (t - s) \mathcal{H}^{\sharp}} (e^W \Gamma)^{- 1} [(e^W
+  \Gamma u^{\sharp} (s)) (| e^W \Gamma u^{\sharp} (s) |^2 \ast V_{\beta})]
+  \mathrm{d} s \nonumber\\
+  & = & e^{- i t \mathcal{H}^{\sharp}} u_0^{\sharp} \mp i \int^t_0 e^{- i (t
+  - s) \mathcal{H}^{\sharp}} \Gamma^{- 1} [\Gamma u^{\sharp} (s) (| e^W \Gamma
+  u^{\sharp} (s) |^2 \ast V_{\beta})] \mathrm{d} s,  \label{eq:Duhamel-Hartree}
+\end{eqnarray}
+where we recall that $e^{- i t \mathcal{H}^{\sharp}} = (e^W \Gamma)^{- 1} e^{-
+i t \mathcal{H}} (e^W \Gamma)$ and emphasize that there has been a
+multiplicative cancellation of $e^{\pm W}$ in the final step. The well-posedness result\footnote{Since we solve in the natural domain of the energy of the equation
+  \eqref{eq:ANLS-Hartree} given by
+  \[ \mathcal{E}_0 (u) := - (u, \mathcal{H} u) \pm \frac{1}{p} \int | u
+     |^2 V_{\beta} \ast | u |^2 \]
+  which controls the $L^{\infty} H_{\mathbb{T}^3}^1$ norm of $u^{\sharp}$,
+  proving local well-posedness allows us to immediately obtain global
+  well-posedness as well as long as we choose the nonlinearity to be defocussing. } in the energy domain reads as follows:
+
+\begin{prop}
+  \label{prop:LWP-energy}For $\beta > \frac{17}{20}$, assume that the
+  interaction potential $V$ is symmetric and
+  \begin{equation}
+    V_{\beta} \in W^{\beta, 1} (\mathbb{T}^3)  . \label{eq:reg-V-energy-space}
+  \end{equation}
+  For fixed enhancement, (\ref{eq:ANLS-Hartree}) is
+  locally well-posedness in the energy domain, in the sense that given any
+  initial data $u_0 \in \mathcal{D} \left( \sqrt{- \mathcal{H}} \right)$,
+  there exists $T = T (\Xi, \| \sqrt{- \mathcal{H}} u_0 \|_{L^2}, \beta) \leqslant 1$, such that there exists a unique solution 
+  \[
+  u \in C \left([0, T], \mathcal{D}
+  \left( \sqrt{- \mathcal{H}} \right)\right) \cap L^{\frac{10}{3}} \left( [0, T],
+  e^W {W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}}  \right)
+  \] with the
+  solution $u$ depending continuously on the initial data. 
+\end{prop}
+
+\begin{proof}[Proof.]
+  We consider the mild formulation (\ref{eq:Duhamel-Hartree}) of the
+  transformed equation (\ref{eq:ANLS-Hartree}) as the fixed point of the map
+  \begin{equation}
+    \mathcal{T} : B_{\mathcal{Y}} (M_R) \rightarrow B_{\mathcal{Y}} (M_R),
+    u^{\sharp} \mapsto \mathcal{T} (u^{\sharp}), \label{eq:def-S-energy-dom}
+  \end{equation}
+  for any initial data $\| u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1} \leqslant R$
+  for some given $R > 0$,
+  \[ \mathcal{T} u^{\sharp} (t) := e^{- i t \mathcal{H}^{\sharp}}
+     u_0^{\sharp} \mp i \int^t_0 e^{- i (t - s) \mathcal{H}^{\sharp}}
+     \Gamma^{- 1} [\Gamma u^{\sharp} (s) (| e^W \Gamma u^{\sharp} (s) |^2 \ast
+     V_{\beta})] \mathrm{ds} \]
+  on the space
+  \[ \mathcal{Y} := C_{[0, T]} H_{\mathbb{T}^3}^1 \cap L_{[0,
+     T]}^{\frac{10}{3}} {W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} ,
+  \]
+  where the maximal time of existence $T$ and the radius $M_R > 0$ will be
+  determined depending on $R$ later. The continuity in time of $\mathcal{T}
+  (u^{\sharp})$ follows by Stone's theorem as in the proof of Proposition
+  \ref{prop-lwp-domain}. We now assume without loss of generality that $\beta = \frac{17}{20} +$,
+  since it is easier to construct with larger $\beta \leqslant 3$ such that
+  the convolution with $V_{\beta}$ gives more smoothing effect. By continuity
+  of $\Gamma^{- 1}$ and $e^{- i t \mathcal{H}^{\sharp}}$ on
+  $H_{\mathbb{T}^3}^1$, we have that
+  \begin{eqnarray*}
+    \| \mathcal{T} u^{\sharp} \|_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^1} 
+    &
+    \lesssim & \| u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1} + \int^T_0 \| \Gamma
+    u^{\sharp} (s) \|_{H_{\mathbb{T}^3}^1} \| | e^W \Gamma u^{\sharp} (s) |^2
+    \|_{W_{\mathbb{T}^3}^{- \frac{17}{20} -, \infty}} \\
+    & + & \| \Gamma u^{\sharp}
+    (s) \|_{L_{\mathbb{T}^3}^6} \| | e^W \Gamma u^{\sharp} (s) |^2
+    \|_{W_{\mathbb{T}^3}^{\frac{3}{20} -, 3}} \mathrm{ds}\\
+    & \lesssim & \| u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1} + \| \Gamma
+    u^{\sharp} \|_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^1} \int^T_0 \|
+    | e^W \Gamma u^{\sharp} (s) |^2 \|_{W_{\mathbb{T}^3}^{- \frac{1}{2} +,
+    \frac{60}{7} -}}  \mathrm{ds}\\
+    &+& \| \Gamma
+    u^{\sharp} \|_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^1} \int^T_0 \| | e^W \Gamma u^{\sharp} (s) |^2
+    \|_{W_{\mathbb{T}^3}^{\frac{3}{20} -, 3}}  \mathrm{ds}\\
+    & \lesssim & \| u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1} + \| \Gamma
+    u^{\sharp} \|_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^1} \int^T_0 \|
+    | \Gamma u_s^{\sharp} |^2 (s) \|_{W_{\mathbb{T}^3}^{\frac{11}{20} -,
+    \frac{15}{7}}} \mathrm{ds}\\
+    & + & \| \Gamma
+    u^{\sharp} \|_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^1} \int^T_0 \| | \Gamma u_s^{\sharp} |^2 (s)
+    \|_{W_{\mathbb{T}^3}^{\frac{3}{20} -, 3}} \mathrm{ds}\\
+    & \lesssim & \| u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1} + \| \Gamma
+    u^{\sharp} \|^2_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^1} T^{\frac{7}{10}}
+    \| \Gamma u^{\sharp} \|_{L_{[0, T]}^{\frac{10}{3}}
+    W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}}
+  \end{eqnarray*}
+  where we used the fractional Leibniz rule in Lemma \ref{lem:fracleib} with
+  the coefficients $\frac{1}{6} + \frac{1}{3} = \frac{1}{2} + \frac{1}{\infty}
+  = \frac{1}{2}$ in the first inequality, the bound $\| e^{2 W}
+  \|_{W_{\mathbb{T}^3}^{\frac{1}{2} -, \infty}} < \infty$ and Sobolev embeddings
+  \[ W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{15}{7} -} \hookrightarrow
+     W_{\mathbb{T}^3}^{- \frac{1}{2} +, \frac{60}{7} -} \hookrightarrow
+     W_{\mathbb{T}^3}^{- \frac{17}{20} -, \infty}, \quad H_{\mathbb{T}^3}^1
+     \hookrightarrow L_{\mathbb{T}^3}^6 \]
+  in the second and third inequalities, and the fractional Leibniz rule again
+  with coefficients $\frac{7}{15} = \frac{1}{6} + \frac{3}{10}$ for the first
+  term and $\frac{1}{6} + \frac{1}{6} = \frac{1}{3}$ for the second, the
+  Sobolev embeddings
+  \[ W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}} \hookrightarrow
+     W_{\mathbb{T}^3}^{\frac{3}{20} -, 6} ; \]
+  while by the Strichartz-type of estimates for the Anderson Hamiltonian and
+  the continuity of $\Gamma^{- 1}$ on $H_{\mathbb{T}^3}^1$ again, we have as
+  above that
+  \begin{eqnarray*}
+    \| \mathcal{T} u^{\sharp} \|_{L_{[0, T]}^{\frac{10}{3}}
+    {W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} } & \lesssim & \|
+    u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1} + \| \Gamma u^{\sharp} \|^2_{L_{[0,
+    T]}^{\infty} H_{\mathbb{T}^3}^1} T^{\frac{7}{10}} \| \Gamma u^{\sharp}
+    \|_{L_{[0, T]}^{\frac{10}{3}} W_{\mathbb{T}^3}^{\frac{11}{20} -,
+    \frac{10}{3}}} .
+  \end{eqnarray*}
+  With the same argument as in the proof of Proposition \ref{prop-lwp-domain},
+  we can find $M_R > 0$ large enough and then $T > 0$ small enough such that
+  (\ref{eq:def-S-energy-dom}) is a well-defined map. On the other hand, for
+  any $u^{\sharp, 1}, u^{\sharp, 2} \in B_{\mathcal{Y}} (M_R)$ with the same
+  inital datum, we have
+  \begin{eqnarray*}
+    &  & \| \mathcal{T} u^{\sharp, 1} - \mathcal{T} u^{\sharp, 2} \|_{L_{[0,
+    T]}^{\infty} H_{\mathbb{T}^3}^1} \lesssim \int^T_0 \| \Gamma (u^{\sharp,
+    1} (s) - u^{\sharp, 2} (s)) (| e^W \Gamma u^{\sharp, 1} (s) |^2 \ast
+    V_{\beta}) \|_{H^1_{\mathbb{T}^3}} \mathrm{ds}\\
+    & + & \int^T_0 \| \Gamma u^{\sharp, 2} (s) (| e^W \Gamma u^{\sharp, 1}
+    (s) |^2 \ast V_{\beta} - | e^W \Gamma u^{\sharp, 2} (s) |^2 \ast
+    V_{\beta}) \|_{H^1_{\mathbb{T}^3}} \mathrm{ds} := (\mathrm{I}) + (\mathrm{II}),
+  \end{eqnarray*}
+  where
+  \begin{align*}
+    (\mathrm{I}) & \lesssim \| \Gamma (u^{\sharp, 1} (s) - u^{\sharp, 2} (s))
+    \|_{L_{[0, T]}^{\infty} H^1_{\mathbb{T}^3}} \int^T_0  \| | \Gamma
+    u^{\sharp, 1} (s) |^2 \|_{W_{{{\mathbb{T}^3} } }^{\frac{11}{20} -,
+    \frac{15}{7}}} + \| | \Gamma u^{\sharp, 1} (s) |^2
+    \|_{W_{\mathbb{T}^3}^{\frac{3}{20} -, 3}}  \mathrm{ds}\\
+    & \lesssim T^{\frac{10}{3}} M^2_R \| u^{\sharp, 1} - u^{\sharp, 2}
+    \|_{L_{[0, T]}^{\infty} H^1_{\mathbb{T}^3}},
+  \end{align*}
+  and
+  \begin{eqnarray*}
+    (\mathrm{II}) 
+    & \lesssim & \int^T_0 \| \Gamma u^{\sharp, 2} (s) (| e^W
+    \Gamma u^{\sharp, 1} (s) |^2 \ast V_{\beta} - | e^W \Gamma u^{\sharp, 2}
+    (s) |^2 \ast V_{\beta}) \|_{H^1_{\mathbb{T}^3}} \mathrm{ds}\\
+    & \lesssim & \| \Gamma u^{\sharp, 1} \|_{L_{[0, T]}^{\infty}
+    H^1_{\mathbb{T}^3}} \int^T_0  \| | \Gamma (u^{\sharp, 1} (s) -
+    u^{\sharp, 2} (s)) |^2 \|_{W_{{{\mathbb{T}^3} } }^{\frac{11}{20} -,
+    \frac{15}{7}}}\mathrm{ds}\\
+    & + & \int^T_0\| | \Gamma (u^{\sharp, 1} (s) - u^{\sharp, 2} (s)) |^2
+    \|_{W_{\mathbb{T}^3}^{\frac{3}{20} -, 3}} \mathrm{ds}
+     \lesssim  T^{\frac{10}{3}} M^2_R \| u^{\sharp, 1} - u^{\sharp, 2}
+    \|_{L_{[0, T]}^{\frac{10}{3}} W_{\mathbb{T}^3}^{\frac{11}{20} -,
+    \frac{10}{3}}},
+  \end{eqnarray*}
+  since
+  \begin{eqnarray*}
+    & & \int^T_0 \| | \Gamma (u^{\sharp, 1} (s) - u^{\sharp, 2} (s)) |^2
+    \|_{W_{{{\mathbb{T}^3} } }^{\frac{11}{20} -, \frac{15}{7}}} \mathrm{ds} \\
+    &
+    \lesssim & \int^T_0 \| \Gamma (u^{\sharp, 1} (s) - u^{\sharp, 2} (s))
+    \|_{W_{{{\mathbb{T}^3} } }^{\frac{11}{20} -, \frac{10}{3}}} \| \Gamma
+    (u^{\sharp, 1} (s) - u^{\sharp, 2} (s)) \|_{L_{{{\mathbb{T}^3} } }^6}
+    \mathrm{ds}\\
+    & \lesssim & T^{\frac{7}{10}} \| u^{\sharp, 1} - u^{\sharp, 2} \|_{L_{[0,
+    T]}^{\frac{10}{3}} W_{{{\mathbb{T}^3} } }^{\frac{11}{20} -, \frac{10}{3}}}
+    \left( \| u^{\sharp, 1} \|_{L^{\infty}_{[0, T]} L_{{{\mathbb{T}^3} } }^6}
+    + \| u^{\sharp, 2} \|_{L^{\infty}_{[0, T]} L_{{{\mathbb{T}^3} } }^6}
+    \right) .
+  \end{eqnarray*}
+  The control of the difference in the space of $L_{[0, T]}^{\frac{10}{3}}
+  W_{{{\mathbb{T}^3} } }^{\frac{11}{20} -, \frac{10}{3}}$ is identical, which
+  indicates that for $T > 0$ small enough, $\mathcal{T}$ is contraction on
+  $B_{\mathcal{Y}} (M_R)$. The local well-posedness of (\ref{eq:ANLS-Hartree})
+  follows then from the Banach fixed point. We can then translate the result
+  on $u^{\sharp}$ to $u$ via Lemma \ref{lem:con-Gamma}.
+\end{proof}
+
+\section{Global Well-posedness of stochastic Hartree NLS}\label{chapter:GWP}
+We define the mass and energy functionals to be
+\[ \mathcal{M} [u] := \int_{\mathbb{T}^3} | u |^2, \quad \mathcal{E}_0
+   [u] := \int_{\mathbb{T}^3} (- \mathcal{H} u) \bar{u} + \frac{1}{2}
+   \int_{\mathbb{T}^3} | u |^2 | u |^2 \ast V_{\beta} . \]
+From now on, we only consider the defocusing case of
+(\ref{eq:ANLS-Hartree}), that is \
+\begin{equation}
+  i \partial_t u = \mathcal{H} u - u (| u |^2 \ast V_{\beta}), \quad \mathrm{on}
+  [0, \infty) \times \mathbb{T}^3, \label{eq:ANLS-Hartree-defoc}
+\end{equation}
+for which we have the conservation of mass
+\begin{equation}
+  \frac{\mathrm{d}}{\mathrm{dt}} \mathcal{M} [u] = 2 \Re \left( - i
+  \int_{\mathbb{T}^3} u \overline{[\mathcal{H} u - u (| u |^2 \ast
+  V_{\beta})]} \right) = 0, \label{eq:mass-conservation}
+\end{equation}
+and (formally) conservation of energy
+\begin{eqnarray}
+  \frac{\mathrm{d}}{\mathrm{dt}} \mathcal{E}_0 [u] & = & 2 \Re \int_{\mathbb{T}^3}
+  (- \mathcal{H} u) \overline{\partial_t u} + \int_{\mathbb{T}^3} (\partial_t
+  | u |^2) | u |^2 \ast V_{\beta} \nonumber\\
+  & = & 2 \Re \left[ i \int_{\mathbb{T}^3} (\mathcal{H} u) \overline{u (| u
+  |^2 \ast V_{\beta})} \right] - 2 \Re \left[ i \int_{\mathbb{T}^3}
+  (\mathcal{H} u) \bar{u} | u |^2 \ast V_{\beta} \right] = 0.
+  \label{eq:energy-conservation} 
+\end{eqnarray}
+
+
+\subsection{Global Well-posedness in the Energy-Domain}
+It follows directly from Proposition \ref{prop:LWP-energy} and the energy
+conservation (\ref{eq:energy-conservation}) that we have the following
+well-posedness result in the energy domain $\mathcal{D} \left( \sqrt{-
+\mathcal{H}} \right)$. We also claim that (\ref{eq:ANLS-Hartree-defoc}) is
+globally well-posed in $\mathcal{D} (\mathcal{H})$ under the assumption of
+Proposition \ref{prop:LWP-energy}, the discussion of which is postponed to the
+next section.
+
+\begin{cor}
+  \label{cor:energy-gwp}Under the assumption of Proposition
+  \ref{prop:LWP-energy}, assuming in addition that the equation is defocusing,
+  i.e. \eqref{cor:energy-gwp}. Also we assume $V_{\beta} \geqslant 0.$ Then
+  \eqref{cor:energy-gwp} is globally well-posed in $\mathcal{D} \left( \sqrt{-
+  \mathcal{H}} \right)$.
+\end{cor}
+
+\begin{proof}[Proof.]
+  This is quite classical, as long as one can justify that the energy is
+  conserved up to time $T$ given by Proposition \ref{prop:LWP-energy}, i.e.
+  \eqref{eq:energy-conservation} holds since the time of existence therein can
+  be chosen as $T \sim \| u_0 \|^{- k}_{\mathcal{D} \left( \sqrt{-
+  \mathcal{H}} \right)}$ for some $k > 0$, and one has
+  \[ \| u (T) \|^2_{\mathcal{D} \left( \sqrt{- \mathcal{H}} \right)} \lesssim
+     \mathcal{E}_0 [u (T)] =\mathcal{E}_0 [u_0], \]
+  so one may restart the flow from $T$ to $2 T$ and etc. In order to justify the conservation of energy in the energy space
+  \eqref{eq:energy-conservation}, we can proceed as in Section 3.2.2 of
+  {\cite{GUZ20}}. Clearly \eqref{eq:energy-conservation} is rigorous in the
+  ``more regular'' case $u_0 \in \mathcal{D} (\mathcal{H})$ and, as in
+  {\cite{GUZ20}}, we can approximate the solution $u$ to
+  (\ref{eq:ANLS-Hartree-defoc}) by the (global in time by Theorem
+  \ref{thm:naivegwp} that we prove later) solution $u^{\lambda}$ to
+  (\ref{eq:ANLS-Hartree-defoc}) with initial data
+  \[ u^{\lambda}_0 := \left( 1 + \lambda \sqrt{- \mathcal{H}} \right)^{-
+     1} u_0, \]
+  for which we have
+  \[ \mathcal{E}_0 [u^{\lambda}_0] \rightarrow \mathcal{E}_0 [u_0] \quad
+     \mathrm{as} \lambda \rightarrow 0, \]
+  and by the local well-posedness Theorem \ref{prop:LWP-energy}, especially
+  the continuity of the solution map with respect to the initial conditions,
+  the solutions converge in the sense that
+  \[ u^{\lambda} \rightarrow u \quad \mathrm{in} \ C \left( [0, T] ; \mathcal{D}
+     \left( \sqrt{- \mathcal{H}} \right) \right), \]
+  which further implies using the $\mathcal{D} \left( \sqrt{- \mathcal{H}}
+  \right) \hookrightarrow L^6_{\mathbb{T}^3}$ embedding from Lemma
+  \ref{lem:embed} that the interaction part in $\mathcal{E}_0$ converges, and
+  therefore
+  \[ \mathcal{E}_0 [u^{\lambda}_0] =\mathcal{E}_0 [u^{\lambda} (t)]
+     \rightarrow \mathcal{E}_0 [u (t)] \quad \text{as } \lambda \rightarrow
+     0^+, \]
+  for all $t \leqslant T$. 
+\end{proof}
+
+\subsection{Global well-posedness in the Domain of Anderson
+Hamiltonian}\label{sec:high-order-energy}
+
+We now consider the global well-posedness of \eqref{eq:ANLS-Hartree-defoc} in
+the domain $\mathcal{D} (\mathcal{H})$ using the method of modified
+energy introduced in {\cite{PTV17}} and applied for the multiplicative
+stochastic NLS on $\mathbb{T}^2$ and $\mathbb{R}^2$ in {\cite{TV23b}},
+{\cite{TZ23a}} and {\cite{DLTV24}} respectively. We first notice that it
+follows immediately from the Sobolev embedding, the energy conservation, Lemma
+\ref{lem:con-Gamma} and the boundedness of $e^W$ that
+\begin{equation}
+  \| u \|_{L_{[0, T]}^{\infty} L_{\mathbb{T}^3}^6} \lesssim \| u^{\sharp}
+  \|_{L_{[0, T]}^{\infty} L_{\mathbb{T}^3}^6} \lesssim \| u^{\sharp}
+  \|_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^1} \lesssim
+  \mathcal{E}^{\frac{1}{2}}_0 [u_0], \label{Lp-from-energy}
+\end{equation}
+which is uniform in time, while with the help of Strichartz estimates in
+Corollary \ref{cor:anderson-strichartz}, we expect to bound higher
+spatial-integrability of $u^{\sharp}$ at the cost of some time
+integrability. This is indeed possible thanks to the following a
+priori estimates.
+
+\begin{lem}[the ``Nonlinear Strichartz'' Estimate]
+  \label{lem:nonlinear-strichartz}For any solution $u^{\sharp}$ to
+  (\ref{eq:Duhamel-Hartree}) in the space of $H_{\mathbb{T}^3}^2$, we have for
+  any parameter $\beta$ of the Hartree interaction such that
+  \[ \frac{7}{10} < \beta < 1, \]
+  the bounds
+  \begin{equation}
+    \| u^{\sharp} \|_{L^{\frac{10}{3}}_{[0, T]}
+    W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} \lesssim \| u^{\sharp}
+    \|^{{\color[HTML]{000000}\frac{3}{7}} \left(
+    {\color[HTML]{000000}\frac{17}{20} - \beta} \right)_+}_{L_{[0,
+    T]}^{\infty} H_{\mathbb{T}^3}^2}, \label{nonlinear-Strichartz-H1}
+  \end{equation}
+  and
+  \begin{equation}
+    \| u^{\sharp} \|_{L^{\frac{10}{3}}_{[0, T]}
+    W_{\mathbb{T}^3}^{\frac{31}{20} -, \frac{10}{3}}} \lesssim \| u^{\sharp}
+    \|^{1 + {\color[HTML]{000000}\frac{20}{7} \left(
+    {\color[HTML]{000000}\frac{17}{20} - \beta} \right)_+ (1 -
+    \beta)}}_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^2},
+    \label{nonlinear-Strichartz-H2}
+  \end{equation}
+  where the constant only depends on the terminal time $T > 0$, $\|
+  u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1}$, the realization of the noise $\Xi$
+  and the norms of the potential $V_{\beta}$.
+\end{lem}
+
+Heuristically, \eqref{nonlinear-Strichartz-H1} in the case $\beta \geqslant
+\frac{17}{20}$ is the a priori bounds applying Strichartz estimates in the
+mild formulation of energy solutions. In the case that $\beta <
+\frac{17}{20},$ it says how much of the $L_{[0, T]}^{\infty}
+H_{\mathbb{T}^3}^2$ one needs to bound the nonlinear term in the mild
+formulation. We postpone the proof to the end of the chapter in
+\ref{sec:posteri-bound-proof} .
+
+\
+
+Let us firstly give a ``naive'' result coming from a Gr\"onwall-type bound,
+i.e. how low one can choose the parameter $\beta$ if one simply wants a linear
+bound in the mild formulation leading to an exponential bound in time. The proof can be found in \cite[Theorem 5.3]{de2025stochastic}.
+
+\begin{thm}[Naive GWP in domain]
+  \label{thm:naivegwp}Let $u_0 \in \mathcal{D} (\mathcal{H})$ and $T > 0$ and
+  $V_{\beta}$ as above with ${\color[HTML]{000000}\beta > \frac{17}{20}} .$
+  Then there exists a unique mild solution to \eqref{eq:ANLS-Hartree-defoc}
+  \[ u \in C ([0, T] ; \mathcal{D} (\mathcal{H})) \cap C^1 ([0, T] ;
+     L_{\mathbb{T}^3}^2) \]
+  with the solution depending continuously on the initial data, s.t.
+  \[ \| u \|_{C ([0, T] ; \mathcal{D} (\mathcal{H})) \cap C^1 ([0, T] ;
+     L_{\mathbb{T}^3}^2)} \leqslant c (\mathcal{E}_0 (u_0)) e^{c'
+     (\mathcal{E}_0 (u_0)) T} \| u_0 \|_{\mathcal{D} (\mathcal{H})}\]
+     for some $c, c' > 0$ depending on the energy of the initial data
+  $\mathcal{E}_0 (u_0)$.
+\end{thm}
+
+\subsubsection{Second-Order Energy}
+
+It turns out that we can still push the $\beta$ slightly below the threshold
+of $\frac{17}{20}$ from Theorem \ref{thm:naivegwp} if we employ the method of second
+order energies, inspired by the series of works {\cite{PTV17}},
+{\cite{TZ23a}}, {\cite{TV23b}} and {\cite{DLTV24}}. We fix therefore in this
+section a solution $u \in C ([0, T], \mathcal{D} (\mathcal{H}))$ to
+(\ref{eq:ANLS-Hartree}) with initial datum $u_0 \in \mathcal{D} (\mathcal{H})$
+and denote
+\[ u_0^{\sharp} = (e^W \Gamma)^{- 1} u_0 \in H_{\mathbb{T}^3}^2  \quad
+   \text{and} \quad u_0^{\natural} = \Lambda^{- 1} u_0 \in H_{\mathbb{T}^3}^2
+   . \]
+As a first step to warm up, we show that for any $t \leqslant T$, the
+$L_{\mathbb{T}^3}^2$-norm of the time-derivative of $u$ is comparable to that
+of $\mathcal{H} u$ up to a lower-order term, that is
+\begin{equation}
+  \left| \| \partial_t u (t) \|_{L_{\mathbb{T}^3}^2} - \| \mathcal{H} u (t)
+  \|_{L_{\mathbb{T}^3}^2} \right| \lesssim_{V_{\beta}} (\mathcal{E}_0
+  [u_0])^{\frac{3}{2}} . \label{eq:equiv-E1}
+\end{equation}
+Indeed, the bound (\ref{eq:equiv-E1}) follows from (\ref{Lp-from-energy}) and
+the equation (\ref{eq:ANLS-Hartree-defoc}):
+\begin{equation}
+  \| u (| u |^2 \ast V_{\beta}) \|_{L_{\mathbb{T}^3}^2} \lesssim_{V_{\beta}}
+  \| u \|^3_{L_{\mathbb{T}^3}^6} \lesssim_{\Xi} (\mathcal{E}_0
+  [u_0])^{\frac{3}{2}} . \label{rhs:energy}
+\end{equation}
+Before stating the main theorem of this section, we derive the
+second-order energy we will consider. Following {\cite{PTV17}}, the
+preliminary ansatz is
+\begin{equation}
+  \tilde{\mathcal{E}}_1 [u (t)] = \| \partial_t u (t)
+  \|^2_{L_{\mathbb{T}^3}^2} . \label{eq:def-ho-energy}
+\end{equation}
+By (\ref{eq:equiv-E1}) and Lemma \ref{lem:embed}, control of
+$\widetilde{\mathcal{E} }_1$ gives a bound for $\| u^{\sharp} \|_{L^{\infty}
+H_{\mathbb{T}^3}^2}$. We also give useful but basic bounds in
+negative-regularity spaces, which will be frequently used to interpolate
+between the first- and second-order energies.
+
+\begin{lem}[Time derivative and interpolation]
+  One has the following uniform in time bounds
+  \begin{equation}
+  \begin{split}
+    \| \partial_t u^{\sharp} (t) \|_{H_{\mathbb{T}^3}^{- 1}} & \asymp  \|
+    \partial_t u^{\natural} (t) \|_{H_{\mathbb{T}^3}^{- 1}} \asymp \| e^{- W}
+    \partial_t u (t) \|_{H_{\mathbb{T}^3}^{- 1}}\\
+    & \asymp \| \partial_t u (t)
+    \|_{\left( \mathcal{D} \left( \sqrt{- \mathcal{H}} \right) \right)^{\ast}}
+    \lesssim C (\mathcal{E} (u_0)), \label{dtu-equiv}
+    \end{split}
+  \end{equation}
+  and
+  \begin{eqnarray}
+    \| \partial_t u^{\natural} \|_{H_{\mathbb{T}^3}^{- \alpha}} & \lesssim \|
+    \partial_t u^{\natural} \|^{\alpha}_{H_{\mathbb{T}^3}^{- 1}} \| \partial_t
+    u^{\natural} \|^{1 - \alpha}_{L_{\mathbb{T}^3}^2} \lesssim C (\mathcal{E}
+    (u_0)) (\tilde{\mathcal{E}}_1 [u (t)])^{\frac{1 - \alpha}{2}}. \label{dtu-inter} 
+  \end{eqnarray}
+for $\alpha \in [0, 1]$.
+\end{lem}
+\begin{proof}[Proof.]
+  The main point in \eqref{dtu-equiv} is that since we have
+  identified\footnote{c.f. Proposition 2.53 in {\cite{GUZ20}}. } $\mathcal{D}
+  \left( \sqrt{- \mathcal{H}} \right)$ with $e^W H_{\mathbb{T}^3}^1$ one
+  canonically has $\mathcal{D} \left( \sqrt{- \mathcal{H}} \right)  \simeq
+  e^{- W} H_{\mathbb{T}^3}^{- 1}$ which is precisely the final equivalence.
+  This can be seen simply by noting
+  \begin{eqnarray*}
+    \| \varphi \|_{\left( \mathcal{D} \left( \sqrt{- \mathcal{H}} \right)
+    \right)^{\ast}} & \asymp & \underset{\psi \in \mathcal{D} \left( \sqrt{-
+    \mathcal{H}} \right)}{\sup} {\langle \psi, \varphi \rangle_{\mathcal{D}
+    \left( \sqrt{- \mathcal{H}} \right), \left( \mathcal{D} \left( \sqrt{-
+    \mathcal{H}} \right) \right)^{\ast}}} \\
+    & = & \underset{\psi' \in H_{\mathbb{T}^3}^1}{\sup} {\langle e^W \psi',
+    \varphi \rangle_{\mathcal{D} \left( \sqrt{- \mathcal{H}} \right), \left(
+    \mathcal{D} \left( \sqrt{- \mathcal{H}} \right) \right)^{\ast}}}  \asymp
+    \| e^W \varphi \|_{H_{\mathbb{T}^3}^{- 1}}.
+  \end{eqnarray*}
+  The other equivalences follow from the boundedness of the maps $\Gamma$ and
+  $\Theta$. The bound follows by using the equation, i.e.
+  \begin{eqnarray*}
+    \| \partial_t u (t) \|_{\left( \mathcal{D} \left( \sqrt{- \mathcal{H}}
+    \right) \right)^{\ast}} & \leqslant & \| \mathcal{H} u (t) \|_{\left(
+    \mathcal{D} \left( \sqrt{- \mathcal{H}} \right) \right)^{\ast}} + \| u (|
+    u |^2 \ast V_{\beta}) \|_{\left( \mathcal{D} \left( \sqrt{- \mathcal{H}}
+    \right) \right)^{\ast}}\\
+    & \overset{\eqref{rhs:energy}}{\leqslant} & \| u (t) \|_{\mathcal{D}
+    \left( \sqrt{- \mathcal{H}} \right)} + C (\mathcal{E} (u_0)) \lesssim C
+    (\mathcal{E} (u_0)) .
+  \end{eqnarray*}
+  Finally, \eqref{dtu-inter} follows by interpolation and \eqref{dtu-equiv}.
+\end{proof}
+
+The strategy is to use the equation and some additional manipulations to write
+\begin{equation}
+  \frac{\mathrm{d}}{\mathrm{dt}} \tilde{\mathcal{E}}_1 = \frac{\mathrm{d}}{\mathrm{dt}} A + \mathcal{O}
+  ((\tilde{\mathcal{E}}_1)^{1 - \kappa}) \ \mathrm{for \ some} \ \kappa > 0,
+  \label{formal:E1}
+\end{equation}
+an explicit $A$ which will be included in the energy and a sublinear
+remainder, schematically denoted by $\mathcal{O}((\tilde{\mathcal{E}}_1)^{1 -
+\varepsilon})$. This will lead even to a polynomially growing bound in time
+for the second order energy. In order to achieve this, we compute
+\begin{eqnarray*}
+  \frac{\mathrm{d}}{\mathrm{dt}} \int_{\mathbb{T}^3} | \partial_t u |^2 & = & 2 \Re
+  \int_{\mathbb{T}^3} \overline{\partial_t u} \partial^2_t u
+  \overset{\text{(\ref{eq:ANLS-Hartree-defoc})}}{=} 2 \Re \left[ - i
+  \int_{\mathbb{T}^3} \overline{\partial_t u} \partial_t (\mathcal{H} u \pm u
+  (| u |^2 \ast V_{\beta})) \right]\\
+  & = & \mp 2 \Re \left[ i \int_{\mathbb{T}^3} \overline{\partial_t u} u
+  (\partial_t | u |^2 \ast V_{\beta}) \right]\\
+  &\overset{\text{(\ref{eq:ANLS-Hartree-defoc})}}{=}& \pm 2 \Re \left[
+  \int_{\mathbb{T}^3} \overline{\mathcal{H} u \pm u (| u |^2 \ast V_{\beta})}
+  u (\partial_t | u |^2 \ast V_{\beta}) \right]\\
+  & = & \pm 2 \Re \left[ \int_{\mathbb{T}^3} \overline{\mathcal{H} u} u
+  (\partial_t | u |^2 \ast V_{\beta}) \right] + \frac{\mathrm{d}}{\mathrm{dt}}
+  \int_{\mathbb{T}^3} | u |^2 (| u |^2 \ast V_{\beta})^2\\
+  &-& \int_{\mathbb{T}^3}
+  (\partial_t | u |^2) (| u |^2 \ast V_{\beta})^2,
+\end{eqnarray*}
+having used the self-adjointness of $\mathcal{H}$ and the product rule to show
+that
+\[ \Re \left[ - i \int_{\mathbb{T}^3} \overline{\partial_t u} \mathcal{H}
+   \partial_t u \right] = \Re \left[ - i \int_{\mathbb{T}^3}
+   \overline{\partial_t u} \partial_t u | u |^2 \ast V_{\beta} \right] = 0 \]
+in the third equality. The first term is still very badly behaved, and we want to manipulate it as
+in {\cite{PTV17}}, but since the operator $\mathcal{H}$ does not obey Leibnitz
+rule, one can not apply their method directly. We can, however, use the idea
+from {\cite{Z19}}, which is to apply a suitable transformation to $\mathcal{H}
+u$ which makes it a perturbation of the Laplacian. In this setting this is
+precisely the $\Lambda$ transformation from Lemma \ref{lem:Lambda}. In fact,
+this yields
+\begin{eqnarray}
+  &  & \Re \left[ \int_{\mathbb{T}^3} \overline{\mathcal{H} u} u (\partial_t
+  | u |^2 \ast V_{\beta}) \right] \nonumber\\
+  & = & \Re \left[ \int_{\mathbb{T}^3} \overline{\Delta u^{\natural}}
+  u^{\natural} (\partial_t | u^{\natural} |^2 \ast V_{\beta}) \right] + \Re
+  \left[ \int_{\mathbb{T}^3} \overline{(\mathcal{H} \Lambda - \Delta)
+  u^{\natural}} u^{\natural} (\partial_t | u^{\natural} |^2 \ast V_{\beta})
+  \right] \nonumber\\
+  &  & + \Re \left[ \int_{\mathbb{T}^3} \overline{\mathcal{H} u} (\Lambda -
+  \mathrm{id}) u^{\natural} (\partial_t | u^{\natural} |^2 \ast V_{\beta})
+  \right] + \Re \left[ \int_{\mathbb{T}^3} \overline{\mathcal{H} u} u
+  (\partial_t (| u |^2 - | u^{\natural} |^2) \ast V_{\beta}) \right]
+  \nonumber\\
+  & =: & (\mathrm{I}) + (\mathrm{I} \mathrm{I}) + (\mathrm{I} \mathrm{I} \mathrm{I}) +
+  (\mathrm{IV}),  \label{eq:replacement}
+\end{eqnarray}
+where the first term can be further written as (again, inspired by
+{\cite{PTV17}})
+\begin{eqnarray}
+  (\mathrm{I}) & = & \int_{\mathbb{T}^3} \Delta | u^{\natural} |^2 (\partial_t |
+  u^{\natural} |^2 \ast V_{\beta}) - 2 \int_{\mathbb{T}^3} | \nabla
+  u^{\natural} |^2 (\partial_t | u^{\natural} |^2 \ast V_{\beta}) \nonumber\\
+  & = & - \frac{1}{2} \frac{\mathrm{d}}{\mathrm{dt}} \int_{\mathbb{T}^3} \nabla |
+  u^{\natural} |^2 (\nabla | u^{\natural} |^2 \ast V_{\beta}) - 2
+  \int_{\mathbb{T}^3} | \nabla u^{\natural} |^2 (\partial_t | u^{\natural} |^2
+  \ast V_{\beta}) . \label{eq:def-I-term} 
+\end{eqnarray}
+\begin{rem*}
+  We notice that in the case of $3 \geqslant \beta \geqslant 1$, the
+  transformation (\ref{eq:replacement}) is no longer necessary, since we can
+  instead bound
+  \begin{eqnarray*}
+    \left| \Re \left[ \int_{\mathbb{T}^3} \overline{\mathcal{H} u} u
+    (\partial_t | u |^2 \ast V_{\beta}) \right] \right| (t) & \lesssim & \|
+    V_{\beta} \|_{L_{\mathbb{T}^3}^{\frac{3}{2}}} \| \partial_t | u |^2
+    \|_{L_{\mathbb{T}^3}^{\frac{3}{2}}} \| \mathcal{H} u
+    \|_{L_{\mathbb{T}^3}^2} \| u \|_{L_{\mathbb{T}^3}^6}\\
+    & \lesssim & \| V_{\beta} \|_{L_{\mathbb{T}^3}^{\frac{3}{3 - \beta}}}
+    \left( 1 + \| \mathcal{H} u \|^2_{L_{\mathbb{T}^3}^2} \right) \| u
+    \|^2_{L_{\mathbb{T}^3}^6}\\
+    & \lesssim & C (\mathcal{E}_0 [u_0]) \| V_{\beta}
+    \|_{L_{\mathbb{T}^3}^{\frac{3}{3 - \beta}}} (1 + \tilde{\mathcal{E}}_1 [u
+    (t)]),
+  \end{eqnarray*}
+  due to (\ref{eq:equiv-E1}). Such a bound suffices to close the estimate in
+  Proposition \ref{prop:higher-energy-gronwall} with Gr{\"o}nwall inequality
+  and obtain an exponential bound, similar to Theorem \ref{thm:naivegwp}. We
+  will therefore only focus on the case of $0 \leqslant \beta < 1$ in this section. 
+\end{rem*}
+
+\begin{rem}\label{rem:neces-exp-ansatz}If one did not have the map $\Theta$, but simply
+  the exponential and paracontrolled maps, the differences $\Delta - e^{- W}
+  \mathcal{H} e^W \Gamma$ and $\Gamma - \mathrm{id}$ would appear. Indeed, one
+  would get
+  \begin{eqnarray*}
+    \int_{\mathbb{T}^3} \overline{\mathcal{H} u} u (\partial_t | u |^2 \ast
+    V_{\beta}) & = & \int_{\mathbb{T}^3} \overline{e^{- W} \mathcal{H} e^W
+    \Gamma u^{\sharp}} \Gamma u^{\sharp} (\partial_t | u |^2 \ast V_{\beta})
+    e^{2 W},
+  \end{eqnarray*}
+  but then one would instead have the leading term in (\ref{eq:def-I-term})
+  after the replacement of $e^{- W} \mathcal{H} e^W \Gamma$ with $\Delta$ and
+  $\Gamma$ with $\mathrm{id}$ respectively as
+  \begin{eqnarray*} \int_{\mathbb{T}^3} \Delta | u^{\sharp} |^2 (\partial_t | u^{\sharp} |^2
+     \ast V_{\beta}) e^{2 W} & = & \frac{1}{2} \frac{\mathrm{d}}{\mathrm{dt}}
+     \int_{\mathbb{T}^3} \nabla | u^{\sharp} |^2 \cdot (\nabla | u^{\sharp}
+     |^2 \ast V_{\beta}) e^{2 W} \\
+     & - & 2 \int_{\mathbb{T}^3} \nabla | u^{\sharp}
+     |^2 \cdot \nabla W (\partial_t | u^{\sharp} |^2 \ast V_{\beta}) e^{2 W},
+  \end{eqnarray*}
+  which is much worse, since $\nabla W \in \mathcal{C}_{\mathbb{T}^3}^{- \frac{1}{2}
+  -}$ only. We have therefore introduced the ``natural'' transformation
+  $\Theta$, which absorbs the exponential ansatz see Lemma
+  \ref{lem:homeom-Theta}. 
+\end{rem}
+
+We can thus set the second order energy functional of (\ref{eq:ANLS-Hartree})
+to be
+\begin{equation}
+  \mathcal{E}_1 [u] := \int_{\mathbb{T}^3} | \partial_t u |^2 -
+  \int_{\mathbb{T}^3} | u |^2 (| u |^2 \ast V_{\beta})^2 - \int_{\mathbb{T}^3}
+  \nabla | u^{\natural} |^2 (\nabla | u^{\natural} |^2 \ast V_{\beta}) .
+  \label{high-energy}
+\end{equation}
+Before we prove that $\frac{\mathrm{d}}{\mathrm{d} t} \mathcal{E}_1 [u] \lesssim 1 +
+\mathcal{O} (\mathcal{E}_1 [u])^{1 - \kappa}$ for some $0 < \kappa < 1$ (after
+shifting the $\mathcal{E}_1$ to make it non-negative), we indicate that the
+other terms in $\mathcal{E}_1$ are lower-order with respect to the first term.
+
+\begin{lem}
+  One has the bound for any $\beta > 0$ that
+  \begin{eqnarray*}
+    \left| \int_{\mathbb{T}^3} \nabla | u^{\natural} |^2 (\nabla |
+    u^{\natural} |^2 \ast V_{\beta}) \right| + \int_{\mathbb{T}^3} | u |^2 (|
+    u |^2 \ast V_{\beta})^2 & \leqslant & \frac{1}{4} \int_{\mathbb{T}^3} |
+    \partial_t u |^2 + C (\mathcal{E}_0 (u_0)),
+  \end{eqnarray*}
+  which implies
+  \[ | \mathcal{E}_1 [u] (t) - \tilde{\mathcal{E}}_1 [u] (t) | \leqslant
+     \frac{1}{2} \tilde{\mathcal{E}}_1 [u] (t) + C (\mathcal{E}_0 (u_0)), \]
+  and
+  \begin{eqnarray*}
+    \tilde{\mathcal{E}}_1 [u] (t) & \leqslant 2\mathcal{E}_1 [u] (t) + C
+    (\mathcal{E}_0 (u_0)),\\
+    | \mathcal{E}_1 [u] (t) | & \leqslant 2 \tilde{\mathcal{E}}_1 [u] (t) + C
+    (\mathcal{E}_0 (u_0)) .
+  \end{eqnarray*}
+\end{lem}
+
+\begin{proof}[Proof.]
+  This follows quite straightforwardly by Lemma \ref{lem:embed} and
+  \eqref{eq:equiv-E1} and the standard combination of Sobolev interpolation
+  and Young's inequality. Indeed,
+  \[ \| \nabla | u^{\natural} |^2  \|_{L_{\mathbb{T}^3}^p} \lesssim \|
+     u^{\natural} \|_{H_{\mathbb{T}^3}^1} \| u^{\natural}
+     \|_{L_{\mathbb{T}^3}^{\frac{2 p}{2 - p}}} \lesssim \| u^{\natural}
+     \|^{\frac{3}{p}}_{H_{\mathbb{T}^3}^1} \| u^{\natural} \|^{2 -
+     \frac{3}{p}}_{H_{\mathbb{T}^3}^2}, \quad \forall p \in \left[
+     \frac{3}{2}, 2 \right], \]
+  and therefore for $\beta \in \left( 0, \frac{1}{2} \right]$,
+  \[ \left| \int_{\mathbb{T}^3} \nabla | u^{\natural} |^2 (\nabla |
+     u^{\natural} |^2 \ast V_{\beta}) \right| \lesssim_{V_{\beta}} \| \nabla |
+     u^{\natural} |^2  \|_{{L^{\frac{6}{3 + 2 \beta}}_{\mathbb{T}^3}} } \|
+     \nabla | u^{\natural} |^2  \|_{L_{\mathbb{T}^3}^2} \lesssim \|
+     u^{\natural} \|^{3 + \beta}_{H_{\mathbb{T}^3}^1} \| u^{\natural} \|^{1 -
+     \beta}_{H_{\mathbb{T}^3}^2}, \]
+  which gives the desired bound by Young's inequality since $1 - \beta < 1$.
+  The bound for $\beta \geqslant \frac{1}{2}$ for $\int_{\mathbb{T}^3} | u |^2
+  (| u |^2 \ast V_{\beta})^2$ is easier.
+  
+  \ 
+\end{proof}
+
+Now we show that the terms on the right hand side of \eqref{eq:replacement}
+are indeed of the form schematically given by \eqref{formal:E1}.
+
+\begin{prop}
+  \label{prop:2energy}We have the following bounds for the replacement in
+  (\ref{eq:replacement}) in terms of the higher-order energy, that is
+  \begin{equation}
+    | (\mathrm{I} \mathrm{I}) | + | (\mathrm{I} \mathrm{I} \mathrm{I}) | + | (\mathrm{IV}) | \leqslant C
+    (\mathcal{E}_0 (u_0)) (\mathcal{E}_1 [u])^{1 - \kappa} .
+    \label{ineq:Ibound}
+  \end{equation}
+  for a suitable $\kappa > 0$. Furthermore, the second term in $(\mathrm{I})$ can be bounded by
+  \begin{align*}
+    \left| 2 \int^T_0 \int_{\mathbb{T}^3} | \nabla u^{\natural} |^2
+    (\partial_t | u^{\natural} |^2 \ast V_{\beta}) \mathrm{dt} \right| 
+    \lesssim  \| u^{\sharp} \|^{s_{\beta}}_{L_{[0, T]}^{\infty}
+    H_{\mathbb{T}^3}^2}
+  \end{align*}
+  where
+  \begin{equation}
+    s_{\beta} = - \frac{20}{7} \beta^3 + \frac{65}{7} \beta^2 -
+    \frac{1663}{140} \beta + \frac{19159}{2800} . \label{eq:def-sbeta}
+  \end{equation}
+\end{prop}
+
+It suffices to have $s_{\beta} < 2$ to close the bound for the higher-order
+energy $\mathcal{E}_1 [u]$, which gives approximately
+  \begin{equation}
+    0.733 < \beta < \frac{17}{20} .
+  \end{equation}
+
+\begin{proof}[Proof.]For the first inequality we bound using H{\"o}lder's and Young's convolution
+  inequalities using that $\beta > \frac{1}{2}$ implies $V_{\beta} \in
+  L^{\frac{6}{5} +}$ and the usual embedding results from Lemma
+  \ref{lem:embed}
+  \begin{eqnarray*}
+    | (\mathrm{I} \mathrm{I}) | & \leq & \| (\mathcal{H} \exp (W^M) \Gamma \Theta^{- 1}
+    - \Delta) u^{\natural} \|_{L^{\frac{3}{1 + \varepsilon}}_{\mathbb{T}^3}}
+    \| u^{\natural} \|_{L^6_{\mathbb{T}^3}} \| \partial_t | u^{\natural} |^2
+    \|_{L^{\frac{3}{2}}_{\mathbb{T}^3}} \| V_{\beta} \|_{{{L^{\frac{6}{5 -
+    \varepsilon}}_{\mathbb{T}^3}} }  }\\
+    & \overset{\left( \ref{eq:diff-HeWG-Lap} \right)}{\lesssim} &
+    \mathcal{E}^{\frac{1}{2}}_0 [u_0] \| u^{\natural} \|_{W^{\frac{3}{2} +
+    \delta, \frac{3}{1 + \varepsilon}}_{\mathbb{T}^3}} \| u^{\natural}
+    \|_{L^6} \| \partial_t u^{\natural} \|_{L^2_{\mathbb{T}^3}} \| V_{\beta}
+    \|_{{{L^{\frac{6}{5 - \varepsilon}}_{\mathbb{T}^3}} }  }\\
+    & \overset{}{\lesssim} & \mathcal{E}^{\frac{1}{2}}_1 [u] \mathcal{E}_0
+    [u_0] \| u^{\natural} \|_{H^{2 + \delta - \varepsilon }_{\mathbb{T}^3}} \|
+    V_{\beta} \|_{{{L^{\frac{6}{5 - \varepsilon}}_{\mathbb{T}^3}} }  }\\
+    & \lesssim & C (\mathcal{E}_0 [u_0]) \| u^{\natural} \|^{1 - 2
+    \kappa}_{H^{2 }_{\mathbb{T}^3}} \mathcal{E}^{\frac{1}{2}}_1 [u] \lesssim C
+    (\mathcal{E}_0 [u_0]) \mathcal{E}^{1 - \kappa}_1 [u]
+  \end{eqnarray*}
+  for $\varepsilon > \delta > 0$ small enough and $\kappa = \frac{1}{2}
+  (\varepsilon - \delta) > 0$; while for the second one, we have similarly
+  \begin{eqnarray*}
+    | (\mathrm{I} \mathrm{I} \mathrm{I}) | & \leq & \| \mathcal{H} u \|_{L^2} \| (\Lambda -
+    \mathrm{id}) u^{\natural} \|_{{L^{\frac{2}{\varepsilon}}_{\mathbb{T}^3}} }
+    \| V_{\beta} \ast \partial_t | u^{\natural} |^2
+    \|_{L_{\mathbb{T}^3}^{\frac{2}{1 - \varepsilon}}}\\
+    & \lesssim & \mathcal{E}_1 [u]^{\frac{1}{2}} \| (\Lambda - \mathrm{id})
+    u^{\natural} \|_{{W^{\frac{1 - 3 \varepsilon}{2}, 6}_{\mathbb{T}^3}} } \|
+    \partial_t | u^{\natural} |^2 \|_{W_{\mathbb{T}^3}^{- \delta, \frac{3}{2 +
+    \varepsilon}}} \| V_{\beta} \|_{W^{\delta, \frac{6}{5 - 5 \varepsilon}}}\\
+    & \overset{\eqref{eq:diff-G-id}}{\lesssim} & \mathcal{E}_1
+    [u]^{\frac{1}{2}} \mathcal{E}^{\frac{1}{2}}_0 [u_0] \| \partial_t
+    u^{\natural} \|_{H_{\mathbb{T}^3}^{- \delta}} \| u^{\natural}
+    \|_{W_{\mathbb{T}^3}^{2 \delta, \frac{6}{1 + 2 \varepsilon}}}\\
+    & \overset{\eqref{dtu-inter}}{\lesssim} & \mathcal{E}_1 [u]^{1 - \kappa}
+    C (\mathcal{E}_0 [u_0])
+  \end{eqnarray*}
+  where $\varepsilon, \delta > 0$ are small enough and $\kappa =
+  \frac{\delta}{2}$; moreover we have
+  \begin{align*}
+    | (\mathrm{IV}) | & \leq \| \mathcal{H} u \|_{L_{\mathbb{T}^3}^2} \| u
+    \|_{L_{\mathbb{T}^3}^6} \| V_{\beta} \ast \partial_t (| u |^2 - |
+    u^{\natural} |^2) \|_{L_{\mathbb{T}^3}^3}\\
+    & \lesssim \mathcal{E}^{\frac{1}{2}}_0 [u_0]
+    \mathcal{E}^{\frac{1}{2}}_1 [u] \| V_{\beta} \|_{W_{\mathbb{T}^3}^{\delta,
+    \frac{6}{5 - 3 \varepsilon}}} \| \partial_t (| u |^2 - | u^{\natural} |^2)
+    \|_{W_{\mathbb{T}^3}^{- \delta, \frac{2}{1 + \varepsilon}}}\\
+    & \lesssim \mathcal{E}^{\frac{1}{2}}_0 [u_0]
+    \mathcal{E}^{\frac{1}{2}}_1 [u] \left( \| (1 - \Lambda) \partial_t u
+    \|_{W_{\mathbb{T}^3}^{- \delta, 3}} \| u \|_{{W_{\mathbb{T}^3}^{2 \delta,
+    \frac{6}{1 + 3 \varepsilon}}} } + \| (1 - \Lambda) u
+    \|_{W_{\mathbb{T}^3}^{\delta, \frac{2}{\varepsilon}}} \| \partial_t u
+    \|_{H_{\mathbb{T}^3}^{- \delta}} \right)\\
+    & \lesssim  \mathcal{E}^{\frac{1}{2}}_0 [u_0]
+    \mathcal{E}^{\frac{1}{2}}_1 [u] \left( \| (1 - \Lambda) \partial_t u
+    \|_{H_{\mathbb{T}^3}^{\frac{1}{2} - \delta}} \| u \|_{{W_{\mathbb{T}^3}^{2
+    \delta, \frac{6}{1 + 3 \varepsilon}}} } + \| (1 - \Lambda) u
+    \|_{W_{\mathbb{T}^3}^{\frac{1}{2} -, 6}} \| \partial_t u
+    \|_{H_{\mathbb{T}^3}^{- \delta}} \right)\\
+    & \overset{\eqref{eq:diff-G-id}}{\lesssim}  \mathcal{E}_0 [u_0]
+    \mathcal{E}^{\frac{1}{2}}_1 [u] \| \partial_t u \|_{H_{\mathbb{T}^3}^{-
+    \frac{\delta}{2}}} \overset{\eqref{dtu-inter}}{\lesssim} \mathcal{E}_1
+    [u]^{1 - \kappa} C (\mathcal{E}_0 [u_0]),
+  \end{align*}
+  for $\varepsilon, \delta > 0$ sufficiently small and $\kappa =
+  \frac{\delta}{4} .$ The $\kappa > 0$ in \eqref{ineq:Ibound} is then chosen
+  as the minimum of the $\kappa$ parameters in the previous bounds. Lastly, we have for the final term which is the most irregular,
+  \begin{eqnarray*}
+    &&\left| \int^T_0 \int_{\mathbb{T}^3} | \nabla u^{\natural} |^2 (\partial_t
+    | u^{\natural} |^2 \ast V_{\beta}) d t \right| \\
+    & \lesssim &
+    T^{\frac{1}{10}} \| V_{\beta} \|_{L^{\frac{3}{3 - \beta}
+    -}_{\mathbb{T}^3}} \| \partial_t | u^{\natural} |^2 \|_{L_{[0,
+    T]}^{\frac{10}{3}} L_{\mathbb{T}^3}^{\frac{60}{37} -}} \| | \nabla
+    u^{\natural} |^2 \|_{L^{\frac{5}{3}}_{[0, T]} L^{\frac{60}{23 + 20 \beta}
+    +}_{\mathbb{T}^3}}\\
+    & \lesssim_{V_{\beta}} & T^{\frac{1}{10}} \| u^{\natural}
+    \|_{L^{\frac{10}{3}}_{[0, T]} L_{\mathbb{T}^3}^{\frac{60}{7} -}} \|
+    \partial_t u^{\natural} \|_{L^{\infty}_{[0, T]} L_{\mathbb{T}^3}^2} \|
+    \nabla u^{\natural} \|^2_{L^{\frac{10}{3}}_{[0, T]} L^{\frac{120}{23 + 20
+    \beta} +}_{\mathbb{T}^3}}
+  \end{eqnarray*}
+  having used H{\"o}lder's inequality in both space and time. We assume from now on $\frac{17}{20} > \beta > \frac{13}{20}$ (the lower
+  bound is equivalent to $p_{\beta} : = \frac{120}{23 + 20 \beta} + <
+  \frac{10}{3}$) and bound
+  \[ \| u^{\natural} (s) \|_{W^{1, p_{\beta}}_{\mathbb{T}^3}} \lesssim \|
+     u^{\natural} (s) \|^{\frac{9}{40} + \frac{\beta}{2}}_{W^{\frac{9}{40} +
+     \frac{\beta}{2}, p_{\beta}}_{\mathbb{T}^3}} \| u^{\natural} (s)
+     \|^{\frac{31}{40} - \frac{\beta}{2}}_{W^{\frac{49}{40} + \frac{\beta}{2},
+     p_{\beta}}_{\mathbb{T}^3}} \lesssim \| u^{\natural} (s) \|^{\frac{9}{40}
+     + \frac{\beta}{2}}_{W^{\frac{11}{20}, \frac{10}{3}}_{\mathbb{T}^3}} \|
+     u^{\natural} (s) \|^{\frac{31}{40} - \frac{\beta}{2}}_{W^{\frac{31}{20},
+     \frac{10}{3}}_{\mathbb{T}^3}}, \]
+  and applying Lemma \ref{lem:nonlinear-strichartz}, this indicates that
+  \begin{eqnarray*}
+    &&\left| \int^T_0 \int_{\mathbb{T}^3} | \nabla u^{\natural} |^2 (\partial_t
+    | u^{\natural} |^2 \ast V_{\beta}) d t \right|\\ 
+    & \lesssim &
+    T^{\frac{1}{10}} \| u^{\natural} \|_{L^{\frac{10}{3}}_{[0, T]}
+    L_{\mathbb{T}^3}^{\frac{60}{7} -}} \| \partial_t u^{\natural}
+    \|_{L^{\infty}_{[0, T]} L_{\mathbb{T}^3}^2} \| u^{\natural}
+    \|^{\frac{9}{20} + \beta}_{L_{[0, T]}^{\frac{10}{3}} W^{\frac{11}{20} -,
+    \frac{10}{3}}_{\mathbb{T}^3}} \| u^{\natural} \|^{\frac{31}{20} -
+    \beta}_{L_{[0, T]}^{\frac{10}{3}} W^{\frac{31}{20} -,
+    \frac{10}{3}}_{\mathbb{T}^3}}\\
+    & \lesssim & T^{\frac{1}{10}} \| u^{\natural} \|^{\frac{29}{20} +
+    \beta}_{L_{[0, T]}^{\frac{10}{3}} W^{\frac{11}{20} -,
+    \frac{10}{3}}_{\mathbb{T}^3}} \| \partial_t u^{\natural}
+    \|_{L^{\infty}_{[0, T]} L_{\mathbb{T}^3}^2} \| u^{\natural}
+    \|^{\frac{31}{20} - \beta}_{L_{[0, T]}^{\frac{10}{3}} W^{\frac{31}{20} -,
+    \frac{10}{3}}_{\mathbb{T}^3}} \lesssim T^{\frac{1}{10}} \| u^{\sharp}
+    \|^{s_{\beta}}_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^2},
+  \end{eqnarray*}
+  where $s_{\beta}$ is defined by (\ref{eq:def-sbeta}). 
+\end{proof}
+
+We have consequently a polynomial growth in time of the $\mathcal{D} (\mathcal{H})$
+norm of the solution $u$:
+\begin{prop}
+  \label{prop:higher-energy-gronwall}For the second-order energy defined in
+  (\ref{high-energy}), we have for any solution $u \in C ([0, T], \mathcal{D}
+  (\mathcal{H}))$ to (\ref{eq:ANLS-Hartree}) that
+  \begin{equation}
+    |\mathcal{E}_1 [u] (t) -\mathcal{E}_1 [u] (s)| \leq C (\mathcal{E}_0 (u_0))
+    (t - s)^{\frac{1}{10}} (1 + (\mathcal{E}_1 [u] (t))^{1 - \kappa})
+    \label{prop:energyincr}
+  \end{equation}
+  for $| t - s | < 1$ and some $0 < \kappa < 1$. This leads to an explicit growth for $\mathcal{E}_1$ namely
+  \begin{equation}
+    \underset{0 \leqslant \tau \leqslant T}{\sup} (\mathcal{E}_1 [u]) (\tau)
+    \lesssim (\mathcal{E}_1 [u]) (0) + C (\mathcal{E}_0 (u_0)) +
+    T^{\frac{1}{\kappa}}  \text{ for any } T \geqslant 1
+    \label{prop:normgrowth}
+  \end{equation}
+\end{prop}
+\begin{proof}[Proof.]
+  By an approximation argument, we can make the previous computations rigorous
+  for the second order energy $\mathcal{E}_1$ of the solution of the 3d
+  stochastic Hartree NLS \eqref{eq:ANLS-Hartree-defoc} in an integrated form
+  which by Proposition \ref{prop:2energy} is precisely
+  \eqref{prop:energyincr}, choosing the small parameter $\kappa$ s.t. $2 - 2
+  \kappa \leqslant s_{\beta}$, see \eqref{eq:def-sbeta}. Note that the
+  restriction $| t - s | < 1$ comes from the fact that the Strichartz
+  estimates hold only on intervals of length $\sim 1$.\\
+  
+  The norm growth bound \eqref{prop:normgrowth} follows in a straightforward
+  way from \eqref{prop:energyincr}. Indeed, fixing $T > 0$, we simply estimate
+  \begin{align*}
+    \mathcal{E}_1 [u] (\tau) =  \mathcal{E}_1 [u] (0) + \overset{\lceil
+    \tau \rceil}{\underset{i = 1}{\sum}} \left( \mathcal{E}_1 [u] \left( \tau
+    \frac{i}{\lceil \tau \rceil} \right) -\mathcal{E}_1 [u] \left( \tau
+    \frac{i - 1}{\lceil \tau \rceil} \right) \right)
+    \end{align*}
+    and therefore
+    \begin{align*}
+        | \mathcal{E}_1 [u] (\tau) | &
+    \overset{\eqref{prop:energyincr}}{\leqslant} | \mathcal{E}_1 [u] (0) | +
+    C (\mathcal{E}_0 (u_0)) \left( \lceil \tau \rceil + \underset{i =
+    1}{\overset{\lceil \tau \rceil}{\sum}} \left( \mathcal{E}_1 [u] \left(
+    \tau \frac{i}{\lceil \tau \rceil} \right) \right)^{1 - \kappa} \right)\\
+    & \leqslant | \mathcal{E}_1 [u] (0) | + C (\mathcal{E}_0 (u_0)) \left(
+    \lceil T \rceil + \underset{0 \leqslant \tau \leqslant T}{\sup}
+    (\mathcal{E}_1 [u] (\tau))^{1 - \kappa} T \right)
+    \end{align*}
+  which implies
+  \begin{align*}
+    \underset{0 \leqslant \tau \leqslant T}{\sup} | \mathcal{E}_1 [u] (\tau) |
+    & \leqslant & | \mathcal{E}_1 [u] (0) | + C (\mathcal{E}_0 (u_0)) \left(
+    \lceil T \rceil + T^{\frac{1 - \kappa}{\kappa}} \right) + \frac{1}{2}
+    \underset{0 \leqslant \tau \leqslant T}{\sup} (\mathcal{E}_1 [u] (\tau)),
+    \end{align*}
+    and therefore
+    \begin{align*}
+        \underset{0 \leqslant \tau \leqslant T}{\sup} | \mathcal{E}_1 [u] (\tau) |
+     \leqslant 2 | \mathcal{E}_1 [u] (0) | + C (\mathcal{E}_0 (u_0)) \left(
+    \lceil T \rceil + T^{\frac{1}{\kappa}} \right) .
+    \end{align*}
+this finishes the proof.
+\end{proof}
+
+The main theorem of this chapter follows from the above considerations and
+\eqref{eq:blow-up-T-}.
+
+\begin{thm}
+  \label{thm:main}Let $u_0 \in \mathcal{D} (\mathcal{H})$, $T > 0$ and
+  $V_{\beta} \in W_{\mathbb{T}^3}^{\beta, 1}$non-negative and symmetric with
+  ${\color[HTML]{000000}\beta < \frac{17}{20}}$ be such that $s_{\beta} < 2$,
+  where $s_{\beta}$ is defined in \eqref{eq:def-sbeta}. Then there exists a
+  unique mild solution to \eqref{eq:ANLS-Hartree-defoc}
+  \[ u \in C ([0, T] ; \mathcal{D} (\mathcal{H})) \cap C^1 ([0, T] ;
+     L_{\mathbb{T}^3}^2) \]
+  with the solution depending continuously on the initial data and its norm
+  growing algebraically in $T.$
+\end{thm}
+
+\subsubsection{Proof of Lemma
+\ref{lem:nonlinear-strichartz}}\label{sec:posteri-bound-proof}
+
+In the end of the chapter, we present the proof of the bounds in Lemma
+\ref{lem:nonlinear-strichartz}, which have been essential for the improvement
+of the choice of smaller $\beta > 0$ for the well-posedness of
+(\ref{eq:ANLS-Hartree-defoc}).
+
+\begin{proof}[Proof of Lemma \ref{lem:nonlinear-strichartz}.]
+  We have from the mild formulation and the homogeneous and inhomogenuous
+  Strichartz-type estimates from Corollary \ref{cor:anderson-strichartz} and
+  Lemma \ref{lem:con-Gamma} that for the time interval $[0, T]$ with $T \sim
+  1$ and any $0 < T_0 \leqslant T$ one has
+  \begin{eqnarray*}
+    \| u^{\sharp} \|_{L^{\frac{10}{3}}_{[0, T_0]}
+    W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} & \lesssim & \|
+    u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1}\\
+    & + &\left\| \int^t_0 e^{- i (t - s)
+    \mathcal{H}^{\sharp}} \Gamma^{- 1} [\Gamma u^{\sharp} (s) (| e^W \Gamma
+    u^{\sharp} (s) |^2 \ast V_{\beta})] \mathrm{ds}
+    \right\|_{L^{\frac{10}{3}}_{t ; [0, T_0]} W_{\mathbb{T}^3}^{\frac{11}{20}
+    -, \frac{10}{3}}}\\
+    & \lesssim & \| u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1} + \int^{T_0}_0 \|
+    \Gamma u^{\sharp} (s) \|_{H_{\mathbb{T}^3}^1} \| | e^W \Gamma u^{\sharp}
+    (s) |^2 \ast V_{\beta} \|_{L_{\mathbb{T}^3}^{\infty}} \mathrm{ds}\\
+    & + & \int^{T_0}_0 \| \Gamma u^{\sharp} (s) \|_{L^{\frac{60}{7}
+    -}_{\mathbb{T}^3}} \| | e^W \Gamma u^{\sharp} (s) |^2 \ast V_{\beta}
+    \|_{W_{\mathbb{T}^3}^{1, \frac{60}{23} +}} \mathrm{ds},
+  \end{eqnarray*}
+  where we have also applied the fractional Leibniz rule in the last
+  inequality. We can further bound
+  \begin{eqnarray*}
+    \| | e^W \Gamma u^{\sharp} (s) |^2 \ast V_{\beta}
+    \|_{L_{\mathbb{T}^3}^{\infty}} & \lesssim & \| | \Gamma u^{\sharp} (s) |^2
+    \|_{L^{\frac{3}{\beta} +}_{\mathbb{T}^3}} \| V_{\beta}
+    \|_{L_{\mathbb{T}^3}^{\frac{3}{3 - \beta} -}}\\
+    & \lesssim_{V_{\beta}} & \| u^{\sharp} (s) \|_{L^{\frac{60}{7}
+    -}_{\mathbb{T}^3}} \| u^{\sharp} (s) \|_{{L_{\mathbb{T}^3}^{\frac{60}{20
+    \beta - 7} +}} }\\
+    & \lesssim_{V_{\beta}} & \| u^{\sharp} (s)
+    \|_{W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} \| u^{\sharp} (s)
+    \|^{\frac{3}{20} + \beta -}_{H_{\mathbb{T}^3}^1} \| u (s)
+    \|^{{\color[HTML]{000000}\frac{17}{20} - \beta} +}_{H_{\mathbb{T}^3}^2},
+  \end{eqnarray*}
+  where we have used the choice that $\beta \leqslant \frac{17}{20}$ and
+  \[ \| u^{\sharp} (s) \|_{{L_{\mathbb{T}^3}^{\frac{60}{20 \beta - 7} +}} }
+     \lesssim \| u^{\sharp} (s) \|_{{H_{\mathbb{T}^3}^{\frac{37}{20} - \beta
+     +}} } \leq \| u^{\sharp} (s) \|^{\frac{3}{20} + \beta
+     -}_{{H_{\mathbb{T}^3}^1} } \| u^{\sharp} (s) \|^{\frac{17}{20} - \beta
+     +}_{{H_{\mathbb{T}^3}^2} }, \]
+  by interpolation. Besides, we have by fractional Leibniz again and Sobolev
+  embedding that
+  \begin{eqnarray*}
+    \| | e^W \Gamma u^{\sharp} (s) |^2 \ast V_{\beta} \|_{W_{\mathbb{T}^3}^{1,
+    \frac{60}{23} +}} & \lesssim & \| | e^W \Gamma u^{\sharp} (s) |^2
+    \|_{W^{\frac{1}{2} -, \frac{60}{20 \beta + 13} +}_{\mathbb{T}^3}} \|
+    V_{\beta} \|_{W^{\frac{1}{2} +, \frac{6}{7 - 2 \beta} -}_{\mathbb{T}^3}}\\
+    & \lesssim & \| | \Gamma u^{\sharp} (s) |^2 \|_{W^{\frac{1}{2} -,
+    \frac{60}{20 \beta + 13}}_{\mathbb{T}^3}} \| V_{\beta} \|_{W^{\frac{1}{2}
+    +, \frac{6}{7 - 2 \beta} -}_{\mathbb{T}^3}}\\
+    & \lesssim & \| u^{\sharp} (s) \|_{L_{\mathbb{T}^3}^6} \| u^{\sharp} (s)
+    \|_{W^{\frac{1}{2} -, \frac{60}{20 \beta + 3}}_{\mathbb{T}^3}} \|
+    V_{\beta} \|_{W^{\frac{1}{2} +, \frac{6}{7 - 2 \beta} -}_{\mathbb{T}^3}}\\
+    & \lesssim & \| u (s) \|^{\frac{3}{20} + \beta -}_{H_{\mathbb{T}^3}^1} \|
+    u (s) \|^{{\color[HTML]{000000}\frac{17}{20} - \beta}
+    +}_{H_{\mathbb{T}^3}^2} \| V_{\beta} \|_{W^{\frac{1}{2} +, \frac{6}{7 - 2
+    \beta} -}_{\mathbb{T}^3}},
+  \end{eqnarray*}
+  since $\frac{1}{2} < \beta < \frac{17}{20}$, and also $\| u^{\sharp} (s)
+  \|_{W^{\frac{1}{2} -, \frac{60}{20 \beta + 3}}_{\mathbb{T}^3}} \lesssim \|
+  u^{\sharp} (s) \|_{{H_{\mathbb{T}^3}^{\frac{37}{20} - \beta +}} }$ as above. Combining the bounds, we have derived that for any $0 < T_0 \leqslant T$
+  that
+  \[ \| u^{\sharp} \|_{L^{\frac{10}{3}}_{[0, T_0]}
+     W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} \lesssim \|
+     u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1} + T_0^{\frac{7}{10}} \| u^{\sharp}
+     \|_{L^{\frac{10}{3}}_{[0, T_0]} W_{\mathbb{T}^3}^{\frac{11}{20} -,
+     \frac{10}{3}}} \| u^{\sharp} \|^{{\color[HTML]{000000}\frac{17}{20} -
+     \beta} +}_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^2}, \]
+  where the constant only depends on the constant in the linear Strichartz
+  estimate (\ref{eq:AH-Strichartz}), the norms of $V_{\beta}$ and $\|
+  u^{\sharp} \|_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^1} \lesssim \|
+  u_0^{\sharp} \|_{H_{\mathbb{T}^3}^1}$ but not on $T_0$. We can therefore
+  assume without loss of generality that $\| u^{\sharp} \|_{L_{[0,
+  T]}^{\infty} H_{\mathbb{T}^3}^2} > 0$ and choose
+  \begin{equation}
+    T^{- \frac{7}{10}}_0 \sim \| u^{\sharp}
+    \|^{{\color[HTML]{000000}\frac{17}{20} - \beta} +}_{L_{[0, T]}^{\infty}
+    H_{\mathbb{T}^3}^2} \label{eq:choice-T-0}
+  \end{equation}
+  small enough which gives rise to a partition $\{ I \}$ of $[0, T]$ such that
+  the mesh of $| I | \sim T_0$ such that
+  \[ \| u^{\sharp} \|_{L^{\frac{10}{3}}_{[0, T]}
+     W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} = \left( \sum_I \|
+     u^{\sharp} \|^{\frac{10}{3}}_{L_I^{\frac{10}{3}}
+     W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} \right)^{\frac{3}{10}}
+     \lesssim | I |^{- \frac{3}{10}} \overset{\left( \ref{eq:choice-T-0}
+     \right)}{\asymp} \| u^{\sharp} \|^{{\color[HTML]{000000}\frac{3}{7}}
+     \left( {\color[HTML]{000000}\frac{17}{20} - \beta} \right) +}_{L_{[0,
+     T]}^{\infty} H_{\mathbb{T}^3}^2}, \]
+  thanks to the flow property of the equation and energy conservation. Furthermore, if we bound the right hand side of mild formulation
+  \[ u^{\natural} (t) = e^{- i t \mathcal{H}^{\natural}} u_0^{\natural} - i
+     \int^t_0 e^{- i (t - s) \mathcal{H}^{\natural}} \Lambda^{- 1} [\Lambda
+     u^{\natural} (s) (| \Lambda u^{\natural} (s) |^2 \ast V_{\beta})]
+     \mathrm{ds} \]
+  in $H_{\mathbb{T}^3}^2$, we can bound $\| u^{\natural} \|_{L^{\frac{10}{3}}_{[0, T]}
+    W_{\mathbb{T}^3}^{\frac{31}{20} -, \frac{10}{3}}}$ for $0 < T \sim 1$ by
+  \begin{align*} 
+    & \|
+    u_0^{\natural} \|_{H_{\mathbb{T}^3}^2} + \left\| \int^t_0 e^{- i (t - s)
+    \mathcal{H}^{\natural}} \Lambda^{- 1} [\Lambda u^{\natural} (s) (| \Lambda
+    u^{\natural} (s) |^2 \ast V_{\beta})] \mathrm{ds}
+    \right\|_{L^{\frac{10}{3}}_{t ; [0, T]} W_{\mathbb{T}^3}^{\frac{31}{20} -,
+    \frac{10}{3}}}\\
+    \lesssim & \| u_0^{\natural} \|_{H_{\mathbb{T}^3}^2} + \left\| \int^t_0
+    (- \mathcal{H}^{\natural})^{\frac{31}{40} -} e^{- i (t - s)
+    \mathcal{H}^{\natural}} \Lambda^{- 1} [\Lambda u^{\natural} (s) (| \Lambda
+    u^{\natural} (s) |^2 \ast V_{\beta})] \mathrm{ds}
+    \right\|_{L^{\frac{10}{3}}_{[0, T] \times \mathbb{T}^3}},
+  \end{align*}
+  having used Lemma \ref{lem:space-equiv}. Now we can perform again the
+  integration by parts with respect to time as in the proof of Proposition
+  \ref{prop-lwp-domain} to get
+  \begin{eqnarray*}
+    &  & \int^t_0 (- \mathcal{H}^{\natural})^{\frac{31}{40} -} e^{- i (t - s)
+    \mathcal{H}^{\natural}} \Lambda^{- 1} [\Lambda u^{\natural} (s) (| \Lambda
+    u^{\natural} (s) |^2 \ast V_{\beta})] \mathrm{ds}\\
+    & = & \int^t_0 - \mathcal{H}^{\natural} e^{- i (t - s)
+    \mathcal{H}^{\natural}} (- \mathcal{H}^{\natural})^{- \frac{9}{40} -}
+    \Lambda^{- 1} [\Lambda u^{\natural} (s) (| \Lambda u^{\natural} (s) |^2
+    \ast V_{\beta})] \mathrm{ds}\\
+    & = & i \int^t_0 e^{- i (t - s) \mathcal{H}^{\natural}} (-
+    \mathcal{H}^{\natural})^{- \frac{9}{40} -} \Lambda^{- 1} \partial_s
+    [\Lambda u^{\natural} (s) (| \Lambda u^{\natural} (s) |^2 \ast V_{\beta})]
+    \mathrm{ds} + \mathrm{Bd} [u^{\natural}] (t),
+  \end{eqnarray*}
+  where the boundary terms are given by
+  \begin{eqnarray*}
+    \mathrm{Bd} [u^{\natural}] (t) & = & i (- \mathcal{H}^{\natural})^{-
+    \frac{9}{40} -} \Lambda^{- 1} [\Lambda u^{\natural} (t) (| \Lambda
+    u^{\natural} (t) |^2 \ast V_{\beta})]\\
+    & + & i e^{- i t \mathcal{H}^{\natural}}  (- \mathcal{H}^{\natural})^{-
+    \frac{9}{40} -} \Lambda^{- 1} [\Lambda u^{\natural} (0) (| \Lambda
+    u^{\natural} (0) |^2 \ast V_{\beta})], \label{eq:bd-nonl-strichartz-H2}
+  \end{eqnarray*}
+  and they can be bounded in $L_{[0, T] \times \mathbb{T}^3}^{\frac{10}{3}}$
+  by $\| \mathrm{Bd} [u^{\natural}] \|_{L_{[0, T] \times
+  \mathbb{T}^3}^{\frac{10}{3}}} \lesssim \| u^{\natural} \|^3_{L_{[0,
+  T]}^{\infty} H_{\mathbb{T}^3}^1} \leqslant C (\mathcal{E}_0 (u_0))$. We
+  postpone the proof of Lemma \ref{append-lem-bound-boundary-H2} to the
+  appendix and are therefore left to control
+  \begin{eqnarray*}
+    &  & \left\| \int^t_0 e^{- i (t - s) \mathcal{H}^{\natural}} (-
+    \mathcal{H}^{\natural})^{- \frac{9}{40} -} \Lambda^{- 1} \partial_s
+    [\Lambda u^{\natural} (s) (| \Lambda u^{\natural} (s) |^2 \ast V_{\beta})]
+    \mathrm{ds} \right\|_{L_{[0, T] \times \mathbb{T}^3}^{\frac{10}{3}}}\\
+    & \lesssim & \int^T_0 \left\| (- \mathcal{H}^{\natural})^{- \frac{9}{40}
+    -} \Lambda^{- 1} \partial_s [\Lambda u^{\natural} (s) (| \Lambda
+    u^{\natural} (s) |^2 \ast V_{\beta})]
+    \right\|_{H_{\mathbb{T}^3}^{\frac{9}{20} +}} \mathrm{ds}\\
+    & \lesssim & \int^T_0 \| [\partial_s \Lambda u^{\natural} (s)] (| \Lambda
+    u^{\natural} (s) |^2 \ast V_{\beta}) \|_{L_{\mathbb{T}^3}^2} + \| \Lambda
+    u^{\natural} (s) (\partial_s | \Lambda u^{\natural} (s) |^2 \ast
+    V_{\beta}) \|_{L_{\mathbb{T}^3}^2} \mathrm{ds},
+  \end{eqnarray*}
+  where we denote the right hand side as $(\mathrm{I})$ and $(\mathrm{I} \mathrm{I})$ respectively, having used the Strichartz estimate Lemma \ref{lem:Strichartz-AH-low} and
+  Lemma \ref{lem:space-equiv}.\\
+  
+  We can now exploit the bound (\ref{nonlinear-Strichartz-H1}) we have
+  derived using Strichartz estimates in $H_{\mathbb{T}^3}^1$ so that the first
+  term above can be controlled. Since the bound for $(\mathrm{I} \mathrm{I})$ is
+  identical, we only present the bound of the first term as follows
+  \begin{eqnarray*}
+    (\mathrm{I}) & \lesssim & \int^T_0 \| \partial_s u^{\natural} (s)
+    \|_{L_{\mathbb{T}^3}^2} \left\| | \Lambda u^{\natural} (s) |^2 {\ast
+    V_{\beta}}  \right\|_{L_{\mathbb{T}^3}^{\infty}} \mathrm{ds}\\
+    & \lesssim & \| V_{\beta} \|_{L^{\frac{3}{3 - \beta} -}_{\mathbb{T}^3}}
+    \int^T_0 \| \partial_s u^{\natural} (s) \|_{L_{\mathbb{T}^3}^2} \| |
+    u^{\natural} (s) |^2 \|_{L_{\mathbb{T}^3}^{\frac{3}{\beta} +}} \mathrm{ds},
+  \end{eqnarray*}
+  where we notice that $6 < \frac{6}{\beta} < \frac{60}{7}$ and \
+  $W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}} \hookrightarrow
+  L^{\frac{60}{7} -}_{\mathbb{T}^3}  \text{ and }
+  W_{\mathbb{T}^3}^{\frac{9}{10} - \frac{\beta}{2} +, \frac{10}{3}}
+  \hookrightarrow L_{\mathbb{T}^3}^{\frac{6}{\beta} +}$ hence
+  \begin{eqnarray*}
+   \| | u^{\natural} (s) |^2 \|_{L_{\mathbb{T}^3}^{\frac{3}{\beta} +}} & = & \|
+     u^{\natural} (s) \|^2_{L^{\frac{6}{\beta} +}_{\mathbb{T}^3}} \lesssim \|
+     u^{\sharp} (s) \|^{\frac{20}{3} (1 - \beta) +}_{L^{\frac{60}{7}
+     -}_{\mathbb{T}^3}} \| u^{\sharp} (s) \|^{\frac{20}{3} \left( \beta -
+     \frac{7}{10} \right) +}_{L^6_{\mathbb{T}^3}}\\
+     & \lesssim& \| u^{\sharp} (s)
+     \|^{{\color[HTML]{000000}\frac{20}{3} (1 - \beta)
+     +}}_{W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} \| u^{\sharp} (s)
+     \|^{\frac{20}{3} \left( \beta - \frac{7}{10} \right)
+     -}_{H^1_{\mathbb{T}^3}}, 
+     \end{eqnarray*}
+  by interpolation and noting that the last term is controlled again simply by
+  the energy. This gives
+  \begin{equation}
+    \| | u^{\sharp} |^2 \|_{L_{[0, T]}^1 L_{\mathbb{T}^3}^{\frac{3}{\beta}}}
+    {\lesssim T^{1 - 2 (1 - \beta)_+}}  \| u^{\sharp}
+    \|^{{\color[HTML]{000000}\frac{20}{3} (1 - \beta) +}}_{L_{[0,
+    T]}^{\frac{10}{3}} W_{\mathbb{T}^3}^{\frac{11}{20} -, \frac{10}{3}}} .
+  \end{equation}
+  We can therefore conclude with (\ref{nonlinear-Strichartz-H1}) that
+  \begin{equation}
+    \| u^{\sharp} \|_{L^{\frac{10}{3}}_{[0, T]}
+    W_{\mathbb{T}^3}^{\frac{31}{20} -, \frac{10}{3}}} \lesssim \| u^{\sharp}
+    \|^{1 + {\color[HTML]{000000}\frac{20}{7} \left(
+    {\color[HTML]{000000}\frac{17}{20} - \beta} \right) (1 - \beta)}
+    +}_{L_{[0, T]}^{\infty} H_{\mathbb{T}^3}^2}, \quad \beta \in \left(
+    \frac{7}{10}, \frac{17}{20} \right) .
+  \end{equation}
+\end{proof}
+
+\subsection{The case of bounded interaction}
+
+In this chapter we discuss how to obtain global well-posedness of
+\begin{equation}
+  i \partial_t u = \mathcal{H} u - u (| u |^2 \ast V), \quad \mathrm{on} [0, T]
+  \times \mathbb{T}^3 \label{eqn:NLS-Vbdd}
+\end{equation}
+in the case of bounded potential, i.e. $V = L_{\mathbb{T}^3}^{\infty}$ which
+is in many ways simpler, since the nonlinear term $V \ast | u |^2$ is
+controlled in $L_{[0, T]}^{\infty} L_{\mathbb{T}^3}^{\infty}$ by the
+conservation of mass through
+\begin{equation}
+  \| V \ast | u |^2 (t) \|_{L_{\mathbb{T}^3}^{\infty}} \lesssim \| V
+  \|_{L_{\mathbb{T}^3}^{\infty}} \| | u |^2 (t) \|_{L_{\mathbb{T}^3}^1} = \| V
+  \|_{L_{\mathbb{T}^3}^{\infty}} \| u (t) \|^2_{L_{\mathbb{T}^3}^2} = \| V
+  \|_{L_{\mathbb{T}^3}^{\infty}} \| u_0 \|^2_{L_{\mathbb{T}^3}^2} .
+  \label{eqn:nonlin-lip}
+\end{equation}
+This shows that one could obtain global well-posedness in the space
+$L_{\mathbb{T}^3}^2$ using the mass conservation \eqref{eq:mass-conservation},
+since in that space, the nonlinearity is Lipschitz.
+
+\begin{prop}
+  \label{thm:VbddL2}Let $u_0 \in L_{\mathbb{T}^3}^2$, $V \in
+  L_{\mathbb{T}^3}^{\infty}$, and $T > 0$. Then there exists a unique mild
+  solution to \eqref{eqn:NLS-Vbdd} in the space $C ([0, T] ;
+  L_{\mathbb{T}^3}^2)$ which depends continuously on the data.
+\end{prop}
+
+\begin{proof}[Proof.]
+  This is quite standard using the mild formulation
+  \begin{equation}
+    u (t) = e^{- i t \mathcal{H}} u_0 - i \int^t_0 e^{- i (t - s) \mathcal{H}}
+    [u (s) V \ast | u (s) |^2] d s \label{eqn:mildVinf}
+  \end{equation}
+  and the bound \eqref{eqn:nonlin-lip} to get first LWP by a contraction
+  argument and GWP by the conservation of mass, see
+  \eqref{eq:mass-conservation} which can be justified again by an
+  approximation argument, we omit the details.
+\end{proof}
+
+Similarly, in the strong setting i.e. $u_0 \in \mathcal{D} (\mathcal{H})$, one
+gets local well-posedness in the same way as in Section \ref{sec:lwpdomain}
+i.e. by integrating by parts in time in the mild fomulation. In order to get
+global well-posedness, one simply applies Gronwall inequality to the mild
+formulation of the time derivative. If we assume that $V$ has some regularity
+e.g. $W_{\mathbb{T}^3}^{\beta, 1}$ then this was already proven, but the
+global well-posedness still holds if only $V \in L_{\mathbb{T}^3}^{\infty}$
+with a Gronwall-type argument.
+
+\begin{thm}
+  \label{thm:Vinfdomain}Let $u_0 \in \mathcal{D} (\mathcal{H})$ and $T > 0$
+  and $V \in L_{\mathbb{T}^3}^{\infty} $ and non-negative. Then there exists a
+  unique mild solution to \eqref{eq:ANLS-Hartree-defoc} $u \in C ([0, T] ; \mathcal{D} (\mathcal{H})) \cap C^1 ([0, T] ;
+     L_{\mathbb{T}^3}^2)$
+  with the solution depending continuously on the initial data. Moreover, we have the bound
+  \begin{equation}
+    \| u \|_{C ([0, T] ; \mathcal{D} (\mathcal{H})) \cap C^1 ([0, T] ;
+    L_{\mathbb{T}^3}^2)} \leqslant c (\mathcal{E}_0 (u_0)) e^{c'
+    (\mathcal{E}_0 (u_0)) T} \| u_0 \|_{\mathcal{D} (\mathcal{H})} .
+    \label{eq:bd-Vinf-domain}
+  \end{equation}
+for some constants $c, c' > 0$ depending on the parameters and the energy of the
+  initial data $\mathcal{E}_0 (u_0)$.
+\end{thm}
+
+\begin{proof}[Proof.]
+  This is proved basically the same way as Theorem \ref{thm:naivegwp},
+  integrating by parts in time, using \eqref{eqn:nonlin-lip} and applying a
+  Gr\"onwall-type argument to the time derivative $\partial_t u$.
+\end{proof}
+
+In this setting there is an interesting subtlety, namely that it is not
+obvious how to obtain energy solutions (c.f. {\cite{GUZ20}} 3.2.2)
+from the mild formulation, basically because the term $V \ast | u |^2$ can not
+have more than $\frac{1}{2} -$ spatial derivatives so even in the transformed
+setting, one can not close the fixed point. It is even less evident how in
+\eqref{eqn:mildVinf} one would directly bound
+\[ \left\| \int^t_0 e^{- i (t - s) \mathcal{H}} u (s) V \ast | u (s) |^2
+   \right\|_{\mathcal{D} \left( \sqrt{- \mathcal{H}} \right)} . \]
+For a similar issue to what happens in the two-dimensional NLS case, see
+{\cite{GUZ20}} Theorem 3.11 and {\cite{Z19}} Theorem 1.3.
+
+{\color[HTML]{000000}\begin{prop}
+  \label{thm:Vinftyenergywellposedeness}Let $u_0 \in \mathcal{D} \left(
+  \sqrt{- \mathcal{H}} \right)$ and $T > 0$ and $V \in
+  L_{\mathbb{T}^3}^{\infty} $ and non-negative. Then there exists a unique
+  mild solution to \eqref{eq:ANLS-Hartree-defoc}
+  \[ u \in C \big( [0, T], \mathcal{D} \big( \sqrt{- \mathcal{H}} \big)
+     \big), \]
+  with the solution depending continuously on the initial data.
+\end{prop}
+
+\begin{proof}[Proof.]
+  One obtains a solution by approximating the initial data as in the proof of
+  Corollary \ref{cor:energy-gwp}, which exists globally by Theorem
+  \ref{thm:Vinfdomain} and using the conserved energy as an apriori estimate
+  as in {\cite{GUZ20}}. The solution is also unique by Theorem
+  \ref{thm:VbddL2}.\\
+  
+  To get the continuity of the solution map in $\mathcal{D} \left( \sqrt{-
+  \mathcal{H}} \right)$ as well as continuity in time, it suffices to show
+  that the solution map of the mild formulation of the sharpened equation
+  \eqref{eq:Duhamel-Hartree}, where we replace $V_{\beta}$ by $V \in
+  L^{\infty}$ as in the statement, verifies the conditions of nonlinear
+  interpolation\footnote{see {\cite{ABITZ24}} Remark 4 after Theorem 1 or Theorem 18
+  for the full generality.}. Namely, we have to check that given $R, T > 0$, $u^{\sharp}_0 \in
+  H_{\mathbb{T}^3}^1$ and the solution map
+  \begin{equation}
+    \mathcal{S}: B_{H_{\mathbb{T}^3}^1} (u^{\sharp}_0, R) \rightarrow
+    L^{\infty} ([0, T], L^2_{\mathbb{T}^3}), \quad u^{\sharp}_0 \mapsto
+    u^{\sharp},
+  \end{equation}
+where $u^{\sharp}$ is defined as the right hand side of 
+    \eqref{eq:Duhamel-Hartree}  with $V_{\beta} = V$,
+  the following conditions hold:
+  \begin{enumerate}
+    \item (Weak Lipschitz) there exists $C_0 = C_0 (R, T, u^{\sharp}_0) <
+    \infty$, such that
+    \begin{equation}
+      v^{\sharp}_0, w^{\sharp}_0 \in B_{H_{\mathbb{T}^3}^1} (u_0, R)
+      \Rightarrow \| \mathcal{S} (v^{\sharp}_0) -\mathcal{S} (w^{\sharp}_0)
+      \|_{L^{\infty} ([0, T], L_{\mathbb{T}^3}^2)} \leq C_0 \| v^{\sharp}_0 -
+      w^{\sharp}_0 \|_{L_{\mathbb{T}^3}^2}, \label{eq:soln-weak-Lip}
+    \end{equation}
+    \item (Tame estimate) there exists $C_1 = C_1 (R, T, u^{\sharp}_0) <
+    \infty$, such that
+    \begin{equation}
+      v^{\sharp}_0 \in B_{H_{\mathbb{T}^3}^1} (u^{\sharp}_0, R) \cap
+      C_{\mathbb{T}^3}^{\infty} \Rightarrow \| \mathcal{S} (v^{\sharp}_0)
+      \|_{L^{\infty} ([0, T], H_{\mathbb{T}^3}^2)} \leq C_0 \| v^{\sharp}_0
+      \|_{H_{\mathbb{T}^3}^2}, \label{eq:soln-tame-est}
+    \end{equation}
+    \item (Time Continuity)
+    \begin{equation}
+      v^{\sharp}_0 \in B_{H_{\mathbb{T}^3}^1} (u^{\sharp}_0, R) \Rightarrow
+      \mathcal{S} (v^{\sharp}_0) \in C ([0, T], L^2_{\mathbb{T}^3}) .
+      \label{eq:soln-time-cts}
+    \end{equation}
+  \end{enumerate}
+  Since \eqref{eq:soln-time-cts} follows directly from Proposition
+  \ref{thm:VbddL2}, and \eqref{eq:soln-tame-est} from Theorem
+  \ref{thm:Vinfdomain}, more precisely \eqref{eq:bd-Vinf-domain}, and the
+  equivalence of norms \eqref{eq:Dom-equiv-H2}, we are left to verify the weak
+  Lipschitz bound \eqref{eq:soln-weak-Lip}. Abbreviating $v^{\sharp} :
+  =\mathcal{S} (v^{\sharp}_0)$ and $w^{\sharp}$ likewise, we have from the
+  mild formulation
+  \begin{align*}
+    \| v^{\sharp} (t) - w^{\sharp} (t) \|_{L_{\mathbb{T}^3}^2} & \lesssim  \|
+    e^{- i t \mathcal{H}^{\sharp}} (v_0^{\sharp} - w_0^{\sharp})
+    \|_{L_{\mathbb{T}^3}^2}\\
+    &+ \int^t_0 \| \Gamma v^{\sharp} (s) (| e^W \Gamma v^{\sharp} (s) |^2
+    \ast V) - \Gamma w^{\sharp} (s) (| e^W \Gamma w^{\sharp} (s) |^2 \ast V)
+    \|_{L_{\mathbb{T}^3}^2} \mathrm{d} s\\
+    & \lesssim \| v_0^{\sharp} - w_0^{\sharp} \|_{L_{\mathbb{T}^3}^2} +
+    \int^t_0 \| \Gamma [v^{\sharp} (s) - w^{\sharp} (s)] (| e^W \Gamma
+    v^{\sharp} (s) |^2 \ast V) \|_{L_{\mathbb{T}^3}^2} \mathrm{d} s\\
+    &  + \int^t_0 \| \Gamma w^{\sharp} (s) ([| e^W \Gamma v^{\sharp} (s)
+    |^2 - | e^W \Gamma w^{\sharp} (s) |^2] \ast V) \|_{L_{\mathbb{T}^3}^2}
+    \mathrm{d} s\\
+    & \lesssim \| v_0^{\sharp} - w_0^{\sharp} \|_{L_{\mathbb{T}^3}^2} + \|
+    V \|_{L^{\infty}} \int^t_0 \| v^{\sharp} (s) - w^{\sharp} (s)
+    \|_{L_{\mathbb{T}^3}^2} \| e^W \Gamma v^{\sharp} (s)
+    \|^2_{L_{\mathbb{T}^3}^2} \mathrm{d} s\\
+    & + \| V \|_{L^{\infty}} \int^t_0 \| \Gamma w^{\sharp} (s)
+    \|_{L_{\mathbb{T}^3}^2} \| | e^W \Gamma v^{\sharp} (s) |^2 - | e^W \Gamma
+    w^{\sharp} (s) |^2 \|_{L_{\mathbb{T}^3}^1} \mathrm{d} s,\\
+    & \lesssim_R \| v_0^{\sharp} - w_0^{\sharp} \|_{L_{\mathbb{T}^3}^2} +
+    \int^t_0 \| v^{\sharp} (s) - w^{\sharp} (s) \|_{L_{\mathbb{T}^3}^2} \mathrm{d}
+    s,
+  \end{align*}
+  where we used the conservation of mass
+  \[ \| e^W \Gamma w^{\sharp} (s) \|^2_{L_{\mathbb{T}^3}^2} + \| e^W \Gamma
+     v^{\sharp} (s) \|^2_{L_{\mathbb{T}^3}^2} = \| w_0 \|^2_{L^2} + \| v_0
+     \|^2_{L^2} \lesssim R^2 \]
+  as in Proposition \ref{thm:VbddL2}. Moreover, using again the conservation
+  of mass
+  \begin{eqnarray*}
+    \| | e^W \Gamma v^{\sharp} (s) |^2 - | e^W \Gamma w^{\sharp} (s) |^2
+    \|_{L_{\mathbb{T}^3}^1} & \lesssim & \| e^W \Gamma v^{\sharp} (s)
+    \|_{L_{\mathbb{T}^3}^2} 
+    \|_{L_{\mathbb{T}^3}^2} \| e^W \Gamma [v^{\sharp} (s) - w^{\sharp}
+    (s)] \|_{L_{\mathbb{T}^3}^2}\\
+    &+& \| e^W \Gamma w^{\sharp} (s)
+    \|_{L_{\mathbb{T}^3}^2} \| e^W \Gamma [v^{\sharp} (s) - w^{\sharp}
+    (s)] \|_{L_{\mathbb{T}^3}^2} \\
+    & \lesssim_R & \| v^{\sharp} (s) - w^{\sharp} (s) \|_{L_{\mathbb{T}^3}^2}.
+  \end{eqnarray*}
+  \eqref{eq:soln-weak-Lip} then follows from Gr{\"o}nwall's inequality.
+\end{proof}}
+

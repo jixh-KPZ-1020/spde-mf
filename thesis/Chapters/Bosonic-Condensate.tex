@@ -1,0 +1,1067 @@
+\chapter{Dynamical Bose--Einstein Condensation in White--Noise Potential}\label{ch:BEC}
+In the last chapter of the thesis, we focus on the convergence of the solution
+to $N$-particle Schr{\"o}dinger equations to the tensorizations of solution to
+the NLS with Hartree nonlinearity. We first follow the strategy of the BBGKY hierarchy, that is, given the $N$-body non-relativistic spinless Bosonic system
+\begin{align}\label{eq:formal-mb-heisenberg}
+  i \partial_t \rho_{N, \delta} (t) = \left[H_{N, \delta}, \rho_{N, \delta} (t)\right],
+  \quad \mathrm{where} \ H_{N, \delta} := - \frac{1}{2} \sum^N_{j = 1}
+  \mathcal{H}_{\delta, j} + \frac{1}{N} \sum_{1 \leqslant j < k \leqslant N}
+  V_{j, k}, ,
+\end{align}
+where $\mathcal{H}_{\delta, j}$ denotes the $\delta$--regularized Anderson Hamiltonian (as discussed in Section \ref{sec:construction-AH}) acting on the $j^{\mathrm{th}}$ particle, and $V_{j, k}$ denotes the multiplication with the interaction between the $j^{\mathrm{th}}$ and $k^{\mathrm{th}}$ particles $V(x_j - x_k)$, we can define $(\rho^n_{N, \delta})_{n \in \mathbb{N}}$ to be the $n$--particle marginal distributions, as $H_{N, \delta}$ is clearly invariant under any permutation of particles, and we may
+assume indistinguishability of the particles, fix the $n$ parameter and
+take $N \rightarrow \infty$ and $\delta \to 0$ to derive formally the so--called BBGKY hierarchy equation
+\begin{align}\label{eq:bbgky}
+  i \partial_t \rho^n_{\infty} = - \frac{1}{2} \sum_{j = 1}^n
+  [\mathcal{H}_{j}, \rho^n_{\infty}] + \sum_{j = 1}^n \mathrm{Tr}_{n + 1}
+  \left(\left[V_{j, n + 1}, \rho^{n + 1}_{\infty}\right]\right), 
+\end{align}
+for $n \in \mathbb{N}, $since we assume mean-field interaction in \eqref{eq:formal-mb-heisenberg},
+where $(\rho^n_{\infty})_{n \in \mathbb{N}}$ are the limits of the marginal
+distributions, $\mathcal{H}_{j}$ is the Anderson Hamiltonian falling on the
+particle $j$, $\mathrm{Tr}_{n + 1}$ is the partial trace with the particle
+labelled $n + 1$ and the square bracket is the commutator. The formal derivation is presented in the following section \ref{sec:ANLS-derivation}.
+
+\begin{rem*}Due to the personal preference of the author, we avoid the use of kernel representations of operators, though some operators that we consider can be represented in such a way. The statement are more concise, but the proof might sometimes be less intuitive. We thus refer the readers to \cite{de2025stochastic} for discussions with the kernel notations.  
+\end{rem*}
+
+Before the rigorous discussions, we make a short digression on the topology of the class of trace-class operators and especially its duality with compact ones, which we will reply heavily upon dealing with the convergence towards to BBGKY hierarchy with compactness argument in Theorem \ref{thm:convergencehierarchy}. 
+
+\begin{lem}
+  \label{lem:prod-trace-strong-convergence}We fix some Hilbert space $H$.
+  \begin{enumerate}
+    \item Let $(B_n)_{n \geqslant 0}$ be a sequence of operators converging
+    strongly to $B$ and O be a compact operator on some Hilbert space, then
+    $B_n O \rightarrow B O$ and $O B_n \rightarrow O B$ both under operator
+    norm.
+    
+    \item If in addition there are bounded operators $(A_n)_{n \geqslant 0}$
+    on $H$ which verify that $A_n \rightarrow A$ in $(\mathcal{L}^1 (H),
+    w^{\ast})$, we have $A_n B_n \rightarrow A B$ in $(\mathcal{L}^1 (H),
+    w^{\ast})$.
+    
+    \item Lastly, if we have further some sequence $(C_n)_{n \geqslant 0}
+    \subset \mathcal{K} (H)$ that converges under operator norm $C_n
+    \rightarrow C \in \mathcal{K} (H)$, then $\mathrm{Tr} (C_n A_n) \rightarrow
+    \mathrm{Tr} (C A)$.
+  \end{enumerate}
+\end{lem}
+
+\begin{proof}[Sketch of Proof.] We focus on the prove of the second statement, as the rest are easier and can be found in \cite[Lemma C.1]{de2025stochastic}
+. For any compact operator $K \in \mathcal{K} (H)$, we have
+    \[ | \mathrm{Tr} ((A_n B_n - A B) K) | \leqslant | \mathrm{Tr} ((A_n - A) B K)
+       | + | \mathrm{Tr} (A_n (B - B_n) K) |, \]
+    where the first term vanishes as $n \rightarrow \infty$ since $\mathcal{K}
+    (H)$ is a two-sided ideal of bounded operators on $H$; while for the
+    second term, we have $\sup_{n \geqslant 1} \| A_n \|_{\mathcal{L}^1} <
+    \infty$ due to Banach-Steinhaus theorem, and $\sup_{n \geqslant 1} \| B -
+    B_n \| < \infty$ by strong convergence, so that we can assume without loss
+    of generality that $K$ is finite-rank, since we can always approximate
+    compact $K$ by finite-rank $K_{\varepsilon}$ under operator norm, so that
+    \[ \sup_{n \geqslant 1} | \mathrm{Tr} (A_n (B - B_n)  (K -
+       K_{\varepsilon})) | \leq \sup_{n \geqslant 1} [\mathrm{Tr} (| A_n  |) \|
+       B - B_n \|_{\mathcal{L}}] \| K - K_{\varepsilon} \|_{\mathcal{L}}
+       \rightarrow 0, \]
+    as $\varepsilon \rightarrow 0^+$. In the case that $K$ is finite-rank, $\|
+    (B - B_n) K \| \rightarrow 0$ as $n \rightarrow \infty$ by strong
+    convergence of  ($B_n$), and the claim follows. 
+\end{proof}
+
+\section{Formal Derivation and Main Results}\label{sec:ANLS-derivation}
+
+In this section we discuss the convergence of the solutions to the
+$N$-particle linear Schr{\"o}dinger equations (\ref{eq:formal-mb-heisenberg})
+whose linear part is given by the mollified Anderson Hamiltonian to the
+solution to the Hartree NLS \eqref{eq:main1} in a suitable sense. Notice that generally $\rho_{N, \delta}$ is not necessarily the projection onto wave
+functions, but in case it is i.e.
+\begin{align}\label{eq:pure-state-many-body}
+\rho_{N, \delta} = \Pi_{\Psi_{N, \delta}} 
+\end{align}
+for an $N$-particle wave function $\Psi_{N, \delta}$, the Heisenberg picture \eqref{eq:formal-mb-heisenberg} is equivalent to the linear many--body
+Schr{\"o}dinger equation
+\begin{align}\label{eq:Schroedinger-many-body}
+  i \partial_t \Psi_{N, \delta} = H_{N, \delta} \Psi_{N, \delta},
+\end{align}
+where $\Psi_{N, \delta} \in L^{\infty} (\mathbb{R}_+, L^2_s
+((\mathbb{T}^3)^N))$ satisfies the initial condition $\| \Psi_{N, \delta} (0) \|_{L^2} =
+1$ for any $\delta > 0$.\\
+
+Since the noise is mollified with a smooth mollifier, the external potential is in the Kato class (c.f.
+{\cite{RS80}} X.2). In that case, it follows from
+(\ref{eq:Schroedinger-many-body}) that the energy and mass conservations hold,
+that is rigoroursly
+\begin{align}
+  \frac{\mathrm{d}}{\mathrm{dt}} \left\langle H_{N, \delta} \Psi_{N, \delta} (t),
+  \Psi_{N, \delta} (t) \right\rangle = 0, \quad \frac{\mathrm{d}}{\mathrm{dt}} \left\| \Psi_{N,
+  \delta} (t) \right\|_{L^2 (\mathbb{T}^{3 N})}^2 = 0
+  \label{eq:energy-conservation-Liouville},
+\end{align}
+whenever 
+\begin{align*}
+    |\langle H_{N, \delta} \Psi_{N, \delta} (0), \Psi_{N, \delta} (0)
+\rangle | < + \infty.
+\end{align*}
+Now, we can define its $n$--point density matrix, which
+should be interpreted as the $n$-particle density marginal of the system for
+the $n$-particles $1 \leqslant n \leqslant N$ as\footnote{Note
+that $\rho_{N, \delta}^n$ defined are always density matrices, that is
+they are trace-class non-negative self-adjoint operators such that $\mathrm{Tr}
+(\rho^n_{N, \delta}) = 1$. Also since the particles are indistinguishable, all $n$-particle-marginals are the same. The usual convention is to take the first $n$ particles as representatives.}
+\begin{align*}
+    \rho_{N,
+\delta}^n :=  \mathrm{Tr}_{n + 1 : N} (\rho_{N, \delta}).
+\end{align*}
+It is possible to derive equations for the trace class operators $(\rho^n_{N,
+\delta})_{n = 1, \ldots, N}$. Indeed, we have
+\begin{eqnarray*}
+  i \partial_t \rho_{N, \delta}^n & = & \mathrm{Tr}_{n + 1 : N} \left([H^n_{N,
+  \delta}, \rho_{N, \delta}]\right) + \mathrm{Tr}_{n + 1 : N} \left([H_{N, \delta} -
+  H^n_{N, \delta}, \rho_{N, \delta}]\right)\\
+  & = & [H^n_{N, \delta}, \mathrm{Tr}_{n + 1 : N} (\rho_{N, \delta})] +
+  \mathrm{Tr}_{n + 1 : N} \left([H_{N, \delta} - H^n_{N, \delta}, \rho_{N, \delta}]\right),
+\end{eqnarray*}
+where we abbreviate 
+\begin{align*}
+   H^n_{N, \delta} := - \frac{1}{2} \sum^n_{k = 1}
+\mathcal{H}_{\delta, k} + \frac{1}{N} \sum_{1 \leqslant j < k \leqslant n}
+V_{j, k}, 
+\end{align*}
+and the second term on the R.H.S. can be further expanded by
+\begin{eqnarray}
+  \mathrm{Tr}_{n + 1 : N} \left([H_{N, \delta} - H^n_{N, \delta}, \rho_{N, \delta}]\right)
+  & = & - \frac{1}{2} \sum_{j = n + 1}^N \mathrm{Tr}_{n + 1 : N}
+  \left([\mathcal{H}_{\delta, j}, \rho_{N, \delta}]\right) \nonumber\\
+  & + & \frac{1}{N} \sum_{\substack{j < n < k \\ \text{or} \ n < j < k}} \mathrm{Tr}_{n + 1 : N}
+  \left([V_{j, k}, \rho_{N, \delta}]\right) .  \label{eq:par-tra:residual}
+\end{eqnarray}
+We further notice that for $n + 1 \leqslant l < j \leqslant N$, we have
+\[ \mathrm{Tr}_{n + 1 : N}  \left([V_{j, k}, \rho_{N, \delta}]\right) = \mathrm{Tr}_{j, k}
+    \left([V_{j, k}, \mathrm{Tr}_{n + 1 : \hat{j} : \hat{k} : N} \rho_{N, \delta}]\right) =
+   0 \]
+due to the cyclic permutation invariance of the trace operation, where
+$\mathrm{Tr}_{n + 1 : \hat{j} : \hat{k} : N} $ is the partial trace with respect
+to particles $\{ n + 1, \ldots, N \} \backslash \{ j, k \}$. Plugging it back
+into (\ref{eq:par-tra:residual}) and using the symmetry of the underlying
+spaces, we have
+\begin{align}\label{eq:schrodinger-hierarchy}
+  i \partial_t \rho_{N, \delta}^n = [H^n_{N, \delta}, \rho^n_{N, \delta}]
+    + \frac{N - n}{N} \sum_{k \leqslant n} \mathrm{Tr}_{n + 1}  \left([V_{k, n + 1},
+    \rho^{n + 1}_{N, \delta}]\right). 
+\end{align}
+By sending $N \rightarrow \infty$ and $\delta \rightarrow 0^+$
+simultaneously -- since we expect $\mathcal{H}_{\delta}$ to approximate $\mathcal{H}$ in a suitable sense from Section \ref{sec:construction-AH} -- we
+have then derived formally the limiting equation, i.e. the BBGKY hierarchy \eqref{eq:bbgky}. Meanwhile, the corresponding Schr{\"o}dinger equation with Hartree-type
+nonlinearity, which is just \eqref{eq:main1}, reads
+\begin{align}\label{eq:NLS-Hart}
+  i \partial_t \Psi = - \frac{1}{2} \mathcal{H} \Psi + \Psi (V \ast | \Psi
+  |^2) 
+\end{align}
+and to witness the relation between \eqref{eq:bbgky} and \eqref{eq:NLS-Hart},
+we formulate \eqref{eq:NLS-Hart} equivalently in the Heisenberg picture, that
+is if we let $\rho : = \Pi_{\Psi}$, and therefore $| \Psi |^2 (z) = \rho (z,
+z)$ for $z \in \mathbb{T}^3$ in the language of kernels (\ref{sec:notations}),
+we have for any test function $\Phi$ in the domain of $\mathcal{H}$ that
+\begin{eqnarray}
+  i \partial_t \rho_t (\Phi) & = & - \frac{1}{2} [\mathcal{H}, \Pi_{\Psi}]
+  \Phi - \langle (V \ast | \Psi |^2) \Phi, \Psi \rangle \Psi + (V \ast | \Psi
+  |^2) \langle \Phi, \Psi \rangle \Psi \nonumber\\
+  & = & \left[ - \frac{1}{2} \mathcal{H} + \int V (\cdot - z) \rho_t (z, z)
+  \mathrm{d} z, \rho_t \right] \Phi . \label{eq:ANLS-soln-bbgky} 
+\end{eqnarray}
+The consideration of the ANLS (\ref{eq:NLS-Hart}) is formally
+justified, since the family of tensorizations $(\rho^{\otimes n})_n$ of the
+solutions to the Hartree align (\ref{eq:NLS-Hart}) satisfies the BBGKY
+hierarchy (\ref{eq:bbgky}). Indeed, according to the derivation above, it
+suffices to notice that
+\begin{align}
+  \left[ \int V (\cdot - z) \rho_t (z, z) \mathrm{d} z, \rho_t \right] (x_1, y_1)
+  = \mathrm{Tr}_{x_2} [V (\cdot - x_2), \rho^{\otimes 2}_t] (x_1, y_1),
+  \label{eq:Vr,r=trVr2}
+\end{align}
+for any solution $\Psi$ to the nonlinear Schr{\"o}dinger equation
+(\ref{eq:NLS-Hart}) and $\rho^{\otimes 2}_t = \Pi_{\Psi (t, \cdot)^{\otimes
+2}}$ for $t \geqslant 0$ acts on two particles. The assertion for
+$\rho^{\otimes n}$ for $n \geqslant 2$ follows by induction.
+
+\
+
+We have essentially used formal arguments in two steps above, namely in the
+convergence of the many-body density evolution to the BBGKY hierarchy and in
+the identification of the two solutions of the hierarchy. We will make those two steps rigorous in the following Sections
+\ref{sec:conv-bbgky-proof} and \ref{section:uniqueness} respectively under
+different conditions of the interaction potential $V$. As in the classical mean-field theory of BBGKY hierarchies, we can establish
+\eqref{eq:main1} as the effective equation of the Bosonic
+many-body system if we can prove that the formal limit we mentioned above is
+rigorous and \eqref{eq:bbgky} has a unique solution. The next result of
+this chapter is thus the rigorous justification of the limit to
+\eqref{eq:bbgky}, when we assume Coulomb interaction in Theorem
+\ref{thm:convergencehierarchy}.\\
+
+On the other hand, we show in Theorem \ref{thm:unique-BBGKY-Linf} the uniqueness of
+solution to equation \eqref{eq:bbgky} when $V$ is bounded, as
+a direct consequence of which, the convergence of the Bosonic system to the
+solution of the equation \eqref{eq:main1} is validated. This implies that
+\eqref{eq:main1} indeed describes effectively the many-body Bosonic system in
+random environment under consideration, when the number of particles is
+sufficiently large, which is the content of Corollary \ref{corollary:main}.
+
+\section{Qualitative Mean-Field Limit: BBGKY Hierarchy}\label{chapter:MFL-MB}
+\subsection{Precise Formulation}
+
+In order to give a precise definition of solution to the BBGKY hierarchy
+(\ref{eq:bbgky}), we denote the unitary group on the bounded operators on
+$L_s^2 ((\mathbb{T}^3)^n)$ as
+\begin{align}\label{eq:def-unitary}
+\mathcal{U}^n_t (\rho) := e^{it\mathfrak{K}^n} \rho e^{-it\mathfrak{K}^n},  \text{ with } \mathfrak{K}^n := \frac{1}{2}\sum^n_{k = 1}
+   \mathcal{H}_{k} 
+\end{align} 
+which is in particular an isometry\footnote{The unitary group structure is clear. Fix $\rho \in \mathcal{L}^1_n$, then by the polar decomposition, there exists some unitary $U$ such that
+  \begin{align*}
+  \mathcal{U}^n_t(\rho) = e^{it\mathfrak{K}^n} U |\rho| e^{-it\mathfrak{K}^n},     
+  \end{align*}
+  which implies $ |\mathcal{U}^n_t (\rho) |^2 = e^{it\mathfrak{K}^n} U | \rho |^2 U^{\ast}e^{-it\mathfrak{K}^n}$ and thus $|\mathcal{U}^n_t (\rho)| = e^{it\mathfrak{K}^n} U | \rho | U^{\ast}e^{-it\mathfrak{K}^n}$. By cyclic-permutation-invariance of the trace, we have $\mathrm{Tr}|\mathcal{U}^n_t (\rho)| = \mathrm{Tr} \rho$.} in the trace class, for any $t \in \mathbb{R}$. The map $t \mapsto \mathcal{U}^n_{\delta, t}(\rho)$ and the regularized kinetic part of the Hamiltonian 
+$\mathfrak{K}^n_{\delta}$
+are defined similarly by replacing $\mathcal{H}$ with $\mathcal{H}_{\delta}$.
+We define that $\rho^n \in \mathcal{L}^p_n$
+belongs to the space $\mathcal{W}^{p, \alpha}_{n}$ if
+\begin{align}
+  \| \rho^n \|_{\mathcal{W}^{p, \alpha}_{n}} = n \left\| (-
+  \mathcal{H}_{1})^{\frac{\alpha}{2}} \rho^n (- \mathcal{H}_{
+  1})^{\frac{\alpha}{2}} \right\|_{\mathcal{L}^p_n} < + \infty, \label{eq:Wpalpha}
+\end{align}
+using the symmetry of the underlying space. We denote by $\mathcal{W}^{p,
+\alpha}_{n,\delta}$ the subspace of $\mathcal{L}^p_n$ such that the norm $\| \cdot
+\|_{\mathcal{W}^{p, \alpha}_{n,\delta}}$, which is defined as in \eqref{eq:Wpalpha}
+where the operator $\mathcal{H}$ is replaced by $\mathcal{H}_{\delta}$, is finite. We will notice that, one of the major technicalities of proving convergence is due to the indirect comparison between mollified spaces and the limit ones. The notion of solutions to
+\eqref{eq:bbgky} can be formulated as follows:
+
+\begin{defi}\label{def-mildsol-bbgky}
+Consider a sequence of time-dependent trace-class non-negative self-adjoint operators $(\rho_{\infty}^n)_{n \in \mathbb{N}}$,
+  such that $\rho^n_{\infty} \in L^{\infty} (\mathbb{R}_+, \mathcal{L}^1_n)$.
+  We say that $(\rho_{\infty}^n)_{n \in \mathbb{N}}$ is a mild
+  solution to the hierarchy align (\ref{eq:schrodinger-hierarchy}) with
+  initial condition $(\rho^n_{\infty, 0})_{n \in \mathbb{N}}$ if, for any $n
+  \in \mathbb{N}$,
+  \begin{align}
+    \rho^n_{\infty} (t) = \mathcal{U}^n_t (\rho^n_{\infty, 0}) + \sum_{k =
+    1}^n \int^t_0 \mathcal{U}^n_{t - s} \left(\mathrm{Tr}_{n + 1} \left[V_{k, n + 1},
+    \rho^{n + 1}_{\infty} (s)\right]\right) \mathrm{d}s, \label{eq:MB-bbgky-mild}
+  \end{align}
+  and furthermore, $\rho^n_{\infty} \in L_{\mathbb{R}_+}^{\infty}
+  \mathcal{W}^{1, 1}_n$, i.e.
+  \begin{align}
+    \sup_{t \geqslant 0} \left\| \rho_{\infty}^n (t) \right\|_{\mathcal{W}_n^{1, 1}} = n
+    \sup_{t \geqslant 0} \left\| (- \mathcal{H}_{1})^{\frac{1}{2}} \rho_{\infty}^n (t)
+    (- \mathcal{H}_{1})^{\frac{1}{2}}\right \|_{\mathcal{L}^1 (L_s^2
+    ((\mathbb{T}^3)^n))} < + \infty .
+  \end{align}
+\end{defi}
+
+\begin{nota*}
+  We recall that a sequence converges weakly* in $\mathcal{L}^1_n =
+  \mathcal{L}^1 (L_s^2 ((\mathbb{T}^3)^n))$ in the sense that it converges
+  weakly with respect to the duality $(\mathcal{K}_n)^{\ast} =
+  \mathcal{L}_n^1$ , where $\mathcal{K}_n$ is is the space of compact operators defined in \eqref{eq:def-K_n}. Since $\mathcal{K}_n$ is separable, the bounded sets of $\mathcal{L}^1_n$
+  are metrizable if equipped with the weak* topology. Thus when saying that a
+  sequence, depending on a parameter (usually the time or mollifiction
+  parameters), converges uniformly in $\mathcal{L}^1_n$ w.r.t. the
+  weak* topology we mean that the sequence is bounded in the trace norm and
+  converges uniformly with respect that parameter, when $\mathcal{L}^1_n$ is
+  equipped with such a metric inducing the weak* topology. We also say that a sequence converges weakly* in $L^{\infty}_{\mathrm{loc}}
+  (\mathbb{R}_+, \mathcal{L}^1)$ in the sense of weak* convergence if it
+  converges weakly* with respect to the duality
+  \begin{align}\label{eq:dualitylinfty}
+    (L^1 ([0, T], \mathcal{K}_n), L^{\infty} ([0, T], \mathcal{L}_n^1)),
+  \end{align}
+  for all $T > 0$.
+\end{nota*}
+
+We are ready to state the main convergence theorem of this section, and for that we assume that the solution to the many--body Schrödinger equation is an evolution of pure states, namely \eqref{eq:pure-state-many-body} holds, while the limit point might not.
+
+\begin{thm}
+  \label{thm:convergencehierarchy}Suppose that the potential $V :
+  \mathbb{T}^3 \rightarrow \mathbb{R}$ satisfies
+  \begin{align}
+    V = \frac{V_1}{| \cdot |^{3 - \beta}} + V_2, \quad V_1 \in
+    L_{\mathbb{T}^3}^{\infty}, V_2 \in L^{3 +}_{\mathbb{T}^3},
+    \label{eq:Vform2}
+  \end{align}
+  where $3 > \beta \geqslant 2$. Consider $\Psi_{N, \delta}$ given by \eqref{eq:Schroedinger-many-body} be such that
+  \begin{align}
+    \| \Psi_{N, \delta} (0) \|_{L^2_s ((\mathbb{T}^3)^N)} = 1, \quad \sup_{N
+    \in \mathbb{N}, 0 < \delta \leqslant 1} \left\| (- \mathcal{H}_{\delta,
+    1})^{\frac{1}{2}} \Psi_{N, \delta} (0) \right\|_{L^2_s ((\mathbb{T}^3)^N)} < +
+    \infty . \label{eq:initi-Psi-Ndelta}
+  \end{align}
+  Then there exists a family of density matrices
+  $(\rho^n_{\infty})_{n \in \mathbb{N}}$ such that, for each $n \geqslant 0$, 
+  $\rho^n_{\infty} \in L^{\infty} (\mathbb{R}_+, \mathcal{W}^{1, 1}_n)$ and up to subsequence, 
+  $\rho^n_{N, \delta} \rightarrow \rho^n_{\infty}$ weakly* in
+  $L^{\infty}_{\mathrm{loc}} (\mathbb{R}_+, \mathcal{L}^1_n)$, where 
+  \begin{align*}
+  \rho^n_{N, \delta} = \mathrm{Tr}_{n+1:N}\Pi_{\Psi_{N, \delta}}. 
+  \end{align*}
+   Furthermore, the limit $(\rho^n_{\infty})_{n \in \mathbb{N}}$ is a mild
+  $\mathcal{W}^{1, 1}$ solution to the hierarchy equation
+  \eqref{def-mildsol-bbgky} in the sense of Definition
+  \ref{def-mildsol-bbgky}.
+\end{thm}
+
+\begin{nota}\label{nota:uptosub}
+As the limit point is found by extractions of subsequences, we will sometimes use the phrase `up to subsequence' to denote the existence of subsequence $(\delta_{j_k},N_{j_k})_{k \in \mathbb{N}}$ of a given sequence $(\delta_{j},N_{j})_{j \in \mathbb{N}}$, which converges to $(0,\infty)$ as $k \to \infty$, such that the corresponding statement holds. 
+\end{nota}
+
+To justify the formal discussion under \eqref{eq:ANLS-soln-bbgky}, we suppose
+that the potential $V$ as in \eqref{eq:Vform2} belongs to
+$W_{\mathbb{T}^3}^{17/20 +, 1}$ or $L_{\mathbb{T}^3}^{\infty}$ so that there
+is a unique continuous global (mild) solution to equation \eqref{eq:ANLS-Hartree-defoc} according to Section
+\ref{chapter-LWP} and \ref{chapter:GWP}, which implies that the sequence of
+compatible operators $(\rho^n_{\infty})_{n \in \mathbb{N}}$ defined by
+\[ \rho^n_{\infty} (t) = \Pi_{(u (t, \cdot))^{\otimes n}}, \]
+is a mild solution to the hierarchy equation \eqref{eq:MB-bbgky-mild}.
+
+\
+
+Consider now the setup in Theorem \ref{thm:convergencehierarchy} where we
+have taken sequences $\delta_j \rightarrow 0^+$ and $N_j \rightarrow \infty$
+as $j \rightarrow \infty$, together with a sequence of initial conditions
+$\Psi_{N_j, \delta_j} (0)$ satisfying the hypothesis of Theorem
+\ref{thm:convergencehierarchy} for $j \in \mathbb{N}$ and furthermore assume that the many-body state decouples asymptotically, i.e.
+\begin{align*}
+\rho_{N_j, \delta_j}^n(0) \rightarrow \Pi_{u_0^{\otimes n}}, \quad j \rightarrow \infty,
+ \end{align*}
+weakly* in $\mathcal{W}^{1, 1}_n$. As a consequence of Theorem
+\ref{thm:convergencehierarchy} and the discussion above that the condensates formed by the solution of the NLS do solve the BBGKY hierarchy \eqref{eq:bbgky} (also \eqref{eq:MB-bbgky-mild}), we would expect
+\begin{align*}
+\rho_{N_j, \delta_j}^n \rightarrow \Pi_{u^{\otimes n}}, \quad j \rightarrow \infty,
+ \end{align*}
+weakly*
+in $L^{\infty} (\mathbb{R}_+, \mathcal{L}^1_n)$.
+
+\
+
+In general, this could be however not true, since it is not clear how
+``singular'' the potential $V$ or the initial condition $(\rho_{\infty,
+0}^n)_{n \in \mathbb{N}}$ are allowed to be, such that the hierarchy equation
+\eqref{eq:MB-bbgky-mild} admits a unique mild solution. In the following
+theorem we give a sufficient condition under which the hierarchy
+equation \eqref{eq:MB-bbgky-mild} admits a unique mild solution, which then
+implies the convergence of the solutions to the $N$-particle linear
+Schr{\"o}dinger equation. \
+
+\begin{thm}
+  \label{thm:unique-BBGKY-Linf}Under the hypothesis of Theorem
+  \ref{thm:convergencehierarchy}, we further assume that $V \in
+  L_{\mathbb{T}^3}^{\infty}$ and the family of initial conditions
+  $(\rho_{\infty, 0}^n)_{n \in \mathbb{N}}$ satisfies $\rho_{\infty, 0}^n \in
+  \mathcal{L}^1_n$. The hierarchy equation \eqref{eq:MB-bbgky-mild}
+  admits a unique mild solution in the sense of Definition
+  \ref{def-mildsol-bbgky}.
+\end{thm}
+
+As a consequence of the above results together with the subsequence characterization of convergence, solutions $(\Psi_{N, \delta}) $ of the linear
+Schr{\"o}dinger equation \eqref{eq:Schroedinger-many-body} with bounded interactions to
+the solution converge to the NLS \eqref{eq:main1}.
+
+\begin{cor}[Anderson NLS as Effective Equation]
+  \label{corollary:main}Under the hypotheses of Theorem
+  \ref{thm:unique-BBGKY-Linf}, we consider $\delta \rightarrow 0^+$ and $N
+  \rightarrow \infty$, such that $\Psi_{N, \delta}(0)$ satisfies
+  \eqref{eq:initi-Psi-Ndelta}, and $u_0 \in \mathcal{D} \left( \sqrt{-
+  \mathcal{H}} \right)$ verifies
+  \[ 
+  \mathrm{Tr}_{n + 1 : N} (\Pi_{\Psi_{N, \delta, 0}}) = \rho_{N, \delta}^n
+     (0, \cdot) \rightarrow \Pi_{u^{\otimes n}_0}, \quad
+     N \rightarrow \infty, \delta \rightarrow 0^+ .
+  \]
+  $\mathrm{weakly}^{\ast}$ in $\mathcal{L}^1 (L_s^2
+     ((\mathbb{T}^3)^n))$. Then we have for any $n \in \mathbb{N}$
+  \[ \rho_{N, \delta}^n \rightarrow \Pi_{u^{\otimes n}}, \quad N \rightarrow \infty, \delta \rightarrow 0^+, \]
+  $\mathrm{weakly}^{\ast}$ in $L^{\infty}_{\mathrm{loc}} (\mathbb{R}_+,
+     \mathcal{L}^1_n)$, where $u$ is the unique solution to equation \eqref{eq:ANLS-Hartree-defoc}
+  with initial condition $u (0, \cdot) = u_0$.
+\end{cor}
+
+\subsection{Proof of the convergence, Theorem
+\ref{thm:convergencehierarchy}}\label{sec:conv-bbgky-proof}
+
+We start with the Hardy's inequality for the Anderson Hamiltonian, and we write for brevity 
+\begin{align}
+\mathcal{H }_{\delta} = \mathcal{H}, \text{ if } \delta = 0.
+\end{align}
+
+\begin{lem}[Hardy's inequality]
+  \label{lem:Hardy}Let $f \in \mathcal{D} ((- \mathcal{H}_{\delta})^{\frac{1}{2}})$ for $\delta \in [0, 1]$, then we have
+  \begin{align}
+    \int_{\mathbb{T}^3} \frac{| f (y) |^2}{| x - y |^2} \mathrm{d}y \lesssim \| f
+    \|_{\mathcal{D} (- \sqrt{\mathcal{H}_{\delta}})}^2, \label{eq:hardy-AH}
+  \end{align}
+  where the implicit multiplicative constant is uniform in $x \in
+  \mathbb{T}^3$ and $0 \leqslant \delta \leqslant 1$. We have further the
+  bound
+  \begin{align}
+    \int_{\mathbb{T}^3} \frac{| f (y) |^2}{| x - y |^{2 s}} \mathrm{d} y \leq
+    \varepsilon \| f \|_{\mathcal{D} (\sqrt{- \mathcal{H}_{\delta}})}^2 +
+    C_{\varepsilon} \| f \|^2_{L_{\mathbb{T}^3}^2}, \label{eq:Hardy-itp}
+  \end{align}
+  for any $\varepsilon > 0$, $0 \leq s < 1$ and $C_{\varepsilon}$ is uniform
+  in $x \in \mathbb{T}^3$ and $0 \leqslant \delta \leqslant 1$.
+\end{lem}
+
+\begin{lem}\label{rem:Vinequality}
+For interaction potential $V$ as in Theorem
+  \ref{thm:convergencehierarchy} and any $\ell \neq k \leqslant N$, we
+  have
+  \begin{align}\label{eq:Vinequality1}
+    | V_{\ell, k} |^2 \lesssim - \mathcal{H}_{\delta, l},
+  \end{align}
+in the sense of forms, where the constant is uniform in $0 \leqslant \delta \leqslant 1$.
+\end{lem}
+
+The proof of Lemma \ref{lem:Hardy} directly follows from the classical Hardy inequality, which can be found in Theorem 2.57 in \cite{BCD11}, together with the norm equivalence \eqref{eq:Dom-equiv-H1}, while Lemma \ref{rem:Vinequality} is a direct consequence of Lemma \ref{lem:Hardy}. We refer the readers to \cite[Lemma 6.6 \& 6.7]{de2025stochastic}. An immediate consequence is that the interaction term in \eqref{eq:bbgky} is well-defined assuming first-order regularity in the trace class.
+\begin{lem}
+  \label{lem:IJ}The map 
+\begin{align}
+   \rho^{n + 1} \mapsto \mathrm{Tr}_{n + 1} ([V_{\ell, n + 1}, \rho^{n + 1}])
+\end{align}
+  is a linear bounded operator from $\mathcal{W}^{1, 1}_{n + 1, \delta}$ to
+  $\mathcal{L}^1_n$ uniformly in $\delta \in [0, 1]$ for $V$ of the form
+  \eqref{eq:Vform2}. 
+\end{lem}
+
+\begin{proof}[Proof.]
+The result follows from \eqref{eq:Vinequality1}. For any $\rho^{n + 1}
+\in \mathcal{W}^{1, 1}_{n + 1, \delta}$, we have
+\begin{align*}
+\mathrm{Tr} \left(\left| V_{\ell, n + 1} \rho^{n + 1}\right |\right) = \mathrm{Tr}
+    \sqrt{\rho^{n + 1} V_{\ell, n + 1}^2 \rho^{n + 1}} \lesssim \mathrm{Tr}
+    \sqrt{\rho^{n + 1} (- \mathcal{H}_{\delta, l})  \rho^{n + 1}} \lesssim \| \rho^{n + 1} \|_{\mathcal{W}_{n + 1}^{1, 1}},
+\end{align*}
+where we use Lemma \ref{rem:Vinequality} in the second inequality, and the last step follows from \eqref{ineq:specgap}, since
+\begin{align*}
+\mathrm{Tr}
+    \sqrt{\rho^{n + 1} (- \mathcal{H}_{\delta, l})  \rho^{n + 1}} & \lesssim \mathrm{Tr}
+    \sqrt{\sqrt{- \mathcal{H}_{\delta, l}}\rho^{n + 1} (- \mathcal{H}_{\delta, l})  \rho^{n + 1}\sqrt{- \mathcal{H}_{\delta, l}}} \\
+    & =  \mathrm{Tr}\left(
+    \sqrt{- \mathcal{H}_{\delta, l}}\rho^{n + 1} \sqrt{- \mathcal{H}_{\delta, l}} \right).
+\end{align*}
+The other half of the commutator is treated similarly, and the implicit constants are all uniform in $0
+  \leqslant \delta \leqslant 1$.
+\end{proof}
+
+As shown in the previous Lemma \ref{lem:IJ}, it is natural to consider the solution to the BBGKY hierarchy \eqref{eq:bbgky} and the many-body Schrödinger equations \eqref{eq:schrodinger-hierarchy} in the corresponding $\mathcal{W}^{1, 1}$ spaces for any fixed time. As further suggested by the following energy conservation of the many-body Schrödinger equation, such regularity is ensured if we assume it at the initial time. 
+
+\begin{lem}\label{lem:boundrhoN} Under the hypotheses of Theorem \ref{thm:convergencehierarchy} and for any $n \in \mathbb{N}$ we have
+  \begin{align}\label{eq:apriori-energy-MB}
+    \sup_{N \in \mathbb{N}, 0 < \delta \leqslant 1} \sup_{t \geq 0} \left \| \rho^n_{N, \delta}
+    \right\|_{ \mathcal{W}^{1, 1}_{\delta, n}} < + \infty.
+  \end{align}
+\end{lem}
+
+\begin{proof}[Sketch of Proof.]
+  By inequality \eqref{eq:Vinequality1} and mass conservation in
+  \eqref{eq:energy-conservation-Liouville}, we have for any $N \in \mathbb{N},
+  \varepsilon, \delta > 0$, there is a constant $C_{\varepsilon}$ (depending
+  only on $\varepsilon$) such that
+  \begin{align}\label{eq:interaction-bd-energy-MB}
+    \left| \frac{1}{N^2} \sum_{j < k \leqslant N} \int_{\mathbb{T}^{3N}} V_{j,k} \Psi_{N, \delta} (t) \overline{\Psi_{N,
+    \delta} (t)} \mathrm{d} x_{1 : N} \right| \leqslant C_{\varepsilon} +
+    \varepsilon \int_{\mathbb{T}^{3N}} \Psi_{N, \delta} (t) \overline{(-
+    \mathcal{H}_{\delta, 1}) \Psi_{N, \delta} (t)}.
+   \end{align}
+  Now by symmetry, we have
+  \[ \int_{\mathbb{T}^{3N}} \Psi_{N, \delta} (t) \overline{(-
+     \mathcal{H}_{\delta, 1}) \Psi_{N, \delta} (t)} \mathrm{d} x_{1 : N} =
+     \frac{1}{N} \sum_{j \leqslant N} \int_{\mathbb{T}^{3N}} \Psi_{N, \delta}
+     (t) \overline{(- \mathcal{H}_{\delta, j}) \Psi_{N, \delta} (t)} \mathrm{d}
+     x_{1 : N} . \]
+  Using the conservation laws \eqref{eq:energy-conservation-Liouville} and
+  triangle inequality and choosing $\varepsilon$ small enough, we obtain
+  \begin{align}\label{eq:energy-bound-schrodinger-hierarchy2}
+    \sup_{N \in \mathbb{N}, 0 < \delta \leqslant 1} \int_{\mathbb{T}^{3N}}
+    \Psi_{N, \delta} (t) \overline{(- \mathcal{H}_{\delta, 1}) \Psi_{N,
+    \delta} (t)} \mathrm{d} x_{1 : N} < \infty,
+  \end{align}
+  as \eqref{eq:interaction-bd-energy-MB} basically says that the kinetic part is the leading term of the energy. Thus
+  \begin{align}
+   \| \rho^n_{N, \delta} (t) \|_{\mathcal{W}^{1, 1}_{\delta, n}} = n \int_{\mathbb{T}^{3N}} \Psi_{N, \delta} (t) \overline{(-
+    \mathcal{H}_{\delta, x_1}) \Psi_{N, \delta} (t)} \mathrm{d} x_{1 : N} <
+    \infty,
+  \end{align}
+  which by inequality \eqref{eq:energy-bound-schrodinger-hierarchy2} is
+  uniformly bounded in $N \in \mathbb{N}$, $\delta > 0$ and $t \in
+  \mathbb{R}_+$. The readers are referred to \cite[Lemma 6.9]{de2025stochastic} for details.
+\end{proof}
+
+
+Thanks to Lemma \ref{lem:boundrhoN}, we can
+  extract subsequences of converging density matrices\footnote{It suffices to notice that the weak$^{\ast}$ limit $\rho$ of
+  density matrices $(\rho_n)_{n \geqslant 0}$ on $L^2_s ((\mathbb{T}^3)^n)$ is
+  always self-adjoint and non-negative. Indeed, self-adjointness follows
+  immediately from testing with projection $f \otimes \bar{g}$ for arbitrary
+  $f, g \in L^2_s ((\mathbb{T}^3)^n)$:
+  \[ (f, \rho_n g) = \mathrm{Tr} (\rho_n \cdot f \otimes \bar{g}) \rightarrow
+     \mathrm{Tr} (\rho \cdot f \otimes \bar{g}) = (\rho f, g), \]
+  and similarly $(\rho_n f, g) \rightarrow (\rho f, g)$. Non-negativity of
+  $\rho$ follows similarly by testing against $f \otimes \bar{f}$ for
+  arbitrary $f \in L^2_s ((\mathbb{T}^3)^n)$. On the other hand, by the
+  cyclicity of trace, any solution to \eqref{eq:MB-bbgky-mild} satisfies
+  \[ \mathrm{Tr} [\rho^n_{\infty} (t)] = \mathrm{Tr} [\rho^n_{\infty} (0)] = 1.
+  \]} with $\mathcal{W}^{1,
+  1}$ regularity. 
+
+\begin{lem}
+  \label{lem:subsequence}Under the hypotheses of Theorem
+  \ref{thm:convergencehierarchy}, there exists a family
+  $(\rho^n_{\infty})_{n \in \mathbb{N}}$ such that, for any $n \in
+  \mathbb{N}$, it holds that
+  \[ \rho^n_{\infty} \in L^{\infty} (\mathbb{R}_+, \mathcal{W}^{1, 1}_n) \]
+  and up to a subsequence and for every $\ell = 1, \ldots, n$, 
+  \begin{align}\label{eq:convergence-W11L1}
+  \rho^n_{N, \delta} \rightarrow \rho^n_{\infty}, \quad (-
+     \mathcal{H}_{\delta, \ell})^{\frac{1}{2}} \rho^n_{N, \delta} (-
+     \mathcal{H}_{\delta, \ell})^{\frac{1}{2}} \rightarrow (- \mathcal{H}_{\ell})^{1
+     / 2} \rho^n_{\infty} (- \mathcal{H}_{\ell})^{\frac{1}{2}},
+  \end{align}
+  weakly* in $L^{\infty} (\mathbb{R}_+, \mathcal{L}^1_n)$ as $(\delta,N) \rightarrow (0,\infty)$.
+\end{lem}
+
+\begin{proof}[Proof.]For each $n \in \mathbb{N}$, since the statement is true up to subsequences as in Notation \ref{nota:uptosub}, we can assume without loss of generality that there exists $\{\rho^n_{\infty}\} \cup \{ \tilde{\rho}^{n,\ell}_{\infty}\}_{\ell \leq n} \subset L^{\infty} (\mathbb{R}_+, \mathcal{L}^1_n)$ such that
+\begin{align*}
+\rho^n_{\delta,N} \rightarrow \rho^n_{\infty},
+     \quad  \tilde{\rho}^{n,\ell}_{N,\delta} := (- \mathcal{H}_{\delta, \ell})^{\frac{1}{2}} \rho_{\delta,N}^n (- \mathcal{H}_{\delta,
+    \ell})^{\frac{1}{2}} \rightarrow \tilde{\rho}^{n,\ell}_{\infty}, 
+\end{align*}
+  as $(\delta,N) \rightarrow (0,\infty)$, due to the definition of $\mathcal{W}^{1,1}_{\delta,n}$, the energy conservation \eqref{eq:apriori-energy-MB} and the direct application of Banach--Alaoglu, which further implies according to Lemma
+  \ref{lem:prod-trace-strong-convergence} and the uniform convergence of $(-
+  \mathcal{H}_{\delta})^{- \frac{1}{2}} \rightarrow (- \mathcal{H})^{- \frac{1}{2}}$ in
+  $\mathcal{L} (L_{\mathbb{T}^3}^2 ; L_{\mathbb{T}^3}^2)$ (see Lemma
+  \ref{lem:L2-green-AH}) that
+  \[ 
+  \rho_{\delta,N}^n = (- \mathcal{H}_{\delta, \ell})^{- \frac{1}{2}} \tilde{\rho}^{n,\ell}_{
+     N,\delta} (- \mathcal{H}_{\delta, \ell})^{- \frac{1}{2}} \rightarrow (-
+     \mathcal{H}_{\ell})^{- \frac{1}{2}} \tilde{\rho}^{n,\ell}_{\infty} (-
+     \mathcal{H}_{\ell})^{- \frac{1}{2}}
+      \]
+  weakly* in $L^{\infty} (\mathbb{R}_+, \mathcal{L}^1_n)$ as $k \rightarrow +
+  \infty$. We have therefore identified for any $\ell \leqslant
+     n$
+  \[ (- \mathcal{H}_{\ell})^{- \frac{1}{2}} \tilde{\rho}^{n,\ell}_{\infty} (-
+     \mathcal{H}_{\ell})^{- \frac{1}{2}} = \rho^n_{\infty},
+    \]
+  that is $\rho^n_{\infty} \in L^{\infty} (\mathbb{R}_+, \mathcal{W}^{1,
+  1}_n)$ and \eqref{eq:convergence-W11L1} holds.
+\end{proof}
+
+As Lemma \ref{lem:subsequence} ensures the existence of subsequences with limit points $(\rho^n_{\infty})_{n \in
+\mathbb{N}}$, what
+remains to prove, in order to obtain Theorem
+\ref{thm:convergencehierarchy}, is that $(\rho^n_{\infty})_{n \in
+\mathbb{N}}$ satisfies the hierarchy equation \eqref{eq:MB-bbgky-mild}. The following Lemma reduces the proof of the convergence, as it states that for the notion of mild solution, it suffices to check the equality as tested against suitable projections under the $(\mathcal{K},\mathcal{L}_1)$ duality. \\
+
+We say that $(\rho^n_{\infty})_{n \in \mathbb{N}}$ is a
+\textbf{weak mild solution} to the hierarchy equation \eqref{eq:MB-bbgky-mild} with the orthonormal basis $\{ e_n \}_{n \in \mathbb{N}}$ of $L^2 (\mathbb{T}^3)$, if for any $n \in \mathbb{N}$ and $0 \leqslant
+t_1 \leqslant t_2$, we have
+\begin{align}\label{eq:mainweakmild}
+  \int_{t_1}^{t_2} \mathrm{Tr}\left[O\rho^n_{\infty} (t)\right] & =  \int_{t_1}^{t_2}\mathrm{Tr}\left[O\mathcal{U}^n_t (\rho^n_{\infty, 0})\right]\nonumber\\
+  & + \sum_{k =
+    1}^n \int_{t_1}^{t_2} \mathrm{Tr}\left\{O\int^t_0 \mathcal{U}^n_{t - s} \left(\mathrm{Tr}_{n + 1} \left[V_{k, n + 1},
+    \rho^{n + 1}_{\infty} (s)\right]\right)\right\} \mathrm{d}s,
+\end{align}
+for any $O$ is any bounded range operator of the form
+\begin{align}\label{eq:formulaO}
+  O = e_{I} \otimes e_{J}, 
+\end{align}
+interpreted in the sense of kernels, where $e_{I}$ is the symmetric tensor product of $(e_i)_{i \in
+I}$ and $I,J \in \mathbb{N}^n$.
+\begin{lem}
+  \label{lem:weakmild}Suppose that the sequence $(\rho_{\infty}^n)_{n \in
+  \mathbb{N}}$ is a weak mild solution to the hierarchy
+  \eqref{eq:MB-bbgky-mild}, and $\rho_{\infty}^n \in L^{\infty} (\mathbb{R}_+,
+  \mathcal{W}^{1, 1}_n)$, then $(\rho_{\infty}^n)_{n \in \mathbb{N}}$ is a
+  $\mathcal{W}^{1, 1}$ solution to the to the hierarchy equation.
+\end{lem}
+The proof essentially follows from the linearity of the equations and the density of the family of simple (in time) functions with values taken as linear combination of operators of the form \eqref{eq:formulaO} in the strong pre-dual $L^1 (\mathbb{R}_+, \mathcal{K}_n)$ of $L^{\infty}(\mathbb{R}_+, \mathcal{L}^1_n)$, as the family of compact operators can be regarded as the closure under the operator norm of the finite--trace operators. We refer the readers to \cite[Lemma 6.13]{de2025stochastic} for details.
+
+\begin{proof}[Proof of Theorem \ref{thm:convergencehierarchy}.]
+  We recall from the discussions above, it suffices to show that
+  $(\rho^n_{\infty})_{n \in \mathbb{N}}$ solves in the sense of the weak mild solution 
+  the hierarchy equation \eqref{eq:MB-bbgky-mild} with the
+  some $L_{\mathbb{T}^3}^2$--basis $\{ e_n \}_{n \in \mathbb{N}}$, which we choose to be the
+ orthonormal eigenfunctions of the Anderson Hamiltonian
+  $\mathcal{H}$, the reason being that for any bounded operator $L^n$ on $L_s^2((\mathbb{T}^3)^n)$, we have 
+  \begin{align}\label{eq:commutation-O-Ln}
+  \mathrm{Tr}[O\mathcal{U}^n_t(L^n)] = \mathrm{Tr}\left[Oe^{it\mathfrak{K}^n}L^ne^{-it\mathfrak{K}^n}\right] =  \mathrm{Tr}(OL^n),
+ \end{align}
+ due to cyclic permutation invariance of trace and $[L^n,e^{it\mathfrak{K}^n}] = 0$, which simplifies some of the following computations. We now fix $0 \leqslant t_1 < t_2$ and subsequence $(\delta_{k},N_{k}) \to (0,\infty)$ as $k \to \infty$ provided by Lemma \ref{lem:subsequence}, and we abbreviate
+  \begin{align}
+    \rho^n_k (t) := \rho^n_{N_k, \delta_k} (t),
+    \quad \mathcal{U}^n_{k, t}  :=
+    \mathcal{U}^n_{N_k, \delta_k, t} . \label{eq:abbrev-rho-U}
+  \end{align}
+  If we write the finite hierarchy equation \eqref{eq:schrodinger-hierarchy} for
+  $\rho_k^n$ in the weak mild formulation, we obtain the equation
+  \begin{align} 
+    \int_{t_1}^{t_2} \mathrm{Tr} (O \rho^n_{k, t}) \mathrm{d} t & =
+    \int_{t_1}^{t_2} \mathrm{Tr} (O \mathcal{U}^n_{k, t} (\rho^n_{k,
+    0})) \mathrm{d} t \nonumber\\
+    & + \frac{1}{N} \sum_{j < \ell \leqslant n} \int_{t_1}^{t_2} \mathrm{Tr}
+    \left( O \int^t_0 \mathcal{U}^n_{k, t - s} ([V_{j, \ell}, \rho^{n +
+    1}_{k, s}]) \mathrm{d} s \right) \mathrm{d} t \nonumber\\
+    & + \frac{N - n}{N} \sum_{\ell = 1}^n \int_{t_1}^{t_2} \mathrm{Tr}
+    \left( O \int^t_0 \mathcal{U}^n_{k, t - s} (\mathrm{Tr}_{n + 1}
+    [V_{\ell, n + 1}, \rho^{n + 1}_{k, s}]) \mathrm{d} s \right) \mathrm{d} t. \label{eq:MBschrodinger-mild}
+  \end{align}
+  We show in the rest of the proof that each term in
+  \eqref{eq:MBschrodinger-mild} converges to the corresponding term in
+  \eqref{eq:mainweakmild}, proving that $(\rho^n_{\infty})_{n \in \mathbb{N}}$
+  is a weak mild solution to the BBGKY hierarchy. The L.H.S. of
+  \eqref{eq:MBschrodinger-mild}
+  \[ \int_{t_1}^{t_2} \mathrm{Tr} \left(O \rho^n_k (t)\right) \mathrm{d} t \rightarrow
+     \int_{t_1}^{t_2} \mathrm{Tr} \left(O \rho^n_{\infty} (t)\right) \mathrm{d} t, \]
+  by definition of weak* convergence in $L^{\infty} (\mathbb{R}_+,
+  \mathcal{L}^1_n)$. For the first term on the right of
+  \eqref{eq:MBschrodinger-mild}, we note that
+  \[ \left\| O  \mathcal{U}^n_{k, t} (\rho^n_{k, 0}) \right\|_{\mathcal{L}^1_n}
+     \leqslant \| O \|_{\mathcal{L}_n^{\infty}} \left\| \mathcal{U}^n_{k, t}
+     (\rho^n_{k, 0}) \right\|_{\mathcal{L}_n^1} \leqslant \| O
+     \|_{\mathcal{L}^{\infty}_n}, \]
+  where we used that $\| \mathcal{U}^n_{k, t} (\rho^n_{k, 0})
+  \|_{\mathcal{L}_n^1} \leq \| \rho^n_{k, 0} \|_{\mathcal{L}_n^1} = 1$. Thus if we are able to prove the convergence
+  of $\mathrm{Tr} (O  \mathcal{U}^n_{k, t} (\rho^n_{k, 0}))$ for every
+  fixed $t \in [t_1, t_2]$, the convergence
+  \begin{align}
+    \int_{t_1}^{t_2} \mathrm{Tr} \left(O \mathcal{U}^n_{k, t} (\rho^n_{k,
+    0})\right) \mathrm{d} t \rightarrow \int_{t_1}^{t_2} \mathrm{Tr} \left(O
+    \mathcal{U}^n_t (\rho^n_{\infty, 0})\right) \mathrm{d} t
+    \label{eq:limit-t12-O-1term-convergence}
+  \end{align}
+  follows from Lebesgue dominated convergence. Since $e^{ \frac{i t }{2}\mathfrak{K}_{\delta}^n }
+    \rightarrow e^{\frac{i t}{2}\mathfrak{K}^n} $
+  strongly on $L^2_s ((\mathbb{T}^3)^n)$, as $\mathcal{H}_{\delta}$ converges
+  to $\mathcal{H}$ in the norm resolvent topology as $\delta \rightarrow 0^+$,
+  we derive the desired convergence \eqref{eq:limit-t12-O-1term-convergence}
+  by Lemma \ref{lem:prod-trace-strong-convergence} and the compactness of
+  $O$.
+  
+  \
+  
+  We consider now the second term on the right of
+  \eqref{eq:MBschrodinger-mild}. Using Lebesgue dominated convergence again
+  and the fact that, by Lemma \ref{lem:IJ}, for every $j < n + 1$,
+  \[ \sup_{0 \leqslant s \leqslant t \leqslant t_2} \left\| O
+     \mathcal{U}^n_{k, t - s} \left([V_{j, n + 1}, \rho^{n + 1}_k (s)]\right)
+    \right \|_{\mathcal{L}^1_n} \lesssim 1, \]
+  it is enough to prove the convergence of $\frac{1}{N_k} \mathrm{Tr} (O
+  \mathcal{U}^n_{k, t - s} ([V_{j, n + 1}, \rho^{n + 1}_{N_k, \delta_k} (s)]))
+  \rightarrow 0$ for any $s < t$ fixed. On the other hand, using again Lemma
+  \ref{lem:IJ},
+  \[ \left\| \frac{1}{N_k} \mathcal{U}^n_{k, t - s} [V_{i, j},
+     \rho^n_k (s)] \right\|_{\mathcal{L}_n^1} \lesssim \frac{1}{N_k} \left\| [V_{i,
+     j}, \rho^n_k (s)] \right\|_{\mathcal{L}_n^1} \mathrm{d} s \lesssim \frac{1}{N_k} \left\|
+     \rho^n_k \right\|_{L^{\infty} (\mathbb{R}_+, \mathcal{W}_{n, \delta_k}^{1, 1})}
+     \rightarrow 0, \]
+  as $k \rightarrow + \infty$, since, by Lemma \ref{lem:subsequence}, $\|
+  \rho^n_k \|_{L^{\infty} (\mathbb{R}_+, \mathcal{W}_{n, \delta_k}^{1, 1})}$
+  is uniformly bounded in $k \in \mathbb{N}$.\\
+  
+  We turn to the last term on the right of \eqref{eq:MBschrodinger-mild}.
+  Exploiting the argument based on the uniform boundedness in
+  $\mathcal{L}^1_n$ of the involved operators and the Lebesgue dominated
+  convergence theorem as above, it is enough to prove that for any $0
+  \leqslant s \leqslant t \leqslant t_2$ and $\ell = 1, \ldots, n$, we have
+  \begin{align}
+    \left| \mathrm{Tr} \left(O \mathcal{U}^n_{k, t - s} \left(\mathrm{Tr}_{n + 1}
+    [V_{\ell, n + 1}, \rho^{n + 1}_k (s)]\right)\right) \qquad\qquad\qquad\qquad\qquad\qquad \right. \nonumber\\
+     - \left. \mathrm{Tr} \left(O
+    \mathcal{U}^n_{t - s} \left(\mathrm{Tr}_{n + 1} [V_{\ell, n + 1}, \rho^{n +
+    1}_{\infty} (s)]\right)\right) \right| \rightarrow 0, \label{eq:limitconvergence1}
+  \end{align}
+  as $k \rightarrow \infty$. First, we can replace $\mathcal{U}^n_{k, t - s}$
+  in the first term in \eqref{eq:limitconvergence1} by $\mathcal{U}^n_{t -
+  s}$, since
+  \begin{align}
+  \begin{split}
+    \left| \mathrm{Tr} \left(O \mathcal{U}^n_{k, t - s} \left(\mathrm{Tr}_{n + 1}
+    [V_{\ell, n + 1}, \rho^{n + 1}_k (s)]\right)\right) \qquad\qquad\qquad\qquad\qquad\qquad \right.\\
+   \left. - \mathrm{Tr} \left(O
+    \mathcal{U}^n_{t - s} \left(\mathrm{Tr}_{n + 1} [V_{\ell, n + 1}, \rho^{n + 1}_k
+    (s)]\right)\right) \right| \rightarrow 0, \label{eq:limitvonvergece2}
+    \end{split}
+  \end{align}
+  as $k \rightarrow \infty$. Indeed the convergence
+  \eqref{eq:limitvonvergece2} follows from: the cyclicity of trace (so that we can move the unitary conjugation to $O$); the fact
+  that
+  \begin{align*}
+   \left\| e^{- \frac{i t}{2} \mathfrak{K}^n_{\delta}} Oe^{- \frac{i t}{2} \mathfrak{K}^n_{\delta}} - e^{- \frac{i t}{2} \mathfrak{K}^n} Oe^{- \frac{i t}{2} \mathfrak{K}^n} \right\|_{\mathcal{L}^{\infty}_n}
+     \rightarrow 0
+  \end{align*}
+  as $\delta \rightarrow 0^+$ as a consequence of Lemma
+  \ref{lem:prod-trace-strong-convergence} and the fact that the unitary groups converge strongly and $O$ is a fixed compact
+  operator of the form \eqref{eq:formulaO}; and the fact that, by Lemma
+  \ref{lem:IJ} and Lemma \ref{lem:boundrhoN}, for any $\ell = 1, \ldots,
+  n$,
+  \begin{eqnarray*}
+  \sup_{k \in \mathbb{N}, s \in \mathbb{R}_+} \left\| \mathrm{Tr}_{n + 1}
+    [V_{\ell, n + 1}, \rho^{n + 1}_k (s)]\right \|_{\mathcal{L}^1_n} &\leqslant&
+     \sup_{k \in \mathbb{N}, s \in \mathbb{R}_+}\left \| [V_{\ell, n + 1}, \rho^{n
+     + 1}_k (s)] \right\|_{\mathcal{L}^1_{n + 1}} \\
+     &\lesssim& \sup_{k \in \mathbb{N}}
+     \| \rho^{n + 1}_k \|_{\mathcal{W}^{1, 1}_{\delta_k, n + 1}}.
+      \end{eqnarray*}   
+  By recalling from \eqref{eq:commutation-O-Ln} that since $O$ is a projection onto the tensor products of
+  eigenfunctions of $\mathcal{H}$, which commutes with the unitary groups in view of
+  \eqref{eq:limitvonvergece2}, \eqref{eq:limitconvergence1} can be reduced to
+  showing
+  \begin{align}
+    \lim_{k \rightarrow \infty} \left| \mathrm{Tr} \left(O \mathrm{Tr}_{n + 1}
+    \left[V_{\ell, n + 1}, \rho^{n + 1}_k (s) - \rho^{n + 1}_{\infty} (s)\right]\right) \right| = 0
+    \label{eq:limitconvergence3}
+  \end{align}
+  for each $s \in \mathbb{R}_+$. In order to prove the limit
+  \eqref{eq:limitconvergence3}, we split the potential $V_{\ell, n + 1}$ into
+  three parts, namely
+  \begin{align}
+    V_{\ell, n + 1} = \tilde{V}^1_{\ell, n + 1} \eta^{\varepsilon}_{\ell, n +
+    1} + \tilde{V}^1_{\ell, n + 1} (1 - \eta^{\varepsilon}_{\ell, n + 1}) +
+    V^2_{\ell, n + 1} \label{eq:split-V-3}
+  \end{align}
+  where
+  \[ \tilde{V}^1_{\ell, n + 1} := \frac{V^1 (x_{\ell} - x_{n + 1})}{|
+     x_{\ell} - x_{n + 1} |}, \quad V^2_{\ell, n + 1} := V^2 (x_{\ell} -
+     x_{n + 1}), \]
+  for $V^1, V^2$ defined in \eqref{eq:Vform2}, and
+  $\eta^{\varepsilon}_{\ell, n + 1} := \eta^{\varepsilon} (x_{\ell} -
+  x_{n + 1})$ with some smooth and radially symmetric bump-function
+  $\eta^{\varepsilon}$ of radius $\varepsilon > 0$ such that
+  \begin{align*}
+  \eta^{\varepsilon} (x) = 1 \text{ if } | x | \leq \frac{\varepsilon}{4},
+     \quad \eta^{\varepsilon} (x) = 0 \text{ if } | x | \geq
+     \frac{\varepsilon}{2} . 
+     \end{align*}
+  $\tilde{V}^1_{\ell, n + 1} \eta^{\varepsilon}_{\ell, n + 1} =
+  (\tilde{V}^1 \eta^{\varepsilon})_{\ell, n + 1}$ keeps the singularity of
+  $\tilde{V}^1$ at the origin, while we claim to make it arbitrarily small as
+  $\varepsilon \rightarrow 0^+$ in the sense that there is some decreasing
+  function $f : \mathbb{R}_+ \rightarrow \mathbb{R}_+$, such that
+  $\lim_{\varepsilon \rightarrow 0^+} f (\varepsilon) = 0$ and
+  \begin{align}
+   \left| \mathrm{Tr} \left(O \mathrm{Tr}_{n + 1} [(\tilde{V}^1
+    \eta^{\varepsilon})_{\ell, n + 1}, \rho^{n + 1}_{\infty}]\right) \right| \qquad\qquad\qquad\qquad\qquad\qquad\qquad\nonumber\\
+     + \sup_{k \in
+    \mathbb{N}} \left| \mathrm{Tr} \left(O \mathrm{Tr}_{n + 1} [(\tilde{V}^1
+    \eta^{\varepsilon})_{\ell, n + 1}, \rho^{n + 1}_k]\right) \right| \leqslant f
+    (\varepsilon). \label{eq:smallness-Tr-KVcutoff2}
+      \end{align}
+  Without loss of generality, we give the
+  proof of the convergence \eqref{eq:smallness-Tr-KVcutoff2} when we replace $\mathrm{Tr}_{n
+  + 1} [(\tilde{V}^1 \eta^{\varepsilon})_{\ell, n + 1}, \rho^{n + 1}_k]$ by $\mathrm{Tr}_{n
+  + 1} \{(\tilde{V}^1 \eta^{\varepsilon})_{\ell, n + 1} \rho^{n + 1}_k\}$, as the proof of the other part of the commutator being completely analogous. By cyclicity of the trace and the definition of partial-trace, we can write
+  \begin{eqnarray}
+    &  & \mathrm{Tr} \left(O  \mathrm{Tr}_{n
+  + 1} \{(\tilde{V}^1 \eta^{\varepsilon})_{\ell, n + 1} \rho^{n + 1}_k\}\right) \nonumber\\
+    & = & \mathrm{Tr} \left[(\tilde{V}^1)_{\ell, n + 1} (- \mathcal{H}_{\delta_k,
+    n + 1})^{- \frac{1}{2}} \tilde{\rho}^{n + 1}_k (- \mathcal{H}_{\delta_k,
+    n + 1})^{- \frac{1}{2}} (O \otimes \mathrm{Id}_{n + 1})
+    (\eta^{\varepsilon})_{\ell, n + 1}\right] \nonumber\\
+    & = & \mathrm{Tr} \left[(\tilde{V}^1)_{\ell, n + 1} (- \mathcal{H}_{\delta_k,
+    n + 1})^{- \frac{1}{2}} \tilde{\rho}^{n + 1}_k \left(O \otimes (-
+    \mathcal{H}_{\delta_k, n + 1})^{- \frac{1}{2}}\right) (\eta^{\varepsilon})_{\ell,
+    n + 1}\right], \nonumber
+  \end{eqnarray}
+  where we denote $\mathrm{Id}$ as the identity operator with the subscript emphasizing on which particle it acts on, and we recall the notation from the proof of Lemma \ref{lem:subsequence},
+  \[ 
+  \tilde{\rho}^{n + 1}_k = (- \mathcal{H}_{\delta_k, n + 1})^{\frac{1}{2}}
+     \rho^{n + 1}_k (- \mathcal{H}_{\delta_k, n + 1})^{\frac{1}{2}},
+      \]
+  and we notice that
+  \[ (- \mathcal{H}_{\delta_k, n + 1})^{- \frac{1}{2}} \left(O \otimes
+     \mathrm{Id}_{n + 1}\right) = O \otimes (- \mathcal{H}_{\delta_k, n +
+     1})^{- \frac{1}{2}} . \]
+  and are uniformly bounded (in $k \in \mathbb{N}$) compact operator in
+  $\mathcal{K} (L^2 (\mathbb{T}^{3 (n + 1)}))$. This means that
+  \begin{align*}
+    &  \left| \mathrm{Tr} \left[(\tilde{V}^1)_{\ell, n + 1} (- \mathcal{H}_{\delta_k,
+    n + 1})^{- \frac{1}{2}} \tilde{\rho}^{n + 1}_k \left(O \otimes (-
+    \mathcal{H}_{\delta_k, n + 1})^{- \frac{1}{2}}\right) (\eta^{\varepsilon})_{\ell,
+    n + 1}\right] \right| \\
+    \leq & \left\| (\tilde{V}^1)_{\ell, n + 1} (- \mathcal{H}_{\delta_k,
+    n + 1})^{- \frac{1}{2}} \right\|_{\mathcal{L}^{\infty}_{n + 1}} \| \tilde{\rho}^{n
+    + 1}_k \|_{\mathcal{L}^1_{n + 1}} \left\| \left(O \otimes (-
+    \mathcal{H}_{\delta_k, n + 1})^{- \frac{1}{2}}\right) (\eta^{\varepsilon})_{\ell,
+    n + 1} \right\|_{\mathcal{L}^{\infty}_{n + 1}} . 
+  \end{align*}
+  By Lemma \ref{rem:Vinequality} and Lemma \ref{lem:boundrhoN}, we have
+  \[ 
+   \sup_{k \in \mathbb{N}} \left\| (\tilde{V}^1)_{\ell, n + 1} (-
+     \mathcal{H}_{\delta_k, n + 1})^{- \frac{1}{2}} \right\|_{\mathcal{L}^{\infty}_{n
+     + 1}} < + \infty, \quad \sup_{k \in \mathbb{N}} \| \tilde{\rho}^{n + 1}_k
+     \|_{\mathcal{L}^1_{n + 1}} < + \infty,
+     \]
+  and furthermore, 
+  \begin{align*}
+    &  \sup_{k \in \mathbb{N}} \left\| \left(O \otimes (-
+    \mathcal{H}_{\delta_k, n + 1})^{- \frac{1}{2}}\right) (\eta^{\varepsilon})_{\ell,
+    n + 1} \right\|_{\mathcal{L}^{\infty}_{n + 1}} \\
+    \leqslant & \sup_{k \in \mathbb{N}} \left\| \mathrm{Id} \otimes\left( (-
+    \mathcal{H}_{\delta_k, n + 1})^{- \frac{1}{2}} (1 - \Delta_{n+1})^{\gamma}\right)
+    \right\|_{\mathcal{L}^{\infty}_{n + 1}} \left\| O \otimes (1 - \Delta_{n+1})^{- \gamma}
+    (\eta^{\varepsilon})_{\ell, n + 1} \right\|_{\mathcal{L}^{\infty}_{n + 1}}
+     \\
+    \lesssim & \left\| O \otimes (1 - \Delta_{n+1})^{- \gamma} (\eta^{\varepsilon})_{\ell, n +
+    1} \right\|_{\mathcal{L}^{\infty}_{n + 1}} \rightarrow 0 \nonumber
+  \end{align*}
+  as $\varepsilon \rightarrow 0$ since 
+  \[
+  \sup_{k \in \mathbb{N}} \left\| \mathrm{Id}
+  \otimes \left((- \mathcal{H}_{\delta_k, n + 1})^{- \frac{1}{2}} (1 -
+  \Delta_{n+1})^{\gamma}\right) \right\|_{\mathcal{L}^{\infty}_{n + 1}} < + \infty
+  \]
+  for $\gamma
+  > 0$ small enough by Corollary \ref{cor:uniformdelta},
+  $(\eta^{\varepsilon})_{\ell, n + 1} \rightarrow 0$ strongly, as $\varepsilon
+  \rightarrow 0$, and $(1 - \Delta)^{- \gamma}$ is a compact operator, and
+  thus we can apply Lemma \ref{lem:prod-trace-strong-convergence} on the
+  product $(1 - \Delta_{n+1})^{- \gamma} (\eta^{\varepsilon})_{\ell, n + 1}$. Since
+  the same argument applies to the term with $\rho^{n + 1}_{\infty}$, we have
+  derived \eqref{eq:smallness-Tr-KVcutoff2} as claimed.\\
+
+  In order to analyze the other two terms in \eqref{eq:split-V-3}, we fix
+  $\varepsilon > 0$ and we write
+  \[ 
+  W^{\varepsilon} := \tilde{V}^1 (1 - \eta^{\varepsilon}) + V^2 \in L^{3 +}_{\mathbb{T}^3},
+  \]
+  as $\tilde{V}^1 (1 - \eta^{\varepsilon}) \in
+  L^{\infty}_{\mathbb{T}^3}$ for any $\varepsilon > 0$. We claim that for fixed $\varepsilon > 0$ and fixed time, 
+  \begin{align}
+    \lim_{k \rightarrow + \infty} \left| \mathrm{Tr} \left(O [W^{\varepsilon}_{\ell, n + 1}, \rho^{n + 1}_k] (\rho^{n + 1}_k - \rho^{n + 1}_{\infty}\right)
+    \right| = 0. \label{eq:limitconvergence4}
+  \end{align}
+and prove for part with $W^{\varepsilon}_{\ell, n + 1}\rho^{n + 1}_k$ in the commutator without loss of generality. We split the difference by
+  \begin{align}
+    & \mathrm{Tr} \left(O \otimes \mathrm{Id}_{n + 1}
+    W^{\varepsilon}_{\ell, n + 1} (\rho^{n + 1}_k - \rho^{n + 1}_{\infty})\right)
+    \nonumber\\
+     = & \mathrm{Tr} \left(O \otimes \mathrm{Id}_{n + 1}
+    W^{\varepsilon}_{\ell, n + 1} \left((- \mathcal{H}_{\delta_k, n+1})^{-\frac{1}{2}} - (- \mathcal{H}_{n+1})^{- \frac{1}{2}}\right) \tilde{\rho}^{n + 1}_{k, n +
+    1} (- \mathcal{H}_{\delta_k, n+1})^{- \frac{1}{2}}\right) \nonumber\\
+    +& \mathrm{Tr} \left(O \otimes \mathrm{Id}_{n + 1}
+    W^{\varepsilon}_{\ell, n + 1} (- \mathcal{H}_{n+1})^{- \frac{1}{2}}
+    \left(\tilde{\rho}^{n + 1}_{k, n + 1} - \tilde{\rho}^{n + 1}_{\infty, n + 1}\right)
+    (- \mathcal{H}_{\delta_k, n+1})^{- \frac{1}{2}}\right) \nonumber\\
+     + & \mathrm{Tr} \left(O \otimes \mathrm{Id}_{n + 1}
+    W^{\varepsilon}_{\ell, n + 1} (- \mathcal{H}_{n+1})^{- \frac{1}{2}}
+    \tilde{\rho}^{n + 1}_{\infty, n + 1} \left( (- \mathcal{H}_{\delta_k,
+    n+1})^{- \frac{1}{2}} - (- \mathcal{H}_{n+1})^{- \frac{1}{2}}\right)\right)
+    \nonumber\\
+     =: & (\mathrm{I})_k + (\mathrm{I} \mathrm{I})_k + (\mathrm{I} \mathrm{I} \mathrm{I})_k . 
+    \label{eq:split-Tr-KVepsilon}
+  \end{align}
+  For $(\mathrm{I})_k$, we have
+  \begin{align*}
+    &  \left| \mathrm{Tr} \left(O \otimes \mathrm{Id}_{n + 1}
+    W^{\varepsilon}_{\ell, n + 1} \left((- \mathcal{H}_{\delta_k, n+1})^{- 1
+    / 2} - (- \mathcal{H}_{n+1})^{- \frac{1}{2}}\right) \tilde{\rho}^{n + 1}_{k, n +
+    1} (- \mathcal{H}_{\delta_k, n+1})^{- \frac{1}{2}}\right) \right|\\
+    \leq &\left \| O \otimes (- \mathcal{H}_{\delta_k, n+1})^{- 1 /
+    2} W^{\varepsilon}_{\ell, n + 1} \left((- \mathcal{H}_{\delta_k, n+1})^{-
+    \frac{1}{2}} - (- \mathcal{H}_{n+1})^{- \frac{1}{2}}\right)
+    \right\|_{\mathcal{L}^{\infty}_{n + 1}} \mathrm{Tr} | \tilde{\rho}^{n + 1}_{k, n +
+    1} |\\
+        \lesssim & \left\| O \otimes (- \Delta_{n+1} + 1)^{- \gamma} W^{\varepsilon}_{\ell, n + 1}
+    \left((- \mathcal{H}_{\delta_k, n+1})^{- \frac{1}{2}} - (- \mathcal{H}_{n +
+    1})^{- \frac{1}{2}}\right) \right\|_{\mathcal{L}^{\infty}_{n + 1}},
+  \end{align*}
+  where all the implicit constants do not depend on $k$ and we used the fact
+  that
+  \[ 
+  \sup_{k \in \mathbb{N}} \left\| \mathrm{Id} \otimes \left((- \mathcal{H}_{\delta_k,
+     n+1})^{- \frac{1}{2}} (- \Delta_{n+1} + 1)^{\gamma}\right) \right\|_{\mathcal{L}^{\infty}_{n
+     + 1}} < + \infty \]
+  for $0 < \gamma < \frac{1}{4}$ by Corollary \ref{cor:uniformdelta}. Since the multiplication operator $ W^{\varepsilon}_{\ell, n + 1}$ is bounded from $L^{6-}$ to $L^2$; the sequence
+  \[
+  (- \mathcal{H}_{\delta_k})^{- \frac{1}{2}} - (- \mathcal{H})^{- \frac{1}{2}} \to 0
+  \]
+  strongly as sequence of operators from
+  $L^2$ to $L^{6-}$ by Lemma
+  \ref{lem:L2-green-AH}, and also
+  $(- \Delta + 1)^{- \gamma}$ is a compact operator whenever $\gamma > 0$, by
+  Lemma \ref{lem:prod-trace-strong-convergence},
+  \[\lim_{k \rightarrow + \infty} \left\| \left(O \otimes (- \Delta_{n+1} + 1)^{- \gamma}\right)
+     W^{\varepsilon}_{\ell, n + 1} \left((- \mathcal{H}_{\delta_k, n+1})^{- \frac{1}{2}} - (- \mathcal{H}_{n+1})^{- \frac{1}{2}}\right)\right \|_{\mathcal{L}^{\infty}_{n
+     + 1}} = 0, \]
+  and therefore $\lim_{k \rightarrow + \infty} (\mathrm{I})_k = 0$. Similarly, for $(\mathrm{I} \mathrm{I} \mathrm{I})_k$, we have that
+  \begin{align*}
+    & \left| \mathrm{Tr} \left(O \otimes \mathrm{Id}_{n + 1}
+    W^{\varepsilon}_{\ell, n + 1} (- \mathcal{H}_{n+1})^{- \frac{1}{2}}
+    \tilde{\rho}^{n + 1}_{\infty, n + 1} \left((- \mathcal{H}_{\delta_k, n +
+    1})^{- \frac{1}{2}} - (- \mathcal{H}_{n+1})^{- \frac{1}{2}}\right)\right) \right|\\
+    \leq &\left \| O \otimes \left((- \mathcal{H}_{\delta_k, n+1})^{- 1
+    / 2} - (- \mathcal{H}_{n+1})^{- \frac{1}{2}}\right) \right\|_{\mathcal{L}^{\infty}_{n
+    + 1}}\left\| W^{\varepsilon}_{\ell, n + 1} (- \mathcal{H}_{n+1})^{- 1 /
+    2} \right \|_{\mathcal{L}^{\infty}_{n + 1}} \\
+    \lesssim & \left\| O \otimes \left((- \mathcal{H}_{\delta_k, n +
+    1})^{- \frac{1}{2}} - (- \mathcal{H}_{n+1})^{- \frac{1}{2}}\right)
+    \right\|_{\mathcal{L}^{\infty}_{n + 1}} \rightarrow 0
+  \end{align*}
+  as $k \rightarrow \infty$. Lastly, we have
+  \begin{eqnarray*}
+    | (\mathrm{I} \mathrm{I})_k | & = & \left| \mathrm{Tr} \left(O \otimes (-
+    \mathcal{H}_{\delta_k, n+1})^{- \frac{1}{2}} W^{\varepsilon}_{\ell, n + 1}
+    (- \mathcal{H}_{n+1})^{- \frac{1}{2}} \left(\tilde{\rho}^{n + 1}_{k, n + 1} -
+    \tilde{\rho}^{n + 1}_{\infty, n + 1}\right)\right)\right |,
+  \end{eqnarray*}
+  where 
+  \[
+  O \otimes (- \mathcal{H}_{\delta_k, n+1})^{- \frac{1}{2}}
+  W^{\varepsilon}_{\ell, n + 1} (- \mathcal{H}_{n+1})^{- \frac{1}{2}} \ \text{converges in} \ \big(\mathcal{K}, \| \cdot
+  \|_{\mathcal{L} (L_{\mathbb{T}^3}^2)}\big), 
+  \]
+  and $\tilde{\rho}^{n + 1}_{k, n +
+  1} \rightarrow \tilde{\rho}^{n + 1}_{\infty, n + 1}$ weakly${}^{\ast}$ as $k
+  \rightarrow \infty$ in $L^{\infty} (\mathbb{R}_+ ; \mathcal{L}_{n + 1}^1)$,
+  so that the last limit in Lemma \ref{lem:prod-trace-strong-convergence}
+  applies, and $\lim_{k \rightarrow + \infty} | (\mathrm{I} \mathrm{I})_k | = 0$.\\
+  
+  Putting all the previous limit together we obtain
+  \begin{align}
+    \limsup_{k \rightarrow + \infty} \left| \mathrm{Tr} \left(O \mathrm{Tr}_{n + 1}
+    [V_{\ell, n + 1}, \rho^{n + 1}_k (s) - \rho^{n + 1}_{\infty} (s)]\right) \right| \leq
+    f (\varepsilon),
+  \end{align}
+  where the function $f$ is the decreasing function introduced in inequality
+  \eqref{eq:smallness-Tr-KVcutoff2}. Since $\varepsilon > 0$ can be chosen arbitrarily, and $\lim_{\varepsilon
+  \rightarrow 0^+} f (\varepsilon) = 0$ we have obtained
+  \eqref{eq:limitconvergence1}. This means that every term of
+  \eqref{eq:MBschrodinger-mild} converges to the corresponding term in
+  \eqref{eq:mainweakmild} and thus, by Lemma \ref{lem:weakmild}, Theorem
+  \ref{thm:convergencehierarchy} is proved.
+\end{proof}
+
+\subsection{Proof of uniqueness: Theorem
+\ref{thm:unique-BBGKY-Linf}}\label{section:uniqueness}
+
+We can now state rigorously our results for the derivation of the Anderson NLS
+with Hartree nonlinearity from a Bosonic many-body systems with a bounded
+interaction potential $V \in L_{\mathbb{T}^3}^{\infty}$. We recall that under
+the setting of Theorem \ref{thm:unique-BBGKY-Linf}, the mollification
+parameter $\delta = \delta (N) \rightarrow 0^+$ in the definition of the
+mollified Anderson Hamiltonian.
+
+\begin{lem}[Spohn, {\cite{S80}}]
+  \label{lem:Spohn}For any $n \geqslant 1$ we have the following bound
+  \begin{align}
+    \left\| \sum_{k \leqslant n} \mathrm{Tr}_{n + 1} ([V_{k, n + 1}, \cdot])
+    \right\|_{\mathcal{L} (\mathcal{L}_{n + 1}^1 ; \mathcal{L}^1_n)} \leqslant
+    2 n \| V \|_{L_{\mathbb{T}^3}^{\infty}} . \label{eq:normCnn1}
+  \end{align}
+\end{lem}
+
+\begin{proof}[Proof.]
+  The assertion directly follows from
+  \[ \left\| \sum_{k \leqslant n} \mathrm{Tr}_{n + 1} ([V_{k, n + 1}, \rho^{n +
+     1}]) \right\|_{\mathcal{L}^1_n} \leq n \mathrm{Tr} \left| \mathrm{Tr}_{n + 1}
+     \left([V_{k, n + 1}, \rho^{n + 1}]\right) \right| \leq 2 n \| V
+     \|_{L_{\mathbb{T}^3}^{\infty}} \| \rho^{n + 1} \|_{\mathcal{L}_{n + 1}^1}
+  \]
+  for any $\rho^{n + 1} \in \mathcal{L}_{n + 1}^1$.
+\end{proof}
+
+One ingredient for the uniqueness of the
+solution of BBGKY hierarchy \eqref{eq:bbgky} is that from the Heisenberg
+picture, the unitary group $(\mathcal{U}_t^n)_{t \in \mathbb{R}}$ is uniformly
+bounded on $\mathcal{L}^1_n$. As is shown in the footnote under \eqref{eq:MB-bbgky-mild}, this
+property is satisfied by $\mathcal{U}_t^n$ generated by the Anderson
+Hamiltonian $\mathcal{H}$ in fact also in much higher generality.For this reason, it is not surprising that the proof due to Spohn {\cite{S80}} where the interaction potential $V$ is assumed to be
+bounded works almost verbatim in our case.
+
+\begin{proof}[Proof of Theorem \ref{thm:unique-BBGKY-Linf}.]
+  Suppose that $\{\rho^n_{\infty, 1}\}, \{\rho^n_{\infty, 2}\}$ are two
+  sequences of density matrices that are mild solutions to the hierarchy
+  equation \eqref{eq:MB-bbgky-mild} with the same initial consition
+  $(\rho^n_{\infty, 0})_{n \in \mathbb{N}}$. This means that, by the linearity
+  of the hierarchy equation and applying inequality \eqref{eq:normCnn1} that
+  \begin{eqnarray}
+    \left\| \rho^n_{\infty, 1} (t) - \rho^n_{\infty, 2} (t) \right\|_{\mathcal{L}^1_n} &
+    \leqslant & \int_0^t \sum_{k = 1}^n \left\| \mathcal{U}^n_{t - s} \left(\mathrm{Tr}_{n
+    + 1} \left[V_{k, n + 1}, \rho^{n + 1}_{\infty, 1} (t) - \rho^{n + 1}_{\infty,
+    2} (s)\right]\right) \right\|_{\mathcal{L}^1_{n + 1}} \mathrm{ds} \nonumber\\
+    & \leqslant & 2 n \| V \|_{L_{\mathbb{T}^3}^{\infty}} \int_0^t \left\| \rho^{n
+    + 1}_{\infty, 1} (s) - \rho^{n + 1}_{\infty, 2} (s) \right\|_{\mathcal{L}^1_{n +
+    1}}  \mathrm{ds}.  \label{eq:inequalityuniqueness2}
+  \end{eqnarray}
+  By iterating the previous inequality we obtain that
+  \begin{align}\label{eq:inequalityuniqueness1} 
+  \begin{split}
+    \left\| \rho^n_{\infty, 1} (t) - \rho^n_{\infty, 2} (t) \right\|_{\mathcal{L}^1_n} \qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad\qquad \\
+    \leqslant \frac{(n + k - 1) !}{(n - 1) !} \left( 2 \| V
+    \|_{L_{\mathbb{T}^3}^{\infty}} \right)^k \int_{S_k (t)} \left\| \rho^n_{\infty,
+    1} (s_k) - \rho^n_{\infty, 2} (s_k) \right\|_{\mathcal{L}^1_{n + k}}
+    \mathrm{ds}_{1 : k}, 
+    \end{split}
+  \end{align}
+  where the simplex $S_k (t)$ is given by $S_k (t) := \{ 0 \leqslant t_1
+  \leqslant \cdots \leqslant t_k \leqslant t \}$. Recalling that the simplex
+  $S_k (t)$ has size $| S_k (t) | = \frac{t^k}{k!}$, and that
+  \begin{align*}
+  \left\| \rho^{n + k}_{\infty, 1} (s_k) - \rho^{n + k}_{\infty, 2} (s_k)
+    \right \|_{\mathcal{L}^1_{n + k}} \leqslant \| \rho^{n + k}_{\infty, 1} (s_k)
+     \|_{\mathcal{L}^1_{n + k}} + \| \rho^{n + k}_{\infty, 1} (s_k)
+     \|_{\mathcal{L}^1_{n + k}} = 2,
+     \end{align*}
+  inequality \eqref{eq:inequalityuniqueness1} gives
+  \[ 
+  \left\| \rho^n_{\infty, 1} (t) - \rho^n_{\infty, 2} (t) \right\|_{\mathcal{L}^1_n}
+     \leqslant \frac{(n + k - 1) !}{(n - 1) !k!} \left( 4 t \| V
+     \|_{L_{\mathbb{T}^3}^{\infty}} \right)^k  \leqslant 2^{n - 1} \left( 8 t \| V
+     \|_{L_{\mathbb{T}^3}^{\infty}} \right)^k . \]
+  So if we choose $t < \frac{1}{8 \| V \|_{L_{\mathbb{T}^3}^{\infty}}}$ and
+  then send $k \rightarrow \infty$ we get
+  \[ 
+  \left\| \rho^n_{\infty, 1} (t) - \rho^n_{\infty, 2} (t) \right\|_{\mathcal{L}^1_n} =
+     0, \quad \text{for all } 0 < t < \frac{1}{8 \| V
+     \|_{L_{\mathbb{T}^3}^{\infty}}} \text{ and } n \in \mathbb{N}.
+      \]
+  We conclude that $\rho^n_{\infty, 1} (t) = \rho^n_{\infty, 2} (t)$ for all
+  $t \geqslant 0$ thanks to the flow property of the align.
+\end{proof}
+
+We conclude the paper with the proof of Corollary \ref{corollary:main}.
+
+\begin{proof}[Proof of Corollary \ref{corollary:main}.]
+  Let $u_0 \in \mathcal{D} \left( \sqrt{- \mathcal{H}} \right)$ such that $\|
+  u_0 \|_{L_{\mathbb{T}^3}^2} = 1$ then by Theorem
+  \ref{thm:Vinftyenergywellposedeness} there is a unique solution $u$ to
+  the NLS equation with Hartree nonlinearity \eqref{eqn:NLS-Vbdd} with $V \in
+  L_{\mathbb{T}^3}^{\infty}$ such that $u \in C \left( \mathbb{R}_+,
+  \mathcal{D} \left( \sqrt{- \mathcal{H}} \right) \right)$. $(\Pi_{(u (t, \cdot))^{\otimes n}})_{n \in \mathbb{N}}$ is easily verified
+  to be a mild solution to the hierachy equation \eqref{eq:MB-bbgky-mild}
+  essentially due to \eqref{eq:Vr,r=trVr2} of $\mathcal{W}^{1, 1}$-type as $u
+  \in C \left( \mathbb{R}_+, \mathcal{D} \left( \sqrt{- \mathcal{H}} \right)
+  \right)$ and with initial condition $\Pi_{u_0^{\otimes n}} $ and thus $(\Pi_{(u (t, \cdot))^{\otimes n}})_{n \in \mathbb{N}}$ is also
+  unique by Theorem \ref{thm:unique-BBGKY-Linf}.\\
+  
+  If $\Psi_{N, \delta}$ is a solution to the Schr{\"o}dinger equation satisfying the hypotheses of Corollary
+  \ref{corollary:main}, then by Theorem \ref{thm:convergencehierarchy} the
+  corresponding density matrices $\rho^n_{N, \delta}$ --up to a subsequence--
+  must converge to a solution to the hierarchy equation
+  \eqref{eq:MB-bbgky-mild} if its initial condition converges \ $\rho^n_{N,
+  \delta} (0) \rightarrow \Pi_{u_0^{\otimes n}}$ as $N \rightarrow \infty$ and
+  $\delta \rightarrow 0^+$. Since any convergent subsequence converges to the same limit, we get
+  \[ \lim_{N \rightarrow + \infty, \delta \rightarrow 0^+} \rho^n_{N, \delta}(t)
+    \rightarrow\Pi_{u_t^{\otimes n}} \]
+  weakly* in $L^{\infty} (\mathbb{R}_+, \mathcal{L}^1_n)$, and thus weakly* in
+  $L^{\infty} (\mathbb{R}_+, L^2_s ((\mathbb{T}^3)^n) \otimes L_s^2
+  ((\mathbb{T}^3)^n))$ for all $n \in \mathbb{N}.$
+\end{proof}
+
+
+\section{Quantitative Mean--Field Limit: Depletion of Condensates}
+
+In this chapter, we give a rather straightforward application of the method of P. Pickl's quantifying the particles outside the condensates following the evolution of many-body systems, when the interaction potential is assumed to be \textbf{square--integrable}. 
+
+\begin{rem*}
+Although it is currently unclear to us how to generalize the uniqueness result of the BBGKY hierarchy in \ref{chapter:MFL-MB} to unbounded interaction potentials as most of the proofs by Erd{\H o}s--Yau and others crucially make use of the Laplacian, we expect that the technique used in \cite{KP10} for more singular interaction potentials can be generalized to our setting, as we have a good regularity control of the solution to the ANLS. We hope to address this in future research.
+\end{rem*}
+
+

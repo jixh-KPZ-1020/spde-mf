@@ -1,0 +1,1570 @@
+\chapter{Dean--Kawasaki equation: Weak--Error}\label{ch:weak}
+In this chapter, we consider an approximation of the empirical measure of the mean-field interacting particle system $X_t = (X_t^i)_{i=1}^N$ on $\mathbb{T}^d$ given by
+\begin{equation}\label{eq:main_particle}
+\mathrm{d}X^i_t = b(X_t^i, {\rho}_{X_t})\mathrm{d}t +\sqrt{2}\Sigma(X_t^i, {\rho}_{X_t})\cdot \mathrm{d}W^i_t, 
+\end{equation}
+where $W = (W^i)_{i=1}^N$ is a $d \times N$-dimensional standard Brownian motion, and 
+\[
+\mathbb{T}^d \times \mcl{P}(\mathbb{T}^d) \ni (x, \mu) \mapsto b(x,\mu) \in \mathbb{R}^d, \quad (x, \mu) \mapsto \Sigma(x,\mu) \in \mathbb{R}^{d\times d}
+\]
+are functions modeling the dependence of a single particle on its position and on the whole system through the empirical measure
+\begin{align}\label{eq:empirical}
+   \rho_{X_t} := \frac{1}{N}\sum_{i = 1}^N \delta_{X_t^i}.
+\end{align}
+We define
+\begin{equation}\label{eq:def_a}
+    a(x,\mu) = \Sigma(x,\mu)\cdot\Sigma^{\transpose}(x,\mu), 
+\end{equation}
+for $x \in \mathbb{T}^d$ and $\mu \in \mcl{P}(\mathbb{T}^d)$. We aim at approximating the empirical measure $\rho^N$ with the conservative SPDE \eqref{eq:DK_full}, which we rewrite the leading order differential operator in divergence form because later this will simplify some estimates:
+\begin{equation}\label{eq:DK_reg}
+\begin{split}
+    \mathrm{d}m^N_t & = \nabla \cdot \big[a(\cdot, m^N_t) \nabla m^N_t\big]\mathrm{d}t - \nabla \cdot \big[\tilde{b}(\cdot, m^N_t)m^N_t \big]\mathrm{d}t\\
+    & + \frac{\sqrt{2}}{\sqrt{N}}\nabla \cdot \big[f^N(m^N_t) \Sigma (\cdot, m^N_t) \cdot \mathrm{d}W^N_t\big],
+\end{split}
+\end{equation}
+where the noise $(W^N_t)_{t \geq 0}$ is now colored in space and white in time, $\{f^N\}_{N \in \mathbb{N}}$ is Lipschitz continuous, and $\tilde b$ is defined by
+\begin{equation}\label{eq:modified_drift}
+\mathbb{T}^d \times \mcl{P}(\mathbb{T}^d) \ni (x,\mu) \mapsto \tilde{b}(x,\mu) := b(x,\mu) - \sum_{j=1}^d \partial_j a_{\cdot, j}(x,\mu).
+\end{equation}
+We now specify the choice of $f^N$ and $W^N$. We approximate the square root by considering $f^{\delta} \in C^1(\mathbb{R}_{\geq 0}, \mathbb{R})$ s.t. $f^{\delta}(0) = 0$:  
+\begin{equation}\label{eq:approx_square_root}
+\begin{split}
+    \|(f^{\delta})'\|_{L^{\infty}}\lesssim \frac{1}{\sqrt{\delta}}, \quad(f^{\delta})'(x) \lesssim \frac{1}{\sqrt{x}},\quad |f^{\delta}(x)^2 - x| \lesssim \delta,
+\end{split}
+\end{equation}
+for all $ x \geq 0$ and constants uniform in $\delta \in (0,1)$. A possible choice for $(f^{\delta})_{\delta\in(0,1)}$ is given by Example 2.2 in \cite{DKP23}. We abbreviate $f^{N} := f^{\delta_N}$ for some sequence $(\delta_N)_{N \geq 0}$ with $\delta_N \to 0$ which will be determined later. This guarantees that $f^N$ uniformly converges to the square root as the number of particles approaches infinity. As in \cite{FG21,DKP23}, we construct the colored noise $W^N$ as
+\begin{equation}\label{eq:repre_color_noise}
+W^N_t := \sum_{k \in \mathbb{Z}^d}\theta^N_ke_kB^k_t,
+\end{equation}
+where $\{B^k\}_{k \in \mathbb{Z}^d}$ are $d$-dimensional complex-valued Brownian motions such that
+\[
+B^{-k} = \overline{B^k}
+\]
+and $B^j$ is independent of $B^k$ if and only if $j \neq \pm k$. We further impose the following conditions on the covariance structure of the colored noise that we consider in (\ref{eq:DK_reg}):
+\begin{assu}\label{assu:cov}We assume that the coefficients of the colored noise in (\ref{eq:repre_color_noise}) are given by
+\begin{equation}\label{eq:def_theta_k^N}
+\theta_k^N := \hat{\eta}^{\frac{1}{2}}\Big(\frac{k}{L_N}\Big) = \mathscr{F}_{\mathbb{R}^d}\big[L_N^d\eta(L_N(\cdot))\big](k)^{\frac{1}{2}},
+\end{equation}
+for some symmetric $\eta \in \mathscr{S}(\mathbb{R}^d,\mathbb{R})$ with $\hat{\eta} \in C_c^{\infty}(\mathbb{R}^d,[0,\infty))$ and $\hat{\eta}(0) = 1$,
+while $\{L_N\}_{N \geq 0}$ will later be chosen such that $0 \leq L_N \to \infty$ as $N \to \infty$.
+\end{assu}
+
+By construction $\theta^N$ is symmetric, that is $\theta_k^N = \theta_{-k}^N$ for all $k \in \mathbb{Z}^d$, so the process $W^N$ defined in (\ref{eq:repre_color_noise}) is real-valued. In the next remark we collect some further properties related to $W^N$ that we will need later.
+\begin{rem}
+It follows from Assumption \ref{assu:cov} that
+\begin{equation}\label{eq:bound_theta}
+\begin{split}
+\sum_{k \in \mathbb{Z}^d} |k|^2|\theta_k^N|^2 < \infty, \ \forall N \in \mathbb{N}; \qquad \lim_{N \to \infty}\theta_k^N = 1, \ \forall k \in \mathbb{Z}^d,
+\end{split}
+\end{equation}
+where the second property shows that $W^N$ converges to the cylindrical Wiener process. Moreover, the function $\psi^N := \sum_{k \in \mathbb{Z}^d} |\theta_k^N|^2e_k$ satisfies the following bound:
+\begin{equation}\label{eq:s_m_kernel_Ktheta}
+\int_{\mathbb{T}^d}|x|^2 \big|\psi^N(x)\big|\mathrm{d}x \lesssim_{\eta} L_N^{-2}.
+\end{equation}
+Indeed, since $\eta \in \mathscr{S}(\mathbb{R}^d)$ it follows from Poisson summation that 
+     \begin{align*}
+          \psi^N = \sum_{z \in \mathbb{Z}^d}L_N^d\eta[L_N(\cdot + z)],
+     \end{align*}
+and therefore
+\begin{align*}
+    \int_{[-\frac{1}{2},\frac{1}{2}]^d}|x|^2|\psi^N|(x)\mathrm{d}x 
+     \leq \sum_{z \in \mathbb{Z}^d} \int_{([-\frac{1}{2},\frac{1}{2}]^d + z)L_N}\big|\frac{x}{L_N}- z\big|^2|\eta(x)|\mathrm{d}x\\
+     \leq \sum_{z \in \mathbb{Z}^d} \int_{([-\frac{1}{2},\frac{1}{2}]^d + z)L_N}\big|\frac{x}{L_N}\big|^2|\eta(x)|\mathrm{d}x
+     = L_N^{-2}\int_{\mathbb{R}^d}|x|^2|\eta(x)|\mathrm{d}x.
+\end{align*}
+\end{rem}
+
+Later we will optimize \eqref{eq:main_error} in $\delta_N$ and $L_N$ subject to the stochastic parabolicity condition \eqref{eq:coercivtiy_condition} and choose 
+\begin{align*}
+\delta_N \sim N^{-\frac{1}{1+d/2}}, \qquad L_N \sim \delta^{-\frac{1}{2}}_N. 
+\end{align*}
+Note that we have $N$ particles in a unit volume, and therefore the typical distance of a particle to its nearest neighbor is $d_N\sim N^{-1/d}$. Rewriting the condition on $\delta_N$ and $L_N$ in terms of the typical particle distance, we obtain
+\[
+    \delta_N \sim d_N^{\frac{2}{1+2/d}},\qquad L_N \sim d_N^{-\frac{1}{1+2/d}}.
+\]
+\section{Existence and Uniqueness Theory}\label{ch:GWP}
+
+In this section, we focus on the global existence and uniqueness of the probabilistically strong solution to (\ref{eq:DK_reg}) under suitable conditions on the drift and noise coefficients. Given an SPDE in a Gelfand triple $V \subset H \subset V^{\ast}$ in the sense of \cite{LR15}, we define the \emph{$H$ solution} to the SPDE to be the probabilistically strong solution in $C([0,T],H) \cap L^2([0,T],V)$ for any $0< T < \infty$.\\
+
+
+For technical reasons we will work both with $W^{-1,2}$ and $L^2$ solutions to (\ref{eq:DK_reg}), and therefore we assume that $b[\cdot]$ and $\Sigma[\cdot]$ admit extensions to
+\[
+X := W^{-1,2}(\mathbb{T}^d) \cup L^1(\mathbb{T}^d), 
+\]
+where we recall that the inner product on $W^{-1,2}(\mathbb{T}^d)$ is defined in (\ref{eq:inner-prod-H-1}). 
+From now on we denote for brevity
+\begin{equation}
+    f[\mu](\cdot) := f(\cdot, \mu),
+\end{equation}
+for any function $f$ on $\mathbb T^d \times \mathcal P$, such as $f=b, f = \Sigma$ or $f=\tilde b$. We impose the following  conditions on the drift and noise coefficients.
+\begin{assu}\label{assu:b_Sigma}
+We assume that $b[\mu] \in L^\infty(\mathbb T^d, \mathbb R^d)$ and $\Sigma[\mu], a[\mu] \in  L^\infty(\mathbb T^d, \mathbb R^{d\times d})$ for all $\mu \in X$ and that they satisfy the following continuity estimates on $W^{-1,2}$:
+\begin{align}
+    \big\|b[\mu] - b[\nu]\big\|_{L^{\infty}} \lesssim \|\mu - \nu\|_{W^{-1,2}}, \label{eq:con_b_inf}\\
+\big\|\Sigma[\mu] - \Sigma[\nu]\big\|_{W^{1,\infty}} \lesssim \big(1 \vee \|\nu\|_{W^{-1,2}}\big)\|\mu - \nu\|_{W^{-1,2}},\label{eq:con_Sigma_1,inf}\\
+\big\|a[\mu] - a[\nu]\big\|_{W^{1,\infty}} \lesssim \big(1 \vee \|\nu\|_{W^{-1,2}}\big)\|\mu - \nu\|_{W^{-1,2}},\label{eq:con_a_1,inf}
+\end{align}
+and further for some arbitrarily small $\varepsilon >0$ that
+\begin{equation}\label{eq:1+epsilon-bound-a}
+   \big\| a[\mu] \big\|_{W^{1+\varepsilon,\infty}} \lesssim 1 \vee \|\mu\|_{W^{-1,2}}.
+\end{equation}
+    We further assume that the diffusion coefficient is uniformly elliptic, that is there exists $a_{\min} > 0$ with
+    \begin{equation}\label{eq:unif_bound_a}
+        a[\mu](x) \geq a_{\min}\Id_{d\times d}, \quad \|\Sigma[\mu]\|_{L^{\infty}} \leq C_{\Sigma}, 
+    \end{equation}
+uniformly in $\mu \in X$ and $x \in \mathbb T^d$. Moreover, we assume the following linear growth with respect to arguments in $L^1$:
+\begin{equation}\label{eq:con_Sigma_L1}
+    \|b[\mu]\|_{L^{\infty}} \vee \|\Sigma[\mu]\|_{W^{1,\infty}} \lesssim 1 \vee \|\mu\|_{L^1}
+\end{equation}
+\end{assu}
+
+\begin{rem}\label{rem:reality_check} It follows directly from the continuity conditions (\ref{eq:con_b_inf}) - (\ref{eq:con_a_1,inf}) that 
+\begin{align}
+\big\|b[\mu] \big\|_{L^{\infty}} \lesssim 1 \vee \|\mu\|_{W^{-1,2}},\label{eq:bound_b_1,inf}\\
+\big\|\Sigma[\mu] \big\|_{W^{1,\infty}} \vee 
+\big\|a[\mu] \big\|_{W^{1,\infty}} \lesssim 1 \vee \|\mu\|_{W^{-1,2}},\label{eq:bound_a_Sigma_1,inf}
+\end{align}
+while we impose the stronger condition (\ref{eq:1+epsilon-bound-a}) for technical reasons, as this simplifies the proof of uniform ellipticity in the Gelfand triple $L^2\subset W^{-1,2}\subset (L^2)^*$ in Lemma \ref{lem:Delta^v} below, where we write
+\[
+   (L^2)^* := (L^2(\mathbb{T}^d))^* 
+\]
+for the dual space of $L^2(\mathbb{T}^d)$ with the subspace topology inherited from $W^{-1,2}$, which is isomorphic to $W^{-2,2}$. We also notice that the continuity condition on $a[\cdot]$ cannot be derived from that on $\Sigma[\cdot]$, since this would only give
+\begin{equation}\label{eq:cont_a_would}
+\begin{split}
+\big\|a[\mu] - a[\nu]\big\|_{W^{1,\infty}} & \lesssim \|\Sigma[\mu]\|_{W^{1,\infty}}\big\|\Sigma^{\transpose}[\mu] - \Sigma^{\transpose}[\nu]\big\|_{W^{1,\infty}} \\
+& + \big\|\Sigma[\mu] - \Sigma[\nu]\big\|_{W^{1,\infty}} \|\Sigma^{\transpose}[\nu]\|_{W^{1,\infty}}\\
+&  \lesssim \big(1 + \|\nu\|^2_{W^{-1,2}}+  \|\mu\|^2_{W^{-1,2}}\big)\|\mu - \nu\|_{W^{-1,2}}.
+\end{split}
+\end{equation}
+The dependence on $\|\nu\|^2_{W^{-1,2}}$ and $\|\mu\|^2_{W^{-1,2}}$ in (\ref{eq:cont_a_would}) would prevent the direct application of Theorem 3.2 in \cite{RSZ22} as it would violate the local monotonicity condition. 
+\end{rem}
+
+The following lemma on the coercivity of the elliptic operators is proven in \cite[Lemma A.1]{djurdjevac2025weak} and the proof below. Here we fix  some $v \in  W^{-1,2}(\mathbb{T}^d)$, and we consider the Gelfand triple 
+\begin{equation}
+   V \subset H \subset V^* \qquad \text{with} \qquad V := L^2(\mathbb{T}^d), \, H := W^{-1,2}(\mathbb{T}^d). 
+\end{equation}
+\begin{lem}\label{lem:Delta^v}
+The continuous linear map $u \mapsto \nabla \cdot \big(a[v]\nabla u\big)$ from $W^{1,2}$ to $(L^2)^*$ extends to a continuous linear map from $L^2$ to $(L^2)^*$ such that
+\begin{equation}\label{eq:unif_ell}
+      -{}_{(L^2)^*}\big\langle \nabla \cdot \big(a[v]\nabla u\big),u\big\rangle_{L^2} + \alpha \big(\|a[v]\|^2_{W^{1+\varepsilon,\infty}}\big) \|u\|^2_{W^{-1,2}} \geq \frac{a_{\min}}{4} \|u\|^2_{L^2},
+\end{equation}
+for some affine function $\alpha$ with positive coefficients.
+\end{lem}
+
+To lighten the notation, we introduce the symbol
+\begin{equation}\label{eq:def_A[u,v]}
+\begin{split}
+A[v,u] := \nabla \cdot \big(a[v]\nabla u\big) - \nabla \cdot \big(\tilde{b}[v] u\big),
+\end{split}
+\end{equation} 
+where $\tilde{b}$ is the modified drift given in (\ref{eq:modified_drift}). By Lemma \ref{lem:Delta^v}, we may consider the drift term $A[u,u]$ as a continuous function from $L^2$ to $(L^2)^*$, where the continuity of the drift term follows from the regularity that we impose on $b[\cdot]$ and $\Sigma[\cdot]$ in Assumption \ref{assu:b_Sigma}.
+
+
+\subsection{Global Existence and Uniqueness of Tamed Equations}
+As mentioned above, it turns out that it is more transparent to investigate the equation as \cite{DKP23} in the Gelfand triple $V \subset H \subset V^*$ due to the gradient-multiplicative structure of the noise. The proof of the global existence and uniqueness of (\ref{eq:DK_reg}) is then arranged as follows: We first introduce the $W^{-1,2}$ taming to the equation to compensate for the quadratic growth while keeping the noise term:
+\begin{equation}\label{eq:var_AB_tamed}
+\begin{split}
+A^{\chi}[u] & := A[u,u]- \chi\big( \|u\|_{W^{-1,2}}^2\big)u,\\
+B^N[u]\cdot\mathrm{d}W_t & :=  \frac{\sqrt{2}}{\sqrt{N}}\sum_{k \in \mathbb{Z}^d}\theta_k^N\nabla \cdot\Big(f^N(u) \Sigma [u] e_k \cdot  \mathrm{d}B^k_t \Big),
+\end{split}
+\end{equation}
+where some smooth function $\chi$ is fixed to be the taming functions on $\mathbb{R}_{\geq 0}$ s.t.
+ \begin{equation}\label{eq:def_chi_tame}   
+    \begin{cases}
+    \chi(r) = 0, & r \leq M_{\chi} - 1,\\
+    \chi(r) =C_{\chi}(r + 1 - M_{\chi}), & r \geq M_{\chi},
+    \end{cases}
+\end{equation}
+and $\chi'$ is non-decreasing on $\mathbb{R}_{\geq 0}$, where $C_{\chi} > 1$ will be chosen to be large enough in Lemma \ref{lem:WP_tamed}. The following assumption is essential for the well-posedness of the SPDE:
+\begin{equation}\label{eq:coercivtiy_condition}
+   \frac{\|\theta^N\|^2_{\ell^2}}{N\delta_N } \leq  \frac{a_{\min}}{32C^2_{\Sigma}},
+\end{equation}
+where the constant $C_{\Sigma}$ is defined in \eqref{eq:unif_bound_a} and will be determined below in \eqref{eq:CSigma-choice1}. Heuristically, such a bound indicates that the coercivity of the diffusion operator in (\ref{eq:DK_reg}) dominates the effect of the noise. We refer to \eqref{eq:coercivtiy_condition} as the \emph{stochastic parabolicity condition} of the SPDE. \\
+
+ The tamed version of (\ref{eq:DK_reg}) is well suited for the variational framework of \cite{RSZ22,LR15}, if we use the Gelfand triple $(L^2)^* \subset W^{-1,2} \subset L^2$. We then obtain a $C([0,T],L^2)$-valued solution by deriving (taming-dependent) $L^2$ energy estimates with the same argument as in \cite{DKP23}. The uniqueness of the $L^2$ solution follows straightforwardly from that of the $W^{-1,2}$ solution, again for fixed taming. \\
+
+We further exploit the fact that the $L^1$ norm of the solution to the tamed equation is non-increasing since the equation without taming preserves probability measures, while the taming terms have a negative sign. This allows us to upgrade the $W^{-1,2}$ energy estimate of the tamed equation so that it is uniform in the taming by exploiting the fact that the interactions are controlled by the $L^1$ norm of the solution according to (\ref{eq:con_Sigma_L1}). We use this estimate to remove the taming, which gives the global existence and uniqueness that we desire in Corollary \ref{thm:main_thm_1_full}.\\
+
+We remark that, in light of the recent advances for SPDEs with locally monotone coefficients~\cite{RSZ22,LR15}, the well-posedness of (\ref{eq:DK_reg}) is not surprising. However, we are not aware of any result which is directly applicable in our setting. Incorporating the $W^{-1,2}$ taming into the variational approach seems to be the most compact way to derive the results we require.
+
+\begin{lem}\label{lem:WP_tamed}We impose Assumption~\ref{assu:b_Sigma} and that the stochastic-parabolicity condition (\ref{eq:coercivtiy_condition}) holds for a sufficiently small $C_{\Sigma} > 0$ which only depends on $\Sigma[\cdot]$. Given $\chi$ as in (\ref{eq:def_chi_tame}) with sufficiently large $C_{\chi} > 1$ only depending on $b[\cdot]$ and $\Sigma[\cdot]$ and any finite $M_{\chi} > 1$, together with any initial datum in $W^{-1,2}$, there exists a unique $W^{-1,2}$ solution to the SPDE given by (\ref{eq:var_AB_tamed}), that is 
+\begin{equation}\label{eq:tamed_equation}
+    \begin{cases}
+        \mathrm{d}u_t=A^{\chi}[u_t]\mathrm{d}t + B^N[u_t]\cdot\mathrm{d}W_t,\\
+        u(0,\cdot) \in W^{-1,2}.
+    \end{cases}
+\end{equation}
+\end{lem}
+
+For fixed $N \in \mathbb{N}$ and taming function $\chi$, we denote the unique solution to the tamed equation (\ref{eq:var_AB_tamed}) by $m^{N,\chi}$.
+
+\begin{proof} 
+Thanks to \cite{RSZ22}, Theorem 3.2, we only need to verify that the conditions (H1-H5) therein hold. The hemicontinuity condition (H1) is apparently true, and the coercivity bound (H2) holds for the drift term, in the sense that 
+\begin{equation}\label{eq:H2}
+    {}_{V^{*}}\big\langle A^{\chi}[u], u\big\rangle_V +  \frac{a_{\min}}{8} \|u\|_V^2 \lesssim_{b,\Sigma} (M_{\chi}C_{\chi} + 1)\|u\|_H^2.
+\end{equation} 
+ Indeed, thanks to Lemma \ref{lem:Delta^v} and the conditions we impose on $\Sigma[\cdot]$ and $b[\cdot]$, 
+\begin{align*}
+   \big\langle A[u,u] - \chi\big( \|u\|^2_{H}\big)u, u  \big\rangle
+    \leq - \frac{a_{\min}}{4}\|u\|_{L^2}^2 - \chi\big( \|u\|^2_{W^{-1,2}}\big)\|u\|^2_{W^{-1,2}}\\
+      + \alpha(\|a[u]\|^2_{W^{1,\infty}}) \|u\|^2_{W^{-1,2}} + \big\|\nabla \cdot \big(\tilde{b}[u] u \big)\big\|_{W^{-1,2}}\|u\|_{W^{-1,2}}
+     \\
+    \leq  - \frac{a_{\min}}{4}\|u\|_{L^2}^2 + \big\| \tilde{b}[u]\big\|_{L^{\infty}} \big\|u\big\|_{L^2} \|u\|_{W^{-1,2}} \\
+    + \alpha(\|a[u]\|^2_{W^{1,\infty}}) \|u\|^2_{W^{-1,2}} - \chi\big( \|u\|^2_{W^{-1,2}}\big)\|u\|^2_{W^{-1,2}}\\
+ \overset{(\ref{eq:bound_a_Sigma_1,inf})}{\leq}  -\frac{a_{\min}}{8} \|u\|_{V}^2 
+  +  
+ \Big[\frac{2}{a_{\min}} \big\|\tilde{b}[u]\big\|_{L^{\infty}}^2 + \alpha(C'_{\Sigma}(\|u\|_H^2 + 1))  - \chi\big( \|u\|^2_{H}\big)\Big]\|u\|^2_{H},
+\end{align*}
+for any $\kappa > 0$ and some $C'_{\Sigma} > 0$. We've used the uniformly elliptic bound on $A[u,\cdot]$ in the first inequality, which is allowed since $u \in V = L^2$, and apply Young's product inequality for the last one. Since we have the control on the drift by (\ref{eq:bound_b_1,inf}) and (\ref{eq:bound_a_Sigma_1,inf}) that
+\begin{equation}\label{eq:tilde_b_L_inf}
+\begin{split}
+   \big\|\tilde{b}[u]\big\|_{L^{\infty}} \lesssim \big\|b[u]\big\|_{L^{\infty}} + \big\|\Sigma[u]\big\|_{W^{1,\infty}}
+    \lesssim \|u\|_{H} \vee 1,
+\end{split}
+\end{equation}
+where the constant depends only on $b[\cdot]$ and $\Sigma[\cdot]$, we arrive at (\ref{eq:H2}) with $C_{\chi} > 0$ being chosen and fixed large enough only depending on $b[\cdot]$ and $\Sigma[\cdot]$, since both the bounds on $\|\tilde{b}[u]\|_{L^{\infty}}^2$ and $\alpha(C'_{\Sigma}(\|u\|_H^2 + 1))$ are affine with respect to $\|u\|_H^2$, which are compensated by $\chi(\|u\|_H^2)$ when $\|u\|_H^2 \geq M_{\chi}$. More precisely, by distinguishing the case of 
+$\|u\|_{H}^2 \geq M_{\chi}$ from $\|u\|_{H}^2 < M_{\chi}$, we bound
+\begin{align*}
+    \alpha(C'_{\Sigma}(\|u\|_H^2 + 1)) + \frac{2}{a_{\min}} \big\|\tilde{b}[u]\big\|_{L^{\infty}}^2  - \chi\big( \|u\|^2_{H}\big) \lesssim M_{\chi}C_{\chi} + 1
+\end{align*}
+due to the very construction (\ref{eq:def_chi_tame}) of $\chi$. From now on, we fix $C_{\chi}$ that we've chosen and an arbitrary $M_{\chi} > 1$. This establishes (\ref{eq:H2}). \\
+
+Furthermore, local monotonicity (H3) holds, since (with $\theta = 0$, $\beta = 2$, $\gamma = 0$ and $\lambda = 2$ in \cite{RSZ22}, Theorem 3.2)
+    \begin{equation}\label{eq:H3}
+    \begin{split}
+2{}_{V^*}\big\langle A^{\chi}[u] - A^{\chi}[v], u-v\big\rangle_V + \big\|B^N[u] - B^N[v]\big\|_{L_2(\ell^2,H)}^2 \\ \lesssim \big[\rho(u) + \eta(v)\big] \|u-v\|_H^2,
+\end{split}
+    \end{equation}
+where the constant depends on $b[\cdot]$, $\Sigma[\cdot]$, $\chi$ and $N$, and $\rho$, $\eta$ are measurable on $V$ s.t.
+\begin{align*}
+    |\rho(u)|  & := \|u\|_{H}^2,\\
+    \ |\eta(v)| & :=\big(1 + \|v\|^2_{H}\big)\|v\|^2_V + 1 + \|v\|^2_{H}.
+\end{align*}
+To prove the assertion, we first split the term $\big\langle A^{\chi}[u] - A^{\chi}[v] , u -v  \big\rangle$ as
+\begin{align*}
+ (\rom{1}) + (\rom{2})  : =  {}_{V^*}\Big\langle A[u,u - v] - \chi(1 + \|u\|_{H}^2) (u-v), u -v  \Big\rangle_V\\
+     +  {}_{V^*}\Big\langle A[u,v] - A[v,v] - \big[\chi(1 + \|u\|_{H}^2) - \chi(1 + \|v\|_{H}^2)\big]v, u -v  \Big\rangle_V,
+    \end{align*}
+where we recall from (\ref{eq:def_A[u,v]}) that $A$ is only linear in the second argument. The first term is controlled with the same argument that we have used for (\ref{eq:H2}) by 
+\begin{equation}\label{eq:loc_mon_I}
+     (\rom{1}) + \frac{a_{\min}}{8} \|u - v\|_{V}^2  \lesssim \|u-v\|_H^2.
+\end{equation}
+For the second term we have 
+\begin{align*}
+     (\rom{2}) 
+ \leq {}_{V^*}\big\langle A[u,v] - A[v,v], u-v\big\rangle_V + C_{\chi}\big|\|u\|^2_{H}- \|v\|_{H}^2\big|\|u - v\|_H\|v\|_H 
+\end{align*}
+where we use the bound $\|\chi'\|_{L^{\infty}} \leq C_{\chi}$, and we estimate the first term above by
+\begin{align*}
+     \big\langle A[u,v] - A[v,v], u - v\big\rangle\leq  \big\|a[u] - a[v]\big\|_{W^{1,\infty}}\|v\|_{L^2}\|u-v\|_{L^2} \\
+    + \big\|\tilde{b}[u] - \tilde{b}[v]\big\|_{L^{\infty}}\|v\|_{L^2}\|u-v\|_{W^{-1,2}}\\
+    \lesssim  \big(1 + \|v\|_{H} \big)\|v\|_V \big( \|u - v\|_{H}\|u-v\|_V +  \|u - v\|_{H}^2\big),
+\end{align*}
+according to Assumption \ref{assu:b_Sigma}, 
+where we recall the definition of $\tilde{b}$ from (\ref{eq:modified_drift}), which yields
+\begin{align*}
+    \|\tilde{b}[u] - \tilde{b}[v]\|_{L^{\infty}} \lesssim\big(1 + \|v\|_H\big)\|u-v\|_{H}
+\end{align*}
+due to (\ref{eq:con_b_inf}) and (\ref{eq:con_a_1,inf}). We then apply Young's inequality and rearrange the terms to get
+\begin{align*}
+\big\langle A[u,v] - A[v,v], u - v\big\rangle - \frac{a_{\min} \|u - v\|_{V}^2}{16}
+    \lesssim  \big(1 + \|v\|^2_{H}\big)\|v\|^2_V\|u - v\|^2_{H} \\
+    +   \big(1 + \|v\|_{H}\big)\|v\|_V\|u - v\|^2_{H}.
+\end{align*}
+Together the estimates lead to 
+\begin{equation}\label{eq:loc_mon_II}
+\begin{split}
+     (\rom{2}) 
+ - \frac{a_{\min} \|u - v\|_{V}^2}{16} \lesssim  \big(1 + \|v\|^2_{H}\big)\|v\|^2_V\|u - v\|^2_{H} \\
+    +   \big(1 + \|v\|_{H}\big)\|v\|_V\|u - v\|^2_{H} + \big(\|u\|_{H} + \|v\|_{H}\big)\|v\|_H\|u - v\|^2_H.
+    \end{split}
+\end{equation}
+On the other hand, the Hilbert-Schmidt norm of the noise term is estimated by 
+\begin{equation}\label{eq:noise_diff_bound}
+\begin{split}
+ \big\|B^N[u] - B^N[v]\big\|_{L_2}^2 - \frac{C''_{\Sigma}\|\theta^N\|^2_{\ell^2}}{N\delta_N}\|u-v\|_{V}^2 \lesssim  \|v\|_V^2\|u-v\|_{H}^2,
+\end{split}
+\end{equation}
+for some $C''_{\Sigma} > 0$ depending only on the coefficient $\Sigma[\cdot]$, since 
+\begin{equation*}
+\begin{split}
+\big\|f^N(u)\Sigma [u]e_k - f^N(v)\Sigma [v]e_k\big\|_{L^2} \leq \big\|f^N(u)\Sigma [u]- f^N(v)\Sigma [v]\big\|_{L^2}\\
+\leq \big\|f^N(u) -f^N(v)\big\|_{L^{2}}\|\Sigma[u]\|_{L^{\infty}}
+  +  \big\|f^N(v)\big\|_{L^{2}}\|\Sigma[u] - \Sigma[v]\|_{L^{\infty}},
+\end{split}
+\end{equation*}
+and therefore
+\begin{align*}
+    \big\|f^N(u)\Sigma [u]e_k - f^N(v)\Sigma [v]e_k\big\|^2_{L^2} - \frac{2C^2_{\Sigma}}{\delta_N}\|u-v\|_{V} \lesssim \|v\|_{L^2}\|u-v\|^2_{H}
+\end{align*}
+uniformly in $k \in \mathbb{Z}^d$. With all the above estimations (\ref{eq:loc_mon_I}) - (\ref{eq:noise_diff_bound}), we therefore choose the coefficient $C_{\Sigma}$ in (\ref{eq:coercivtiy_condition}) to satisfy that 
+\begin{equation}\label{eq:CSigma-choice1}
+    \frac{2C^2_{\Sigma}\|\theta^N\|^2_{\ell^2}}{\delta_N} < \frac{a_{\min}}{16}
+\end{equation}
+and arrive at (\ref{eq:H3}). Lastly, we have for (H5) that
+there exists 
+\begin{equation}\label{eq:H5}
+\big\| B^N(t,u)\big\|^2_{L_2} \lesssim \|u\|_V^2,
+\end{equation}
+with similar proof to (\ref{eq:noise_diff_bound}). The growth condition (H4) is verified similarly. Since the coercivity condition (3.7) in \cite{RSZ22}, Theorem 3.2 is indicated directly by (\ref{eq:coercivtiy_condition}), we have obtained the global existence and uniqueness of the equation given by (\ref{eq:var_AB_tamed}) in $H = W^{-1,2}(\mathbb{T}^d)$.
+\end{proof}
+
+We recall that we have found and fixed $C_{\chi} > 0$ in (\ref{eq:def_chi_tame}) according to the proof of Lemma \ref{lem:WP_tamed}. Our next goal is to improve the regularity of the solution constructed in Lemma~\ref{lem:WP_tamed}, for which we follow the strategy from \cite[Proposition~1]{DKP23} of proving a priori estimates for Galerkin approximations.  
+We introduce therefore the notation for the Fourier cutoff
+\[
+   \Pi_{\leq R} := \mathds{1}_{|\cdot| \leq R}(D).
+\]
+
+\begin{lem}\label{lem:energy_galerkin} Assume the same conditions as in Lemma \ref{lem:WP_tamed}, and consider the Galerkin approximation of the tamed equation
+\begin{equation}\label{eq:galerkin}
+\begin{cases}
+        \mathrm{d}u_t=A_{R}^{\chi}[u_t]\mathrm{d}t + B_{R}^N[u_t]\cdot\mathrm{d}W_t,\\
+       u(0,\cdot) \in  \Pi_{\leq N}L^2,
+    \end{cases}
+\end{equation}
+where 
+\begin{equation*}
+\begin{split}
+A^{\chi}_R[u] & :=\Pi_{\leq R}A^{\chi}[\Pi_{\leq R}u],\\
+B_R[u]\cdot \mathrm{d}W^N_t & := \Pi_{\leq R}(B_R^N[\Pi_{\leq R}u]\cdot \mathrm{d}W^N_t). 
+\end{split}
+\end{equation*}
+There exists globally a unique solution to the SDE (\ref{eq:galerkin}), which we denote as $m^{N,\chi,R}$, and it satisfies the estimates
+\begin{equation}\label{eq:L2_bounds_galerkin}
+\mathbf{E}\|m_t^{N,\chi,R}\|^2_{L^2} + \mathbf{E}\int_0^t \|\nabla m_s^{N,\chi,R}\|^2_{L^2}\mathrm{d}s \lesssim  \|m_0^{N,\chi,R}\|^2_{L^2}  \exp(C_{N,\chi}t),
+\end{equation}
+for any $t \geq 0$, where the constants are independent of $R > 0$.
+\end{lem}
+
+\begin{proof}Since for any finite $R > 0$, $\|\cdot\|_{W^{-1,2}}$ is equivalent to the Euclidean norm on $\Pi_{\leq R}L^2(\mathbb{T}^d)$, the local weak monotonicity and weak coercivity of (\ref{eq:galerkin}) follows directly from the monotonicity and coercivity conditions that we have verified in Lemma \ref{lem:WP_tamed}. Theorem 3.1.1 in \cite{LR15} is therefore in force, and the statement of Lemma \ref{lem:energy_galerkin} follows.
+\end{proof}
+
+Therefore, if we fix the initial condition $m_0^{N,\chi,R} = m_0$ in $L^2(\mathbb{T}^d)$, the solutions to the Galerkin-truncated equations are uniformly bounded in the reflexive space 
+\begin{align*}
+    L^2(\Omega \times [0,T],W^{1,2}(\mathbb{T}^d)).
+\end{align*}
+As mentioned above, global existence and uniqueness of $L^2$ solution to the tamed equation, which constitutes the first part of the following corollary, follows then the same line as \cite{DKP23}, Theorem 3.10. We thus omit the details and refer the readers to the proof therein.\\
+
+The solutions are, however, still taming-dependent, and we now invoke the $L^1$ conditions (\ref{eq:con_Sigma_L1}) in Assumption \ref{assu:b_Sigma} and exploit further the fact that the solutions to any of the tamed equations have non-increasing $L^1$ norms. We need the following technical Lemma, whose proof we refer to \cite[Lemma A.2]{djurdjevac2025weak}
+
+\begin{lem}\label{lem:approx_id_kappa}Given $\kappa_{\zeta} = \frac{1}{\zeta}\kappa(\frac{\cdot}{\zeta})$, for fixed kernel $\kappa \in C_c^{\infty}(\mathbb{R})$ and $\zeta >0$ s.t. $\supp(\kappa) \in (-1,1)$, we have
+\begin{align}\label{eq:bound_lkappal}
+\sup_{l \in \mathbb{R}} \big[l\kappa_{\zeta}(l)\big] = \sup_{l \in \mathbb{R}}\big[l\kappa(l) \big]\lesssim_{\kappa} 1,
+ \end{align}
+and for any $m \in W^{1,2}(\mathbb{T}^d)$ that
+\begin{equation}
+\begin{split}
+ \lim_{\zeta \to 0^+} \int_{\mathbb{T}^d}\kappa_{\zeta}\big(m(x)\big)|m(x)|^2\mathrm{d}x = 0,\\
+     \lim_{\zeta \to 0^+} \int_{\mathbb{T}^d}\kappa_{\zeta}\big(m(x)\big) |m(x) \nabla m(x)|\mathrm{d}x = 0.
+     \end{split}
+\end{equation}
+\end{lem}
+
+\begin{cor}\label{cor:lift_tamed equation}Under the same conditions as in Lemma \ref{lem:WP_tamed}, there exists for any $T > 0$ a unique $L^2$ solution $m^{N,\chi}$ to the tamed SPDE given by (\ref{eq:var_AB_tamed}) in 
+\[
+C([0,T], L^2(\mathbb{T}^d)) \cap L^2([0,T],W^{1,2}(\mathbb{T}^d)).
+\]
+Besides, the solution $(m_t^{N,\chi})_{t \in [0,T]}$ stays non-negative and the $L^1$ norm is non-increasing almost surely, given any non-negative initial data 
+\[
+0 \leq m^{N,\chi}(0) = m_0^{N} \in L^2(\mathbb{T}^d).
+\]
+Consequently, we have the taming-independent energy bound for  non-negative initial data: For any $t \in [0,T]$, there exists some constant $C_N > 0$ independent of $\chi$ and $t$, s.t. 
+\begin{equation}\label{eq:post_H-1_tamed}
+    \mathbf{E}\sup_{s \in [0,t]}\|m_s^{N,\chi}\|^2_{L^2} \leq  \|m_0^{N}\|^2_{L^2}\exp(C_Nt).
+\end{equation}
+\end{cor}
+
+
+
+
+
+\begin{proof}We assume that the initial condition is non-negative in $L^2(\mathbb{T}^d)$ and denote
+\[
+K^{\zeta} := \kappa_{\zeta} \ast (\cdot)_- \in C^{\infty}(\mathbb{T}^d, [0,\infty)), \quad \text{with} \
+\kappa_{\zeta} := \frac{1}{\zeta}\kappa(\frac{\cdot}{\zeta}), \zeta > 0, 
+\]
+with a nonnegative and smooth convolution kernel $\kappa$, for which we compute 
+\[
+(K^{\zeta})' = - \kappa_{\zeta} \ast \mathrm{1}_{\leq 0}, \quad (K^{\zeta})'' =  \kappa_{\zeta}.
+\]
+ We apply the Krylov-It\^o formula (\cite{K13}, Chapter 2) to the process $t \mapsto \int_{\mathbb{T}^d}K^{\zeta}(m_t^{N,\chi})$, which approximates 
+ \[
+ t \mapsto \int_{\mathbb{T}^d}(m_t^{N,\chi})_-,
+ \]
+ that is 
+\begin{equation*}
+\begin{split}
+     \int_{\mathbb{T}^d} K^{\zeta}(m^{N,\chi}_{\cdot})\Big|_0^t 
+     + \int_0^t\Big\{\int_{\mathbb{T}^d} \kappa_{\zeta}(m_s^{N,\chi}) \nabla m_s^{N,\chi} \cdot \big(a[m_s^{N,\chi}]\nabla m_s^{N,\chi}\big) \Big\}\mathrm{d}s \\
+     - \int_0^t\Big\{\int_{\mathbb{T}^d} (\kappa_{\zeta}\ast \mathrm{1}_{\leq 0})(m_s^{N,\chi} )  m_s^{N,\chi} \chi\big( \|m^{N,\chi}_s\|_{W^{-1,2}}^2\big) \Big\}\mathrm{d}s\\
+     = M^{\zeta,N,\chi}_t - \int_0^t\Big\{\int_{\mathbb{T}^d}\kappa_{\zeta}(m_s^{N,\chi}) \nabla m_s^{N,\chi} \cdot \tilde{b}[m^{N,\chi}_s]m^{N,\chi}_s \Big\}\mathrm{d}s \\ 
+    + \frac{1}{N}\int_0^t\sum_{k \in \mathbb{Z}^d}|\theta_k^N|^2 \Big\{\int_{\mathbb{T}^d} \kappa_{\zeta}(m_s^{N,\chi})\Big|\nabla \cdot \Big[f^N(m_s^{N,\chi} ) \Sigma[m_s^{N,\chi}] e_k\Big]\Big|^2\Big\}\mathrm{d}s,
+\end{split}
+\end{equation*}
+where
+\[
+M^{\zeta,N,\chi}_t := -\frac{2}{\sqrt{N}}\int_0^t \int_{\mathbb{T}^d} \kappa_{\zeta}(m_s^{N,\chi})f^N(m_s^{N,\chi})\nabla m_s^{N,\chi} \cdot \big(\Sigma[m_s^{N,\chi}]\mathrm{d}W^N_s\big).
+\]
+Since by assumption $(m^{N,\chi}_t)_{t \in [0,T]}$ is continuous in $L^2(\mathbb{T}^d)$, the process $t \mapsto \|\Sigma[m_t^{N,\chi}]\|_{W^{1,\infty}}$ is almost surely locally bounded due to the assumption on $\Sigma[\cdot]$. This implies in particular that $M^{\zeta,N,\chi}$
+in the Krylov-It\^o formula above is indeed a martingale, since 
+ \begin{align*}
+ \mathbf{E}[M^{\zeta,N,\chi}]_T \lesssim_{N,\zeta} \sum_{k \in \mathbb{Z}^d}|\theta_k^N|^2 \mathbf{E}\int_0^T\|\nabla m_t^{N,\chi}\|^2_{L^2}\|m_t^{N,\chi}\|^2_{L^1}\mathrm{d}t \lesssim1.
+ \end{align*}
+By further controlling the correction term according to (\ref{eq:unif_bound_a}) and (\ref{eq:bound_a_Sigma_1,inf}) by the bound
+\begin{align*}
+\int_{\mathbb{T}^d} \kappa_{\zeta}(m_s^{N,\chi})\Big|\nabla \cdot \Big[f^N(m_s^{N,\chi} ) \Sigma[m_s^{N,\chi}] e_k\Big]\Big|^2 \lesssim \int_{\mathbb{T}^d} \kappa_{\zeta}(m_s^{N,\chi})\big|\nabla f^N(m_s^{N,\chi} )\big|^2\\
++ (\|m_s^{N,\chi}\|^2_{L^2} + |k|^2)\int_{\mathbb{T}^d} \kappa_{\zeta}(m_s^{N,\chi}) |f^N(m_s^{N,\chi})|^2\\
+\overset{(\ref{eq:approx_square_root})}{\lesssim} \delta_N^{-1}\int_{\mathbb{T}^d} \kappa_{\zeta}(m_s^{N,\chi})\big|\nabla m_s^{N,\chi}\big|^2
++  (\|m_s^{N,\chi}\|^2_{L^2} + |k|^2)\int_{\mathbb{T}^d} \kappa_{\zeta}(m_s^{N,\chi}) |m_s^{N,\chi}|^2
+\end{align*}
+and then using the same argument as in the proof of Lemma \ref{lem:WP_tamed}, the $L^{\infty}$ bound on $\tilde{b}[\cdot]$ and the parabolicity condition (\ref{eq:coercivtiy_condition}), we can absorb the first term above and bound (with constant depending on $N$, $b[\cdot]$ and $\Sigma[\cdot]$)
+\begin{equation}\label{eq:ito_K_zeta}
+\begin{split}
+    \mathbf{E}\int_{\mathbb{T}^d} K^{\zeta}(m^{N,\chi}_{\cdot})\Big|_0^t 
+    +  \frac{a_{\min}}{2}\mathbf{E}\int_0^t\Big\{\int_{\mathbb{T}^d}\kappa_{\zeta}(m_s^{N,\chi}) |\nabla m_s^{N,\chi}|^2\Big\}\mathrm{d}s \\
+     - \mathbf{E} \int_0^t\Big\{\int_{\mathbb{T}^d} \kappa_{\zeta}\ast \mathrm{1}_{\leq 0}(m_s^{N,\chi})  m_s^{N,\chi} \chi\big( \|m_s^{N,\chi}\|_{W^{-1,2}}^2\big) \Big\}\mathrm{d}s\\
+  \lesssim \mathbf{E} \int_0^t  (\|m_s^{N,\chi}\|_{L^2}^2 + 1)\Big\{\int_{\mathbb{T}^d}  \kappa_{\zeta}(m_s^{N,\chi}) |m_s^{N,\chi}|^2 +\big|m^{N,\chi}_s\nabla m_s^{N,\chi} \big| \big) \Big\} \mathrm{d}s.
+\end{split}
+\end{equation}
+By sending $\zeta \to 0^+$, the R.H.S. of (\ref{eq:ito_K_zeta}) vanishes according to Lemma \ref{lem:approx_id_kappa} and dominated convergence, since 
+\begin{align*}
+\int_0^t  (\|m_s^{N,\chi}\|_{L^2}^2 + 1)\Big\{\int_{\mathbb{T}^d}  \kappa_{\zeta}(m_s^{N,\chi})\big( |m_s^{N,\chi}|^2 + \big|m^{N,\chi}_s\nabla m_s^{N,\chi} \big|\big) \Big\} \mathrm{d}s \\
+\lesssim\int_0^t  (\|m_s^{N,\chi}\|_{L^2}^2 + 1)\Big\{\int_{\mathbb{T}^d}  |m_s^{N,\chi}| +  \big|\nabla m_s^{N,\chi} \big| \Big\} \mathrm{d}s \\
+\lesssim \sup_{t \in [0,T]} \|m_t^{N,\chi}\|^4_{L^2} + \int_0^T \|\nabla m^{N,\chi}_s\|_{L^2}^2\mathrm{d}s, 
+\end{align*}
+where we have used (\ref{eq:bound_lkappal}) for the first inequality, and the integrability of the upper bound follows from (\ref{eq:L2_bounds_galerkin}) and the moment bounds of the $L^2$ solution $m^{N,\chi}$ to the tamed and regularized equation with drift and noise terms given by (\ref{eq:var_AB_tamed}), that is for any $T >0$ and $p \in [2,\infty)$, 
+\begin{equation}\label{eq:moment-bound-tamed-reg-eq}
+    \mathbf{E} \Big(\sup_{t\leq T}\|m^{N,\chi}_t\|^{2p}_{L^2(\mathbb{T}^d)}\Big) < \infty,
+\end{equation}
+under the assumption that the conditions (H2) and (H5) hold for (\ref{eq:var_AB_tamed}) in the Gelfand triple $W^{1,2} \subset L^2 \subset W^{-1,2}$. The proof of \eqref{eq:moment-bound-tamed-reg-eq} is classical and we refer the readers to \cite[Appendix A.2]{djurdjevac2025weak}. Besides, dominated convergence also indicates that
+\begin{equation}\label{eq:taming_positivity}
+\begin{split}
+\lim_{\zeta \to 0+}\mathbf{E} \int_0^t\Big\{\int_{\mathbb{T}^d} \kappa_{\zeta}\ast \mathrm{1}_{\leq 0}(m_s^{N,\chi})  m_s^{N,\chi} \chi\big( \|m_s^{N,\chi}\|_{W^{-1,2}}^2\big) \Big\}\mathrm{d}s \\
+= \mathbf{E} \int_0^t \chi\big( \|m_s^{N,\chi}\|_{W^{-1,2}}^2\big)\int_{\mathbb{T}^d} -(m_s^{N,\chi})_{-}  \mathrm{d}s \leq 0.
+\end{split}
+\end{equation}
+We have therefore
+\begin{equation}\label{eq:neg_tame_vanish}
+\mathbf{E}  \int_{\mathbb{T}^d} (m^{N,\chi}_t)_{-}  = \mathbf{E}  \int_{\mathbb{T}^d} (m^{N,\chi}_t)_{-}  -  \int_{\mathbb{T}^d} (m^{N}_0)_{-}  \leq 0,
+\end{equation}
+which shows that the solution stays non-negative for non-negative $L^2$ initial condition almost surely. By testing the tamed equation with the constant-one function on torus, we have almost surely
+\begin{equation}\label{eq:non-inc-tamed-solution}
+    \int_{\mathbb{T}^d} |m_t^{N,\chi}| = \int_{\mathbb{T}^d} m_t^{N,\chi} \leq \int_{\mathbb{T}^d} m_0^{N},
+\end{equation}
+for all $t \in [0,T]$, since the taming term has the correct negative sign while the other terms vanish. We can now apply again the Krylov-It\^o formula to the equation, now with functional $u \mapsto \frac{1}{2} \|u\|_{L^2}^2$, and derive 
+\begin{equation*}
+\begin{split}
+     \frac{1}{2} \int_{\mathbb{T}^d} |m^N_{\cdot}|^2\Big|_0^t 
+     + \int_0^t\Big\{\int_{\mathbb{T}^d}  \nabla m_s^N \cdot \big(a[m_s^N]\nabla m_s^N\big) +\int_{\mathbb{T}^d} |m_s^N|^2 \chi\big( \|u\|_{W^{-1,2}}^2\big) \Big\}\mathrm{d}s\\
+     = M^N_t - \int_0^t\Big\{\int_{\mathbb{T}^d} \nabla m_s^N \cdot \tilde{b}[m^N_s]m^N_s \Big\}\mathrm{d}s \\ 
+    + \frac{1}{N}\int_0^t\sum_{k \in \mathbb{Z}^d}|\theta_k^N|^2 \Big\{\int_{\mathbb{T}^d}\Big|\nabla \cdot \Big[f^N(m_s^{N} ) \Sigma[m_s^N] e_k\Big]\Big|^2\Big\}\mathrm{d}s,
+\end{split}
+\end{equation*}
+where thanks to (\ref{eq:non-inc-tamed-solution}) and the conditions (\ref{eq:con_Sigma_L1}) on the coefficients, we can bound 
+\begin{equation}\label{eq:upgrade_est_b_sigma}
+\sup_{t \in [0,T]}\Big(\big\|\tilde{b}[m^N_t]\big\|_{L^{\infty}} \vee \big\|\Sigma[m^N_t]\big\|_{W^{1,\infty}} \Big)\lesssim \|m_0^N\|_{L^1}.
+\end{equation}
+It follows that the martingale part can be controlled by
+\begin{align*}
+\mathbf{E}\sup_{\tau \in [0,t]}|M^N_\tau| = \mathbf{E}\sup_{\tau \in [0,t]}\Big|\int_0^{\tau} \int_{\mathbb{T}^d} f^N(m_s^N) \nabla m_s^N \cdot \Sigma[m_s^N]\mathrm{d}W^N_s  \Big|\\
+\lesssim_N \mathbf{E} \Big(\int_0^t \big\| f^N(m_s^N) \nabla m_s^N \big\|_{L^1}^2 \Big)^{\frac{1}{2}} \leq C + \frac{a_{\min}}{4}\mathbf{E} \int_0^t \|\nabla m_s^N\|_{L^2}^2,
+\end{align*}
+for some $C = C(N,\Sigma[\cdot])> 0$, where the BDG inequality is applied. The absolutely continuous part can be treated easily with the upgraded estimates (\ref{eq:upgrade_est_b_sigma}) on noise and drift by canonical argument, so that we can conclude that 
+\begin{align*}
+\mathbf{E}\sup_{s \in [0,t]} \|m_s^N\|^2_{L^2} + \frac{a_{\min}}{4}\mathbf{E} \int_0^t \|\nabla m_s^N\|_{L^2}^2 \lesssim 1 + \int_0^t \mathbf{E}\|m_s^N\|_{L^2}^2 
+\end{align*}
+using Young inequality and parabolicity condition (\ref{eq:coercivtiy_condition}), where the constant depends on $N$, $\|m_0\|_{L^1}$ and the coefficients of the equation, and (\ref{eq:post_H-1_tamed}) follows from Grönwall inequality.
+\end{proof}
+
+\begin{rem}\label{rem:positivity_DK_reg}
+If the taming term is turned off, then in the above proof of the non-negativity of the solution the expression (\ref{eq:taming_positivity}) vanishes and thus we obtain the same conclusion (\ref{eq:neg_tame_vanish}) that the negative part vanishes. Since the untamed equation (\ref{eq:DK_reg}) preserves the integral of the solution against a constant test function, we have the $L^1$ conservation 
+\begin{equation}
+\|m^N_t\|_{L^1}  \equiv \|m_0\|_{L^1},
+\end{equation}
+for any $t \in [0,T]$ and any non-negative initial condition $m_0 \in L^2(\mathbb{T}^d)$.
+\end{rem}
+
+\subsection{Global Existence and Uniqueness of (\ref{eq:DK_reg})}
+Recall that
+\[
+m^{N,\chi} \in C\big([0,T], L^2(\mathbb{T}^d)\big) \cap L^2\big([0,T], W^{1,2}(\mathbb{T}^d)\big)
+\]
+is the unique probabilistically strong solution to the equation given by (\ref{eq:tamed_equation}) with initial data $0 \leq m_0^{N,\chi} \in L^2(\mathbb{T}^d)$. The last ingredient to prove the global existence and uniqueness of equation (\ref{eq:DK_reg})  is the following a priori bound, the proof of which follows directly from Remark \ref{rem:positivity_DK_reg} and the same argument we have used for (\ref{eq:post_H-1_tamed}).
+\begin{lem}\label{lem:energy_reg_DK}Let $m^{N}$ be a (probabilistically) strong solution to (\ref{eq:DK_reg}) in 
+\[
+C\big([0,T], L^2(\mathbb{T}^d)\big) \cap L^2\big([0,T], W^{1,2}(\mathbb{T}^d)\big),
+\]
+with initial probability $m_0^N$ with $L^2$ density. Then for any $t \in [0,T]$, there exists some $C_N > 0$ s.t.
+\begin{equation}\label{eq:apri_H-1}
+\begin{split}
+    \mathbf{E}\sup_{s \in [0,t]}\|m_s^{N}\|^2_{L^2} \leq  \|m_0^{N}\|^2_{L^2}\exp(C_Nt).
+\end{split}
+\end{equation}
+\end{lem}
+We are ready to prove the main result of this section, i.e. the existence and uniqueness of the probabilistically strong solution of the regularized Dean-Kawasaki equation (\ref{eq:DK_reg}) in $C([0,T],L^2(\mathbb{T}^d)) \cap L^2([0,T],W^{1,2}(\mathbb{T}^d))$. 
+\begin{cor}\label{thm:main_thm_1_full}We assume that the stochastic parabolicity condition (\ref{eq:coercivtiy_condition}) holds true. Given any initial datum $m_0^N \in L^2(\mathbb{T}^d) \cap \mcl{P}(\mathbb{T}^d)$, the regularized Dean-Kawasaki equation (\ref{eq:DK_reg}) admits a unique probabilistically strong solution in 
+\[
+C([0,T],L^2(\mathbb{T}^d)) \cap L^2([0,T],W^{1,2}(\mathbb{T}^d)).
+\]
+\end{cor}
+\begin{proof} We fix the initial datum $m_0^N \in L^2 \subset W^{-1,2}$ and a sequence of $\{\chi_i\}_{i \geq 1}$ as in (\ref{eq:def_chi_tame}) s.t. $M_{\chi_i} \to \infty$ as $i \to \infty$. To prove the existence of the solution, we first glue the solutions $\{m^{N,\chi_i}\}_{i \geq 1}$ together by setting
+\begin{equation}
+    m^N_t(\omega) := m^{N,\chi_i}_t(\omega), \quad \text{for}\ (t,\omega)  \ \text{s.t.}\ t < \tau^i(\omega),
+\end{equation}
+where $\tau^i$ is the exit time (before $T$) of $m^{N,\chi_i}$ from the centered ball in $W^{-1,2}$ of radius $M_{\chi_i} -1$. By the probablistically strong uniqueness of the solutions to the tamed equations and the fact that all $m^{N,i}$ solve the same equation before they exceed their $W^{-1,2}$-norm thresholds, $m^N$ is well defined up to time $T$, as long as we have $\tau^i \to T$ as $i \to \infty$ a.s. This indeed is the case, since 
+\begin{align*}
+    \mathbf{P}\big(\tau^i < T\big) & \leq \mathbf{P}\Big(\max_{t \in [0,T]} \|m_t^{N,i}\|_{W^{-1,2}} > M_{\chi_i} -1 \Big)\\
+    & \leq \frac{1}{M_{\chi_i}-1}\mathbf{E}\Big(\max_{t \in [0,T]} \|m_t^{N,i}\|_{W^{-1,2}}  \Big) \to 0,
+\end{align*}
+as $i \to \infty$, due to the uniform-in-$\chi$ energy estimate (\ref{eq:post_H-1_tamed}). By construction, $(m_t^N)_{t \in [0,T]}$ is a probablistically strong solution to (\ref{eq:DK_reg}) in 
+\[
+C([0,T], L^2(\mathbb{T}^d)) \cap L^2([0,T], W^{1,2}(\mathbb{T}^d)).
+\]
+On the other hand, if we have another solution $\tilde{m}^{N}$ to (\ref{eq:DK_reg}), we can define $\tilde{\tau}^i$ as the minimum of the exit times of $\tilde{m}^{N}$ and the solution $m^{N}$ constructed above from the centered ball in $W^{-1,2}$ of radius $M_{\chi_i} -1$. Due to the probablistically strong uniqueness of the solutions to the tamed equations, we have
+\[
+m^N_t\mathds{1}_{t < \tilde{\tau}^i} = \tilde{m}^N_t\mathds{1}_{t < \tilde{\tau}^i},
+\]
+and by the a priori $L^2$ energy estimate in Lemma \ref{lem:energy_reg_DK}, we have a.s. $\lim_{i \to \infty} \tilde{\tau}^{i} = T$, and therefore the two solutions coincide.
+\end{proof}
+
+Corollary \ref{thm:main_thm_1_full} now provides us with the unique solution to the equation (\ref{eq:DK_reg}) with initial data $m_0^{N,\epsilon}$ as in (\ref{eq:prep_ini_data}) under the assumption (\ref{eq:coercivtiy_condition}). 
+
+
+\section{It\^o's formula and Kolmogorov equations}\label{sec:ito-Kol}
+We now focus on the approximation of the diffusive interacting particle system by the regularized Dean-Kawasaki equation (\ref{eq:DK_reg}) and specify the weak error to be the difference of the expectations of the two stochastic evolutions of probability measures evaluated by functionals on $\mcl{P}(\mathbb{T}^d)$, which will be assumed to have sufficient regularity in Assumption \ref{assu:F_ab}. We start with the basic setups of calculus on probability spaces.
+
+\begin{defi}Given $\mcl{F}: \mcl{P}(\mathbb{T}^d) \to \mathbb{R}$ continuous, we define the directional derivative $\delta \mcl{F}/\delta \mu: \mcl{P}(\mathbb{T}^d) \times \mathbb{T}^d \to \mathbb{R}$ to be continuous and satisfy 
+\begin{equation}\label{eq:def_exterior_deriv}
+    \lim_{\epsilon \to 0^+} \frac{1}{\epsilon} \Big\{\mcl{F}[\epsilon m' + (1 - \epsilon)m ] - \mcl{F}[m]\Big\}= \int_{\mathbb{T}^d} \frac{\delta \mcl{F}}{\delta \mu}[m](x)  \mathrm{d}(m' - m)(x),
+ \end{equation}
+for any $m, m' \in \mcl{P}$, and
+\begin{equation}\label{eq:direc_normal}
+\int_{\mathbb{T}^d}  \frac{\delta \mcl{F}}{\delta \mu}[m](x)\mathrm{d}m(x) = 0.
+\end{equation} 
+If $\delta \mcl{F} / \delta \mu : \mcl{P}(\mathbb{T}^d) \times \mathbb{T}^d \to \mathbb{R}$ is further continuously differentiable with respect to the spatial variable, we define the interior derivative to be 
+\begin{equation}\label{eq:def_wasser_deriv}
+D_{\mu} \mcl{F}[m](x) := \nabla_x \frac{\delta \mcl{F}}{\delta \mu}[m](x).
+\end{equation}
+\end{defi}
+
+Since in the end we will only need the interior derivatives for the analysis, the normalization condition (\ref{eq:direc_normal}) is not essential. By fixing $m', m \in \mcl{P}(\mathbb{T}^d)$, one can consider the map 
+from $[0,1] \to \mathbb{R}$, 
+\[
+s \mapsto \mcl{F}[s m' + (1 - s)m ] = \mcl{F}[m + s(m' - m)],
+\]
+which can be shown by elementary argument to be continuously differentiable at any point $s \in (0,1)$ following from (\ref{eq:def_exterior_deriv}). Furthermore,  
+\begin{equation}\label{eq:def_wasser_deriv_integral}
+\mcl{F}[m'] - \mcl{F}[m] = \int_0^1 \int_{\mathbb{T}^d} \frac{\delta \mcl{F}}{\delta \mu}[s m' + (1 - s)m](x)  d(m' - m)(x)\mathrm{d}s.
+\end{equation}
+We assign any functional $\tilde{\mcl{F}}[\cdot]$ defined on $\mcl{P}(\mathbb{T}^d) \times \mathbb{T}^{d \times n}$ for $n \in \mathbb{N}$ the Lipschitz constant 
+\begin{equation}\label{eq:def_lip_functional}
+\begin{split}
+\|\tilde{\mcl{F}}\|_{\lip} & := \sup_{\mu \in \mcl{P}}\sup_{x \in \mathbb{T}^{d \times n}} \big|\tilde{\mcl{F}}[\mu](x)\big|\\
+& + \sup_{\mu \neq \nu \in \mcl{P}}\sup_{x \neq y \in \mathbb{T}^{d \times n}} \Big\{\big(|x-y| + \mcl{W}_2(\mu,\nu)\big)^{-1} \big|\tilde{\mcl{F}}[\mu](x) - \tilde{\mcl{F}}[\nu](y)\big|\Big\}.
+ \end{split}
+\end{equation}
+It follows trivially that
+\begin{equation}\label{eq:Lip_imp_W1inf}
+\sup_{\mu \in \mcl{P}(\mathbb{T}^d)} \big\|\tilde{\mcl{F}}[\mu]\big\|_{W^{1,\infty}} \lesssim \|\tilde{\mcl{F}}\|_{\lip}.
+\end{equation}
+
+
+\subsection{Initial Data and Entropy Bound}\label{sec:ini_data}
+To prepare for the weak error estimate, we start by preparing suitable initial data for the equation. We denote
+\begin{equation}\label{eq:prep_ini_data}
+    \mu_0^N:= \frac{1}{N}\sum_{i=1}^N \delta_{x_i}, \quad m^{N,\epsilon}_0 := \rho^{\epsilon} \ast \mu_0^N, \ \text{where} \ \rho^{\epsilon} := \sum_{z \in \mathbb{Z}^d}\frac{1}{\epsilon^d} \rho\Big(\frac{\cdot + z}{\epsilon}\Big),
+\end{equation}
+for $\epsilon > 0$. $\rho^{\epsilon}$ is the rescaled periodization of the kernel $\rho$ with $\rho \in C_c^{\infty}(\mathbb{R}^d)$ being radially symmetric, normalized and positive.
+\begin{lem} The empirical measure $\mu_0^N$ is approximated by $m_0^{N,\epsilon}$ in the following sense: 
+\begin{align}\label{eq:W_initial}
+    \mcl{W}_2(\mu_0^N, m_0^{N,\epsilon})  \leq \epsilon\Big(\int_{\mathbb{R}^d}|y|^2\rho(y)\mathrm{d}y\Big)^{\frac{1}{2}}.
+\end{align}
+Further, we have the entropy bound 
+\begin{equation}\label{eq:entropy_initial}
+    \int_{\mathbb{T}^d} m_0^{N,\epsilon} \log(m_0^{N,\epsilon}) \leq d\log\Big(\frac{1}{\epsilon}\Big) + \log\big(\|\rho\|_{L^{\infty}}\big).
+\end{equation}
+\end{lem}
+\begin{proof} Let $(X,Y)$ be a realization of $\mu_0^N \otimes \rho^{\epsilon}$. Then $X + Y$ has the distribution of $m_{0}^{N,\epsilon}$ and therefore
+$$
+\mcl{W}^2_2(\mu_0^N, m_0^{N,\epsilon}) \leq \mathbf{E}\mathrm{d}^2_{\mathbb{T}^d}(X + Y,X) \leq \int_{\mathbb{R}^d} \frac{|x|^2}{|\epsilon|^d}\rho\Big(\frac{x}{\epsilon}\Big)\mathrm{d}x,
+$$
+which establishes (\ref{eq:W_initial}). The entropy bound is the same as in \cite{DKP23}, Lemma 4.3.
+\end{proof}
+We now prove an entropy estimate, which will be used to control the Fisher information that appears in the approximation of the formal generator in Lemma \ref{lem:approximation_quadratic_variation}. 
+
+\begin{lem}\label{lem:entropy_DK_reg} Given $(m_s^{N,\epsilon})_{s \in [0,T]}$ the solution in the sense of Corollary \ref{thm:main_thm_1_full} to the regularized Dean-Kawasaki equation (\ref{eq:DK_reg}) and the initial datum $m_0^{N,\epsilon}$ as in (\ref{eq:prep_ini_data}), we have 
+\begin{equation}\label{eq:entropy_m^Nepsilon}
+ \mathbf{E}\int_0^T \int_{\mathbb{T}^d} \frac{|\nabla m_s^{N,\epsilon}|^2}{m_s^{N,\epsilon}}\mathrm{d}s  \lesssim 1 + \log\Big(\frac{1}{\epsilon}\Big) + \frac{\|(k\theta^N_k)\|^2_{\ell^2}}{N},
+\end{equation}
+for some constant independent of $N$ and $\epsilon$.
+\end{lem}
+
+As in the next Chapter \ref{ch:LDP}, we will derive similar entropy estimates for singular potentials, the proof is therefore omitted. We refer to \cite[Lemma 3.2]{djurdjevac2025weak} for a sketch of proof.
+
+
+\subsection{It\^o's Formula}
+To start our investigation on the weak error, we derive the It\^o's formulae for the interacting diffusions and the regularized SPDEs for cylindrical functionals and then extend them to general functionals by the approximation argument. Unlike in \cite{KLvR19}, the approximation is constructed with Fourier multipliers instead of Bernstein polynomials, due to the fact that the latter seems not well-suited for periodic boundary conditions. For this reason, we first recall the Fej\'er kernels $(\varphi^M)_{M \in \mathbb{N}}$ to be 
+\begin{equation}\label{eq:def_fejer}
+\hat{\varphi}^M(k) := \begin{cases}
+\prod_{j = 1}^d \big[1 - |k_j|/(M+1)\big], \quad |k|_{\infty} \leq M, \\
+0, \quad \text{else},
+\end{cases}
+\end{equation}
+which is a positive approximation of the identity according to \cite{G08}. We consider the following mollification for any given functional $\mcl{F}[\cdot]$ on $\mathbb{T}^d$ by inner regularization 
+\begin{equation}\label{eq:F_reg_fejer}
+\mcl{F}^M[\mu] := \mcl{F}[\mu \ast \varphi^M].
+\end{equation}
+Notice that while it is relatively straightforward to derive the convergence of $\mcl{F}^M[\cdot]$ to $\mcl{F}[\cdot]$, the family $(\mcl{F}^M[\cdot])$ does not consist of cylindrical functionals, since it seems difficult to derive the smoothness of the dependence of $\mcl{F}[\mu \ast \varphi^M]$ on the Fourier coefficients of $\mu$ up to modes $|k|_{\infty} \leq M$. 
+\begin{lem}\label{lem:density_cylindrical}Given a functional $\mcl{F}: \mathcal{P}_2 \to \mathbb{R}$ with second-order interior derivatives in the sense of (\ref{eq:def_wasser_deriv}), s.t. 
+$$
+D_{\mu}\mcl{F}: \mcl{P}(\mathbb{T}^d) \times \mathbb{T}^d \to \mathbb{R^d}, \quad D^2_{\mu}\mcl{F}: \mcl{P}(\mathbb{T}^d) \times \mathbb{T}^{2d}  \to \mathbb{R}^{d \times d}
+$$
+are both jointly Lipschitz, we have that $\mcl{F}^M$ approximates $\mcl{F}$ in the sense that
+\begin{align}\label{eq:density_cylindrical}
+     D^k_{\mu}\mcl{F}^M(\mu,x_k) \to D^k_{\mu}\mcl{F}(\mu,x_k), 
+\end{align}
+uniformly on $x_k \in \mathbb{T}^{d\times k}$ and $\mu \in \mcl{P}(\mathbb{T}^d)$, for $k = 0,1,2$.   
+\end{lem}
+
+The following approximation due to \cite{CD22} seems to be the most direct way to obtain It\^o's formula in our case. The merit is that we can choose the functions appearing in the (non-unique) representation of the cylindrical functionals (explicitly $(F^M)_{M \geq 1}$ in (\ref{eq:def_barFM}) below) to be smooth. 
+
+\begin{prop}\label{lem:density_cylindrical2} For any Lipschitz continuous $\mcl{F}[\cdot]$ on $\mcl{P}(\mathbb{T}^d)$, there exists a sequence of functionals $(\overline{\mcl{F}}^M[\cdot])_{M \geq 1}$ on $\mcl{P}(\mathbb{T}^d)$, s.t. for each $M \geq 1$,
+\begin{equation}\label{eq:def_barFM}
+\overline{\mcl{F}}^M[\mu] = F^M\big(\big\{\langle \mu, \varphi \rangle: \varphi \in \mcl{D}_M\big\}\big)
+\end{equation}
+for some smooth function $F^M: \mathbb{R}^{ \mcl{D}_M} \to \mathbb{R}^d$ with $ \mcl{D}_M$ a finite subset of the orthonormal basis 
+\[
+\{1\} \cup \Big\{\sqrt{2}\cos(2\pi k \cdot x), \sqrt{2}\sin(2\pi k \cdot x)\Big\}_{k \in \mathbb{Z}^d_+}
+\]
+of $L^2(\mathbb{T}^d, \mathbb{R})$, and $\overline{\mcl{F}}^M[\cdot]$ approximates $\mcl{F}[\cdot]$ uniformly on $\mcl{P}(\mathbb{T}^d)$. If we further assume that $\mcl{F}[\cdot]$ has Lipschitz derivatives up to second order, then (\ref{eq:density_cylindrical}) holds.
+\end{prop}
+
+The detailed proofs of the two Lemmas above can be found in \cite[Lemma 3.3 \& Section A.3.2]{djurdjevac2025weak} respectively, but the construction is so intriguing that we can't resist presenting it here. We denote 
+\[
+\mcl{P}_{\leq M}(\mathbb{T}^d) := \Big\{\mu \in \mcl{P}(\mathbb{T}^d): \hat{\mu}(k) = 0, \ \text{if} \ |k|_{\infty} > M\Big\}. 
+\]
+There exists a bijection 
+\[
+\mcl{I}^M : G_M \to \mcl{P}_{\leq M}(\mathbb{T}^d), \quad (a_{\varphi})_{\varphi \in \mcl{D}_M} \mapsto 1 + \sum_{\varphi \in \mcl{D}_M}a_{\varphi} \varphi,
+\]
+where the zeroth Fourier mode is always one, since we are considering probability measures. $G_M$ is a closed subset of $\mathbb{R}^{\mcl{D}_M}$ as a consequence of Bochner Theorem \cite{B33}, and 
+\[
+\mcl{D}_M := \Big\{\sqrt{2}\cos(2\pi k \cdot ), \sqrt{2}\sin(2\pi k \cdot )\Big\}_{|k|_{\infty} < M, k \in \mathbb{Z}^d_+},
+\]
+where we recall that $\mathbb{Z}^d_+$ contains those non-zero lattice points whose components are non-negative. 
+We have apparently for any $k \in \mathbb{Z}^d_+$ that $\sqrt{2}\mathfrak{Re}\hat{\mu}(k) = [(\mcl{I}^M)^{-1}\mu]_\varphi$ for some $\varphi = \sqrt{2}\cos(2\pi k \cdot )$, and $\sqrt{2}\mathfrak{Im}\hat{\mu}(k) = [(\mcl{I}^M)^{-1}\mu]_{\bar{\varphi}}$ for $\bar{\varphi} = \sqrt{2}\sin(2\pi k \cdot )$, where $\mathfrak{Re}$ and $\mathfrak{Im}$ are real and imaginary parts respectively.  Due to the fact that\footnote{$\mu > 0$ in sense that $\mu$ has strictly positive density. } 
+\[
+\mcl{O}_M := (\mcl{I}^M)^{-1}\big\{ \mu \in \mcl{P}_{\leq M}(\mathbb{T}^d): \mu > 0\big\} 
+\]
+ is open in $\mathbb{R}^{\mcl{D}_M}$, there exists a ball $\mcl{B}_M$ centered at zero (zero corresponding to uniform distribution on $\mathbb{T}^d$) of sufficiently small radius (depending on $M$) in $\mathbb{R}^{\mcl{D}_M}$ that is contained in $\mcl{O}_M \subset G_M$. We now construct the approximation of $\mcl{F}$ on $\mcl{P}(\mathbb{T}^d)$ as 
+ \begin{equation}\label{eq:ext_F_M_cylindrical}
+ \begin{split}
+ \mcl{F}^{M}[\mu] := \int_{\mathbb{R}^{\mcl{D}_M}} \mcl{F}\big[(1 - \frac{1}{M}) \mu \ast \varphi^M + \frac{1}{M}\mcl{I}_M(z)\big]\rho_M(z)\mathrm{d}z\\
+ =  \int_{\mathbb{R}^{\mcl{D}_M}} \mcl{F}\circ \mcl{I}^M \Big((\mcl{I}^M)^{-1}\big[(1 - \frac{1}{M}) \mu \ast \varphi^M + \frac{1}{M}\mcl{I}_M(z)\big]\Big)\rho_M(z)\mathrm{d}z, 
+ \end{split}
+ \end{equation}
+ where $(\rho_M)_{M \geq 1}$ is an approximate identity with smooth, radially symmetric and positive functions supported on $\mcl{B}_M$\footnote{In fact, one could immediately extend $\mcl{F}\circ \mcl{I}^M$ to a continuous function on $\mathbb{R}^{\mcl{D}_M}$, since $\mcl{F}\circ \mcl{I}^M$ is continuous on the closed subset $G_M$, as $| \mcl{F}\circ \mcl{I}^M(z) -   \mcl{F}\circ \mcl{I}^M(w)| \lesssim_{\mcl{F}[\cdot]} \mcl{W}_2(\mcl{I}^M(z), \mcl{I}^M(w)) \lesssim_M |z - w|$, for any $z, w \in G_M$. The essential point of the construction here is the smoothness.}. We used in (\ref{eq:ext_F_M_cylindrical}) the fact that 
+ \[
+ (1 - \frac{1}{M}) \mu \ast \varphi^M + \frac{1}{M}\mcl{I}_M(z) \in \mcl{P}_{\leq M}(\mathbb{T}^d), 
+\]
+for any $z \in \mcl{B}_M$, and we can further write
+\begin{align*}
+    \Big[(\mcl{I}^M)^{-1} \Big( (1 - \frac{1}{M}) \mu \ast \varphi^M + \frac{1}{M}\mcl{I}_M(z)\Big)\Big]_{\varphi} = (1 - \frac{1}{M})\mathfrak{Re}[\hat{\mu}(k)\hat{\varphi}^M(k)] + \frac{1}{M}z_{\varphi}\\
+    = \frac{1}{\sqrt{2}}(1 - \frac{1}{M})\Big([(\mcl{I}^M)^{-1}\mu]_{\varphi}\mathfrak{Re}[\hat{\varphi}^M(k)]-[(\mcl{I}^M)^{-1}\mu]_{\bar{\varphi}}\mathfrak{Im}[\hat{\varphi}^M(k)] \Big) + \frac{1}{M}z_{\varphi},
+\end{align*}
+for any $k \in \mathbb{Z}_+^d$, $\varphi = \sqrt{2}\cos(2\pi k \cdot )$, $\bar{\varphi} = \sqrt{2}\sin(2\pi k \cdot )$ and $z \in \mcl{B}_M$. A similar formula holds for the $\sqrt{2}\sin(2\pi k \cdot )$ coordinate. It follows from the construction that 
+\[
+\big([(\mcl{I}^M)^{-1} \mu]_{\varphi}\big)_{\varphi \in \mcl{D}_M} \mapsto \text{R.H.S. of (\ref{eq:ext_F_M_cylindrical})}
+\]
+is smooth on $\mathbb{R}^{\mcl{D}_M}$, since the smooth function $\rho_M$ acts as a mollification, and this is exactly the function $F^M$ in Proposition \ref{lem:density_cylindrical2}. We are now prepared to prove the following It\^o's formulae.
+
+\begin{prop}[It\^o's formula for Interacting Particles]\label{prop:ito_particle}For any $\mcl{F}[\cdot]$ on $\mcl{P}(\mathbb{T}^d)$ with Lipschitz-continuous interior derivatives up to the second order in the sense of \eqref{eq:def-IPS}, Krylov-It\^o's formula holds for the empirical measure $\rho^N$ of the interacting particle system (\ref{eq:main_particle_original}): 
+\begin{equation}\label{eq:ito_full}
+\begin{split} & \ \mcl{F}[\rho^N_t] - \mcl{F}[\rho^N_0] \\
+= & \ M^{N,\mcl{F}}_t + \int_0^t\int_{\mathbb{T}^d} \Big\{\big(a[\rho_s^N]: (\nabla D_{\mu})\big)\mcl{F}(\rho^N_s,x) \\
+& \qquad\qquad\qquad\qquad+ b[\rho_s^N](x)\cdot D_{\mu}\mcl{F}(\rho^N_s,x)\Big\}\mathrm{d}\rho_s^N(x)\mathrm{d}s\\
+& + \frac{1}{N}\int_0^t \Big\{\int_{\mathbb{T}^d} a[\rho_s^N](x):\Big(\int_{\mathbb{T}^d} D^2_{\mu}\mcl{F}(\rho_s^N, x, y)\delta_x(\mathrm{d}y)\Big) \mathrm{d}\rho^N_s(x)\Big\}\mathrm{d}s,
+\end{split}
+\end{equation}
+where $(M^{N,\mcl{F}}_t)_{t \geq 0}$ is a continuous martingale with quadratic variation 
+$$
+[M^{N,\mcl{F}}]_t = \frac{2}{N}\int_0^t \Big\{\int_{\mathbb{T}^d} \big|\Sigma^{\transpose}[\rho^N_s](x) \cdot D_{\mu}\mcl{F}(\rho^N_s,x)\big|^2\mathrm{d}\rho_s^N(x)\Big\}\mathrm{d}s,
+$$
+\end{prop}
+We abbreviate from now on
+\begin{equation}\label{eq:def_VF}
+\mcl{V}_{\mcl{F}}[\mu] := \int_{\mathbb{T}^d}a[\mu](x): D^2_{\mu}\mcl{F}(\mu, x, x)\mathrm{d}\mu(x), \quad \mu \in \mcl{P}(\mathbb{T}^d).
+\end{equation}
+It follows from the definition (with the Lipschitz constants as defined in (\ref{eq:def_lip_functional})) that
+\begin{equation}\label{eq:Lip_V_F_on_mu}
+\begin{split}
+    \big|\mcl{V}_{\mcl{F}}[\mu] - \mcl{V}_{\mcl{F}}[\nu]\big|  \lesssim \|a\|_{\lip} \|D^2_{\mu}\mcl{F}\|_{\lip}\mcl{W}_2(\mu,\nu),
+\end{split} 
+\end{equation}
+since 
+\begin{equation*}
+\begin{split}
+    \big|\mcl{V}_{\mcl{F}}[\mu] - \mcl{V}_{\mcl{F}}[\nu]\big| \leq \Big| \int_{\mathbb{T}^d} a[\nu](x): D^2_{\mu}\mcl{F}(\nu, x, x)\mathrm{d}(\mu - \nu)(x)\Big| \\
+    + \int_{\mathbb{T}^d} \Big| a[\mu](x): D^2_{\mu}\mcl{F}(\mu, x, x) - a[\nu](x): D^2_{\mu}\mcl{F}(\nu, x, x)\Big|\mathrm{d}\mu(x)\\
+     \lesssim \sup_{f \in W^{1,\infty}}\Big|\int_{\mathbb{T}^d} f\mathrm{d}(\mu - \nu)\Big| \cdot \sup_{\mu \in \mcl{P}}\|D^2_{\mu}\mcl{F}[\mu]: a[\mu]\|_{W^{1,\infty}}
+     \\+  \|D^2_{\mu}\mcl{F}\|_{\lip}\|a\|_{\lip} \mcl{W}_2(\mu,\nu)
+      \lesssim \|D^2_{\mu}\mcl{F}\|_{\lip}\|a\|_{\lip}\mcl{W}_2(\mu,\nu),
+\end{split} 
+\end{equation*}
+where we use the Kantorovich–Rubinstein duality in the last inequality.
+We now turn to the It\^o's formula for the approximating SPDE (\ref{eq:DK_reg}) and emphasize the intricate point that the dynamic of the mollified equation is supported on $L^2(\mathbb{T}^d) \cap \mcl{P}(\mathbb{T}^d)$ in comparison to $\mcl{V}_{\mcl{F}}[\cdot]$. 
+\begin{prop}[It\^o's formula for SPDE]\label{prop:ito_spde_DK}
+We fix a function $\mcl{F}[\cdot]$ on $\mcl{P}(\mathbb{T}^d)$, which is assumed to have Lipschitz-continuous interior derivatives up to second order in the sense of (\ref{eq:def_wasser_deriv}), and let $\mcl{V}_{\mcl{F}}^N[\cdot]$ defined on the the subspace  $L^2(\mathbb{T}^d) \cap \mcl{P}(\mathbb{T}^d)$ of $\mcl{P}(\mathbb{T}^d)$ be 
+\begin{equation}\label{eq:def_V_F^N}
+\begin{split}
+     \mcl{V}^{N}_{\mcl{F}}[\mu] :=
+     \sum_{k \in \mathbb{Z}^d} |\theta^N_k|^2 \mathscr{F}\big( D^2_{\mu}\mcl{F}[\mu] : \Lambda_{\mu}^N\big)(k,-k),
+\end{split}
+\end{equation}
+with the abbreviation that
+\[
+\Lambda_{\mu}^N(x,y) := f^N(\mu(x))f^N(\mu(y)) \Sigma[\mu](x) \cdot \Sigma[\mu]^{\transpose}(y).
+\] 
+The It\^o's formula holds for the solution to the regularized Dean-Kawasaki equation (\ref{eq:DK_reg}) in the following form:
+\begin{equation}\label{eq:ito_reg}
+\begin{split}
+\mcl{F}[m^N_t] - \mcl{F}[m^N_0] = & \int_0^t\int_{\mathbb{T}^d} \Big\{\big(a[m_s^N]: \nabla D_{\mu}\big)\mcl{F}(m^N_s,x)\\
+&\qquad\qquad + b[m_s^N](x)\cdot D_{\mu}\mcl{F}(m^N_s,x)\Big\}\mathrm{d}m_s^N(x)\mathrm{d}s\\
+& + \frac{1}{N}\int_0^t \mcl{V}_{\mcl{F}}^N[m_s^N]\mathrm{d}s + \tilde{M}^{N,\mcl{F}}_t,
+\end{split}
+\end{equation}
+where $(\tilde{M}^{N,\mcl{F}}_t)_{t \geq 0}$ is a continuous martingale with quadratic variation s.t. 
+$$
+\mathbf{E}[\tilde{M}^{N,\mcl{F}}]_t \lesssim \frac{\|\theta^N\|^2_{\ell^2}}{N}\|m^N_0\|^2_{L^1}.
+$$
+\end{prop}
+
+The proofs of the two It\^o's formulae above essentially follow from the special cases with cylindrical functionals, while Proposition \ref{lem:density_cylindrical2} offers strong enough approximation such that It\^o's formula for the general case follows as we pass $M$ to infinity. We refer the readers therefore to \cite[Prop. 3.5 \& 3.6]{djurdjevac2025weak} for details. \\
+
+
+
+From what we have derived above, it is straightforward to see that the formal generators of two systems are almost identical, except for the It\^o correction terms which are scaled by $N^{-1}$. The following Lemma further considers the difference of the correction terms, where it can be noticed that the Fisher information, i.e. the $L^2$ norm of the gradient of the square root, appears and will be closely related to an entropy bound for the solution to (\ref{eq:DK_reg}), which we will derive below. \\
+
+Since the comparison also involves the approximation of functions on the diagonal due to (\ref{eq:def_VF}), some regularity assumption on $D^2_{\mu}\mcl{F}[\cdot]$ is expected. It turns out that uniform spatial $W^{2,\infty}$ regularity suffices for our purpose. We recall that $(\delta_N)_{N \geq 1}$ are the approximation parameters in (\ref{eq:approx_square_root}) of the square root by $(f^N)_{N \geq 1}$, and $(\theta^N)_{N \geq 1}$ are the amplitudes of noise satisfying Assumption \ref{assu:cov}. In particular, $(\theta_k^N)_{N \geq 1}$ depends on $(L^N)_{N \geq 1}$ through (\ref{eq:def_theta_k^N}), and
+\[
+\int_{\mathbb{T}^d} |y|^2|\psi^N(y)|^2\mathrm{d}y \lesssim L_N^{-2}
+\]
+for $\psi^N := \sum_{k \in \mathbb{Z}^d}|\theta_k^N|^2e_k$ according to (\ref{eq:s_m_kernel_Ktheta}).
+
+\begin{lem}\label{lem:approximation_quadratic_variation} For $\mcl{V}_{\mcl{F}}^N$ and $\mcl{V}_{\mcl{F}}$ given above, we have for any $\mu \in \mcl{P}(\mathbb{T}^d) \cap L^1(\mathbb{T}^d) $ that
+\begin{equation}\label{eq:apprximation of V_F}
+\begin{split}
+\big|\mcl{V}_{\mcl{F}}^N[\mu] - \mcl{V}_{\mcl{F}}[\mu] \big| \lesssim\big\|D^2_{\mu} \mcl{F}[\mu]\big\|_{W^{2,\infty}}\Big[\delta_N + L_N^{-2}\Big(1 + \int_{\mathbb{T}^d}\frac{|\nabla \mu|^2}{\mu}\Big)\Big],
+\end{split}
+\end{equation}
+where the constant is independent of $N \in \mathbb{N}$ and $\mu$. 
+\end{lem}
+\begin{proof}We assume without loss of generality that the R.H.S. of (\ref{eq:apprximation of V_F}) is finite  and split the estimate in (\ref{eq:apprximation of V_F}) into two parts by 
+\begin{equation}\label{eq:VF_VFM_split}
+\begin{split}
+\big|\mcl{V}_{\mcl{F}}^N[\mu] -  \mcl{V}_{\mcl{F}}[\mu] \big|
+\leq \big|\sum_{k \in \mathbb{Z}^d} |\theta^N_k|^2 \mathscr{F}(\Lambda^{N}_{\mu})(k,-k) -  \int_{\mathbb{T}^d}\Lambda^{N}_{\mu}(x,x)\mathrm{d}x\big|\\
+    + \ \big| \int_{\mathbb{T}^d} \big\{ D^2_{\mu}\mcl{F}[\mu](x,x) :  a[\mu](x)\big\} \big[f^N(\mu(x))^2 - \mu(x)\big]\mathrm{d}x\big| := (\rom{1}) + (\rom{2})
+\end{split}
+\end{equation} 
+where we denote 
+\begin{align*}
+    \Lambda^{N}_{\mu}(x,y)  := D^2_{\mu}\mcl{F}[\mu](x,y) :\Big[\big(\Sigma[\mu]f^N(\mu)\big)(x) \cdot  \big(\Sigma^{\transpose}[\mu]f^N(\mu)\big)(y)\Big].
+\end{align*}
+According to the major technical Lemma \ref{lem:approx_delta_x(y)} of thesis below and a density argument, the first term in (\ref{eq:VF_VFM_split}) can be bounded by 
+\begin{equation}\label{eq:V_M_first_term_moll}
+\begin{split}
+    (\rom{1}) \lesssim L^{-2}_N\big\|\Sigma[\mu]f^N(\mu)\big\|^2_{W^{1,2}} \big\|D^2_{\mu}\mcl{F}^M[\mu]\big\|_{W^{2,\infty}},
+\end{split}
+\end{equation}
+where the constant is independent of $N$ and $\mu$. The second term in (\ref{eq:VF_VFM_split}) is easily bounded by 
+\begin{align*}
+    (\rom{2}) \overset{(\ref{eq:approx_square_root})}{\lesssim} \delta_N\big\|D^2_{\mu}\mcl{F}[\mu]:  a[\mu]\big\|_{L^{\infty}} \overset{(\ref{eq:unif_bound_a})}{\lesssim} \delta_N
+ \big\|D^2_{\mu}\mcl{F}[\mu]\big\|_{L^{\infty}},
+\end{align*}
+It follows immediately from the estimates above and
+\[
+\big\|\Sigma[\mu]f^N(\mu)\big\|_{W^{1,2}} \lesssim \big\|\Sigma[\mu]\big\|_{W^{1,\infty}}\|f^N(\mu)\|_{W^{1,2}} \overset{(\ref{eq:approx_square_root},\ref{eq:bound_a_Sigma_1,inf})}{\lesssim} 1 + \int_{\mathbb{T}^d} \frac{|\nabla \mu|^2}{\mu},
+\]
+where the constants are independent of $N$, that (\ref{eq:apprximation of V_F}) holds.
+\end{proof}
+
+We now state and prove the central technical Lemma of this chapter that controls $(\rom{1})$ in \eqref{eq:V_M_first_term_moll}, in the spirit of the equivalence between the space of regularity and the space of approximations.
+
+
+\begin{lem}\label{lem:approx_delta_x(y)} Given functions $f, g \in C^{\infty}(\mathbb{T}^d,\mathbb{R})$ and $h \in C^{\infty}(\mathbb{T}^d \times \mathbb{T}^d,\mathbb{R})$, we have the following quantitative estimate 
+\begin{equation}\label{approx_delta_x(y)}
+\begin{split}
+\Big|\sum_{k \in \mathbb{Z}^d}  \big|(\mathscr{F}_{\mathbb{T}^d}\varphi) (k)\big|^2 \mathscr{F}_{\mathbb{T}^d \times \mathbb{T}^d}(f \otimes g h)(k,-k) - \int_{\mathbb{T}^d} (f\otimes gh)(x,x)\mathrm{d}x \Big|\\ \lesssim \|f\|_{W^{1,2}(\mathbb{T}^d)}\|g\|_{W^{1,2}(\mathbb{T}^d)}\|h\|_{W^{1,\infty}(\mathbb{T}^{2d})} \int_{\mathbb{T}^d} |\xi|^2|\psi(\xi)|\mathrm{d}\xi, 
+\end{split}
+\end{equation}
+where  $f \otimes g h$ on $\mathbb{T}^d \times \mathbb{T}^d$ is given by $(f\otimes gh)(x,y) := h(x,y)f(x)g(y)$, and $\varphi \in C^{\infty}(\mathbb{T}^d,\mathbb{R})$, s.t. $(\mathscr{F}_{\mathbb{T}^d}\varphi) (0) = 1$, and 
+\begin{equation}\label{eq:def-psi}
+\psi(x) :=  \sum_{k \in \mathbb{Z}^d}\big| (\mathscr{F}_{\mathbb{T}^d}\varphi) (k)\big|^2 e^{-2\pi i k\cdot x}.
+\end{equation}
+\end{lem}
+\begin{proof}We notice that $\psi(x) = \psi(-x)$, since $\varphi$ is real, and therefore $(\mathscr{F}_{\mathbb{T}^d}\varphi) (-k) = \overline{(\mathscr{F}_{\mathbb{T}^d}\varphi) (k)}$. We further denote 
+\begin{equation}
+\Phi(x,y) := \sum_{k \in \mathbb{Z}^d}\big| (\mathscr{F}_{\mathbb{T}^d}\varphi) (k)\big|^2 e^{-2\pi i k\cdot(x-y)} = \psi(x-y),
+\end{equation}
+for which we have 
+\[
+\int_{\mathbb{T}^{2d}}\Phi = \mathscr{F}_{\mathbb{T}^{2d}}(\Phi)(0) = |(\mathscr{F}_{\mathbb{T}^{d}}\varphi)(0)|^2 = 1,
+\]
+and 
+\begin{align*}
+\int_{\mathbb{T}^{d}}\Phi \ast (f\otimes gh)(x,x)\mathrm{d}x = \sum_{k \in \mathbb{Z}^d}  \big|(\mathscr{F}_{\mathbb{T}^d}\varphi) (k)\big|^2 \mathscr{F}_{\mathbb{T}^d \times \mathbb{T}^d}(f \otimes g h)(k,-k).
+\end{align*}
+For brevity, we omit the differentials in the integrals when all variables are integrated. By identifying functions $C^{\infty}(\mathbb{T}^d)$ with smooth periodic functions on $\mathbb{R}^d$, we can then rewrite and bound the L.H.S. of (\ref{approx_delta_x(y)}) by 
+\begin{align*}
+& \ \big| \int_{\mathbb{T}^{d}}\Phi \ast (f\otimes gh)(x,x)\mathrm{d}x -   \int_{\mathbb{T}^{d}} (f\otimes gh)(x,x)\mathrm{d}x\big|\\
+= & \ \big| \int_{[-\frac{1}{2}, \frac{1}{2}]^{3d}} \Phi(y,z) \big[(f\otimes gh)(x-y, x - z) -  (f\otimes gh)(x,x)\big]\big|\\
+= & \ \big| \int_{[-\frac{1}{2}, \frac{1}{2}]^{3d}}  \psi(y - z) \big[(f\otimes gh)(x - y +z , x) -  (f\otimes gh)(x,x)\big]\big|\\
+= & \ \big| \int_{[-\frac{1}{2}, \frac{1}{2}]^{2d}}  \psi(y) \big[(f\otimes gh)(x - y, x) -  (f\otimes gh)(x,x)\big]\big|,
+\end{align*}
+where we have used the invariance of the Lebesgue measure on $\mathbb{T}^{3d}$ under the push-forward of translation. We can split the difference by
+\begin{equation}\label{eq:split_fgh}
+\begin{split}
+(f\otimes gh)(x - y, x) -  (f\otimes gh)(x,x) = \big\{\big[h(x - y, x) - h(x,x)\big]f(x)\\
+ + \big[h(x - y, x) - h(x,x)\big]\big[f(x - y) - f(x)\big]\\ + h(x,x)\big[f(x - y) - f(x)\big]\big\}g(x),
+ \end{split}
+\end{equation}
+and consider them separately. For the first term in (\ref{eq:split_fgh}), we have 
+\begin{align*}
+& \ \Big| \int_{[-\frac{1}{2}, \frac{1}{2}]^{2d}}  \psi(y)  \big[h(x - y, x) - h(x,x)\big]f(x)g(x)\Big|\\
+= & \ \Big|\frac{1}{2}\int_{[-\frac{1}{2}, \frac{1}{2}]^{2d}}  \psi(y)  \big[h(x - y, x) + h(x + y, x)  - 2h(x,x)\big]f(x)g(x)\Big|\\
+\lesssim & \ \Big(\int_{\mathbb{T}^d} |y|^2 |\psi(y)|\mathrm{d}y\Big) \|h\|_{W^{2,\infty}}\|f\|_{L^2}\|g\|_{L^2},
+\end{align*}
+where we use $\psi(-\cdot) = \psi$ and change of variable $y \mapsto -y$ for the equality, and 
+\[
+\sup_{x \in \mathbb{T}^d}\big|h(x - y, x) + h(x + y, x)  - 2h(x,x)\big| \lesssim \|D^2 h\|_{L^{\infty}}|y|^2
+\]
+for the inequality. For the second term in (\ref{eq:split_fgh}), we have 
+\begin{align*}
+& \ \Big| \int_{[-\frac{1}{2}, \frac{1}{2}]^{2d}} \psi(y) \big[h(x - y, x) - h(x,x)\big]\big[f(x - y) - f(x)\big]g(x)\Big|\\
+= & \ \Big|\int_{[-\frac{1}{2}, \frac{1}{2}]^{2d}}  \psi(y) g(x) \int_0^1 (y,0) \cdot D h(x - sy,x) ds \int_0^1 y \cdot Df(x - ty) \mathrm{d}t\Big|\\
+\lesssim & \ \Big(\int_{\mathbb{T}^d} |y|^2 |\psi(y)|\mathrm{d}y\Big) \|h\|_{W^{1,\infty}}\|f\|_{W^{1,2}}\|g\|_{L^2},
+\end{align*}
+while for the last term in (\ref{eq:split_fgh}), we abbreviate $\tilde{g}(x) := h(x,x)g(x)$ for $x \in \mathbb{T}^d$ and derive
+\begin{align*}
+& \ \Big| \int_{[-\frac{1}{2}, \frac{1}{2}]^{2d}} \psi(y) \big[f(x - y) - f(x)\big]\tilde{g}(x)\Big|\\
+= & \ \Big|\int_{[-\frac{1}{2}, \frac{1}{2}]^{d}}  \psi(y) y \cdot \big(  \int_0^1 \int_{[-\frac{1}{2}, \frac{1}{2}]^d} \tilde{g}(x)   Df(x - ty) \mathrm{d}x \mathrm{d}t \big)\mathrm{d}y\Big|\\
+= & \ \Big|\int_{[-\frac{1}{2}, \frac{1}{2}]^d}  \psi(y) y \cdot \Big(  \int_0^1 \int_{[-\frac{1}{2}, \frac{1}{2}]^d - ty} \big[\tilde{g}(x + ty) - \tilde{g}(x)\big] Df(x) \mathrm{d}x \mathrm{d}t \Big)\mathrm{d}y\Big|\\
+\leq & \ \Big( \int_{\mathbb{T}^d}|y|^2|\psi(y)|\mathrm{d}y\Big) \|h\|_{W^{1,\infty}}\|g\|_{W^{1,2}}\|f\|_{W^{1,2}},
+\end{align*}
+where we use for the second equality the change of variable $x \mapsto x - ty$ and
+\begin{align*}
+\int_{[-\frac{1}{2}, \frac{1}{2}]^d}  \psi(y) y \cdot \Big(\int_0^1 \int_{[-\frac{1}{2}, \frac{1}{2}]^d - ty} \tilde{g}(x)Df(x) \Big)
+\\
+=  \Big(\int_{[-\frac{1}{2}, \frac{1}{2}]^d}  \psi(y) y\Big) \cdot \Big(\int_{[-\frac{1}{2}, \frac{1}{2}]^d} \tilde{g}(x)Df(x) \Big) = 0,
+\end{align*} 
+since $\psi(-\cdot) = \psi$. The last inequality follows from 
+\begin{align*}
+& \ \Big|\int_0^1 \int_{[-\frac{1}{2}, \frac{1}{2}]^d - ty} \big[\tilde{g}(x + ty) - \tilde{g}(x)\big] Df(x)\Big|\\
+= & \   \Big|\int_{[0,1]^2} \int_{[-\frac{1}{2}, \frac{1}{2}]^d - ty}  \big[ty \cdot D\tilde{g}(x + sty) \big]  Df(x)\mathrm{d}x \mathrm{d}t\mathrm{d}s\Big|\\
+\leq & \  \|Df\|_{L^2}  \int_{[0,1]^2} t|y| \Big(\int_{[-\frac{1}{2}, \frac{1}{2}]^d - ty}  \big|D\tilde{g}(x + sty) \big|^2  \mathrm{d}x\Big)^{\frac{1}{2}}\mathrm{d}t\mathrm{d}s,
+\end{align*}
+where by periodicity again
+\[
+\Big(\int_{[-\frac{1}{2}, \frac{1}{2}]^d - ty}  \big|D\tilde{g}(x + sty) \big|^2  \mathrm{d}x\Big)^{\frac{1}{2}} = \|D\tilde{g}\|_{L^2} \lesssim \|g\|_{W^{1,2}}\|h\|_{W^{1,\infty}}.
+\]
+Summarizing all the bounds we derive for the terms in (\ref{eq:split_fgh}), we arrive at (\ref{approx_delta_x(y)}). 
+\end{proof}
+
+\subsection{Kolmogorov Equations on $\mathcal{P}(\mathbb{T}^d)$}\label{sec:kolmo_eq}
+
+From now on, we will fix a terminal time $T > 0$. Due to the approximation of the formal generators of the SPDEs to that of the particle systems as the particle number $N$ goes to infinity, we intend to solve the corresponding Kolmogorov equation for the derivation of the weak error rate. As it turns out, for Dean-Kawasaki equation, which contains the $N^{-1/2}$ scaling on the noise, it suffices to solve the corresponding Kolmogorov equations up to the first order twice, rather than solving the whole equations.  \\
+
+The results of solving such a first-order equation by characteristic line are well established in the literature of mean field equations, which we present briefly for completeness. More explicitly, we consider the following infinite-dimensional backward equation on $\mcl{P}(\mathbb{T}^d)$:
+\begin{equation}\label{eq:master}
+\begin{split}
+\int_{\mathbb{T}^d} \Big\{a[\mu](x):\nabla D_{\mu}\mcl{G}(t,\mu,x) + b[\mu](x)\cdot D_{\mu}\mcl{G}(t,\mu,x)\Big\}\mathrm{d}\mu(x)\\
++ \partial_t \mcl{G}(t,\mu) = 0
+\end{split}
+\end{equation}
+with terminal condition $\mcl{G}(T,\mu) = \mcl{F}[\mu]$ for $T > 0$ that we fix.
+
+\begin{defi}\label{def:sol-master}
+For the fixed terminal time $T < \infty$, we define a classical solution to (\ref{eq:master}) to be some $\mcl{G}: [0,T] \times \mcl{P}(\mathbb{T}^d) \to \mathbb{R}$, which is continuously differentiable with respect to time, has Lipschitz-continuous first-order interior derivative and solves (\ref{eq:master}) pointwise.
+\end{defi}
+
+It is then established in \cite{BLPC17} that (\ref{eq:master}) is in fact a transport equation on the space of probability measures, whose characteristic lines are the solutions to the corresponding McKean-Vlasov equation.
+
+\begin{prop}[\cite{BLPC17}, Theorem 7.2]\label{prop:sol_kolmogorov} Under the assumption that the coefficients $b[\cdot]$, $a[\cdot]$ and the test functional $\mcl{F}[\cdot]$ all have jointly Lipschitz-continuous interior derivatives up to the second order, (\ref{eq:master}) admits a unique solution in the sense of Definition \ref{def:sol-master} with the terminal condition $\mcl{G}(T,\mu) = \mcl{F}[\mu]$, which is given by the characteristic line
+\begin{equation}
+\mcl{G}(s,\mu) = \mcl{F}[\mcl{L}(X_T^{s,\mu})] = \mcl{F}[\mcl{L}(X_{T-s}^{\mu})], \ s \in [0,T],
+\end{equation}
+where $(X_r^{s,\mu})_{r \in [s,T]}$ is the solution to the forward McKean–Vlasov SDE 
+\begin{equation}\label{eq:V_SDE}
+\mathrm{d}X_r^{s,\mu} = b(\mcl{L}(X_r^{s,\mu}),X_r^{s,\mu})\mathrm{d}r + \sqrt{2}\Sigma(\mcl{L}(X_r^{s,\mu}),X_r^{s,\mu}) \cdot \mathrm{d}B_r,
+\end{equation}
+with initial condition $\mcl{L}(X_s^{s,\mu}) = \mu$. Especially, $\mcl{H}(s,\cdot)$ has Lipschitz-continuous interior derivatives up to the second order for any time $s \in [0,T]$.
+\end{prop}
+
+Due to the uniform Lipschitz conditions we imposed on drift and noise coefficients, the classical theory of McKean–Vlasov equations shows that there exists a unique probabilistically strong solution to (\ref{eq:V_SDE}). Besides, it follows directly from It\^o's formula on $|X_{\cdot}^{s, \mu} - X_{\cdot}^{s, \nu}|^2$, the Grönwall inequality and the definition of the Wasserstein distance $\mcl{W}_2$ that
+\begin{equation}\label{eq:sta_VM_W2}
+\big|\mcl{W}_2\big(\mcl{L}(X_r^{s, \mu}), \mcl{L}(X_r^{s, \mu})\big)\big| \lesssim  \mcl{W}_2(\mu,\nu),
+\end{equation}
+which further implies that 
+\begin{equation}\label{eq:lip_G_0}
+\big|\mcl{H}(s,\mu) - \mcl{H}(s,\nu)| \lesssim \|\mcl{F}\|_{\lip} \mcl{W}_2(\mu,\nu),
+\end{equation}
+for any $s \in [0,T]$. We refer the reader to \cite{CM18,HRW21} and references therein for a comprehensive review of the properties of McKean–Vlasov equations and the proof of (\ref{eq:sta_VM_W2}). 
+
+\section{Weak-Error Estimation}\label{sec:weak_error}
+
+In this chapter, we derive a weak-error bound for the approximation of the Dean-Kawasaki equation. Although a solution theory to the Kolmogorov equation related to the SPDE (\ref{eq:DK_reg}) seems beyond the reach of current techniques, we only need to solve the equation up to the first order, i.e. considering a transport equation as explained above. On the other hand, we need both the test function and the coefficients of the equations to be sufficiently regular (in the sense of Assumption \ref{assu:F_ab} below), so that the solution inherits this regularity. 
+
+
+\subsection{Regularity of Solutions and Linearized Equations}\label{sec:reg_KOL_lin}
+
+In this section, we derive regularity estimates for the transport equation mentioned above. The well-posedness is provided by Proposition~\ref{prop:sol_kolmogorov}, which is due to \cite{BLPC17} and which makes use of the deep link observed by Lions \cite{L} between the interior derivatives of functionals on probability spaces with Fr\'ech\'et derivatives of the lift of such functionals to the space of $L^2$ random variables. These probabilistic arguments yield spatial $W^{1,\infty}$ regularity of the interior derivatives of the solutions to the Kolmogorov equation, while it is less straightforward to derive higher spatial regularity of the solutions (see Chapter 6 in \cite{BLPC17}). However, such spatial regularity is indispensable to our weak error estimates, see Lemma \ref{lem:approximation_quadratic_variation}. Therefore, we will use  analytic rather than probabilistic arguments, as in  \cite{T21,DT21}.\\
+
+The goal of this section is thus to prove that\footnote{We will denote 
+\[
+D^2_{\mu}\Big\{\mcl{F}[\mcl{L}(X^{\mu}_{t})]\Big\} = D^2_{\mu}\Big\{\mu \mapsto \mcl{F}[\mcl{L}(X^{\mu}_{t})]\Big\}: \mcl{P}(\mathbb{T}^d)\times \mathbb{T}^{2d} \to \mathbb{R}
+\]
+for $t \in [0,T]$ from now on. 
+} 
+\begin{equation}\label{eq:D2_mu_Law_VM}
+\sup_{\mu \in L^1 \cap \mcl{P}} \sup_{t \in [0,T]}\Big\|D^2_{\mu}\Big\{\mu \mapsto \mcl{F}[\mcl{L}(X^{\mu}_{t})]\Big\}\Big\|_{W^{2,\infty}(\mathbb{T}^{2d})} < \infty,
+\end{equation}
+if the functional $\mcl{F}[\cdot]$ and the coefficients $b[\cdot]$ and $\Sigma[\cdot]$ are assumed to be sufficiently regular, in the sense that Assumption \ref{assu:b_Sigma} holds. In particular, $\|a[\mu]\|_{W^{1,\infty}}$ and $\|b[\mu]\|_{L^{\infty}}$ are bounded uniformly in $\mu \in L^1 \cap \mcl{P}$ according to (\ref{eq:con_Sigma_L1}), and $a_{\min} \leq a[\mu] \lesssim 1$ uniformly for $\mu \in L^1 \cap \mcl{P}$ due to (\ref{eq:unif_bound_a}). The reason for considering (\ref{eq:D2_mu_Law_VM}) will become clear in (\ref{eq:split_weak_error}) below. \\
+
+
+We further impose the following regularity conditions in addition to Assumption \ref{assu:b_Sigma}:
+\begin{assu}\label{assu:F_ab}The test functional $\mcl{F}[\cdot]$ has Lipschitz-continuous interior derivatives up to the fourth order s.t.
+\begin{equation}
+\max_{k \leq 4}\sup_{\mu \in L^1\cap \mcl{P} }\Big\|\frac{\delta^k \mcl{F}}{\delta \mu^k}  \Big\|_{W^{4,\infty}_{\mathbb{T}^{kd}}} < \infty,
+\end{equation}
+and the coefficients $b[\cdot]$ and $a[\cdot]$ have Lipschitz-continuous interior derivatives up to the fourth order, and furthermore, we assume they have spatial regularity 
+\begin{equation}\label{eq:reg_a_b_W4}
+\max_{k \leq 2} \sup_{\mu \in L^1 \cap \mcl{P}} \left(\Big\|\frac{\delta^k a}{\delta \mu^k}  \Big\|_{W^{5,\infty}_{\mathbb{T}^{(k+1)d}}} \vee \Big\|\frac{\delta^k b}{\delta \mu^k}  \Big\|_{W^{5,\infty}_{\mathbb{T}^{(k+1)d}}}\right) < \infty.
+\end{equation}
+\end{assu}
+
+The reason for requiring four derivatives with respect to the measure argument is that we need to solve the transport equation (\ref{eq:sta_VM_W2}) effectively twice, with a nonlinear function of the first solution as terminal condition for the second equation. For Lemma \ref{lem:duality} and Corollary \ref{thm:reg_D_mu2F_m_mu}, it suffices to have interior derivatives up to the second order. It would be possible to relax the assumption that all interior derivatives are in $W^{5,\infty}$, which we make for brevity.
+
+We denote from now on the distribution of $X^{\mu} := X^{0,\mu}$ defined in (\ref{eq:V_SDE}) as 
+\[
+  m_t^{\mu} := \mcl{L}(X^{\mu}_t), \qquad 0 \leq t \leq T,
+\]
+which solves the following nonlinear Fokker-Planck equation 
+\begin{equation}\label{eq:KOL_VM}
+\begin{cases}
+\partial_t m^{\mu}_t = \nabla^2 : \big(a[m^{\mu}_t] m^{\mu}_t\big) - \nabla \cdot  \big(b[m^{\mu}_t] m_t^{\mu}\big),\\
+m^{\mu}_0 = \mu.
+\end{cases}
+\end{equation}
+We will use throughout the basic regularity estimate for the McKean–Vlasov equation (\ref{eq:V_SDE}) that for any initial datum $\mu \in L^1(\mathbb{T}^d) \cap \mcl{P}(\mathbb{T}^d)$, 
+\begin{equation}\label{eq:sob_embed_prob}
+\sup_{t \in [0,T]} \|m_t^{\mu}\|_{L^1} = 1.
+\end{equation}
+
+We also write $P_{\cdot,\cdot}^{\mu}$ for the solution map of the inhomogeneous decoupled Kolmogorov forward equation 
+\begin{equation}\label{eq:decouple_KOL}
+\begin{cases}
+\partial_t P_{s,t}^{\mu}\varphi = \nabla^2 : \big(a[m^{\mu}_t]P_{s,t}^{\mu}\varphi \big) - \nabla \cdot \big( b[m^{\mu}_t] P_{s,t}^{\mu}\varphi \big),\\
+P_{s,s}^{\mu}\varphi = \varphi,
+\end{cases}
+\end{equation}
+which has a unique (signed) measure-valued solution for any finite (signed) measure $\varphi$ on $\mathbb{T}^d$ and $0 \leq s \leq t \leq T$. Both the maps $[0,T] \times \mcl{P}(\mathbb{T}^d) \ni (t,\mu) \mapsto m_t^{\mu}$ and $[0,T] \times \mcl{P}(\mathbb{T}^d) \ni (t,\nu) \mapsto P_{t}^{\mu}\nu$ are flows of probability measures, and it is worth emphasizing that (\ref{eq:decouple_KOL}) decouples the dependence of $m^{\mu}$ of $\mu$ on the flow from that on the initial condition, which we will use more explicitly in (\ref{eq:chain_rule_m_mu}) below. We will need the following classical regularity estimates for (\ref{eq:decouple_KOL}), in which we denote
+\begin{equation}\label{eq:def-W-1space}
+    W^{-k,1} :=(W^{k,\infty})^{\ast},
+\end{equation}
+for $k>0$.  
+
+\begin{lem}\label{lem:heat-kernel}
+We assume that the assumptions \ref{assu:b_Sigma} and \ref{assu:F_ab} hold and consider $\mu \in \mcl{P}(\mathbb{T}^d)$ with $L^1$ density. For $(P^{\mu}_{s,t})_{0\leq s\leq t}$ defined in~\eqref{eq:decouple_KOL}, we have the following uniform bound
+\begin{equation}\label{eq:reg_P^mu_st}
+\sup_{\mu \in L^1 \cap \mcl{P}} \Big\|\int_0^{\cdot} P^{\mu}_{s,\cdot} (\nabla \cdot f_s)\mathrm{d}s\Big\|_{L^{\infty}([0,T], W^{-k,1})} \lesssim_{T,k}  \|f\|_{L^{\infty}([0,T], W^{-k,1})},
+\end{equation}
+for any $f \in L^{\infty}([0,T], W^{-k,1}(\mathbb{T}^d,\mathbb{R}^d))$ and $1 \leq k \leq 4$. 
+\end{lem}
+
+The proof follows essentially from Theorem 3.2.6 and Corollary 2.4.5 in \cite{S08} and duality. We refer the readers to \cite[Lemma 4.3]{djurdjevac2025weak} for details.\\
+
+In the previous work \cite{T21}, motivated by weak propagation of chaos, Lipschitz-continuity of the exterior derivatives to any order of the solution to the transport equation is shown: Tse controls
+\[
+   \Big\|\frac{\delta^k}{\delta \mu^k}\Big\{\mu \mapsto \mcl{F}[\mcl{L}(X^{\mu}_{t})] \Big\}\Big\|_{W^{1,\infty}}
+\]
+for any $k$, with assumptions depending on $k$. The Lipschitz-continuity of the interior derivatives $D_\mu = \nabla \frac{\delta}{\delta\mu}$ is then considered in \cite{DT21} by a first order linearization argument. It is not clear to us how to generalize their linearization argument to second order directly.\\
+
+In addition to those regularity bounds, we need a higher spatial-regularity control of the interior derivatives, i.e. of $\|D^k_\mu\{\mu \mapsto \mcl{F}[\mcl{L}(X^{\mu}_{t})] \}\|_{W^{k,\infty}}$ for $k>1$. We therefore propose the duality argument following in Lemma~\ref{lem:duality} below, which is an extension of the Theorem (main result) in \cite{T21}.
+
+\begin{rem}\label{rem:general-diffusion}Although only the special case of constant diffusion coefficients is considered in \cite{T21}, similar results hold also in our situation\footnote{as considered also in \cite{BLPC17}}. Indeed, under our assumptions on the coefficients, the heat kernel bounds that are the crucial ingredient in \cite{T21} (for example (2.6) therein) also hold for the fundamental solution $[0,T]\times \mathbb{T}^{2d} \ni (t,x,y) \mapsto p^{\mu}(t,x,y) = (P^{\mu}_{0,t}\delta_x)(y)$. Specifically, for $T>0$ we have
+\begin{equation}
+    |\nabla p^{\mu}(t,x,y)| \lesssim_T t^{-\frac{1+d}{2}} g\Big(\frac{|x-y|}{t^{1/2}}\Big), \qquad t \in (0,T],x,y \in \mathbb{T}^d,
+    \end{equation}
+for some bounded $g$, and the constant is uniform in $\mu \in L^1 \cap \mcl{P}(\mathbb{T}^d)$ for the same reason as in (\ref{eq:reg_P^mu_st}). The proof can be found for example in Theorem 3.3.11 in \cite{S08}. The proofs of the main results in \cite{T21} can therefore be carried out mutatis muntandis, if we take into acount the linearization of $a[m^{\mu}]$. 
+\end{rem}
+
+In the following technical lemma, we discuss the linearization of functionals of the McKean-Vlasov equation. The representation in \eqref{eq:dual_repre_D2_mu_F} can be formally guessed by applying the (second order) chain rule to $\mathcal F[m^\mu]$ and then differentiating the evolution equation for $m^\mu$ with respect to $\mu$. We focus on the second interior derivative $D^2_\mu$ (or equivalently on $\frac{\delta^2}{\delta \mu^2}$ acting on mean-free functions), for which we need higher space regularity than in the references in order to apply Lemma~\ref{lem:approximation_quadratic_variation}. Later we will also need Lipschitz continuity of the derivatives $D^k_\mu$, which is derived in \cite{T21,DT21}.\\
+
+We recall the definition of $\tilde{b}[\cdot]$ in \eqref{eq:modified_drift}, which satisfies according to \eqref{eq:reg_a_b_W4} that 
+\[
+\max_{k \leq 2} \sup_{\mu \in L^1 \cap \mcl{P}} \Big\|\frac{\delta^k \tilde{b}}{\delta \mu^k}  \Big\|_{W^{5,\infty}_{\mathbb{T}^{(k+1)d}}} < \infty.
+\]
+
+% where one needs to apply the fixed-point argument to the second-order (linear but nonlocal) parabolic equations for the regularity estimates of (\ref{eq:J1}) - (\ref{eq:I2}) that we derive. Such estimates are also uniform in $\mu \in \mcl{P}\cap L^1 (\mathbb{T}^d)$, since we only use the $L^1$ bound on $m^{\mu}$ throughout the proof of the Lemma.
+
+ \begin{lem}\label{lem:duality}
+We assume that Assumptions \ref{assu:b_Sigma} and \ref{assu:F_ab} are in force. For any $\phi, \psi \in C^{\infty}(\mathbb{T}^d)$ with zero mean and $\mu \in L^1(\mathbb{T}^d) \cap \mcl{P}(\mathbb{T}^d)$, the following equality holds for a.e. $t \in [0,T]$:
+\begin{equation}\label{eq:dual_repre_D2_mu_F}
+\begin{split}
+    \Big\langle \frac{\delta^2}{\delta \mu^2}\Big\{\mathcal{F}[m_t^{\mu}]\Big\}, \psi\otimes \phi \Big\rangle  & =  \Big\langle \frac{\delta \mathcal{F}}{\delta \mu} [m_t^{\mu}],  I^{\mu}_{t}(\psi, \phi) \Big\rangle\\
+   &+\Big\langle \frac{\delta^2\mathcal{F}}{\delta \mu^2} [m_t^{\mu}], J_t^{\mu}\psi\otimes  J_t^{\mu}\phi\Big\rangle.
+\end{split}
+\end{equation}
+Here we denote $J_t^{\mu}\psi := P^{\mu}_{0,t}\psi + J^{\mu,1}_t\psi$ for the solution map $J^{\mu,1}$ to the equation
+\begin{equation}\label{eq:J1}
+\begin{split}
+J_t^{\mu,1} \psi = \int_0^t P^{\mu}_{s,t}\nabla \cdot \Big\{ \Big[\int_{\mathbb{T}^d}\frac{\delta a(\cdot, \mu)}{\delta \mu}[m^{\mu}_s](y) \mathrm{d}(J_s^{\mu,1} \psi)(y)\Big] \nabla m_s^{\mu}\qquad \\
+ - \Big[\int_{\mathbb{T}^d}\frac{\delta \tilde{b}(\cdot, \mu)}{\delta \mu}[m^{\mu}_s](y) \mathrm{d}(J_s^{\mu,1} \psi)(y)\Big] m_s^{\mu} + \mcl{R}^{\mu}_s(\psi)\Big\}\mathrm{d}s,
+\end{split}
+\end{equation}
+with $(P^{\mu}_{\cdot,\cdot})$ defined in (\ref{eq:decouple_KOL}) and $\mcl{R}^{\mu}: [0,T] \times W^{-3,1}(\mathbb{T}^d)  \to W^{-1,1}(\mathbb{T}^d)$ defined by (note the divergence outside of the curly bracket in~\eqref{eq:J1})
+\begin{equation}\label{eq:def-R-mu-phi}
+\begin{split}
+    \mcl{R}^{\mu}_t(\psi) =  \Big(\int_{\mathbb{T}^d}\frac{\delta a(\mu, \cdot)}{\delta\mu}[m_t^{\mu}](y)\mathrm{d}P^{\mu}_{0,t} (\psi)(y) \Big)\nabla m^{\mu}_t \\
+ - m^{\mu}_t   \Big(\int_{\mathbb{T}^d}\frac{\delta \tilde{b}(\mu, \cdot)}{\delta\mu}[m_t^{\mu}](y)\mathrm{d}P^{\mu}_{0,t} (\psi)(y)\Big),
+\end{split}
+\end{equation}
+for any $t \in [0,T]$ and $\psi \in  W^{-3,1}(\mathbb{T}^d)$, which satisfies 
+\[
+\sup_{\mu \in L^1 \cap \mcl{P}} \|\mcl{R}_t^{\mu}(\psi)\|_{L^\infty([0,T],W^{-1,1})} \lesssim \|\psi\|_{W^{-3,1}}.
+\]
+The bilinear map $I^{\mu}$ are defined as the sum of the following two bilinear maps, $I^{\mu} = I^{\mu,1} + I^{\mu,2}$, where 
+\begin{equation}\label{eq:I1}
+\begin{split}
+I_t^{\mu,1}(\psi,\phi) = \int_0^t P^{\mu}_{s,t}\nabla \cdot \Big\{ \Big[\int_{\mathbb{T}^d}\frac{\delta a(\cdot, \mu)}{\delta \mu}[m^{\mu}_s](y) \mathrm{d}(J_s^{\mu}\phi)(y)\Big] \nabla P_{0,s}^{\mu}(\psi) \\
+ - \Big[\int_{\mathbb{T}^d}\frac{\delta \tilde{b}(\cdot, \mu)}{\delta \mu}[m^{\mu}_s](y) \mathrm{d}(J_s^{\mu}\phi)(y)\Big] P_{0,s}^{\mu}(\psi)\Big\}\mathrm{d}s,
+\end{split}
+\end{equation}
+and $I^{\mu,2}$ is the solution map to the parabolic non-local equation
+\begin{equation}\label{eq:I2}
+\begin{split}
+I_{t}^{\mu,2}(\psi,\phi)  
+= \int_0^t P^{\mu}_{s,t}\nabla \cdot \Big\{ \Big[ \int_{\mathbb{T}^d} \frac{\delta a(\mu, \cdot)}{\delta\mu}\big[m_s^{\mu}\big](y)  \mathrm{d}I_{s}^{\mu,2}(\psi,\phi) (y)\Big]  \nabla m_s^{\mu}\\
+ -   \Big[\int_{\mathbb{T}^d} \frac{\delta \tilde{b}(\mu, \cdot)}{\delta\mu}\big[m_s^{\mu}\big](y) \mathrm{d}I_{s}^{\mu,2}(\psi,\phi) (y)\Big]  m_s^{\mu} + \mcl{T}^{\mu}_s(\psi,\phi)\Big\}\mathrm{d}s,
+\end{split}
+\end{equation}
+for some time-dependent bilinear map $\mcl{T}^{\mu}: [0,T] \times W^{-3,1}(\mathbb{T}^d) \times W^{-3,1}(\mathbb{T}^d)  \to W^{-2,1}(\mathbb{T}^d)$, which satisfies
+\[
+\sup_{\mu \in L^1 \cap \mcl{P}}\|\mcl{T}^{\mu}_t(\psi, \phi)\|_{L^\infty([0,T],W^{-2,1})} \lesssim \|\psi\|_{W^{-3,1}} \|\phi\|_{W^{-3,1}}.
+\]
+Lastly, for any fixed $T < \infty$, the following estimates hold true:
+\begin{equation}\label{eq:reg_Jmu1}
+\sup_{\mu \in L^1 \cap \mcl{P}}\big\|J^{\mu,1}\psi\big\|_{L^{\infty}([0,T], W^{-1, 1})} \lesssim \|\psi\|_{W^{-3, 1}},
+\end{equation}
+and 
+\begin{equation}\label{eq:reg_Imu}
+\sup_{\mu \in L^1 \cap \mcl{P}}\big\|I^{\mu,j}(\psi,\phi)\big\|_{L^{\infty}([0,T], W^{-4, 1})} \lesssim \|\phi\|_{W^{-3, 1}}\|\psi\|_{W^{-3, 1}}, \quad j = 1,2.
+\end{equation}
+\end{lem}
+
+We remark that expressions like $\int_{\mathbb{T}^d}\frac{\delta a(\cdot, \mu)}{\delta \mu}[m^{\mu}_s](y) \mathrm{d}(J_s^{\mu,1} \psi)(y)$ in~\eqref{eq:J1} should be interpreted as
+\[
+x \mapsto \int_{\mathbb{T}^d}\frac{\delta a(x, \mu)}{\delta \mu}[m^{\mu}_s](y) \mathrm{d}(J_s^{\mu,1} \psi)(y).
+\]
+Also as the second--order linearization can be tackled with exactly the same arguments as the first--order one, we only focus on the latter in the following discussions and omit largely the former one, including the precise definition of $\mathcal{T}^{\mu}$ and its analytic estimates. The full details can be found in the preprint \cite{djurdjevac2025weak}.
+
+\begin{proof} 
+For $\phi, \psi$ of the form
+\[
+    \phi = \nu_1 - \mu,\qquad \psi = \nu_2 - \mu
+\]
+with probability measures $\nu_1,\nu_2 \in \mathcal P(\mathbb T^d)$, the derivation of (\ref{eq:dual_repre_D2_mu_F}) together with the derivation of the terms ($I^{\mu}$, $J^{\mu}$, $\mcl{R}^{\mu}$ and $\mcl{T}^{\mu}$) is essentially due to \cite{T21}, see  Appendix \ref{sec:append_lin}. This assumption on the form of $\phi,\psi$ is natural in view of the definition of exterior derivatives (\ref{eq:def_exterior_deriv}). The proof of the boundedness of $\mcl{R}^{\mu}$ is postponed to Lemma \ref{eq:reg-forcing-TR} directly after the derivation. The existence and uniqueness of the linear nonlocal equations (\ref{eq:J1}) and (\ref{eq:I2}) given the regularity of the forcing terms are direct application of Leray-Schauder, whose proof can be found in Theorem 2.3 in \cite{T21}, in the case of constant diffusion coefficients. We recall the discussion of general diffusion coefficients in Remark \ref{rem:general-diffusion}.\\
+
+We now focus on the bound (\ref{eq:reg_Jmu1}). As $J^{\mu,1}$ satisfies equation (\ref{eq:J1}), the parabolic regularity estimate (\ref{eq:reg_P^mu_st}) of $(P^{\mu}_{\cdot,\cdot})$ and the trivial embedding $W^{-1,1} \subset W^{-3,1}$ yield
+\begin{align*}
+\|J_t^{\mu,1} \psi \|_{W^{-1,1}} \lesssim \int_0^t (t-s)^{-\frac{1}{2}}\|J_s^{\mu,1} \psi\|_{W^{-1,1}} \mathrm{d}s + \sup_{t \leq T}\|\mcl{R}_t^{\mu}(\psi)\|_{W^{-1,1}}.
+\end{align*}
+As in the proof of the standard Gr\"onwall inequality, we can iterate this bound to obtain for $t \in [0,T]$
+\begin{align*}
+    \|J_t^{\mu,1} \psi \|_{W^{-1,1}} \lesssim e^{C \cdot G(T)} \sup_{t \leq T}\|\mcl{R}_t^{\mu}(\psi)\|_{W^{-1,1}},
+\end{align*}
+where $G(t) = \int_0^t (t-s)^{-1/2} \mathrm{d}s$, see also the proof of Theorem~5.1 in~\cite{Ethier1986}.
+Uniform boundedness (in $\mu$) of $\mcl{R}^{\mu}$ then leads to (\ref{eq:reg_Jmu1}). To derive inequality (\ref{eq:reg_Imu}) for $I^{\mu,1}$, we bound the first term in (\ref{eq:I1}) by 
+\begin{align*}
+&\sup_{t \in [0,T]}\Big\|\int_0^t P^{\mu}_{s,t}\nabla \cdot \Big[\int_{\mathbb{T}^d}\frac{\delta a(\cdot, \mu)}{\delta \mu}[m^{\mu}_s](y) \mathrm{d}(J_s^{\mu}\phi)(y) \nabla P_{0,s}^{\mu}(\psi)\Big]\mathrm{d}s\Big\|_{W^{-4,1}}\\
+& \overset{(\ref{eq:reg_P^mu_st})}{\lesssim}\sup_{t \in [0,T]}\Big\| \Big[\int_{\mathbb{T}^d}\frac{\delta a(\cdot, \mu)}{\delta \mu}[m^{\mu}_t](y) \mathrm{d}(J_t^{\mu}\phi)(y)\Big] \nabla P_{0,t}^{\mu}(\psi)\Big\|_{W^{-4,1}}\\
+& \lesssim \sup_{\mu \in L^1 \cap \mcl{P}}\Big\|\frac{\delta a}{\delta \mu}[\mu]\Big\|_{W^{4,\infty}(\mathbb T^d \times \mathbb T^d)} \sup_{t \in [0,T]}\|J^{\mu}_t(\phi)\|_{W^{-3,1}} \sup_{t \in [0,T]}\|\nabla P_{0,t}^{\mu}(\psi)\|_{W^{-4,1}}\\
+& \lesssim\sup_{\mu \in L^1 \cap \mcl{P}}\Big\|\frac{\delta a}{\delta \mu}[\mu]\Big\|_{W^{4,\infty}} \|\phi\|_{W^{-3,1}}\|\psi\|_{W^{-3,1}},
+\end{align*}
+where we used for the second inequality that multiplication from $W^{-4,1}\times W^{4,\infty}$ to $W^{-4,1}$ is continuous since $W^{4,\infty}$ is an algebra, and we used the estimate
+\[
+\sup_{t \in [0,T]}\|P^{\mu}_{0,t}\psi\|_{W^{-3,1}} \lesssim \|\psi\|_{W^{-3,1}}
+\]
+and the bound on $J_t^{\mu} = P^{\mu}_{0,t} + J^{\mu,1}_t$ for the last inequality. A similar bound holds for the term with $\tilde{b}[\cdot]$ in (\ref{eq:I1}). The bound in (\ref{eq:reg_Imu}) with $I^{\mu,2}$ given by (\ref{eq:I2}) follows from the same Gr\"onwall argument as above\footnote{$I^{\mu,2}$ is in fact a bit more regular, but we only care about the sum $I^{\mu}$.}. \\
+
+Finally, to show that (\ref{eq:dual_repre_D2_mu_F}) holds for smooth $\phi,\psi$ instead of $\phi=\nu_1 - \mu$ and $\psi = \nu_2 - \mu$, we decompose $\phi, \psi \in C^{\infty}(\mathbb{T}^d)$ with mean zero as 
+\[
+\phi = \|\phi_+\|_{L^1}\Big(\frac{\phi_+}{\|\phi_+\|_{L^1}} - \mu\Big)  - \|\phi_-\|_{L^1}\Big(\frac{\phi_-}{\|\phi_-\|_{L^1}}- \mu\Big)
+\]
+(similarly for $\psi$) with the convention that $0/0 = 0$ and using the assumption that $\|\phi_+\|_{L^1} = \|\phi_-\|_{L^1}$. We have therefore by abbreviating 
+\[
+\phi^{\mu}_{\pm} := \frac{\phi_{\pm}}{\|\phi_{\pm}\|_{L^1}} - \mu \in \mcl{P}(\mathbb{T}^d) - \mu.
+\]
+As (\ref{eq:dual_repre_D2_mu_F}) holds for $\phi^{\mu}_{\pm}, \psi^{\mu}_{\pm}$ and both sides of the equality are bilinear in $\phi, \psi$, the equality follows also for $\phi,\psi$.
+% and thanks to the linearity of both sides of (\ref{eq:dual_repre_D2_mu_F}), that 
+% \begin{align*}
+% \Big\langle \frac{\delta^2}{\delta \mu^2}\Big\{\mathcal{F}[m_t^{\mu}]\Big\}[\mu], \psi\otimes \phi \Big\rangle  =   \sum_{\sigma, \sigma'  \in \{+,-\}} \|\phi_{\sigma'}\|\|\psi_{\sigma}\|\Big\langle \frac{\delta^2}{\delta \mu^2}\Big\{\mathcal{F}[m_t^{\mu}]\Big\}, \psi^{\mu}_{\sigma} \otimes \phi^{\mu}_{\sigma'}\Big\rangle\\
+% =  \sum_{\sigma, \sigma' \in \{+,-\}} \|\phi_{\sigma'}\|\|\psi_{\sigma} \| \Big[\Big\langle \frac{\delta \mathcal{F}}{\delta \mu} [m_t^{\mu}],  I^{\mu}_{t}(\psi^{\mu}_{\sigma}, \phi^{\mu}_{\sigma'}) \Big\rangle\\
+%    +\Big\langle \frac{\delta^2\mathcal{F}}{\delta \mu^2} [m_t^{\mu}], J_t^{\mu}\psi^{\mu}_{\sigma}\otimes  J_t^{\mu}\phi^{\mu}_{\sigma'}\Big\rangle\Big]\\
+% = \Big\langle \frac{\delta \mathcal{F}}{\delta \mu} [m_t^{\mu}],  I^{\mu}_{t}(\psi, \phi) \Big\rangle
+%    +\Big\langle \frac{\delta^2\mathcal{F}}{\delta \mu^2} [m_t^{\mu}], J_t^{\mu}\psi\otimes  J_t^{\mu}\phi\Big\rangle,
+% \end{align*}
+% which is precisely (\ref{eq:dual_repre_D2_mu_F}).
+%We reformulate (\ref{eq:first-order-deriv-KOL_general}) in mild formulation as the fixed point of the map
+%\begin{align*}
+%    J \overset{\mathfrak{S}}{\longmapsto} & \int^t_0 P^{\mathfrak{a},\mathfrak{b}}_{s,t} \nabla \cdot\Big[\Big(\int_{\mathbb{T}^d}\mathfrak{A}_s(\cdot,y) J_s(y)dy\Big)\nabla\mathfrak{m}_s\Big]ds\\
+%    & + \int^t_0 P^{\mathfrak{a},\mathfrak{b}}_{s,t} \nabla \cdot\Big[\Big(\int_{\mathbb{T}^d}\mathfrak{B}_s(\cdot,y) J_s(y)dy\Big)\mathfrak{m}_s\Big]ds\\
+%    & + \int^t_0 P^{\mathfrak{a},\mathfrak{b}}_{s,t} \nabla \cdot\big(A_s(\psi)\nabla\mathfrak{m}_s\big)ds + \int^t_0 P^{\mathfrak{a},\mathfrak{b}}_{s,t} \nabla \cdot\big(B_s(\psi)\mathfrak{m}_s\big)ds,
+%\end{align*}
+%where $(P^{\mathfrak{a},\mathfrak{b}}_{s,t})_{0 \leq s \leq t \leq T}$ is the time-inhomogeneous evolution system generated by the generator $[0,T] \ni s \mapsto \nabla \cdot(\mathfrak{a}_s \nabla(\cdot)) - \nabla \cdot(\mathfrak{b}_s (\cdot))$. By the classical heat flow estimate of $P^{\mathfrak{a},\mathfrak{b}}$ with Lipschitz coefficients that 
+%\begin{equation}\label{eq:heat_Lip_coeff}
+%    \Big\|\int_0^{\cdot} P^{\mathfrak{a},\mathfrak{b}}_{s,\cdot} \nabla f_sds\Big\|_{L^{\mathfrak{p}}([0,t], B^{\mathfrak{s} + 2/\mathfrak{p}}_{1,\infty})} \leq C \|f\|_{L^{\bar{\mathfrak{p}}}([0,t], B^{\mathfrak{s}-1 + 2/\bar{\mathfrak{p}}}_{1,\infty})},
+%\end{equation}
+%where $t \in [0,T]$, any $1 \leq \overline{\mathfrak{p}} \leq \mathfrak{p} \leq \infty$ and $ \mathfrak{s} < 1$. We now show that $\mathfrak{S}$ is a contraction on $L^{\mathfrak{p}_3}([0,t], B^{0}_{1,\infty})$ for any $\mathfrak{p}_3 \in [0,\infty]$ s.t. $1/\mathfrak{p}_3 + 1/\mathfrak{p}_0 \leq 1$, and $t > 0$ small enough by bounding each term separately. For the first one, we have
+%\begin{align*}
+% \big\| \big(\int_{\mathbb{T}^d}\mathfrak{A}(\cdot,y) J(dy)\big)\nabla\mathfrak{m}\big\|_{L^{\bar{\mathfrak{p}}}([0,t],B^{2/\mathfrak{p}_0-1}_{1,\infty})} & \leq C\|\mathfrak{m}\|_{L^{\mathfrak{p}_0}([0,t],B^{2/\mathfrak{p}_0}_{1,\infty})}\big\| \big(\int_{\mathbb{T}^d}\mathfrak{A}(\cdot,y) J(dy)\big)\big\|_{L^{\mathfrak{p}_3}([0,t],B^{1+2\delta}_{\infty,\infty})}\\
+%    & \leq C\|\mathfrak{m}\|_{L^{\mathfrak{p}_0}([0,t],B^{2/\mathfrak{p}_0}_{1,\infty})}\|\mathfrak{A}\|_{C([0,t],W^{1+2\delta,\infty})}\|J\|_{L^{\mathfrak{p}_3}([0,t],B^{\mathfrak{-1-\delta}}_{1,\infty})},
+%\end{align*}
+%where $1/\bar{\mathfrak{p}} := 1/\mathfrak{p}_0 + 1/\mathfrak{p}_3$, and we use the embedding $L^1 \hookrightarrow B^{0}_{1,\infty}$, Hölder inequality and Bony's estimates for the first inequality, and the embedding $W^{1+2\epsilon,\infty} \hookrightarrow B^{1+\epsilon}_{\infty,1}$ and Minkowksi inequality again for the second.
+% where we use $(W^{l,\infty})^*  \hookrightarrow B^{\mathfrak{s-1}}_{1, \infty}$ due to $l $ for the first inequality, since $\mathfrak{s} < 0$. Indeed, by Besov embedding we have $B_{p,1}^{1 + \frac{d}{p}} \hookrightarrow B^1_{\infty,1} \hookrightarrow W^{1,\infty}$, which implies 
+% \[
+% (W^{1,\infty})^* \hookrightarrow B^{-1-d/p}_{p^*,\infty} \hookrightarrow B^{\mathfrak{s-1}}_{1, \infty},
+% \]
+% for $p \in (1,\infty)$ large enough s.t. $\frac{d}{p} < -\mathfrak{s}$, since we are on the torus. 
+% The second inequality follows from the fact that
+% \[
+% W^{1,\infty} \times L^1 \ni (f,g) \mapsto (\nabla g) f \in (W^{1,\infty})^*
+% \]
+% is continuous, and the last follows from the joint Lipschitz assumption on $\mathfrak{A}$ and the embedding $W^{1,\infty} \hookrightarrow (B^{\mathfrak{s}}_{1, \infty})^*$, since $\mathfrak{s} > -1$.
+%A similar bound holds for $\mathfrak{B}$, while we can bound the last two terms by
+%\begin{align*}
+%    \big\| A(\psi)\nabla\mathfrak{m} + B(\psi)\mathfrak{m}\big\|_{L^{\mathfrak{p}_0}([0,t],B^{-1 + 2/\mathfrak{p}_0}_{1,\infty})} 
+%    & \leq C \|\mathfrak{m}\|_{L^{\mathfrak{p}_0}([0,t],B^{2/\mathfrak{p}_0}_{1,\infty})}\|A(\psi) + B(\psi)\|_{C([0,t],B^{1+\delta}_{\infty,\infty})}\\
+%    & \leq C\|\mathfrak{m}\|_{L^{\mathfrak{p}_0}([0,t],B^{ 2/\mathfrak{p}_0}_{1,\infty})}\|\psi\|_{B^{-3-\delta}_{1,1}},
+%\end{align*}
+%where we use $L^1 \hookrightarrow B^0_{1,\infty}$ again for the first inequality. We choose $\mathfrak{p} = \mathfrak{p}_3$ in (\ref{eq:heat_Lip_coeff}) and derive
+%\begin{align*}
+% \|\mathfrak{S}(J)\|_{L^{\mathfrak{p}_3}([0,t],B^{0}_{1,\infty})} &\leq  C\|\mathfrak{m}\|_{L^{\mathfrak{p}_0}([0,t],B^{2/\mathfrak{p}_0}_{1,\infty})}\|\mathfrak{A}\|_{C([0,t],W^{1+2\delta,\infty})}\|J\|_{L^{\mathfrak{p}_3}([0,t],B^{\mathfrak{-1-\delta}}_{1,\infty})}\\
+% &\leq  C\|\mathfrak{m}\|_{L^{\mathfrak{p}_0}([0,t],B^{2/\mathfrak{p}_0}_{1,\infty})}\|\mathfrak{B}\|_{C([0,t],W^{1+2\delta,\infty})}\|J\|_{L^{\mathfrak{p}_3}([0,t],B^{\mathfrak{-1-\delta}}_{1,\infty})}\\
+% & + C\|\mathfrak{m}\|_{L^{\mathfrak{p}_0}([0,t],B^{ 2/\mathfrak{p}_0}_{1,\infty})}\|\psi\|_{B^{-3-\delta}_{1,1}}, 
+%\end{align*}
+%which indicates that $\mathfrak{S}$ on $\mathfrak{X}^{\mathfrak{s}}$ is well-defined. On the other side, we get the exact same form as above due to linearity of the equation, if we take the difference of $\mathfrak{S}$ with different choices of $J$'s, except that the last two terms are cancelled, which gives a contraction on the time inteval $[0,t]$ for $t$ small enough. We can iterate the same argument until time $T$, since the initial data drop out again due to linearity. We can therefore just choose $\mathfrak{p}_3 = \infty$, since spatial regularity remains the same when we vary $\mathfrak{p}_3 $.
+\end{proof}
+
+The desired regularity estimate (\ref{eq:D2_mu_Law_VM}) now follows from the technical Lemma \ref{lem:duality} above.
+
+\begin{cor}\label{thm:reg_D_mu2F_m_mu} Under Assumptions \ref{assu:b_Sigma} and \ref{assu:F_ab}, we have
+\begin{equation}\label{eq:reg_D_mu2}
+\sup_{\mu \in L^1 \cap \mcl{P}} \sup_{t \in [0,T] } \Big\| D_{\mu}^2\Big\{\mathcal{F}[m_t^{\mu}]\Big\}\Big\|_{W^{2,\infty}} \lesssim \max_{k \leq 2}\sup_{\mu \in L^1 \cap \mcl{P}}\Big\|\frac{\delta^k \mcl{F}}{\delta \mu^k}  \Big\|_{W^{4,\infty}}.
+\end{equation}
+\end{cor}
+
+\begin{proof}
+It follows from the regularity estimates for the functionals defined in (\ref{eq:J1}), (\ref{eq:I1}) and (\ref{eq:I2}) in Lemma \ref{lem:duality} above that
+\begin{equation*}
+\Big|\Big\langle \frac{\delta^2}{\delta \mu^2}\Big\{\mathcal{F}[m_t^{\mu}]\Big\}, \psi\otimes \phi \Big\rangle\Big| \lesssim \max_{k \leq 2} \sup_{\mu \in \mcl{P}}\Big\|\frac{\delta^k \mcl{F}}{\delta \mu^k}  \Big\|_{W^{4,\infty}} \|\phi\|_{W^{-3,1}} \|\psi\|_{W^{-3,1}},
+\end{equation*}
+uniformly in $t \in [0,T]$. We have therefore
+\begin{equation}\label{eq:nabla^kdelta_mu2F_m^mu}
+\begin{split}
+\Big|\Big\langle \nabla_1^j \nabla_2^j \frac{\delta^2}{\delta \mu^2}\Big\{\mathcal{F}[m_t^{\mu}]\Big\}, \psi\otimes \phi \Big\rangle\Big| & = \Big|\Big\langle \frac{\delta^2}{\delta \mu^2}\Big\{\mathcal{F}[m^{\mu}]\Big\},  \nabla^j\psi\otimes  \nabla^j\phi \Big\rangle\Big| \\
+& \lesssim\max_{k \leq 2} \sup_{\mu \in \mcl{P}}\Big\|\frac{\delta^k \mcl{F}}{\delta \mu^k}\Big\|\|\psi\|_{L^1} \|\phi\|_{L^1},
+\end{split}
+\end{equation}
+for $1 \leq j \leq 3$, where the differentiation $\nabla_1$ falls on the first variable in $\mathbb{T}^d\times \mathbb{T}^d$ corresponding to $\psi$ and $\nabla_2$ on the second. In the above inequality, we used that $\nabla^j:L^1\to W^{-3,1}$ is continuous for $j\leq3$, since $L^1 \subset (L^{\infty})^{\ast}$. We now claim that (\ref{eq:nabla^kdelta_mu2F_m^mu}) implies that the distributional derivatives of $\frac{\delta^2}{\delta \mu^2}\{\mathcal{F}[m_t^{\mu}]\}$ are in $L^{\infty}(\mathbb{T}^{2d})$.\\
+
+Indeed, we use that (\ref{eq:nabla^kdelta_mu2F_m^mu}) holds for generic $\phi, \psi \in C^{\infty}(\mathbb{T}^d)$ without mean-zero condition since $j \geq 1$. Therefore, we obtain for every fixed $\psi \in L^1$
+\begin{align*}
+   \Big\|\nabla_1^j \nabla_2^j \frac{\delta^2}{\delta \mu^2}\Big\{\mathcal{F}[m^{\mu}]\Big\}(\psi, \cdot)\Big\|_{L^\infty} &\lesssim \sup_{\|\phi\|_{L^1} \le 1} \Big|\nabla_1^j \nabla_2^j \frac{\delta^2}{\delta \mu^2}\Big\{\mathcal{F}[m^{\mu}]\Big\}(\psi, \phi)\Big| \\
+   & \leq \max_{k \leq 2} \sup_{\mu \in \mcl{P}}\Big\|\frac{\delta^k \mcl{F}}{\delta \mu^k}\Big\| \|\psi\|_{L^1}.
+\end{align*}
+Since the closed unit ball
+$B_{L^1}(1) := \{f \in L^1(\mathbb{T}^d): \|f\|_{L^1} \leq 1\}$ is separable, we can find a dense countable family $\{\psi_i\}_{i \geq 0} \subset B_{L^1}(1)$ such that 
+\[
+\sup_{i \geq 0}|\langle\psi_i,g\rangle| = \sup_{\|\psi\|_{L^1}\leq 1}|\langle\psi,g\rangle| = \|g\|_{L^{\infty}},
+\]
+for any $g \in L^{\infty}$, which then implies that for a.e. $y \in \mathbb{T}^d$, 
+\[
+ \sup_{i \geq 0} \Big|\nabla_1^j \nabla_2^j \frac{\delta^2}{\delta \mu^2}\Big\{\mathcal{F}[m^{\mu}]\Big\}(\psi_i, y)\Big| \lesssim\max_{k \leq 2} \sup_{\mu \in \mcl{P}}\Big\|\frac{\delta^k \mcl{F}}{\delta \mu^k}\Big\|.
+\]
+The claim then follows by duality.
+\end{proof}
+
+\subsection{Proof of the Main Theorem}
+%For brevity, we use $\mathbf{E}$ to denote with a slight abuse of notation the expectation in both probability spaces where $\rho^{N}$ and $m^{N,\epsilon}$ live.
+The main Theorem of this paper is now stated as follows:
+
+\begin{thm}\label{thm:main_weak_error}We assume that the initial data to (\ref{eq:DK_reg}) is prepared as in (\ref{sec:ini_data}), and that Assumptions \ref{assu:cov}, \ref{assu:b_Sigma} and \ref{assu:F_ab} together with the stochastic-parabolicity condition (\ref{eq:coercivtiy_condition}) are in force. We have the following weak error  estimate for the approximation of the interacting particle system (\ref{eq:main_particle}) by the Dean-Kawasaki equation (\ref{eq:DK_reg}), which holds uniformly in $t \in [0,T]$: 
+\begin{equation}\label{eq:main_error}
+     \Big|\mathbf{E}\mcl{F}[\rho^N_t] - \mathbf{E}\mcl{F}[m_t^{N,\epsilon}]\Big| \lesssim_T \epsilon + \frac{\delta_N}{N} + \frac{\log(\epsilon^{-1})}{NL_N^2},
+\end{equation}
+where the implicit constant does not depend on $N$ and $\epsilon$. 
+\end{thm}
+\begin{proof}
+For given $\mcl{F}$ as specified in the statement and $t \in (0,T)$  fixed, we denote $\mcl{G}^{\mcl{F},t} := \mcl{G}^{\mcl{F},t}_s[\mu]$ as the unique classical solution to the backward equation
+\begin{equation}\label{eq:G^F_equation}
+\begin{cases}\displaystyle
+0 = \partial_s \mcl{G}^{\mcl{F},t}(s,\mu) + \int_{\mathbb{T}^d} \Big\{a[\mu](x) :\nabla D_{\mu}\mcl{G}^{\mcl{F},t}(s,\mu,x)\\ \qquad\qquad\qquad\qquad\qquad\qquad + b[\mu](x)\cdot D_{\mu}\mcl{G}^{\mcl{F},t}(s,\mu,x)\Big\}\mathrm{d}\mu(x),\\
+\mcl{G}^{\mcl{F},t}(t,\mu) = \mcl{F}[\mu],
+\end{cases}
+\end{equation}
+for $s \in [0,t]$. By It\^o's formula Proposition \ref{prop:ito_particle} and using the notation $\mathcal V_{\mathcal G}$ from~\eqref{eq:def_VF}, we have
+\begin{align*}
+& \ \mcl{G}^{\mcl{F},t}(t,\rho_t^N) - \mcl{G}^{\mcl{F},t}(0,\rho^N_0) =  \int_0^t\partial_s \mcl{G}^{\mcl{F},t}(s,\rho_s^N)\mathrm{d}s \\
+& + \int_0^t\int_{\mathbb{T}^d} \Big\{a[\rho_s^N](x) :\nabla D_{\mu}\mcl{G}^{\mcl{F},t}(s,\rho_s^N,x) + b[\rho_s^N](x)\cdot D_{\mu}\mcl{G}^{\mcl{F},t}(s,\rho_s^N,x)\Big\}\mathrm{d}\rho_s^N(x)\mathrm{d}s\\
+ & + \frac{1}{N}\int_0^t \Big\{\int_{\mathbb{T}^d} a[\rho_s^N](x):\Big(\int_{\mathbb{T}^d} D^2_{\mu}\mcl{G}^{\mcl{F},t}_s(\rho_s^N, x, y)\delta_x(\mathrm{d}y)\Big) d\rho^N_s(x)\Big\}\mathrm{d}s  +  M^{N,\mcl{F}}_t\\
+ & = \frac{1}{N}\int_0^t \mcl{V}_{\mcl{G}^{\mcl{F},t}_s}[\rho^N_s]\mathrm{d}s  +  M^{N,\mcl{F}}_t,
+\end{align*}
+where $M^{N,\mcl{F}}$ is a martingale. Together with the It\^o formula for $m^{N,\epsilon}$ from Proposition \ref{prop:ito_spde_DK}, this leads to
+\begin{equation}\label{eq:kol_1}
+\begin{split}
+\mathbf{E}\mcl{F}[\rho_t^N] = \mathbf{E}\mcl{G}^{\mcl{F},t}(t,\rho_t^N) & = \frac{1}{N}\int_0^t\mathbf{E}\mcl{V}_{\mcl{G}^{\mcl{F},t}_s}[\rho^N_s]\mathrm{d}s + \mathbf{E}\mcl{G}^{\mcl{F},t}(0,\rho^N_0),\\
+   \mathbf{E}\mcl{F}[m_t^{N,\epsilon}] = \mathbf{E}\mcl{G}^{\mcl{F},t}(t,m_t^{N,\epsilon})  & = \frac{1}{N}\int_0^t\mathbf{E}\mcl{V}^N_{\mcl{G}^{\mcl{F},t}_s}[m_s^{N,\epsilon}]\mathrm{d}s + \mathbf{E}\mcl{G}^{\mcl{F},t}(0,m_0^{N,\epsilon}). 
+\end{split}
+\end{equation}
+At this stage we just replace $\mcl{V}^N_{\mcl{G}^{\mcl{F},t}_s}[\cdot]$ by $\mcl{V}_{\mcl{G}^{\mcl{F},t}_s}[\cdot]$ and bound the difference by Lemma \ref{lem:approximation_quadratic_variation}. We further denote $\mcl{G}^{\mcl{V},s} = \mcl{G}^{\mcl{V},s}_{\tau}[\mu]$, with $\tau \in [0,s]$ and $\mu \in \mcl{P}(\mathbb{T}^d)$, as the classical solution to the Kolmogorov equation
+\begin{align*}
+0 = \partial_{\tau} \mcl{G}^{\mcl{V},s}(\tau,\mu) + \int_{\mathbb{T}^d} \Big\{&a[\mu](x):\nabla D_{\mu}\mcl{G}^{\mcl{V},s}(\tau,\mu,x)\\
+& + b(\mu,x)\cdot D_{\mu}\mcl{G}^{\mcl{V},s}(\tau,\mu,x)\Big\}\mathrm{d}\mu(x), \quad \tau \in [0,s],
+\end{align*}
+with terminal data 
+\[
+\mcl{G}^{\mcl{V},s}(s,\mu) = \mcl{V}_{\mcl{G}^{\mcl{F}}_s}[\mu],
+\]
+which exists and is unique thanks to Proposition \ref{prop:sol_kolmogorov} and the regularity of $\mcl{V}_{\mcl{G}^{\mcl{F}}_s}$ provided in Lemma \ref{lem:reg_VF_VFNM} below. Using once more It\^o's formula for the SPDE and the particle system, we have
+\begin{equation}\label{eq:kol_2}
+\begin{split}
+    & \quad \ \ \mathbf{E}\mcl{V}_{\mcl{G}^{\mcl{F}}_s}[\rho_{s}^N] - \mcl{G}^{\mcl{V},s}(0,\rho^N_0) = \mathbf{E}\mcl{G}^{\mcl{V},s}(s,\rho_{s}^N) - \mcl{G}^{\mcl{V},s}(0,\rho^N_0)\\
+    & = \frac1N \mathbf{E} \int_0^s \mcl{V}_{\mcl{G}^{\mcl{V},s}_\tau}[\rho^N_\tau]\mathrm{d}\tau%\\
+    %& = \frac{1}{N}\mathbf{E}\int_0^{s} \int_{\mathbb{T}^d} a[\rho_{\tau}^N](x) : (D^2_{\mu} \mcl{G}_{\tau}^{\mcl{V},s})(\rho_{\tau}^N, x, x)\mathrm{d}\rho^N_{\tau}(x)\mathrm{d}\tau,
+\end{split}
+\end{equation}
+ and 
+ \begin{equation}\label{eq:kol_3}
+ \begin{split}
+   & \quad \ \ \mathbf{E}\mcl{V}_{\mcl{G}^{\mcl{F}}_s}[m_s^{N,\epsilon}] - \mcl{G}^{\mcl{V},s}(0,\rho^N_0) = \mathbf{E}\mcl{G}^{\mcl{V},s}(s,m_s^{N,\epsilon}) - \mcl{G}^{\mcl{V},s}(0,m_0^{N,\epsilon}) \\
+    & = \frac{1}{N} \mathbf{E}\int_0^{s} \sum_{k \in \mathbb{Z}^d}|\theta^N_k|^2 \mathscr{F}\big(D^2_{\mu}\mcl{G}_{\tau}^{\mcl{V},s}[m_{\tau}^{N,\epsilon}] : \Lambda^{N,\epsilon}_{\tau}\big)(k,-k)\mathrm{d}\tau\\
+   & = \frac1N \mathbf{E} \int_0^s \mcl{V}^N_{\mcl{G}^{\mcl{V},s}_\tau}[m^{N,\epsilon}_\tau]\mathrm{d}\tau,
+    \end{split}
+\end{equation}
+where we abbreviate 
+\[
+\Lambda_{\tau}^{N,\epsilon}(x,y) := \big(\Sigma[m_{\tau}^{N,\epsilon}](x)f^N(m_{\tau}^{N,\epsilon})(x)\big)\cdot \big(\Sigma^{\transpose}[m_{\tau}^{N,\epsilon}](y)f^N(m_{\tau}^{N,\epsilon})(y)\big). 
+\]
+Due to the form of $\mcl{V}^N_{\mcl{G}^{\mcl{V},s}_\tau}[m^{N,\epsilon}_\tau]$ and $\mcl{V}^N_{\mcl{G}^{\mcl{V},s}_\tau}[m^{N,\epsilon}_\tau]$, the differences in (\ref{eq:kol_2}) and (\ref{eq:kol_3}) are bounded by
+\begin{align*}
+\big|\mathbf{E}\mcl{G}^{\mcl{V},s}(s,\rho_{s}^N) - \mcl{G}^{\mcl{V},s}(0,\rho^N_0)\big| & \lesssim \frac{s}{N} \sup_{\tau \in [0,s]}\sup_{\mu \in \mcl{P}} \big\|D^2_{\mu}\mcl{G}^{\mcl{V},s}_{\tau}[\mu]\big\|_{L^{\infty}},
+\end{align*}
+and (brutally)
+\begin{align*}
+\big|\mathbf{E}\mcl{G}^{\mcl{V},s}(s,m_s^{N,\epsilon}) - \mcl{G}^{\mcl{V},s}(0,m_0^{N,\epsilon})\big| & \leq \frac{s\|\theta^N\|^2_{\ell^2}}{N} \sup_{\tau \in [0,s]}\Big \|D^2_{\mu}\mcl{G}^{\mcl{V},s}[m_{\tau}^{N,\epsilon}] : \Lambda^{N,\epsilon}_{\tau} \Big\|_{L^1}\\
+& \lesssim \frac{s\|\theta^N\|^2_{\ell^2}}{N}\sup_{\tau \in [0,s]}\sup_{\mu \in \mcl{P}} \big\|D^2_{\mu}\mcl{G}_{\tau}^{\mcl{V},s}[\mu]\big\|_{L^{\infty}}, 
+\end{align*}
+for any $s \in [0,t]$, where the constants depend only on $\Sigma[\cdot]$, since 
+\[
+\|f^N(m^{N,\epsilon})\|_{L^2} \leq \|m^{N,\epsilon}\|^{\frac{1}{2}}_{L^1} \leq 1
+\]
+due to (\ref{eq:approx_square_root}) and the conservation of mass. Combining these bounds with (\ref{eq:kol_1}), (\ref{eq:kol_2}) and (\ref{eq:kol_3}), we have for $t  \in [0,T]$ 
+\begin{equation}\label{eq:split_weak_error}
+\begin{split}
+    \Big|\mathbf{E}\mcl{F}[\rho^N_t] - \mathbf{E}\mcl{F}[m_t^{N,\epsilon}]\Big| = \Big|\mathbf{E}\mcl{G}^{\mcl{F},t}(t,\rho^N_t) - \mathbf{E}\mcl{G}^{\mcl{F},t}(t,m_t^{N,\epsilon})\Big|\\
+    \lesssim \Big|\mcl{G}^{\mcl{F}}(0,\rho^N_0) - \mcl{G}^{\mcl{F}}(0,m_0^{N,\epsilon})\Big|\\
+    + \frac{1}{N}\int_0^t \big|\mcl{G}^{\mcl{V},s}(0,m_0^{N,\epsilon}) - \mcl{G}^{\mcl{V},s}(0,\rho^N_0)\big| \mathrm{d}s\\
+    + \frac{1}{N}\Big|\int_0^t \mathbf{E}\mcl{V}^N_{\mcl{G}_s^{\mcl{F}}}[m_s^{N,\epsilon}] - \mathbf{E}\mcl{V}_{\mcl{G}_s^{\mcl{F}}}[m_s^{N,\epsilon}]\mathrm{d}s\Big|\\
+    + \frac{t^2}{N^2}\big(1 + \|\theta^N\|^2_{\ell^2}\big)\sup_{s \in [0,t]}\sup_{\tau \in [0,s]}\sup_{\mu \in \mcl{P}} \big\|D^2_{\mu}\mcl{G}_{\tau}^{\mcl{V},s}[\mu]\big\|_{L^{\infty}}.
+    \end{split}
+\end{equation}
+For the first two terms, we deduce from the Lipschitz estimate (\ref{eq:lip_G_0}) with respect to the $\mcl{W}_2$ distance of the solution to the Kolmogorov equation that 
+\begin{align*}
+    \big|\mcl{G}^{\mcl{F}}(0,\rho^N_0) - \mcl{G}^{\mcl{F}}(0,m_0^{N,\epsilon})\big| \leq \|\mcl{G}^{\mcl{F}}_0\|_{\lip} \mcl{W}_{2}\big(\rho^N_0, m_0^{N,\epsilon}\big) \lesssim \|\mcl{F}\|_{\lip}\epsilon,
+\end{align*}
+where the constant relies on the coefficients of the SDE (\ref{eq:V_SDE}) but not on $\mcl{F}[\cdot]$.
+Similarly, since $\mcl{G}^{\mcl{V},s}$ is the solution to the Kolmogorov equation of the McKean–Vlasov system with terminal condition $\mcl{G}_s^{\mcl{V},s}[\mu] = \mcl{V}_{\mcl{G}_s^{\mathcal{F}}}[\mu]$, 
+\begin{align*}
+    \big|\mcl{G}^{\mcl{V},s}(0,\rho^N_0) - \mcl{G}^{\mcl{V},s}(0,m_0^{N,\epsilon})\big| \leq \|\mcl{G}^{\mcl{V},s}_0\|_{\lip} \mcl{W}_{2}\big(\rho^N_0, m_0^{N,\epsilon}\big) \lesssim \epsilon\|\mcl{G}^{\mcl{V},s}_0\|_{\lip},
+\end{align*}
+which we can further bound by 
+\begin{align*}
+    ... \lesssim \epsilon\|\mcl{G}^{\mcl{V},s}_0\|_{\lip} \lesssim \epsilon\|\mcl{V}_{\mcl{G}_s^{\mathcal{F},t}}\|_{\lip} \lesssim \epsilon \|D^2_{\mu}\mcl{G}_s^{\mathcal{F},t}\|_{\lip}\lesssim \epsilon \|D^2_{\mu}\mathcal{F}\|_{\lip},
+\end{align*}
+with an implicit constant that is independent of $\mcl{F}[\cdot]$, where the first inequality is due to the stability estimate (\ref{eq:lip_G_0}), the second due to (\ref{eq:Lip_V_F_on_mu}).
+% For the last two terms, we have
+% \begin{align*}
+% D^2_{\mu}\mcl{V}_{\mcl{F}}(\mu, x, y) & = \int_{\mathbb{T}^d} \tr_z\Big(D_{\mu}^4\mcl{F}(\mu,z,z,x,y)\Big)d\mu(x) + \nabla_y\tr_y\Big(D_{\mu}^3\mcl{F}(y,y,x)\Big)\\
+% & +  \nabla_x\nabla_y \tr_x\Big(D_{\mu}^3\mcl{F}(\mu,x,x,y)\Big),
+% \end{align*}
+% which gives 
+% \begin{equation}
+%     \sup_{\substack{x,y \in \mathbb{T}^d\\ \mu \in \mcl{P}}} \big|D^2_{\mu}\mcl{V}_{\mcl{F}}(\mu, x, y)\Big| < \infty, 
+% \end{equation}
+% since $\mcl{F}$ is smooth, while by the calculation we did below (\ref{eq:deltaVNzeta}), we have for each fixed $N \in \mathbb{N}$,  
+% \begin{equation}
+%     \sup_{\substack{x,y \in \mathbb{T}^d\\ \mu \in \mcl{P}, \zeta > 0}} \big|D^2_{\mu}\mcl{V}^{N,\zeta}_{\mcl{F}}(\mu, x, y)\Big| < \infty, 
+% \end{equation}
+% When we pass $\zeta$ to zero, the third term vanishes due to (\ref{eq:approx_in_unif}) and Dominated Convergence Theorem, which is valid, since we know that $\|m_s^{N,\epsilon}\|_{L^1} = \|m_s^{N,\epsilon,\zeta}\|_{L^1} \equiv 1$ for any $s \in [0,t]$ and
+% \begin{align*}
+%     \big|\mcl{V}^{N,\zeta}_{\mcl{F}}[\mu]\big| \leq \|\theta^N\|_{\ell^2}^2 \|f^N(\mu)\|_{L^1}^2\|R_{\mu}\|_{L^{\infty}} \leq C(\mcl{F},C_{\Sigma})\|\theta^N\|_{\ell^2}^2 \|\mu\|_{L^1}^2. 
+% \end{align*}
+% $R_{\mu}$ is again given by (\ref{eq:D2FSigmaSigma}). We're now left to bound the second term on the right, which is deterministic. It suffices to use the fact that the solution of the Kolmogorov equation is given by characteristic lines:
+% \begin{align*}
+%      \frac{1}{N}\int_0^t \big|\mcl{G}^{N,\zeta}_{\mcl{V},s}(0,m_0^{N,\epsilon}) - \mcl{G}_{\mcl{V},s}(0,\rho^N_0)\big| ds & \leq \frac{1}{N}\int_0^t \big|\mcl{G}^{N,\zeta}_{\mcl{V},s}(0,m_0^{N,\epsilon}) - \mcl{G}_{\mcl{V},s}(0,m_0^{N,\epsilon})\big| ds\\
+%      & + \frac{1}{N}\int_0^t \big|\mcl{G}_{\mcl{V},s}(0,\rho^N_0) - \mcl{G}_{\mcl{V},s}(0,m_0^{N,\epsilon})\big| ds\\
+%      & \leq \frac{1}{N}\int_0^t \big|\mcl{V}^{N,\zeta}_{\mcl{F}}(\mcl{L}(X_s^{0, m_0^{N,\epsilon}})) - \mcl{V}_{\mcl{F}}(\mcl{L}(X_s^{0, m_0^{N,\epsilon}})) \big| ds\\
+%      & + \frac{t}{N} \sup_{s \in [0,t]} \|\mcl{G}_{\mcl{V},s}(0,\cdot)\|_{\lip} \mcl{W}_2(\rho^N_0, m^{N,\epsilon}_0),
+% \end{align*}
+% where we just use the Lipschitz continuity of the solutions (whose coefficient is finite and is only dependent on $t$ and $\mcl{F}$) and the exact notion of solutions for the last inequality. For the first term, we can now exploit the bound (\ref{eq:W_initial}) for the initial data. We denote then 
+% $$
+% u_s^{N,\epsilon} := \mcl{L}(X_s^{0, m_0^{N,\epsilon}}), \quad u_s^{N,\epsilon,\zeta} := u_s^{N,\epsilon} \ast \rho_{\zeta},
+% $$
+% and plug the definition of $\mcl{V}^{N,\zeta}_{\mcl{F}}$ back into the formula. After applying the bound we had in (\ref{eq:apprximation of V_F}) and (\ref{eq:approx_in_unif}), we have
+% \begin{align*}
+%      \frac{1}{N}\int_0^t \big| \mcl{V}^{N,\zeta}_{\mcl{F}}(u_s^{N,\epsilon}) - \mcl{V}_{\mcl{F}}(u_s^{N,\epsilon}) \big| ds \leq &\ \frac{1}{N}\int_0^t \big| \mcl{V}^{N}_{\mcl{F}}(u_s^{N,\epsilon}) - \mcl{V}_{\mcl{F}}(u_s^{N,\epsilon}) \big| ds\\
+%     + &\ \frac{1}{N}\int_0^t \big| \mcl{V}^{N}_{\mcl{F}}(u_s^{N,\epsilon,\zeta}) - \mcl{V}^N_{\mcl{F}}(u_s^{N,\epsilon}) \big| ds\\ 
+%     \leq &\ \frac{C}{N}\delta_N + \frac{C}{N}\sup_{k \neq 0} \Big(\frac{1 - |\theta_k^N|^2}{|k|^2}\Big)\int_{0}^t\big(1 + \int_{\mathbb{T}^d}\frac{|\nabla u_s^{N,\epsilon}|^2}{u_s^{N,\epsilon,\zeta}}\big)ds\\
+%     + & \ \frac{C}{N}\Big[\|u_s^{N,\epsilon} - u_s^{N,\epsilon,\zeta}\|_{L^1} + \mcl{W}_2(u_s^{N,\epsilon}, u_s^{N,\epsilon,\zeta}) \Big]
+% \end{align*}
+% where $C = C(\mcl{F},t,C_{\Sigma},d)$ is independent of $N$. Now we let $\zeta \to 0$, and notice that we can use the classical entropy estimation (postponed to the Appendix, Lemma \ref{lem:energy_appendix}) for the $L^2$ norm of the divergence of square root ($\rho$ is the convolution kernel) that
+% $$
+% \int_0^t\int_{\mathbb{T}^d}\frac{|\nabla u_s^{N,\epsilon}|^2}{u_s^{N,\epsilon}}ds \leq C(d,t)\big[\log(\epsilon^{-1}) + \log(\|\rho\|_{L^{\infty}})\big],
+% $$
+% since we also have the entropy bound (\ref{eq:entropy_initial}) for the initial data and that $(u^{N,\epsilon}_s)_{s \in [0,t]}$ solves
+% \begin{equation}\label{eq:Fokker-Planck}
+% \begin{cases}
+%     \partial_t u = a[u] :\nabla^2 u + \nabla \cdot \big(b[u] u\big),\\
+%     u(0) = m_0^{N,\epsilon}.
+% \end{cases}
+% \end{equation}
+The last term in (\ref{eq:split_weak_error}) is simply bounded by 
+\begin{align*}
+   & \frac{t^2}{N^2}\big(1 + \|\theta^N\|^2_{\ell^2}\big)\sup_{s \in [0,t]}\sup_{\tau \in [0,s]}\sup_{\mu \in \mcl{P}} \big\|D^2_{\mu}\mcl{G}_{\tau}^{\mcl{V},s}[\mu]\big\|_{L^{\infty}} \\
+    & \lesssim \frac{t^2}{N^2}\big(1 + \|\theta^N\|^2_{\ell^2}\big) \max_{k \leq 4} \sup_{\mu \in \mathcal P} \|D^k_{\mu}\mathcal{F}\|_{L^\infty}.
+\end{align*}
+\NP{Clarify the order of the $L^2$ norm on the RHS and absorb this in the other terms if possible.}
+
+Finally, we can bound the third term in (\ref{eq:split_weak_error}), i.e. the cost of the replacement of quadratic variation, according to Lemma \ref{lem:approximation_quadratic_variation} by
+\begin{equation}\label{eq:main-pr1}
+\begin{split}
+     &\quad \Big|\int_0^t \mathbf{E}\big[\mcl{V}^N_{\mcl{G}_s^{\mcl{F},t}}(m_s^{N,\epsilon}) - \mcl{V}_{\mcl{G}_s^{\mcl{F},t}}(m_s^{N,\epsilon})\big]\mathrm{d}s\Big|\\
+     &\lesssim t\sup_{\substack{\mu \in \mcl{P} \cap L^1\\s \in [0,t]}}\Big(\big\|D^2_{\mu}\mcl{G}^{\mcl{F},t}_s[\mu]\big\|_{W^{2,\infty}}\Big)\Big[\delta_N + L_N^{-2}\Big(1 + \mathbf{E}\int_0^t\int_{\mathbb{T}^d}\frac{|\nabla m_s^{N,\epsilon}|^2}{m_s^{N,\epsilon}}\mathrm{d}s\Big)\Big].
+\end{split}
+\end{equation}
+% We emphasize that, although functionals $\mcl{V}^N[\cdot]$ are only defined on the space of probability measures with $L^2$ densities, there is no ambiguity at all to evaluate 
+% \[
+% m_s^{N,\epsilon} \mapsto \mcl{V}^N_{\mcl{G}_s^{\mcl{F},t}}[m_s^{N,\epsilon}]
+% \]
+% with any $s \in [0,t]$ thanks to the notion of solutions we use in Corollary \ref{thm:main_thm_1_full}, and we 
+Recall from Proposition \ref{prop:sol_kolmogorov} that the infinite-dimensional transport equation is solved by the method of characteristics, i.e.
+\[
+D^2_{\mu} \mcl{G}^{\mcl{F},t}_s[\mu] = D^2_{\mu} \Big\{\mcl{F}[m^{\mu}_{t-s}]\Big\}, \quad s \in [0,t].
+\]
+From the regularity estimate (\ref{eq:reg_D_mu2}) in Corollary \ref{thm:reg_D_mu2F_m_mu}, we thus obtain
+\begin{align*}
+    \sup_{s \in [0,t]}\Big\|D^2_{\mu} \mcl{G}^{\mcl{F}}_s[\mu]\Big\|_{W^{2,\infty}} \lesssim  1.
+\end{align*}
+Together with the entropy bound (\ref{eq:entropy_m^Nepsilon}) and $\|(k\theta_k^N)\|_{\ell^2}^2 \lesssim L_N^2$, we can bound the right hand side of~\eqref{eq:main-pr1} by $t [\delta_N + L_N^{-2} \log\big(\frac1\epsilon\big) + \frac{1}{N}]$. By the parabolicity condition (\ref{eq:coercivtiy_condition}), the term $\frac1N$ is of lower order, and thus we have finished the proof of the main theorem.
+\end{proof}
+
+\begin{rem}Optimizing (\ref{eq:main_error}) in $\epsilon, \delta_N, L_N$ subject to the constraint given by the parabolicity condition (\ref{eq:coercivtiy_condition}) leads to the choice 
+\begin{equation}
+   \varepsilon \sim N^{-2}, \quad \delta_N \sim N^{-\frac{1}{1+d/2}},\quad L_N \sim \delta^{-\frac{1}{2}}_N,
+\end{equation}
+for which we obtain an error of order $N^{-1- 2/(d+2)}\log N$. We have therefore recovered the same rate for the case of smooth mean-field interactions as the one derived for independent Brownian motions in \cite{DKP23}.
+\end{rem}
+The following Lemma has been used in the proof of the main Theorem~\ref{thm:main_weak_error}. The proof is quite straightforward, so we also omit it for brevity.
+
+\begin{lem}\label{lem:reg_VF_VFNM}We assume that the test function $\mcl{F}[\cdot]$ and the coefficients $b[\cdot]$ and $a[\cdot]$ have Lipschitz interior derivatives up to the fourth order in the sense of (\ref{eq:def_wasser_deriv}). Then $\mcl{V}_{\mcl{G}_s^{\mcl{F}}}[\cdot]$ which is defined through (\ref{eq:def_VF}) and the equation (\ref{eq:G^F_equation}), also has Lipschitz interior derivatives up to second order, and
+\begin{equation}\label{eq:unif_bound_V_F}
+    \sup_{s \in [0,t]}\sup_{\substack{x,y \in \mathbb{T}^d\\ \mu \in \mcl{P}(\mathbb{T}^d)}} \big|D^2_{\mu}\mcl{V}_{\mcl{G}_s^{\mcl{F}}}(\mu, x, y)\Big| < \infty. 
+\end{equation}
+\end{lem}
+
+In other words, for any $s \in [0,t]$, we can choose $\mcl{V}_{\mcl{G}_s^{\mcl{F}}}$ as a terminal condition for the transport equation (\ref{eq:master}). 
+
+
+\section{Linearization of McKean–Vlasov SDEs}\label{sec:append_lin} In this section we outline the formal derivation of the linearized equation of the McKean–Vlasov
+SDEs (\ref{eq:V_SDE}) which is essentially due to the seminal works \cite{BLPC17} and \cite{CDLL19}. Firstly, we have the following chain rule due to the high regularity we assume on the functionals in concern:
+\begin{equation}\label{eq:variation_mu_solution_first}
+\frac{\delta}{\delta \mu} \Big\{\mcl{F}[m_t^{\mu}]\Big\}(y) \overset{(\ref{eq:direc_normal})}{=} \Big\langle \frac{\delta}{\delta \mu} \Big\{\mcl{F}[m_t^{\mu}]\Big\}, \delta_y - \mu\Big\rangle = \Big\langle \delta_{\mu,y} m_t^{\mu}, \frac{\delta \mcl{F}}{\delta \mu}[m_t^{\mu}] \Big\rangle,
+\end{equation}
+for $t \in [0,T]$ as a special case of Theorem 2.6 in \cite{T21} due to the normalization rule. We denote formally $\delta_{\mu,y} m^{\mu}(\cdot)$ (respectively the second-order derivative $\delta^2_{\mu,y,z} m^{\mu}(\cdot)$ defined below) as the linearization (infinitesimal perturbation) of $m^{\mu}$ in the direction of $\delta_y$ (respectively in the direction of $\delta_y  \otimes \delta_z$ for the second-order derivative), that is 
+\begin{equation}\label{eq:def-delta-mu,y}
+\delta_{\mu,\nu}m_t^{\mu} = \int_{\mathbb{T}^d} (\delta_{\mu,y} m_t^{\mu}) (\nu - \mu)(\mathrm{d}y) = \lim_{\epsilon \to 0+} \frac{1}{\epsilon} \big(m_t^{\mu + \epsilon (\nu - \mu)} - m_t^{\mu}\big)
+\end{equation}
+in the space of tempered distributions\footnote{Rigorously speaking, one needs to define $\delta_{\mu,\nu}m^{\mu}$ as the solution to the corresponding linearized PDEs and then proves the limit in (\ref{eq:def-delta-mu,y}), as is done in Theorem 2.6 in \cite{T21}.}. By chain rule again, we have the following second-order linearization assuming sufficient regularity on each term:
+\begin{equation}\label{eq:variation_mu_solution_second}
+\begin{split}
+\frac{\delta^2}{\delta \mu^2} \Big\{\mcl{F}[m_t^{\mu}]\Big\}(\mu, y,z) & = \Big \langle \delta^2_{\mu,y,z} m_t^{\mu}, \frac{\delta \mcl{F}}{\delta \mu}[m_t^{\mu}]  \Big\rangle\\
+ & + \int_{\mathbb{T}^{2d}}  \frac{\delta^2 \mcl{F}}{\delta \mu^2}[m_t^{\mu}](u,w) \delta_{\mu,y} m_t^{\mu}(\mathrm{d}u)  \delta_{\mu,z} m_t^{\mu}(\mathrm{d}w).
+\end{split}
+\end{equation}
+\begin{rem}
+The equation (\ref{eq:def-delta-mu,y}) above is just the equation (1.12) in \cite{T21}, and $\delta_{\mu,\nu} m^{\mu}$ is considered as the distributional solution to a linearised forward Kolmogorov equation, that is the equation (1.14) in \cite{T21}. We emphasize, however, that to rigorously establish (\ref{eq:variation_mu_solution_first}), we need to prove first that $\mu \mapsto \mcl{F}[m_t^{\mu}]$ is indeed differentiable in the sense of (\ref{eq:def_exterior_deriv}). This is where the decoupling argument in \cite{BLPC17} comes into play. 
+
+We denote therefore $\Phi_{\mu,\gamma}(t) := P^{\mu}_{0,t} (\gamma)$ for $\gamma \in \mcl{P}(\mathbb{T}^d)$ with the evolution system defined in (\ref{eq:decouple_KOL}) to be the solution to the forward Kolmogorov equation corresponding to the decoupled SDE
+\begin{equation}\label{eq:SDE_decouple}
+\begin{cases}\displaystyle
+\mathrm{d}X^{\gamma,\mu}_s = b(m^{\mu}_s,X^{\gamma,\mu}_s)\mathrm{d}s + \sqrt{2}\Sigma(m^{\mu}_s, X^{\gamma,\mu}_s) \cdot \mathrm{d}B_s, \quad s \in [0,T],\\
+\mcl{L}(X^{\gamma,\mu}_0) = \gamma.
+\end{cases}
+\end{equation} 
+It follows that for any $\xi \in C(\mathbb{T}^d)$, we have
+\begin{align*}
+    \int_{\mathbb{T}^d}\xi(x) m_t^{\mu}(x)\mathrm{d}x = \mathbf{E}[\xi(X^{\mu}_t)]=\int_{\mathbb{T}^d} \mathbf{E}[\xi(X^{\delta_x,\mu}_t)]\mathrm{d}\mu(x)\\=\int_{\mathbb{T}^d} (P^{\mu}_{0,t})^{\ast}\xi(x)\mathrm{d}\mu(x),
+\end{align*}
+where $t \mapsto (P^{\mu}_{0,t})^{\ast}$ denotes the backward flow of the decoupled equation. This indicates that 
+\begin{equation}\label{eq:linearization-xi-m-mu}
+    \begin{split}
+    \frac{\mathrm{d}}{\mathrm{d}\varepsilon}\Big|_{\varepsilon = 0^+}\int_{\mathbb{T}^d}\xi(x) m_t^{\mu+\varepsilon(\nu - \mu)}\mathrm{d}x 
+    =\int_{\mathbb{T}^d} (P^{\mu}_{0,t})^{\ast}\xi(x)\mathrm{d}(\nu - \mu)(x)\\
+    + \int_{\mathbb{T}^d} \frac{\mathrm{d}}{\mathrm{d\varepsilon}}\Big|_{\varepsilon = 0^+}(P^{\mu+\varepsilon(\nu - \mu)}_{0,t})^{\ast}\xi(x)\mathrm{d}\mu(x).
+    \end{split}
+\end{equation}
+The second term on the R.H.S. i.e. the linearization of the backward flow can also be expressed in terms of the signed measure $\nu - \mu$ as desired from (\ref{eq:def_exterior_deriv}), so one can effectively prove the differentiability of the flow of the McKean-Vlasov equation. We refer the readers to Theorem 2.6. in \cite{T21} for the complete proof. 
+\end{rem}
+
+We now focus on the PDE side of the dynamics. According to the uniqueness (in law) of the McKean–Vlasov system, we have the equality $m^{\mu} = \Phi_{\mu,\mu}$, which implies the chain rules 
+\begin{equation}\label{eq:chain_rule_m_mu}
+\begin{split}
+ \partial_{\mu,y} m^{\mu}  = \partial_{\mu,y} \Phi_{\mu,\gamma}\Big|_{\gamma = \mu} +\partial_{\gamma,y} \Phi_{\mu,\gamma}\Big|_{\gamma = \mu},
+  \end{split}
+\end{equation}
+which is just (\ref{eq:linearization-xi-m-mu}) in its probabilistic formulation and \begin{equation}\label{eq:chain_rule_m_mu_2}
+\begin{split}
+\partial_{\mu,y,z}^2 m^{\mu}  = \partial_{\mu,y,z}^2 \Phi_{\mu,\gamma}\Big|_{\gamma = \mu} +\partial_{\mu, z} \partial_{\gamma,y} \Phi_{\mu,\gamma}\Big|_{\gamma = \mu},
+\end{split}
+\end{equation}
+for any $y,z \in \mathbb{T}^d$, where we have used the fact for the second equality that 
+\[
+\partial^2_{\gamma,y,z} \Phi_{\mu,\gamma} =  \partial_{\gamma,y} \partial_{\mu, z}\Phi_{\mu,\gamma} = 0, 
+\]
+since both linearizations should annihilate the initial data, and the linearized equations are all linear with respect to the initial conditions. As required by the proof of Lemma \ref{lem:duality}, we need to investigate the functions of the form 
+\begin{align*}
+\partial_{\mu,\nu} \Phi_{\mu,\gamma} = \int_{\mathbb{T}^{d}} (\partial_{\mu,y} \Phi_{\mu,\gamma}) (\nu - \mu)(\mathrm{d}y)= \lim_{\epsilon \to 0^+}  \frac{1}{\epsilon}\big(\Phi_{\mu + \epsilon(\nu - \mu),\gamma} - \Phi_{\mu,\gamma} \big) 
+\end{align*}
+for any $\nu \in \mcl{P}$ regarding (\ref{eq:variation_mu_solution_second}). We summarize the postulated equations appearing in the first two orders of linearization as follows:
+\begin{enumerate}
+\item The first-order linearization of the initial condition in the direction of $\nu \in \mcl{P}$ satisfies 
+\begin{equation}\label{eq:first_lin_Phi_initial}
+\partial_{\gamma,\nu} \Phi_{\mu,\gamma}\overset{(\ref{eq:decouple_KOL})}{=} P_{0,t}^{\mu}(\nu - \gamma).
+\end{equation}
+\item Together, we can decompose the first linearization of $m^{\mu}$ as 
+\begin{equation}\label{eq:first_lin_m^mu}
+ \partial_{\mu,\nu} m^{\mu} = \partial_{\mu,\nu} \Phi_{\mu,\gamma}\Big|_{\gamma = \mu} +\partial_{\gamma,\nu} \Phi_{\mu,\gamma}\Big|_{\gamma = \mu},
+\end{equation}
+where we first consider the first-order linearization (restricted for $\gamma = \mu$ for a closed equation):
+\[
+\partial_{\mu,\nu} \Phi_{\mu,\gamma}\Big|_{\gamma = \mu} := \int_{\mathbb{T}^{d}}(\partial_{\mu,y} \Phi_{\mu,\gamma}) (\nu - \mu)(\mathrm{d}y)\Big|_{\gamma = \mu}
+\]
+of the flow (in the direction of $\nu \in \mcl{P}$) is the solution to the equation (which is therefore independent of $\gamma \in \mcl{P}$)
+\begin{equation}\label{eq:first-order-deriv-KOL_re}
+\begin{split}
+\partial_t (\partial_{\mu,\nu} \Phi_{\mu,\gamma})\big|_{\gamma = \mu} - \nabla \cdot \mcl{R}^{\mu}_t(\nu - \mu)\\
+ \overset{(\ref{eq:first_lin_m^mu})}{=} \nabla \cdot \Big( \Big[ \int_{\mathbb{T}^d} \frac{\delta a(\mu, \cdot)}{\delta\mu}\big[m_t^{\mu}\big](y)(\partial_{\mu,\nu} \Phi_{\mu,\gamma})\big|_{\gamma = \mu}(t,\mathrm{d}y)\Big]  \nabla m^{\mu}_t\Big) \\
+  -  \nabla \cdot \Big(\Big[ \int_{\mathbb{T}^d} \frac{\delta \tilde{b}(\mu, \cdot)}{\delta\mu}\big[m_t^{\mu}\big](y)(\partial_{\mu,\nu} \Phi_{\mu,\gamma})\big|_{\gamma = \mu}(t,\mathrm{d}y)\Big]  m^{\mu}_t\Big) \\
+  +  \nabla \cdot \Big( a[m_t^{\mu}] \nabla (\partial_{\mu,\nu} \Phi_{\mu,\gamma})\big|_{\gamma = \mu} + \tilde{b}[m_t^{\mu}] (\partial_{\mu,\nu} \Phi_{\mu,\gamma})\big|_{\gamma = \mu}\Big),
+\end{split}
+\end{equation}
+for $t \in [0,T]$ with null initial condition, where the forcing term is given by 
+\begin{align*}
+\mcl{R}^{\mu}_t(\nu - \mu) =  \Big(\int_{\mathbb{T}^d}\frac{\delta a(\mu, \cdot)}{\delta\mu}[m_t^{\mu}](y)\mathrm{d}P^{\mu}_{0,t} (\nu - \mu)(y) \Big)\nabla m^{\mu}_t \\
+ - m^{\mu}_t   \Big(\int_{\mathbb{T}^d}\frac{\delta \tilde{b}(\mu, \cdot)}{\delta\mu}[m_t^{\mu}](y)\mathrm{d}P^{\mu}_{0,t} (\nu - \mu)(y)\Big).
+\end{align*}
+(\ref{eq:first-order-deriv-KOL_re}) then establishes (\ref{eq:J1}), after we identify
+\[
+J^{\mu,1}(\nu - \mu) = \big(\partial_{\mu,\nu} \Phi_{\mu,\gamma}\big)\Big|_{\gamma = \mu}.
+\]
+We have derived therefore $\partial_{\mu,\nu}m^{\mu}$ combining the consideration above. Plugging the solution to (\ref{eq:first-order-deriv-KOL_re}) back into (\ref{eq:first_lin_m^mu}), we derive the first-order linearization $\partial_{\mu,\nu} \Phi_{\mu,\gamma}$ of the flow as the solution to the equation
+\begin{equation}\label{eq:first-order-deriv-KOL}
+\begin{split}
+\partial_t \partial_{\mu,\nu} \Phi_{\mu,\gamma} - \nabla \cdot \Big( a[m_t^{\mu}] \nabla \partial_{\mu,\nu} \Phi_{\mu,\gamma} + \tilde{b}[m_t^{\mu}] \partial_{\mu,\nu} \Phi_{\mu,\gamma}\Big) = \mcl{H}_t(\nu - \mu),
+\end{split}
+\end{equation}
+with null initial condition, and the forcing term defined by 
+\begin{align*}
+ \mcl{H}(\nu - \mu) = \nabla \cdot \Big( \big[ \int_{\mathbb{T}^d} \frac{\delta a(\mu, \cdot)}{\delta\mu}\big[m^{\mu}\big](y) \partial_{\mu,\nu} m^{\mu}(\mathrm{d}y)\big]  \nabla \Phi_{\mu,\gamma}\Big)\\
+ -  \nabla \cdot \Big(\big[ \int_{\mathbb{T}^d} \frac{\delta \tilde{b}(\mu, \cdot)}{\delta\mu}\big[m^{\mu}\big](y)\partial_{\mu,\nu} m^{\mu}(\mathrm{d}y)\big]  \Phi_{\mu,\gamma}\Big), 
+\end{align*}
+which is well-defined, since now $\partial_{\mu,\nu}m^{\mu}$ is known. 
+\item The second-order linearization (first on the initial condition in the direction of $\nu \in \mcl{P}$, then on the flow in the direction of $\zeta \in \mcl{P}$) 
+\[
+\partial_{\mu, \zeta} \partial_{\gamma,\nu} \Phi_{\mu,\gamma} := \int_{\mathbb{T}^{2d}}(\partial_{\mu,z}\partial_{\gamma,y} \Phi_{\mu,\gamma}) (\nu - \gamma)(\mathrm{d}y)(\zeta - \mu)(\mathrm{d}z)
+\]
+is the solution to the equation with null initial condition
+\begin{equation}\label{eq:I_mu_nu_epsilon_lin}
+\begin{split}
+\partial_t (\partial_{\mu, \zeta} \partial_{\gamma,\nu} \Phi_{\mu,\gamma}) =  \nabla \cdot \Big( a[m_t^{\mu}] \nabla (\partial_{\mu, \zeta} \partial_{\gamma,\nu} \Phi_{\mu,\gamma})\Big)\qquad\qquad \\ - \nabla \cdot \Big( \tilde{b}[m_t^{\mu}] (\partial_{\mu, \zeta} \partial_{\gamma,\nu} \Phi_{\mu,\gamma})\Big) + \nabla \cdot \mcl{J}_t(\nu - \gamma, \zeta - \mu),
+\end{split}
+\end{equation}
+where the forcing term is given by 
+\begin{align*}
+\mcl{J}(\nu - \gamma, \zeta - \mu) \overset{(\ref{eq:first_lin_Phi_initial})}{=} \Big(\int_{\mathbb{T}^d}\frac{\delta a(\cdot, \mu)}{\delta \mu}[m^{\mu}](y) \mathrm{d}(\partial_{\mu,\zeta} m^{\mu})(y)\Big) \nabla P_{0,\cdot}^{\mu}(\nu - \gamma)\\
+- \Big(\int_{\mathbb{T}^d}\frac{\delta \tilde{b}(\cdot, \mu)}{\delta \mu}[m^{\mu}](y) \mathrm{d}(\partial_{\mu,\zeta} m^{\mu})(y)\Big) P_{0,\cdot}^{\mu}(\nu - \gamma).
+\end{align*}
+We then derive (\ref{eq:I1}) from (\ref{eq:I_mu_nu_epsilon_lin}) by identifying 
+\[
+I^{\mu,1}(\nu - \mu, \zeta - \mu) = \big(\partial_{\mu, \zeta} \partial_{\gamma,\nu} \Phi_{\mu,\gamma}\big)\Big|_{\gamma = \mu}. 
+\]
+\item Lastly, we notice that 
+\begin{equation}\label{eq:second_lin_m^mu}
+\partial^2_{\mu,\nu,\zeta} m^{\mu} \overset{(\ref{eq:chain_rule_m_mu_2})}{=} \big(\partial_{\mu,\nu,\zeta}^2 \Phi_{\mu,\gamma}\big)\Big|_{\gamma = \mu} + \big(\partial_{\mu, \zeta} \partial_{\gamma,\nu} \Phi_{\mu,\gamma}\big)\Big|_{\gamma = \mu},
+\end{equation}
+as in \ref{eq:chain_rule_m_mu_2}, where we abbreviate $\partial^2_{\mu,\nu,\zeta} = \partial_{\mu,\zeta}\partial_{\mu,\nu}$, and therefore, the second-order linearization (both on the flow in the direction of $\nu, \zeta \in \mcl{P}$) 
+\[
+\big(\partial^2_{\mu,\nu,\zeta} \Phi_{\mu,\gamma}\big)\Big|_{\gamma = \mu} = \int_{\mathbb{T}^{2d}}(\partial^2_{\mu,y,z} \Phi_{\mu,\gamma})\Big|_{\gamma = \mu} (\nu - \mu)(\mathrm{d}y)(\zeta - \mu)(\mathrm{d}z) 
+\]
+is the solution to the equation with null initial condition
+\begin{equation}\label{eq:2nd_linear_decouple_equ}
+\begin{split}
+\partial_t \big(\partial^2_{\mu,\nu,\zeta} \Phi_{\mu,\gamma}\big|_{\gamma = \mu}\big) \overset{(\ref{eq:first-order-deriv-KOL})}{=}  \nabla \cdot \Big( (a[m_t^{\mu}] \nabla  - \tilde{b}[m_t^{\mu}]) \big(\partial^2_{\mu,\nu,\zeta} \Phi_{\mu,\gamma}\big|_{\gamma = \mu}\big)\Big) \\
+ + \nabla \cdot \Big( \Big[ \int_{\mathbb{T}^d} \frac{\delta a(\mu, \cdot)}{\delta\mu}\big[m_t^{\mu}\big](y)\big(\partial^2_{\mu,\nu,\zeta} \Phi_{\mu,\gamma}\big|_{\gamma = \mu}\big)(\mathrm{d}y)\Big]  \nabla m_t^{\mu}\Big)\\
+ -  \nabla \cdot \Big(\Big[ \int_{\mathbb{T}^d} \frac{\delta \tilde{b}(\mu, \cdot)}{\delta\mu}\big[m_t^{\mu}\big](y)\big(\partial^2_{\mu,\nu,\zeta} \Phi_{\mu,\gamma}\big|_{\gamma = \mu}\big)(\mathrm{d}y)\Big]  m_t^{\mu} \Big)\\
+  + \nabla \cdot \Big(\mcl{T}^{\mu}_t(\nu - \mu, \zeta - \mu)\Big),
+\end{split}
+\end{equation}
+where the nonlocal term comes from the decomposition of $\partial^2_{\mu,\nu,\zeta} m^{\mu}$ in $ \mcl{H}(\nu - \mu)$ using (\ref{eq:second_lin_m^mu}), and the exact form of the forcing term $\mcl{T}^{\mu}$ is presented in \cite[(A.36)]{djurdjevac2025weak}, such that by evaluating at $\gamma = \mu$, we can close the equation (\ref{eq:I2}) with respect to $\partial^2_{\mu,\nu,\zeta} \Phi_{\mu,\gamma}\big|_{\gamma = \mu}$. 
+\end{enumerate}
+
+We can now conclude that the expression (\ref{eq:dual_repre_D2_mu_F}) holds using (\ref{eq:variation_mu_solution_second}), (\ref{eq:chain_rule_m_mu}),  (\ref{eq:chain_rule_m_mu_2}) and the corresponding equations, while $\phi, \psi$ in (\ref{eq:dual_repre_D2_mu_F}) are instead assumed to be of the forms
+$\phi \in \mcl{P}(\mathbb{T}^d) - \mu$, $\psi \in \mcl{P}(\mathbb{T}^d) - \mu$ according to the definition of exterior derivatives. We finally recall that we extended $R^{\mu}$ onto $[0,T] \times W^{-3,1}(\mathbb{T}^d)$ in (\ref{eq:def-R-mu-phi}), and we claim that the same holds for $\mcl{T}^{\mu}$.
+
+\begin{lem}\label{eq:reg-forcing-TR}
+The map $\mcl{R}^{\mu}: [0,T] \times W^{-3,1}(\mathbb{T}^d)  \to W^{-1,1}(\mathbb{T}^d)$ satisfies 
+\[
+\sup_{\mu \in L^1 \cap \mcl{P}}\sup_{0 \leq t \leq T}\|\mcl{R}_t^{\mu}(\psi)\|_{W^{-1,1}} \lesssim \|\psi\|_{W^{-3,1}}.
+\]
+If we further assume that (\ref{eq:reg_Jmu1}) holds, then the function $\mcl{T}^{\mu}$ naturally extends to a function $\mcl{T}^{\mu}: [0,T] \times (W^{-3,1})^{\otimes 2}(\mathbb{T}^d)  \to W^{-2,1}(\mathbb{T}^d)$ such that 
+\[
+\sup_{\mu \in L^1 \cap \mcl{P}}\sup_{0 \leq t \leq T}\|\mcl{T}_t^{\mu}(\psi,\phi)\|_{W^{-2,1}} \lesssim \|\psi\|_{W^{-3,1}}\|\phi\|_{W^{-3,1}},
+\]
+\end{lem}
+
+\begin{proof}
+We recall that 
+\begin{equation*}
+\begin{split}
+    \mcl{R}^{\mu}_t(\psi) =  \Big(\int_{\mathbb{T}^d}\frac{\delta a(\mu, \cdot)}{\delta\mu}[m_t^{\mu}](y)\mathrm{d}P^{\mu}_{0,t} (\psi)(y) \Big)\nabla m^{\mu}_t \\
+ - m^{\mu}_t   \Big(\int_{\mathbb{T}^d}\frac{\delta \tilde{b}(\mu, \cdot)}{\delta\mu}[m_t^{\mu}](y)\mathrm{d}P^{\mu}_{0,t} (\psi)(y)\Big),
+\end{split}
+\end{equation*}
+and the boundedness of $\mcl{R}^{\mu}$ follows from 
+\begin{align*}
+\Big\|\Big(\int_{\mathbb{T}^d}\frac{\delta a(\mu, \cdot)}{\delta\mu}[m_t^{\mu}](y)P^{\mu}_{0,t} \psi (\mathrm{d}y) \Big)\nabla m^{\mu}_t\Big\|_{W^{-1,1}}\\
+\lesssim \Big\|\frac{\delta a}{\delta\mu}[m_t^{\mu}]\Big\|_{W^{3,\infty}} \|\psi\|_{W^{-3,1}}\|m_t^{\mu}\|_{L^1}
+\overset{(\ref{eq:sob_embed_prob})}{\lesssim} \sup_{\mu \in \mcl{P} \cap L^1} \Big\|\frac{\delta a}{\delta\mu}[\mu]\Big\|_{W^{3,\infty}} \|\psi\|_{W^{-3,1}},
+\end{align*}
+which is uniform in $t \in [0,T]$. We have used the continuity of $\nabla: L^1 \to W^{-1,1}$ and the joint regularity of 
+\[
+\mathbb{T}^{2d} \ni (x,y) \mapsto \frac{\delta a}{\delta\mu}[m_t^{\mu}](x;y) := \frac{\delta a(\mu, x)}{\delta\mu}[m_t^{\mu}](y).
+\]
+Similarly, we have the estimate with the drift term $\tilde{b}[\cdot]$ that
+\begin{align*}
+\Big\|\Big(\int_{\mathbb{T}^d}\frac{\delta \tilde{b}(\mu, \cdot)}{\delta\mu}[m_t^{\mu}](y)P^{\mu}_{0,t} \psi (\mathrm{d}y) \Big) m^{\mu}_t\Big\|_{L^{1}} \lesssim \sup_{\mu \in \mcl{P} \cap L^1} \Big\|\frac{\delta \tilde{b}}{\delta\mu}[\mu]\Big\|_{W^{3,\infty}} \|\psi\|_{W^{-3,1}}.
+\end{align*} 
+We refer the readers to \cite[Lemma A.8]{djurdjevac2025weak} for the proof of the statement about $\mcl{T}^{\mu}$.
+\end{proof}

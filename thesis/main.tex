@@ -1,0 +1,190 @@
+\documentclass[12pt]{ociamthesis} 
+\usepackage[
+    a4paper,
+    top=3cm,
+    bottom=3cm,
+    left=3cm,
+    right=3cm
+]{geometry}
+
+\usepackage[T1]{fontenc}
+\usepackage{libertine}
+
+%load any additional packages
+\usepackage{graphicx,stmaryrd,enumerate,latexsym}%
+\usepackage{multirow}%
+\usepackage{amsmath,amssymb,amsfonts,amsthm,dsfont,mathrsfs}%
+\usepackage{mathrsfs}%
+\usepackage[title]{appendix}%
+\usepackage{xcolor}%
+\usepackage{textcomp}%
+\usepackage{manyfoot}%
+\usepackage{booktabs}%
+\usepackage{algorithm}%
+\usepackage{algorithmicx}%
+\usepackage{algpseudocode}%
+\usepackage{listings}%
+\usepackage{float}% 
+\usepackage{mathtools}
+\usepackage{epsfig}
+\usepackage{esint}
+\setlength{\parindent}{0cm}
+\usepackage[pagebackref=true]{hyperref}
+\usepackage{enumerate}
+\usepackage{multirow}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array} 
+\usepackage{caption}
+\captionsetup{position=bottom}
+\usepackage{tikz}
+
+
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+\definecolor{fuBlue}{RGB}{0,51,102}
+\hypersetup{
+    colorlinks,
+    linkcolor=blue!70!black,
+    citecolor={violet!100!white},
+    urlcolor={blue!80!black}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%          Macros                                %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\Bild}[2]{\begin{center}\begin{tabular}{l}
+\setlength{\epsfxsize}{#1}
+\epsfbox{#2}
+\end{tabular}\end{center}}
+\newcommand{\lessim}{\stackrel{<}{\sim}}
+\newcommand{\gesim}{\stackrel{>}{\sim}}
+\newcommand{\ignore}[1]{}
+\newcommand{\av}{-\hspace{-2.4ex}\int}
+\newcommand{\del}{\delta\hspace{-0.2ex}}
+\newtheorem{thm}{Theorem}[section]
+\newtheorem{prop}[thm]{Proposition}
+\newtheorem{lem}[thm]{Lemma}
+\newtheorem{cor}[thm]{Corollary}
+\theoremstyle{remark}
+\newtheorem{rem}[thm]{Remark}
+\theoremstyle{definition}
+\newtheorem{defi}[thm]{Definition}
+\newtheorem{eg}[thm]{Example}
+\newtheorem{assu}[thm]{Assumption}
+\newtheorem{que}[thm]{Question}
+\newcommand{\NP}[1]{{\color{blue}NP: #1}}
+\newtheorem{nota}[thm]{Notation}
+
+\newtheorem*{thm*}{Theorem}
+\newtheorem*{lem*}{Lemma}
+\newtheorem*{prop*}{Proposition}
+\newtheorem*{defi*}{Definition}
+\newtheorem*{metathm*}{Meta Theorem}
+\newtheorem*{nota*}{Notation}
+\newtheorem*{rem*}{Remark}
+
+\makeatletter
+\renewcommand{\thethm}{\thechapter.\arabic{thm}}
+\makeatother
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\Id}{\mathrm{Id}}
+\newcommand{\mcl}{\mathcal}
+\DeclareMathOperator{\per}{per}
+\DeclareMathOperator{\sgn}{sgn}
+\DeclareMathOperator{\Ent}{Ent}
+\DeclareMathOperator{\ext}{ext}
+\DeclareMathOperator{\supp}{Supp}
+\DeclareMathOperator*\lowlim{\underline{lim}}
+\DeclareMathOperator*\uplim{\overline{lim}}
+\DeclareMathOperator{\sign}{sign}
+\DeclareMathOperator{\ellip}{ell}
+\DeclareMathOperator{\lip}{lip}
+\DeclareMathOperator{\Lip}{Lip}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\transpose}{t}
+\DeclareMathOperator{\pv}{P.V.}
+\newcommand{\rom}[1]{%
+\textup{\uppercase\expandafter{\romannumeral#1}}%
+}
+\newcommand\smallO{
+  \mathchoice
+    {{\scriptstyle\mathcal{O}}}% \displaystyle
+    {{\scriptstyle\mathcal{O}}}% \textstyle
+    {{\scriptscriptstyle\mathcal{O}}}% \scriptstyle
+    {\scalebox{.7}{$\scriptscriptstyle\mathcal{O}$}}%\scriptscriptstyle
+}
+
+\newcommand{\zzone}{\text{\resizebox{.7em}{!}{\includegraphics{tree/trees-1.eps}}}}
+\newcommand{\zztwo}{\text{\resizebox{.7em}{!}{\includegraphics{tree/trees-2.eps}}}}
+\newcommand{\zzthree}{\text{\resizebox{.7em}{!}{\includegraphics{tree/trees-3.eps}}}}
+\newcommand{\zzfour}{\text{\resizebox{1em}{!}{\includegraphics{tree/trees-4.eps}}}}
+\newcommand{\zzthreefour}{\text{\resizebox{.7em}{!}{\includegraphics{trees/trees-34.eps}}}}
+
+
+%input macros (i.e. write your own macros file called mymacros.tex 
+%and uncomment the next line)
+%\include{mymacros}
+
+\title{Stochastic PDEs \\[1ex]     %your thesis title,
+        and Mean-Field Particle Systems}   %note \\[1ex] is a line break in the title
+
+\author{Xiaohao Ji}             %your name
+\college{Institut für Mathematik}  %your college
+
+% \renewcommand{\submittedtext}{change the default text here if needed}
+\degree{Doktors der Naturwissenschaften (Dr. rer. nat.)} 
+%the degree
+\degreedate{Berlin, 2026}         %the degree date
+%end the preamble and start the document
+\begin{document}
+
+%this baselineskip gives sufficient line spacing for an examiner to easily
+%markup the thesis with comments
+\baselineskip=15pt plus1pt
+
+%set the number of sectioning levels that get number and appear in the contents
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+
+\maketitle                  % create a title page from the preamble info
+% \include{dedication}        % include a dedication.tex file
+\include{Aux/Acknowledge}   % include an acknowledgements.tex file
+\include{Aux/abstract}         % include the abstract
+\begin{romanpages}          % start roman page numbering
+\tableofcontents            % generate and include a table of contents
+% \listoffigures              % generate and include a list of figures
+\end{romanpages}            % end roman page numbering
+
+%now include the files of latex for each of the chapters etc
+\include{Chapters/Introduction}
+\include{Chapters/DK-error}
+\include{Chapters/DK-LDP}
+\include{Chapters/ANSL-WP}
+\include{Chapters/Bosonic-Condensate}
+\include{conclusions}
+
+%now enable appendix numbering format and include any appendices
+\appendix
+\include{Chapters/AH-appendix}
+\include{Chapters/Notations}
+
+%next line adds the Bibliography to the contents page
+\addcontentsline{toc}{chapter}{Bibliography}
+%uncomment next line to change bibliography name to references
+%\renewcommand{\bibname}{References}
+\bibliographystyle{alpha} 
+\bibliography{biblio}        %use a bibtex bibliography file refs.bib
+%use the plain bibliography style
+
+\end{document}

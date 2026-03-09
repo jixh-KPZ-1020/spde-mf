@@ -1,0 +1,163 @@
+\chapter{Technical Details}
+\section{Anderson Hamiltonian}\label{appendix:AH}
+
+The remainder terms in Proposition \ref{prop:construction-AH} are given by
+\begin{equation}
+  - (1 - \Delta) B (u^{\flat}) = 2 \nabla W^M \olessthan \nabla u^{\flat} +
+  [\nabla u^{\flat} \olessthan, 1 - \Delta] (1 - \Delta)^{- 1} \nabla W^M + 2
+  u^{\flat} \olessthan R^2 + 4 \nabla u^{\flat} \olessthan R^1
+  \label{eq:def-B}
+\end{equation}
+and
+\begin{eqnarray}
+  G (u^{\flat}) & = & u^{\flat} \succcurlyeq [(1 - \Delta) Z] - \Delta
+  P_{\leqslant N} (u^{\flat} \olessthan Z + 2 \nabla u^{\flat} \olessthan (1 -
+  \Delta)^{- 1} \nabla W^M + B (u^{\flat})) \nonumber\\
+  & + & u^{\flat} \olessthan Z + 2 \nabla u^{\flat} \olessthan (1 -
+  \Delta)^{- 1} \nabla W^M + B (u^{\flat}) \nonumber\\
+  & + & u^{\flat} \succcurlyeq R^2 + \nabla u^{\flat} \succcurlyeq R^1 + 2
+  [\nabla u^{\flat} \olessthan Z + 2 \nabla^2 u^{\flat} \olessthan (1 -
+  \Delta)^{- 1} \nabla W^M] \odot \nabla W^M \nonumber\\
+  & + & \mathrm{com} (\nabla u^{\flat}, (1 - \Delta)^{- 1} \nabla^2 W^M, \nabla
+  W^M) + \mathrm{com} (u^{\flat}, \nabla Z, \nabla W^M) \nonumber\\
+  & - & \nabla P_{\leqslant N} (u^{\flat} \olessthan Z + 2 \nabla u^{\flat}
+  \olessthan (1 - \Delta)^{- 1} \nabla W^M + B (u^{\flat})) \odot \nabla W^M
+  \nonumber\\
+  & + & \nabla B (u^{\flat}) \odot \nabla W^M + [u^{\flat} \olessthan, 1 -
+  \Delta] (1 - \Delta)^{- 1} Z. \label{eq:def-G} 
+\end{eqnarray}
+The continuity estimates of the functions above are indicated by those of
+paraproducts and resonant products and the regularity of the stochastic
+objects provided by Lemma \ref{lem:conv-enhancement} immediately.
+
+\begin{lem}
+  For any $\varepsilon > 0$ small enough, $2 \leqslant p \leqslant \infty$,
+  $\gamma < 2$ and $\gamma' \in \left[ \frac{3}{2} + \varepsilon, 2 \right)$,
+  we have
+  \begin{equation}
+    \| B \|_{\mathcal{L} (W_{\mathbb{T}^3}^{\gamma - \frac{1}{2} + \varepsilon, p},
+    W_{\mathbb{T}^3}^{\gamma, p})} \lesssim \| \Xi \|_{\mathfrak{X} }
+    \label{eq:bounded-B}
+  \end{equation}
+  and
+  \begin{equation}
+    \| G \|_{\mathcal{L} \left( W^{\gamma', p}_{\mathbb{T}^3} {,
+    W_{\mathbb{T}^3}^{\gamma' - 3 / 2 - \varepsilon, p}}  \right)} \lesssim \|
+    \Xi \|_{\mathfrak{X}} . \label{eq:bounded-G}
+  \end{equation}
+  In particular we have $\| G (u^{\flat}) \|_{L^2_{\mathbb{T}^3}}
+  \lesssim_{\Xi} \| u^{\flat} \|_{H^{\frac{3}{2} +
+  \varepsilon}_{\mathbb{T}^3}}$.
+\end{lem}
+
+\begin{proof}
+  For the first bound, it suffices to see in (\ref{eq:def-B}) that
+  \[ [\nabla u^{\flat} \olessthan, 1 - \Delta] (1 - \Delta)^{- 1} \nabla W^M =
+     (\Delta \nabla u^{\flat}) \olessthan (1 - \Delta)^{- 1} \nabla W^M + 2
+     \nabla^2 u^{\flat} \olessthan (1 - \Delta)^{- 1} \nabla^2 W^M, \]
+  while for the second one, we have
+  \begin{align*}
+    \| \mathrm{com} (\nabla u^{\flat}, (1 - \Delta)^{- 1} \nabla^2 W^M, \nabla
+    W^M) \|_{W^{\alpha - 1 - \frac{\varepsilon}{2}, p}_{\mathbb{T}^3}} &
+    \lesssim \| u^{\flat} \|_{W^{\alpha, p}_{\mathbb{T}^3}}, \quad
+    \mathrm{for } \alpha \in (1 + \varepsilon, 2),\\
+    \| \mathrm{com} (u^{\flat}, \nabla Z, \nabla W^M) \|_{W^{\alpha -
+    \frac{\varepsilon}{2}, p}_{\mathbb{T}^3}} & \lesssim \| u^{\flat}
+    \|_{W^{\alpha, p}_{\mathbb{T}^3}}, \quad \mathrm{for } \alpha \in
+    (\varepsilon, 1),\\
+    \| \nabla u^{\flat} \succcurlyeq R^1 \|_{W^{\alpha - \varepsilon,
+    p}_{\mathbb{T}^3}} & \lesssim \| u^{\flat} \|_{W^{\alpha + 1,
+    p}_{\mathbb{T}^3}}, \quad \mathrm{for } \alpha \in (\varepsilon, \infty),\\
+    \| \nabla B (u^{\flat}) \odot \nabla W^M \|_{W^{\frac{1}{2} - \varepsilon,
+    p}_{\mathbb{T}^3}} & \lesssim \| u^{\flat} \|_{W^{\alpha,
+    p}_{\mathbb{T}^3}}, \quad \mathrm{for } \alpha \in \left[ \frac{3}{2} +
+    \varepsilon, 2 \right),
+  \end{align*}
+  while the other terms are more regular.
+\end{proof}
+
+The properties of the ansatz are summarized as follows. The exponential ansatz
+(i.e. multiplication with $e^W$) and the paracontrolled ansatz (i.e. the
+$\Gamma$ map) transform the domain $\mathcal{D} (\mathcal{H})$ to
+$H_{\mathbb{T}^3}^2$. Here we recall the construction of the map $\Gamma$ and
+its continuity properties.
+
+\begin{proof}[Proof of Lemma \ref{lem:con-Gamma}]
+  The first claim follows from Proposition 2.57 in {\cite{GUZ20}}, while the
+  continuity of the $\Gamma$-map can be proven with similar argument as in
+  Proposition 2.56 in {\cite{GUZ20}}. The continuity of $\Gamma^{- 1}$ can be
+  directly deduced from the definition, since
+  \[ \Gamma^{- 1} u^{\flat} = u^{\flat} - P_{> N} [u^{\flat} \olessthan Z +
+     \nabla u^{\flat} \olessthan (1 - \Delta)^{- 1} \nabla W^M + B
+     (u^{\flat})], \]
+  for any $u^{\flat} \in e^{- W} \mathcal{D} (\mathcal{H})$ or
+  $W_{\mathbb{T}^3}^{\beta, p}$ as in the statement, where
+  \[ Z, (1 - \Delta)^{- 1} \nabla W^M \in
+     \mathcal{C}_{\mathbb{T}^3}^{\frac{3}{2} -} \]
+  and $B$ is continuous from ${W_{\mathbb{T}^3}^{\beta +, p}} $ to
+  ${W_{\mathbb{T}^3}^{\beta + \frac{1}{2}, p}} $ for any $2 \leqslant p
+  \leqslant \infty$ and $\beta < \frac{3}{2}$, see \eqref{eq:bounded-B}, which
+  is a slight modification of Lemma 2.41 in {\cite{GUZ20}}. Lastly, since
+  \[ (\Gamma - \mathrm{id}) u^{\sharp} = P_{> N} [\Gamma u^{\sharp} \olessthan
+     Z + \nabla \Gamma u^{\sharp} \olessthan (1 - \Delta)^{- 1} \nabla W^M + B
+     (\Gamma u^{\sharp})], \]
+  the bound is a direct consequence of (\ref{eq:bounded-B}), the continuity of
+  the $\Gamma$-map, the regularity estimates of the stochastic objects given
+  in Lemma \ref{lem:conv-enhancement} and the condition that $0 < \gamma
+  \leqslant 1$.
+\end{proof}
+
+For the Strichartz estimate Lemma \ref{lem:Strichartz-AH-low} for the full
+regularity regime as claimed, it is essential to have a characterization of
+Bessel potential spaces using $\mathcal{H}^{\sharp}$, extending Proposition
+2.57 in {\cite{GUZ20}} which says that
+\begin{equation}
+  \| \mathcal{H}^{\sharp} u^{\sharp} \|_{L_{\mathbb{T}^3}^2} \asymp \|
+  u^{\sharp} \|_{H_{\mathbb{T}^3}^2} . \label{eq:equiv-Sobolev-Hsharp-2}
+\end{equation}
+Since we will only use the following bounds for fixed $p$, the dependence of
+the coefficients on $p$ is omitted.
+
+\begin{lem}
+  \label{append-lem-bound-boundary-H2}The boundary terms defined in
+  (\ref{eq:bd-nonl-strichartz-H2}) is bounded in $L^{\frac{10}{3}}_{[0, T]
+  \times \mathbb{T}^3}$ by
+  \[ \| \mathrm{Bd} [u^{\natural}] \|_{L^{\frac{10}{3}}_{[0, T] \times
+     \mathbb{T}^3}} \lesssim \| u^{\natural} \|^3_{L_{[0, T]}^{\infty}
+     L_{\mathbb{T}^3}^6} \| V_{\beta} \|_{L_{\mathbb{T}^3}^{\frac{20}{19}}} .
+  \]
+\end{lem}
+
+\begin{proof}
+  The boundary terms can be bounded by
+  \begin{align*}
+    \| \mathrm{Bd} [u^{\natural}] \|_{L^{\frac{10}{3}}_{[0, T] \times
+    \mathbb{T}^3}} & \lesssim \| \Lambda^{- 1} [\Lambda u^{\natural} (t) (|
+    \Lambda u^{\natural} (t) |^2 \ast V_{\beta})] \|_{L_{[0,
+    T]}^{\frac{10}{3}} {W_{\mathbb{T}^3}^{- \frac{9}{20} -, \frac{10}{3}}} }\\
+    & + \left\| (- \mathcal{H}^{\natural})^{- \frac{9}{40} -} \Lambda^{- 1}
+    [\Lambda u^{\natural} (0) (| \Lambda u^{\natural} (0) |^2 \ast V_{\beta})]
+    \right\|_{H^{\frac{9}{20} +}_{\mathbb{T}^3}},
+  \end{align*}
+  where the first can be bounded by
+  \begin{align*}
+    \| \Lambda^{- 1} [\Lambda u^{\natural} (t) (| \Lambda u^{\natural} (t) |^2
+    \ast V_{\beta})] \|_{L_{[0, T]}^{\frac{10}{3}} {W_{\mathbb{T}^3}^{-
+    \frac{9}{20} -, \frac{10}{3}}} } & \lesssim \| \Lambda u^{\natural} (t)
+    (| \Lambda u^{\natural} (t) |^2 \ast V_{\beta}) \|_{L_{[0,
+    T]}^{\frac{10}{3}} {L_{\mathbb{T}^3}^{\frac{20}{9}}} }\\
+    & \lesssim \| u^{\natural} (t) \|^3_{L_{[0, T]}^{\infty}
+    L_{\mathbb{T}^3}^6} \| V_{\beta} \|_{L_{\mathbb{T}^3}^{\frac{20}{19}}},
+  \end{align*}
+  using Lemma \ref{lem:con-Gamma}, while
+  \begin{align*}
+    \left\| (- \mathcal{H}^{\natural})^{- \frac{9}{40} -} \Lambda^{- 1}
+    [\Lambda u^{\natural} (0) (| \Lambda u^{\natural} (0) |^2 \ast V_{\beta})]
+    \right\|_{H^{\frac{9}{20} +}_{\mathbb{T}^3}} & \lesssim \| \Lambda
+    u^{\natural} (0) (| \Lambda u^{\natural} (0) |^2 \ast V_{\beta})
+    \|_{L_{\mathbb{T}^3}^2}\\
+    & \lesssim \| u^{\natural} (0) \|^3_{L_{\mathbb{T}^3}^6} \| V_{\beta}
+    \|_{L_{\mathbb{T}^3}^1}
+  \end{align*}
+  having used Lemma \ref{lem:space-equiv}. 
+\end{proof}

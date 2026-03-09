@@ -10,14 +10,14 @@ Usage
     python figures.py --pgf                    # save .pgf instead of .pdf
     python figures.py --list                   # print available names and exit
 
-Available figure names:  fdr, fdr_riem, mollweide, unimodal, sk, ising_tc, white_noise_2d, modulated_energy, kpz
+Available figure names:  fdr, fdr_riem, mollweide, unimodal, sk, ising_tc, white_noise_2d, modulated_energy, kpz, nls, ah_eigen_wn
 """
 
 import argparse
 import os
 import sys
 
-FIGURE_NAMES = ["fdr", "fdr_riem", "mollweide", "unimodal", "sk", "ising_tc", "white_noise_2d", "modulated_energy", "kpz"]
+FIGURE_NAMES = ["fdr", "fdr_riem", "mollweide", "unimodal", "sk", "ising_tc", "white_noise_2d", "modulated_energy", "kpz", "nls", "ah_eigen_wn", "poc"]
 
 
 def _build_registry():
@@ -29,23 +29,25 @@ def _build_registry():
     Scripts no longer import matplotlib.pyplot at module level, so this order
     is safe.
     """
-    from scripts.fdr       import simulate_fdr,       plot_fdr
-    from scripts.fdr_riem  import simulate_fdr_riem,  plot_fdr_riem
-    from scripts.mollweide import (simulate_mollweide,
-                                   plot_mollweide_density,
-                                   plot_mollweide_speed)
-    from scripts.unimodal_v3 import (simulate_unimodal_v3,
-                                     plot_unimodal_v3,
-                                     plot_unimodal_v3_kl,
-                                     plot_unimodal_v3_ratio)
-    from scripts.SK_v2 import simulate_SK, plot_SK
-    from scripts.Ising_critical_temp import simulate_ising_tc, plot_ising_tc, plot_ising_lattice
-    from scripts.modulated_energy import simulate_modulated_energy, plot_modulated_energy
-    from scripts.KPZ import simulate_kpz, plot_kpz
-    import importlib
-    _wn = importlib.import_module("scripts.2D_WN")
-    simulate_white_noise_2d = _wn.simulate_white_noise_2d
-    plot_white_noise_2d     = _wn.plot_white_noise_2d
+    from scripts.langevin.fdr       import simulate_fdr,      plot_fdr
+    from scripts.langevin.fdr_riem  import simulate_fdr_riem, plot_fdr_riem
+    from scripts.langevin.mollweide import (simulate_mollweide,
+                                            plot_mollweide_density,
+                                            plot_mollweide_speed)
+    from scripts.langevin.unimodal  import (simulate_unimodal_v3,
+                                            plot_unimodal_v3,
+                                            plot_unimodal_v3_kl,
+                                            plot_unimodal_v3_ratio)
+    from scripts.stat_mech.sk       import simulate_SK,       plot_SK
+    from scripts.stat_mech.ising    import simulate_ising_tc, plot_ising_tc, plot_ising_lattice
+    from scripts.gradient_flows.modulated_energy import simulate_modulated_energy, plot_modulated_energy
+    from scripts.spdes.kpz            import simulate_kpz,            plot_kpz
+    from scripts.spdes.white_noise_2d import simulate_white_noise_2d, plot_white_noise_2d
+    from scripts.waves.nls            import simulate_nls,            plot_nls
+    from scripts.waves.anderson_eigen import simulate_ah_eigen_wn,    plot_ah_eigen_wn
+    from scripts.chaos.propagation_of_chaos import (simulate_poc,
+                                                     plot_poc_mfe,
+                                                     plot_poc_chaos)
     return {
         "fdr": (
             simulate_fdr,
@@ -86,6 +88,19 @@ def _build_registry():
         "kpz": (
             simulate_kpz,
             [(plot_kpz, "kpz")],
+        ),
+        "nls": (
+            simulate_nls,
+            [(plot_nls, "nls")],
+        ),
+        "ah_eigen_wn": (
+            simulate_ah_eigen_wn,
+            [(plot_ah_eigen_wn, "ah_eigen_wn")],
+        ),
+        "poc": (
+            simulate_poc,
+            [(plot_poc_mfe,   "poc_mfe"),
+             (plot_poc_chaos, "poc_chaos")],
         ),
     }
 

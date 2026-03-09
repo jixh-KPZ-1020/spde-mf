@@ -1,0 +1,28 @@
+{
+  // ===== LaTeX Workshop =====
+  "latex-workshop.latex.outDir": "%DIR%/build",
+
+  "latex-workshop.latex.recipes": [
+    {
+      "name": "make",
+      "tools": ["make"]
+    }
+  ],
+
+  "latex-workshop.latex.tools": [
+    {
+      "name": "make",
+      "command": "make",
+      "args": [],
+      "env": {}
+    }
+  ],
+
+  // Forward/inverse SyncTeX works via build/main.synctex.gz (pdflatex -synctex=1 in .latexmkrc)
+  // Open PDF manually with Ctrl+Alt+V / Cmd+Alt+V or the LaTeX Workshop panel
+  "latex-workshop.view.pdf.viewer": "tab",
+  "latex-workshop.synctex.afterBuild.enabled": false,
+
+  // Don't auto-build (use terminal `make` instead; prevents PDF auto-open)
+  "latex-workshop.latex.autoBuild.run": "never"
+}

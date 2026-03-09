@@ -1,0 +1,321 @@
+\chapter{Notations}\label{sec:notations}
+
+\Xiaohao{To be revised.}
+We use $\lesssim$ to denote inequality modulo a generic positive constant, while we use $C$ to denote some generic positive constant whose definition can change from line to line. We will fix some arbitrary $T\in (0,\infty)$ and consider all processes on the time interval $[0,T]$. We denote the $d$-dimensional  torus of unit length by $\mathbb{T}^d = (\mathbb{R}/\mathbb{Z})^d$, and we write $\mathbb{Z}^d_{+}$ for the nonzero elements in $\mathbb{Z}^d$ whose first nonzero entry is positive. We call a function from $\mathbb R^d$ to $\mathbb R$ a kernel on $\mathbb{R}^d$ if it is smooth, non-negative, radially symmetric, supported in the unit ball of $\mathbb{R}^d$ and it has finite moments up to the second order. We use $W^{k,p}$ to denote $L^p$ Sobolev spaces on $\mathbb T^d$. For $p=2$ we use the Fourier definition of Sobolev spaces of any regularity (also fractional or negative), and in particular the inner product on $W^{-1,2}(\mathbb{T}^d)$ is
+\begin{equation}\label{eq:inner-prod-H-1}
+    \langle u,v \rangle_{W^{-1,2}} = \langle (1-\Delta)^{-1/2}u, (1-\Delta)^{-1/2}v\rangle_{L^2}.
+\end{equation}
+We write $e_k(x) := e^{2\pi i k \cdot x}$ with $k \in \mathbb{Z}^d$ for the Fourier basis of $L^2(\mathbb{T}^d,\mathbb{C})$. The Fourier transform on $\mathbb R^d$ is defined with the normalization $\hat \varphi (k) = \mathcal{F}_{\mathbb R^d}\varphi(k) = \int_{\mathbb R^d} e^{-2\pi i k \cdot x} \varphi(x) \mathrm{d} x$\\ 
+
+%while $(B_t)_{t \geq 0}$ denotes a $d$-dimensional complex-valued Brownian motion, i.e. with independent components $B(1)\dots, B(d)$ and such that $\operatorname{Re}(B^i)$ and $\operatorname{Im}(B^i)$ are independent real-valued Brownian motions. \\
+
+We will use calculus on the space of probability measures, which slightly differs from \cite{KLvR19} who used calculus on the Radon measures with finite total variation. We denote the space of probability measure on the torus (with Borel $\sigma$-algebra) as $\mcl{P} := \mcl{P}(\mathbb{T}^d)$, and we endow $\mcl{P}$ with the 2-Wasserstein distance
+\begin{equation*}
+    \mcl{W}_{2}^2(\mu,\nu) := \inf_{\Pi \in \Pi(\mu,\nu)} \int_{\mathbb{T}^d \times \mathbb{T}^d}\mathrm{d}^2_{\mathbb{T}^d}(x,y)\mathrm{d}\Pi(x,y),
+\end{equation*}
+where $\mathrm{d}_{\mathbb{T}^d}$ denotes the canonical distance on $\mathbb{T}^d$ and $\Pi(\mu,\nu)$ denotes the family of couplings of $\mu$ and $\nu$. Since $d_{\mathbb{T}^d}$ is bounded, this means that we are simply considering the weak topology on $\mcl{P}$. We use $\rightharpoonup$ to indicate weak convergence on the space of probability measures. Functionals on $\mcl{P}$ of the form $\mcl{F} = f\big(\langle \varphi, \cdot \rangle\big)$ are called cylindrical if there exists some $m \in \mathbb{N}$ such that $f: \mathbb{R}^m \to \mathbb{R}$ and $\varphi: \mathbb{T}^d \to \mathbb{R}^m$ are both smooth, and $f$ has bounded derivatives of all orders. For differentiation, $\delta/\delta \mu$ is used to denote the extrinsic derivative of functionals on $\mcl{P}$, while $D_{\mu}$ is used to denote the interior derivative (also called Lions derivative).  \\
+
+We write $|b|^2 := \sum_{i = 1}^d |b_i|^2$ for the $\ell^2$ norm on $\mathbb R^d$. For $d \times d$ matrices $A$ and $B$, we denote by $A^{\transpose}$ the transpose of $A$ and by $A:B := \sum_{i,j=1}^d A_{ij}B_{ij}$ the Frobenius product of $A$ and $B$. We denote the Frobenius norm of $d \times d$ matrix $A$ as $|A| := (\sum_{i,j = 1}^d |A_{ij}|^2)^{1/2}$, for which we have 
+\begin{equation}\label{eq:matrix_bound}
+    |A:B| \leq |A|\cdot|B|, \quad |A\cdot B| \leq |A|\cdot |B|, \quad |Ab| \leq |A|\cdot|b|,
+\end{equation}
+all following from the Cauchy-Schwarz inequality. If $X$ is a normed vector space, we extend the definition to $X^{d \times d}$ by setting $\|F\|_{X} := \big|(\|F_{ij}\|_{X})\big|$. We use $L_2$ to denote the Hilbert-Schmidt norm. Given an SPDE in a Gelfand triple $V \subset H \subset V^{\ast}$ in the sense of \cite{LR15}, we define the \emph{$H$ solution} to the SPDE to be the probabilistically strong solution in $C([0,T],H) \cap L^2([0,T],V)$ for any $0< T < \infty$. Throughout the paper, all stochastic integrals are considered in the It\^o sense.
+
+
+\section*{Function Spaces}
+We denote by $\mathbb{T}^d = (\mathbb{R}/\mathbb{Z})^d$ the $d$-dimensional
+torus and write $L_{\mathbb{T}^d}^p = L^p (\mathbb{T}^d),$ $p \in [1, \infty]$
+for the usual Lebesgue spaces. By $H_{\mathbb{T}^d}^{\alpha}$ we mean the
+Sobolev space with index $\alpha \in \mathbb{R}$ defined as
+\[
+H_{\mathbb{T}^d}^{\alpha} := \left\{ u \in \mathcal{S}'_{\mathbb{T}^d} :
+\| (1 - \Delta)^{\alpha / 2} u \|_{L_{\mathbb{T}^3}^2} < \infty \right\}.
+\]
+Moreover, we write $W_{\mathbb{T}^d}^{s, p} := B_{p, p}^s (\mathbb{T}^d)$
+which we call fractional Sobolev spaces and
+$\mathcal{C}_{\mathbb{T}^d}^s := B_{\infty, \infty}^s (\mathbb{T}^d)$
+called H{\"o}lder-Besov spaces for $s \in \mathbb{R}$, $p \in [1,
+\infty]$ which are special cases of Besov spaces whose definition is recalled
+in Appendix \ref{sec:append-analy}. Occasionally we will write, by a slight
+abuse, $W_{\mathbb{T}^d}^{0, p} = L_{\mathbb{T}^d}^p$ and
+$W_{\mathbb{T}^d}^{s, \infty} =\mathcal{C}_{\mathbb{T}^d}^s .$ We also sometimes use the following notation 
+\[
+\| f (t) \|^p_{L_{t ; [a, b]}^p}
+:= \| f \|^p_{L_{[a, b]}^p} := \int^b_a | f (t) |^p d t
+\]
+for an interval $- \infty \leqslant a < b \leqslant
+\infty$ and the obvious modification for $p = \infty$. We recall the definition of Littlewood-Paley blocks and denoted by
+$\chi$ and $\rho$ two non-negative smooth and compactly supported radial
+functions $\mathbb{R}^d \rightarrow \mathbb{C}$ such that
+\begin{enumerate}
+  \item The support of $\chi$is contained in a ball and the support of $\rho$
+  is contained in an annulus $\{ x \in \mathbb{R}^d : a \leqslant | x |
+  \leqslant b \}$
+  
+  \item For all $\xi \in \mathbb{R}^d$, $\chi (\xi) + \underset{j \geqslant
+  0}{\sum} \rho (2^{- j} \xi) = 1$;
+  
+  \item For $j \geqslant 1$, $\chi (\cdot) \rho (2^{- j} \cdot) = 0$ and
+  $\rho (2^{- j} \cdot) \rho (2^{- i} \cdot) = 0$ for $| i - j | > 1$.
+\end{enumerate}
+The Littlewood-Paley blocks $(\Delta_j)_{j \geqslant - 1}$ associated to $f
+\in \mathcal{S}' (\mathbb{T}^d)$ are defined by $\Delta_{- 1} f :=
+\mathcal{F}^{- 1} (\chi \mathcal{F} f)$ and $\Delta_j f := \mathcal{F}^{-
+1} (\rho (2^{- j} \cdot) \mathcal{F} f)$ for $j \geqslant 0$. We also set,
+for $f \in \mathcal{S}' (\mathbb{T}^d)$ and $j \geqslant - 1$ that $S_j f
+:= \sum^{j - 1}_{i = - 1} \Delta_i f$. Then the \ Besov space with
+parameters $p, q \in [1, \infty), \alpha \in \mathbb{R}$ can now be defined as
+$B_{p, q}^{\alpha} (\mathbb{T}^d) := \{ u \in \mathcal{S}' (\mathbb{T}^d)
+: \| u \|_{B_{p, q}^{\alpha}} < \infty \}$, where the norm is defined as
+\[ \| u \|_{B_{p, q}^{\alpha}} := \left( \underset{k \geqslant - 1}{\sum}
+   ((2^{\alpha k} \| \Delta_k u \|_{L^p})^q) \right)^{\frac{1}{q}}, \]
+with the obvious modification for $q = \infty .$ We also define the
+Besov-H{\"o}lder spaces $\mathcal{C}^{\alpha} := B_{\infty,
+\infty}^{\alpha}$, which for $\alpha \in (0, 1)$ agree with the usual
+H{\"o}lder spaces $C^{\alpha} .$ Using this notation, we can formally
+decompose the product $f \cdot g$ of two distributions $f$ and $g$ as \
+\[ f \cdot g = f \olessthan g + f \odot g + f \ogreaterthan g, \]
+where
+\[ f \olessthan g := \underset{j \geqslant - 1}{\sum} S_{j - 1} f
+   \Delta_j g \quad \text{and\quad} f \ogreaterthan g := \underset{j
+   \geqslant - 1}{\sum} \Delta_j f S_{j - 1} g \]
+are referred to as the paraproducts, whereas
+\[ f \odot g := \underset{j \geqslant - 1}{\sum} \underset{| i - j |
+   \leqslant 1}{\sum} \Delta_i f \Delta_j g \]
+is called the resonant product. An important point is that the
+paraproduct terms are always well defined whatever the regularity of $f$ and
+$g$. The resonant product, on the other hand, is a priori only well defined if
+the sum of their regularities is positive. We collect some results.
+
+\begin{lem}[{\cite{CM17}}, Theorem 3.17]
+  \label{lem:para}Let $\alpha, \alpha_1, \alpha_2 \in \mathbb{R}$ and $p, p_1,
+  p_2, q \in [1, \infty]$ be such that
+  \[ \alpha_1 \neq 0 \quad \alpha = (\alpha_1 \wedge 0) + \alpha_2 \quad
+     \text{and} \quad \frac{1}{p} = \frac{1}{p_1} + \frac{1}{p_2} . \]
+  Then we have the bound
+  \[ \| f \olessthan g \|_{B_{p, q}^{\alpha}} \lesssim \| f \|_{B_{p_1,
+     \infty}^{\alpha_1}} \| g \|_{{B^{\alpha_2}_{p_2, q}} } \]
+  and in the case where $\alpha_1 + \alpha_2 > 0$ we have the bound
+  \[ \| f \odot g \|_{B_{p, q}^{\alpha_1 + \alpha_2}} \lesssim \| f
+     \|_{B_{p_1, \infty}^{\alpha_1}} \| g \|_{{B^{\alpha_2}_{p_2, q}} } . \]
+\end{lem}
+
+\begin{rem}
+  In this paper, we only consider the cases $W^{s, p} {= B_{p, p}^s}
+  $ fractional Sobolev, $H^s {= B_{2, 2}^s} $ and
+ H{\"o}lder Besov spaces $\mathcal{C}^s = B_{\infty, \infty}^s$
+  using the convention $W^{s, 2} = H^s$ and $W^{s, \infty} =\mathcal{C}^s$.
+\end{rem}
+
+\begin{lem}[Bernstein Inequality]
+  \label{lem:bernstein} Let $\mathcal{A}$ be an annulus and $\mathcal{B}$ be a
+  ball. For any $k \in \mathbb{N}, \lambda > 0,$and $1 \leqslant p \leqslant q
+  \leqslant \infty$ we have
+  \begin{enumerate}
+    \item if $u \in L^p (\mathbb{T}^d) $is such that $\mathrm{supp}
+    (\mathcal{F}u) \subset \lambda \mathcal{B}$ then
+    \[ \underset{\mu \in \mathbb{N}^d : | \mu | = k}{\max} \| \partial^{\mu} u
+       \|_{L^q} \lesssim_k \lambda^{k + d \left( \frac{1}{p} - \frac{1}{q}
+       \right)} \| u \|_{L^p} \]
+    \item if $u \in L^p (\mathbb{T}^d) $is such that $\mathrm{supp}
+    (\mathcal{F}u) \subset \lambda \mathcal{A}$ then
+    \[ \lambda^k \| u \|_{L^p} \lesssim_k \underset{\mu \in \mathbb{N}^d : |
+       \mu | = k}{\max} \| \partial^{\mu} u \|_{L^p} . \]
+  \end{enumerate}
+\end{lem}
+
+\
+
+\begin{lem}[Besov Embedding]
+  \label{lem:besovem} Let $\alpha < \beta \in \mathbb{R}, $ $q_1 \leqslant
+  q_2$, and $p > r \in [1, \infty]$ be such that $\beta = \alpha + d (1 / r -
+  1 / p)$, then we have the following bound
+  \[ \| f \|_{B_{p, q_2}^{\alpha} (\mathbb{T}^d)} \lesssim \| f \|_{{B_{r,
+     q}^{\beta}}_1 (\mathbb{T}^d)} . \]
+  Moreover, we have the following embedding between fractional Sobolev spaces
+  and Bessel potential spaces
+  \begin{equation}
+    \| f \|_{W_{\mathbb{T}^d}^{\alpha, \rho}} \lesssim \left\| (1 -
+    \Delta)^{\frac{\beta}{2}} f \right\|_{L_{\mathbb{T}^d}^{\rho}} \lesssim \|
+    f \|_{W_{\mathbb{T}^d}^{\beta, \rho}} \quad \text{for } \alpha < \beta
+    \quad \text{and } p \geqslant 2. \label{ineq:Bessel}
+  \end{equation}
+\end{lem}
+
+\
+
+\begin{prop}[Commutator in {\cite{GIP15}}, see Proposition A.9
+{\cite{MW17}}]
+  \label{prop:commu}
+  
+  Given $\alpha \in (0, 1)$, $\beta, \gamma \in \mathbb{R}$ such that $\beta +
+  \gamma < 0$ and $\alpha + \beta + \gamma > 0$, the following trilinear
+  operator $C$ defined for any smooth functions $f, g, h$ by
+  \[ \mathrm{com} (f, g, h) := (f \olessthan g) \odot h - f \cdot (g \odot
+     h) \]
+  can be extended continuously to the product space $W^{\alpha, p} \times
+  \mathcal{C}^{\beta} \times \mathcal{C}^{\gamma}$. Moreover, we have the
+  following bound
+  \[ || \mathrm{com} (f, g, h) ||_{W^{\alpha + \beta + \gamma - \delta, p}}
+     \lesssim || f ||_{W^{\alpha, p}} || g ||_{\mathcal{C}^{\beta}} || h
+     ||_{\mathcal{C}^{\gamma}} \]
+  for all $f \in W^{\alpha, p}$, $g \in \mathcal{C}^{\beta}$ and $h \in
+  \mathcal{C}^{\gamma}$, and every $\delta > 0, p \geqslant 1$.
+\end{prop}
+
+\begin{lem}[Fractional Leibniz {\cite{G96}}]
+  \label{lem:fracleib} Let $1 < p < \infty$ and $p_1, p_2, p'_1, p'_2$ such
+  that
+  \[ \frac{1}{p_1} + \frac{1}{p_2} = \frac{1}{p'_1} + \frac{1}{p'_2} =
+     \frac{1}{p} . \]
+  Then for any $s, \alpha \geqslant 0$ there exists a constant s.t.
+  \[ \| \langle \nabla \rangle^s (f g) \|_{L^p} \leqslant C \| \langle \nabla
+     \rangle^{s + \alpha} f \|_{L^{p_2}} \| \langle \nabla \rangle^{- \alpha}
+     g \|_{L^{p_1}} + C \| \langle \nabla \rangle^{- \alpha} f \|_{L^{p'_2}}
+     \| \langle \nabla \rangle^{s + \alpha} g \|_{L^{p'_1}} . \]
+\end{lem}
+
+\section*{Density Matrices}
+
+Let $\mathcal{L}^1_n = \mathcal{L}^1 (L_s^2 ((\mathbb{T}^3)^n))$ be the set of
+trace-class operators on the symmetric space $L_s^2 ((\mathbb{T}^3)^n)$, the
+set of symmetric $L^2$ functions on $n$-copies of the three dimensional torus
+$\mathbb{T}^3$ for $n \in \mathbb{N}$. The class of density matrices
+is then the subset of $\rho \in \mathcal{L}^1_n$ such that $\rho$ is
+self-adjoint, non-negative and normalized by $\mathrm{Tr} (\rho) = 1$. If $S$ is
+a linear operator on $L^2 (\mathbb{T}^3)$, we abbreviate $S_{x_k} = S_k$ to be the
+linear operator on the $k$-th component of $L_s^2 ((\mathbb{T}^3)^n)$, where
+the tensor product is symmetrized. We also denote the family of compact
+operators on $L_s^2 ((\mathbb{T}^3)^n)$ as 
+\begin{equation}\label{eq:def-K_n}
+\mathcal{K}_n = \mathcal{K} (L_s^2
+((\mathbb{T}^3)^n)).
+\end{equation}
+More generally, we denote by $\mathcal{L}^p (L^2_s ((\mathbb{T}^3)^n))$ the
+space of symmetric compact operators with finite $p$-Schatten norm,
+namely
+\[ A \in \mathcal{L}^p (L^2_s ((\mathbb{T}^3)^n)) \Leftrightarrow \| A
+   \|_{\mathcal{L}^p}^p = \mathrm{Tr} (| A |^p) < + \infty . \]
+If $A \in \mathcal{L}^p (L^2_s ((\mathbb{T}^3)^n))$ for some $p \leqslant 2$,
+$A$ is in particular a Hilbert-Schmidt operator and thus, we can - and will -
+identify $A$ with its kernel in $L^2 ((\mathbb{T}^3)^{2 n})$. We further
+define the partial trace $\mathrm{Tr}_{k + 1 : n}$ as a bounded operator from
+$\mathcal{L}^1 (L^2_s ((\mathbb{T}^3)^n))$ into $\mathcal{L}^1 (L^2_s
+((\mathbb{T}^3) )^k)$ for $k \leqslant n$ to be such that
+\begin{equation}
+  \mathrm{Tr} (\mathrm{Tr}_{k + 1 : n} A K) = \mathrm{Tr} (A K \otimes \mathrm{Id}_{k
+  + 1 : n}), \label{eq:def-partialtrace-weak}
+\end{equation}
+for any $K \in \mathcal{K} (L_s^2 ((\mathbb{T}^3)^{n - k}))$. Equivalently,
+the partial trace is defined in terms of kernels by
+\[ \mathrm{Tr}_{k + 1 : n} (A) (x_{1 : k}, x'_{1 : k}) = \int_{\mathbb{T}^{3 (n
+   - k)}} A ((x_{1 : k}, z_{k + 1 : n}), (x'_{1 : k}, z_{k + 1 : n})) \mathrm{d}
+   z_{k + 1 : n} \]
+where, hereafter, $w_{h : \ell}$ denotes the vector $w_{h : \ell} \in
+(\mathbb{T}^3)^{(\ell - h + 1)}$ formed by the components from $h$-th to
+$\ell$-th of an arbitrary vector $w_{1 : n} \in (\mathbb{T}^3)^n$. We call a
+family of trace-class operators $(\rho^n)_{n \in \mathbb{N}}$ with $\rho^n \in
+\mathcal{L}^1 (L^2_s (\mathbb{T}^{3 n}))$ compatible, if for any $n
+\in \mathbb{N}$ and $k \leqslant n$ we have
+\[ \rho^k = \mathrm{Tr}_{k + 1 : n} (\rho^n) . \]
+We use the same name for a finite set $(\rho_n)_{n \leqslant N}$ satisfying
+the equation as above. We further define the Sobolev spaces of operators with
+respect to the self-adjoint, negative and densely defined $\mathcal{H}$ and
+$\mathcal{H}_{\delta}$ to be
+\begin{equation}
+\begin{split}
+  \mathcal{W}_N^{\alpha, \beta} = & \left\{ \rho \in \mathcal{L}^{\beta}
+  ((\mathbb{T}^3)^N) : \| \rho \|_{\mathcal{W}^{\alpha, \beta}_N} < + \infty
+  \right\}, \\
+  & \text{where } {\| \rho \|_{\mathcal{W}_N^{\alpha, \beta}}}  = \left( \sum_{k
+  = 1}^N \mathrm{tr} (| (- \mathcal{H}_{x_k})^{\alpha / 2} \rho (-
+  \mathcal{H}_{x_k})^{\alpha / 2} |^{\beta}) \right)^{\frac{1}{\beta}},
+  \label{operator-norm-sobolev}
+  \end{split}
+\end{equation}
+and respectively 
+\begin{equation}
+\begin{split}
+  \mathcal{W}_{N, \delta}^{\alpha, \beta} = & \left\{ \rho \in \mathcal{L}^{\beta}
+  ((\mathbb{T}^3)^N) : \| \rho \|_{\mathcal{W}^{\alpha, \beta}_{N, \delta}} <
+  + \infty \right\}, \\
+  & \text{where }\| \rho \|_{\mathcal{W}_{N, \delta}^{\alpha, \beta}} =
+  \left( \sum_{k = 1}^N \mathrm{tr} (| (- \mathcal{H}_{\delta, x_k})^{\alpha /
+  2} \rho (- \mathcal{H}_{\delta, x_k})^{\alpha / 2} |^{\beta})
+  \right)^{\frac{1}{\beta}}, \label{operator-norm-sobolev-delta}
+  \end{split}
+\end{equation}
+where the Anderson Hamiltonian $\mathcal{H}$ is given in Proposition
+\ref{prop:construction-AH}, and its mollified version $\mathcal{H}_{\delta}$
+is defined in (\ref{eq:mollified-AH}).
+
+\section*{Other notational conventions}
+
+We use some usual conventions, such as writing $a_+ := \max \{ a, 0 \}$, and
+\[ a \lesssim b \]
+if there exists a constant $C > 0$ s.t. $a \leqslant C b$ which does not
+depend on relevant parameters. We also write
+\[ a \asymp b \text{ if } a \lesssim b \text{ and } b \lesssim a \]
+and if we want to keep track that the implicit constant depends on a parameter
+$\gamma$ we write $a \lesssim_{\gamma} b$ etc.
+
+Since the problem we are considering is path-wise, meaning that we
+fix a realization $\omega \in \Omega$ of the noise which has an enhanced noise
+$\Xi (\omega)$ with $\| \Xi \|_{\mathfrak{X}} < \infty $, see Lemma
+\ref{lem:conv-enhancement}. Since all our constructions depend on this
+realisation so we allow every implicit constant to depend on this
+norm, schematically written as
+\[ a \lesssim b \Leftrightarrow a \lesssim_{\Xi} b. \]
+On a related note, we often write things like $f \in
+\mathcal{C}_{\mathbb{T}^d}^{\alpha -}$ to mean $f \in
+\mathcal{C}_{\mathbb{T}^d}^{\beta}$ for all $\beta < \alpha$ and in some cases
+we take it to mean $f \in \mathcal{C}_{\mathbb{T}^d}^{\alpha - \kappa}$ for an
+arbitrarily small $\kappa > 0$ which can be chosen independently of other
+parameters. Similarly, we write something of the form
+\[ \| A f \|_X \lesssim \| f \|_{H^{\alpha +}_{\mathbb{T}^d}} \Leftrightarrow
+   \| A f \|_X \lesssim \| f \|_{H^{\alpha + \varepsilon}_{\mathbb{T}^d}} 
+  \ \mathrm{for all} \ \varepsilon > 0 \]
+to mean that the bound is true for every $\varepsilon > 0$ and the implicit
+constant blows up as $\varepsilon \to 0^+.$
+
+\section*{Flattened, sharpened and natural variables}
+
+We try to stay consistent in labelling the variables by the ``flat'',
+``sharp'', and ``natural'' superscript to denote the transformation one is
+considering which are succesively more refined and complicated. For the
+convenience of the reader, we briefly summarize their definitions and where
+they are used.
+\begin{itemize}
+  \item ``Flat transform'': multiplication by an exponential of a
+  noise term, see \eqref{def:flat}, which characterizes the form domain of
+  $\mathcal{H}$ i.e. 
+  \begin{equation*}
+  u^{\flat} = e^{- W} u \ \mathrm{and} \ \| u \|_{\mathcal{D} \left(
+  \sqrt{- \mathcal{H}} \right)} \asymp \| u^{\flat} \|_{H_{\mathbb{T}^3}^1}.
+  \end{equation*}
+  
+  \item ``Sharp transform'': paracontrolled ansatz (inverse of
+  $\Gamma$, see Lemma \ref{lem:con-Gamma}) performed after the exponential
+  ansatz i.e. $u^{\sharp} = \Gamma^{- 1} e^{- W} u$ which characterizes the
+  domain of $\mathcal{H}$ which we also transform as $\mathcal{H}^{\sharp}
+  := \Gamma^{- 1} e^{- W} \mathcal{H} e^W \Gamma$ via
+  \[ \| u \|_{\mathcal{D} (\mathcal{H})} \asymp \| u^{\sharp}
+     \|_{H_{\mathbb{T}^3}^2} \asymp \| \mathcal{H}^{\sharp} u^{\sharp}
+     \|_{L_{\mathbb{T}^3}^2} . \]
+  We use this transformation in Section \ref{sec:LWPenergy} and to obtain the
+  embeddings and norm equivalences in Lemma \ref{lem:embed}.
+  
+  \item ``Natural transform'': The $\Theta$ transform, see Lemma
+  \ref{lem:homeom-Theta}, applied after the sharp transform i.e. $u^{\natural}
+  = \Theta u^{\sharp} = \Theta \Gamma^{- 1} e^{- W} u$ which is the inverse of
+  $\Lambda$ from Lemma \ref{lem:Lambda}. We set also $\mathcal{H}^{\natural}
+  := \Lambda^{- 1} \mathcal{H} \Lambda$ and this transformation has the
+  important properties
+  \[ \mathcal{H}^{\natural} - \Delta : H_{\mathbb{T}^3}^{\frac{3}{2} +}
+     \rightarrow H_{\mathbb{T}^3}^{0 +} \quad \text{and } \Lambda - \mathrm{id}
+     : H_{\mathbb{T}^3}^{0 -} \rightarrow H_{\mathbb{T}^3}^{\frac{1}{2} -}, \]
+  which are properties that are not true without this additional refinement.
+  We heavily use this transform in Section \ref{sec:high-order-energy} and
+  this transform is one of the novelties of the current paper, whereas the
+  other two already appeared in {\cite{GUZ20}}.
+\end{itemize}
