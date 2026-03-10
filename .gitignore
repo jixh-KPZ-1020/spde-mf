@@ -16,7 +16,7 @@ __pycache__/
 **/.DS_Store
 
 # LaTeX build artifacts (inside thesis/)
-thesis/build/
+thesis/build/*
 !thesis/build/main.pdf
 thesis/thesis-source.tar.gz
 thesis/**/*.aux
