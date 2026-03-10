@@ -374,7 +374,25 @@ where
 $$
 m \mapsto \nabla^2 :[ a(\cdot, m)m] + \nabla \cdot [ b(\cdot, m)m]
 $$
-is the nonlinear Fokker-Planck operator governing the evolution of the law of the mean-field limit of~\eqref{eq:main_particle}, $f^N: \mathbb{R} \to \mathbb{R}^+ \cup \{0\}$ is a well-chosen approximation of the square root, and the noise $W^N$ is colored in space and white in time and it approximates the space-time white noise.\\
+is the nonlinear Fokker-Planck operator governing the evolution of the law of the mean-field limit of~\eqref{eq:main_particle}, $f^N: \mathbb{R} \to \mathbb{R}^+ \cup \{0\}$ is a well-chosen approximation of the square root, and the noise $W^N$ is colored in space and white in time and it approximates the space-time white noise.
+
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{dk_fdelta.pdf}
+    \caption{\textbf{Regularisation of the square root.} The $C^1$ approximation $f_\delta(x) \to \mathrm{sign}(x)\sqrt{|x|}$ (dashed) for decreasing regularisation parameters $\delta = 0.2$ ({\color[HTML]{8000FF}\rule[0.4ex]{0.5cm}{1.5pt}}), $0.1$ ({\color[HTML]{4019B2}\rule[0.4ex]{0.5cm}{1.5pt}}) and $0.03$ ({\color[HTML]{003366}\rule[0.4ex]{0.5cm}{1.5pt}}). \githublink{https://github.com/jixh-KPZ-1020/spde-mf/blob/main/scripts/spdes/dk_moll.py}}
+    \label{fig:dk_fdelta}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.48\linewidth}
+    \centering
+    \includegraphics[width=\linewidth]{dk_theta.pdf}
+    \caption{\textbf{Spectral mollifier on $\mathbb{Z}^2$.} The cutoff function $\theta^N_k = \sqrt{\hat{\eta}(k/L_N)}$ evaluated on integer Fourier modes $k \in \mathbb{Z}^2$, supported on the ball $|k| \lesssim L_N$ and vanishing smoothly outside it ({\color[HTML]{003366}\rule[0ex]{1.5ex}{1.5ex}} deeper shading indicates $\theta^N_k$ closer to $1$). \githublink{https://github.com/jixh-KPZ-1020/spde-mf/blob/main/scripts/spdes/dk_moll.py}}
+    \label{fig:dk_theta}
+  \end{minipage}
+\end{figure}
 
 To quantify the effectiveness of \eqref{eq:DK_full} approximating the particle systems \eqref{eq:def-IPS}, it is then natural to compare arbitrary statistics of the two dynamics at any given time, namely the weak--error rate of the approximation. From the perspective of stochastic analysis, this problem boils down to the ``regularity'' of corresponding Kolmogorov equations.\\
 
@@ -432,7 +450,7 @@ Closely related to \eqref{eq:MFG-Master} is the derivation of the weak error rat
 as a reduced linear version of \eqref{eq:MFG-Master}. Since the generator of the SPDE \eqref{eq:DK_reg-intro} is designed to mimic that of the particle system, we will see that the rest of the analysis is mainly technical as we compare the Kolmogorov equations.
 \newpage
 
-\section{Content Overview}
+\section*{Content Overview}
 
 The content of the thesis is summarized in the following Table \ref{table:thesis-content}.
 {
@@ -486,74 +504,12 @@ solution to the BBGKY hierarchy when the interaction is bounded, as
 a direct consequence of which, the convergence of the Bosonic system to the
 solution of the equation \eqref{eq:main1} is validated. This implies that
 \eqref{eq:main1} indeed describes effectively the condensation, when the number of particles is
-sufficiently large, which is the content of Corollary \ref{corollary:main}.\\
-
-\newpage
-
-\begin{figure}[htbp]
-\usetikzlibrary{trees}
-\begin{tikzpicture}[
-  grow=right,
-  edge from parent fork right,
-  level 1/.style={level distance=4.5cm},
-  level 2/.style={level distance=6cm},
-  every node/.style={
-    draw,
-    rectangle,
-    rounded corners,
-    align=left,
-    font=\sffamily\small,
-    inner sep=6pt
-  },
-  edge from parent/.style={draw, thick, -}
-]
-
-  % ==========================================
-  % First Independent Tree: DK Equation
-  % ==========================================
-  \node[text=violet!100!white] at (0, 0) {\textbf{Dean--Kawasaki}\\ \textbf{(DK) Equation}}
-    child[sibling distance=6.5cm] { node {Chapter 3: Restricted\\LDP (Coulomb kernels)}
-      child[sibling distance=1.3cm] { node {Sec 3.5: Upper bound derivation} }
-      child[sibling distance=1.3cm] { node {Sec 3.4: Skeleton eq. analysis} }
-      child[sibling distance=1.3cm] { node {Sec 3.3: Lower bound derivation} }
-      child[sibling distance=1.3cm] { node {Sec 3.2: Exponential estimates} }
-      child[sibling distance=1.3cm] { node {Sec 3.1: Renormalized \\ \quad kinetic solutions} }
-    }
-    child[sibling distance=6.5cm] { node {Chapter 2:\\Weak-error estimate}
-      child[sibling distance=1.5cm] { node {Sec 2.3: Weak error estimate} }
-      child[sibling distance=1.5cm] { node {Sec 2.2: It\^o formula} }
-      child[sibling distance=1.5cm] { node {Sec 2.1: Variational solutions} }
-    };
-
-  % ==========================================
-  % Second Independent Tree: ANLS Equation
-  % ==========================================
-  % Positioned far enough down (y = -13) to avoid leaf collision with the DK tree above
-  \node[text=violet!100!white] at (0, -13) {\textbf{Anderson Nonlinear}\\ \textbf{Schr\"odinger (ANLS)}}
-    child[sibling distance=5.5cm] { node {Chapter 5:\\Effective Description}
-      child[sibling distance=1.5cm] { node {Sec 5.2.3: Uniqueness of BBGKY} }
-      child[sibling distance=1.5cm] { node {Sec 5.2.2: Limit to BBGKY} }
-      child[sibling distance=1.5cm] { node {Sec 5.1: Formal derivation} }
-    }
-    child[sibling distance=5.5cm] { node {Chapter 4:\\Well-posedness}
-      child[sibling distance=1.4cm] { node {Sec 4.4: Global well-posedness} }
-      child[sibling distance=1.4cm] { node {Sec 4.3: Local well-posedness} }
-      child[sibling distance=1.4cm] { node {Sec 4.2: Strichartz estimates} }
-      child[sibling distance=1.4cm] { node {Sec 4.1: Anderson Hamiltonian} }
-    };
-
-\end{tikzpicture}
-\caption{Structure of the thesis.}
-  \label{fig:thesis_structure}
-\end{figure}
-
-\newpage
-
+sufficiently large, which is the content of Corollary \ref{corollary:main}.
 \subsection*{Omitted Details}
-For brevity and readability of the thesis, we omit some technical details that either are tangential to the main focus on the thesis or follow directly from classical arguments; we refer interested readers to the corresponding papers for details and summarize those points with the precise reference to the literature in the following table \ref{tab:omit}. 
+For brevity and readability of the thesis, we omit some technical details that either are tangential to the main focus on the thesis or follow directly from classical arguments; we refer interested readers to the corresponding papers for details and summarize those points with the precise reference to the literature in the following table \ref{tab:omit}. \\
 
 {\footnotesize
-\renewcommand{\arraystretch}{1.5}
+\renewcommand{\arraystretch}{1.7}
 \begin{longtable}{|m{3.6cm}|m{3.2cm}!{\vrule width 1pt}m{3.6cm}|m{3.2cm}|}
 \hline
 \textbf{Statement} & \textbf{Reference} & \textbf{Statement} & \textbf{Reference} \\
@@ -601,3 +557,76 @@ Conservation Law in Lemma \ref{lem:boundrhoN}
 \end{longtable}
 }
 
+\newpage
+
+\begin{figure}[htbp]
+\centering
+% ==========================================
+% First Tree: DK Equation
+% ==========================================
+\begin{forest}
+  for tree={
+    grow'=0,
+    draw, rectangle, rounded corners,
+    font=\sffamily\footnotesize,
+    align=center,          % Safely handles line breaks (\\) and wrapping
+    inner sep=6pt,
+    l sep=1.5cm,
+    s sep=4mm,
+    edge={-latex, thin},
+    fork sep=0.7cm,
+  },
+  forked edges
+  [\textbf{Dean--Kawasaki}\\\textbf{(DK) Equation}, text=violet
+    [{Chapter \ref{ch:weak}}:\\ Weak-error estimate
+      [{Sec \ref{ch:GWP}}: Variational solutions]
+      [{Sec \ref{sec:ito-Kol}}: It\^o formula]
+      [{Sec \ref{sec:weak_error}}: Weak error estimate]
+    ]
+    [{Chapter \ref{ch:LDP}}:\\ Restricted LDP (Coulomb kernels)
+      [{Sec \ref{sec:existence}}: Renormalized\\ kinetic solutions]
+      [{Sec \ref{sec-4}}: Exponential estimates]
+      [{Sec \ref{sec:LB-LDP}}: Lower bound derivation]
+      [{Sec \ref{sec-ws!}}: Skeleton eq.\ analysis]
+      [{Sec \ref{sec:LDP-UB}}: Upper bound derivation]
+    ]
+  ]
+\end{forest}
+
+\vspace{0.3cm}
+
+% ==========================================
+% Second Tree: ANLS Equation
+% ==========================================
+\begin{forest}
+  for tree={
+    grow'=0,
+    draw, rectangle, rounded corners,
+    font=\sffamily\footnotesize,
+    align=center,          % Safely handles line breaks (\\) and wrapping
+    inner sep=6pt,
+    l sep=1.5cm,
+    s sep=4mm,
+    edge={-latex, thin},
+    fork sep=0.7cm,
+  },
+  forked edges
+  [\textbf{Anderson Nonlinear}\\\textbf{Schr\"odinger (ANLS)}, text=violet
+    [{Chapter \ref{ch:ANLS}}:\\ Well-posedness
+      [{Sec \ref{sec:AH}}: Anderson Hamiltonian]
+      [{Sec \ref{sec:strichartz}}: Strichartz estimates]
+      [{Sec \ref{chapter-LWP}}: Local well-posedness]
+      [{Sec \ref{chapter:GWP}}: Global well-posedness]
+    ]
+    [{Chapter \ref{ch:BEC}}:\\ Effective Description
+      [{Sec \ref{sec:ANLS-derivation}}: Formal derivation]
+      [{Sec \ref{chapter:MFL-MB}}: BBGKY hierarchy]
+      [{Sec \ref{sec:depletion}}: Depletion of condensates]
+    ]
+  ]
+\end{forest}
+\caption{Structure of the thesis.}
+\label{fig:thesis_structure}
+\end{figure}
+
+\newpage

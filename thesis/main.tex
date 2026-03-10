@@ -39,6 +39,9 @@
 \usepackage{caption}
 \captionsetup{position=bottom}
 \usepackage{tikz}
+\usepackage{forest}
+\useforestlibrary{edges}
+\usepackage{varwidth}
 \usepackage{fontawesome5}
 \graphicspath{{../output/}{figures/}}
 
@@ -79,7 +82,7 @@
 \newtheorem{assu}[thm]{Assumption}
 \newtheorem{que}[thm]{Question}
 \newcommand{\NP}[1]{{\color{blue}NP: #1}}
-\newcommand{\githublink}[1]{\hfill{\hypersetup{urlcolor=fuBlue}\href{#1}{\faGithub}}}
+\newcommand{\githublink}[1]{\hfill\href{#1}{\textcolor{fuBlue}{\faGithub}}}
 \newtheorem{nota}[thm]{Notation}
 
 \newtheorem*{thm*}{Theorem}

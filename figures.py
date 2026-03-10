@@ -17,7 +17,7 @@ import argparse
 import os
 import sys
 
-FIGURE_NAMES = ["fdr", "fdr_riem", "mollweide", "unimodal", "sk", "ising_tc", "white_noise_2d", "modulated_energy", "kpz", "nls", "ah_eigen_wn", "poc"]
+FIGURE_NAMES = ["fdr", "fdr_riem", "mollweide", "unimodal", "sk", "ising_tc", "white_noise_2d", "modulated_energy", "kpz", "nls", "ah_eigen_wn", "poc", "dk_moll"]
 
 
 def _build_registry():
@@ -48,6 +48,9 @@ def _build_registry():
     from scripts.chaos.propagation_of_chaos import (simulate_poc,
                                                      plot_poc_mfe,
                                                      plot_poc_chaos)
+    from scripts.spdes.dk_moll import (simulate_dk_moll,
+                                       plot_dk_fdelta,
+                                       plot_dk_theta)
     return {
         "fdr": (
             simulate_fdr,
@@ -101,6 +104,11 @@ def _build_registry():
             simulate_poc,
             [(plot_poc_mfe,   "poc_mfe"),
              (plot_poc_chaos, "poc_chaos")],
+        ),
+        "dk_moll": (
+            simulate_dk_moll,
+            [(plot_dk_fdelta, "dk_fdelta"),
+             (plot_dk_theta,  "dk_theta")],
         ),
     }
 
