@@ -332,8 +332,9 @@ def plot_unimodal_v3(result, outpath, colors):
     fig = plt.figure(figsize=(14, 4))
 
     ax1 = fig.add_subplot(141, projection="3d")
+    # Note the extra brackets for \boldsymbol in the f-string
     sphere_scatter(ax1, r["grid_pts"], r["log_rho0"],
-                   title=f"Arbitrary initial $\\hat{{\\mu}}({r['t0']:g})$",
+                   title=f"Arbitrary initial $\\boldsymbol{{\\hat{{\\mu}}}}({r['t0']:g})$",
                    s=6, cmap=cmap_thesis, norm=norm0, mu=r["mu"], title_y=caption_y)
 
     ax2 = fig.add_subplot(142, projection="3d")
@@ -347,8 +348,9 @@ def plot_unimodal_v3(result, outpath, colors):
                    s=6, cmap=cmap_thesis, norm=norm_target, mu=r["mu"], title_y=caption_y)
 
     ax4 = fig.add_subplot(144, projection="3d")
+    # Using raw strings (r"") makes LaTeX backslashes easier to read
     sphere_scatter(ax4, r["grid_pts"], r["log_pi"],
-                   title=r"Gibbs $\mu^{\mathrm{inv}}$",
+                   title=r"Gibbs $\boldsymbol{\mu^{\mathrm{inv}}}$",
                    s=6, cmap=cmap_thesis, norm=norm_target, mu=r["mu"], title_y=caption_y)
 
     # Keep panels visually close while leaving room for below-captions.
@@ -359,7 +361,7 @@ def plot_unimodal_v3(result, outpath, colors):
     x_shared = 0.5 * (pos2.x0 + pos3.x1)
     y_shared = min(pos2.y0 + caption_y * pos2.height,
                    pos3.y0 + caption_y * pos3.height)
-    fig.text(x_shared, y_shared, "Empirical Density in Evolution $\\hat{{\\mu}}(t)$",
+    fig.text(x_shared, y_shared, "Empirical Density in Evolution $\\boldsymbol{\\hat{\\mu}}(t)$",
              ha="center", va="top",fontsize=17)
     fig.savefig(outpath)
     plt.close(fig)
@@ -423,7 +425,7 @@ def plot_unimodal_v3_ratio(result, outpath, colors):
 def main():
     import os
     import sys
-    sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+    sys.path.insert(0, os.path.join(os.path.dirname(__file__), "../.."))
     from viz_style import apply_thesis_style
     import matplotlib.pyplot as plt
 

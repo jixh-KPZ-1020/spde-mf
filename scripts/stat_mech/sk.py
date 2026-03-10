@@ -84,10 +84,8 @@ def plot_SK(result, outpath=None, colors=None):
     )
 
     ax.axvline(0, color="k", linestyle="--", alpha=0.3)
-    ax.set_xlabel(r"Overlap $q_{\alpha\beta}$")
-    ax.set_ylabel(r"Probability density $P(q)$")
-    ax.set_title(fr"Overlap distribution $P(q)$, SK model ($N={N}$)")
-    ax.legend()
+    ax.set_xlabel(r"Overlap $q_{\alpha\beta}$", fontsize=16, fontweight='bold')
+    ax.set_ylabel(r"Probability density $P(q)$", fontsize=16, fontweight='bold')
 
     fig.tight_layout()
     if outpath:
@@ -100,7 +98,7 @@ def plot_SK(result, outpath=None, colors=None):
 
 if __name__ == "__main__":
     import sys, os
-    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
     from viz_style import apply_thesis_style
     colors = apply_thesis_style()
 

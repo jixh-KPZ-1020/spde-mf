@@ -23,22 +23,24 @@ was replaced by an averaged ``molecular field''. In its simplest form, MFT repla
 the interaction with an effective average field. For example, in the study of the
 Ising model, the resulting prediction of a continuous phase transition at
 the critical temperature is one of the major successes of MFT, although critical
-exponents differ from those observed in low spatial dimensions.
-A systematic phenomenological formulation is given by Landau theory,
-discussed in detail in Goldenfeld~\cite{goldenfeld1992lectures}.
+exponents differ from those observed in low spatial dimensions.\\
+
+A systematic phenomenological formulation is given by Landau theory, discussed in detail in Goldenfeld~\cite{goldenfeld1992lectures}. However, in dimension two and three, the critical temperature predicted by MFT is not accurate, as shown in Fig.~\ref{fig:ising_tc_comparison}, and the critical exponents are also different from the exact results. The failure of MFT in low dimensions is due to the neglect of fluctuations, which are particularly important near criticality.
 \begin{figure}[H]
   \centering
-  \begin{minipage}{0.25\linewidth}
+  \begin{minipage}{0.45\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/ising_lattice.pdf}
+    \includegraphics[width=\linewidth]{ising_lattice.pdf}
+    \caption{2D Ising model near the critical region. \githublink{https://github.com/jixh-KPZ-1020/spde-mf/blob/main/scripts/stat_mech/ising.py}}
+  \label{fig:ising_simulation}
   \end{minipage}
   \hfill
-  \begin{minipage}{0.7\linewidth}
+  \begin{minipage}{0.53\linewidth}
     \centering
-    \includegraphics[width=\linewidth]{figures/ising_tc.pdf}
-  \end{minipage}
-  \caption{\footnotesize Left: snapshot of a Monte Carlo simulation of the two–dimensional square-lattice Ising model near the critical region, showing the emergence of correlated spin domains. Right: comparison of the critical temperature $T_c$ as a function of the coupling constant $J$ (with $k_B=1$). The Landau mean-field prediction $T_c^{\mathrm{MF}}=zJ$ with coordination number $z=4$ is compared with the exact Onsager result $T_c=\frac{2J}{\ln(1+\sqrt{2})}\approx 2.269185\,J$. The mean-field approximation systematically overestimates the critical temperature because it neglects spatial fluctuations that become important in two dimensions.}
-  \label{fig:ising_simulation_and_tc_comparison}
+    \includegraphics[width=\linewidth]{ising_tc.pdf}
+    \caption{The Landau mean-field prediction $T_c^{\mathrm{MF}}=4J$ ({\color[HTML]{d9b7fa}\rule[0.4ex]{0.5cm}{1.5pt}}) is compared with the exact Onsager result $T_c=(2J)/\ln(1+\sqrt{2})$ ({\color[HTML]{003366}\rule[0.4ex]{0.5cm}{1.5pt}}). \githublink{https://github.com/jixh-KPZ-1020/spde-mf/blob/main/scripts/stat_mech/ising.py}}
+    \label{fig:ising_tc_comparison}
+\end{minipage}
 \end{figure}
 
 A major development in the late 20th century was the extension of MFT to
@@ -47,22 +49,22 @@ model for spin glasses.
 The broken replica--symmetry solution by Parisi and its mathematical
 formulation constitute one of the deepest applications of MFT beyond
 standard phase transitions. An authoritative treatment is given by
-M{\'e}zard, Parisi, and Virasoro~\cite{mezard1987spinGlass}.
-These methods influenced fields as diverse as neural networks, Bayesian
-inference, optimization in random media and many others.
+M{\'e}zard, Parisi, and Virasoro~\cite{mezard1987spinGlass}. The key order parameter in the SK model is the distribution of overlaps $P(q)$, which captures the similarity between different replicas of the system\footnote{More precisely, the overlap $q_{\alpha\beta}$ between two replicas $\alpha$ and $\beta$ is defined as the normalized inner product of their spin configurations
+ \[
+ q_{\alpha\beta} = \frac{1}{N}\sum_{i=1}^{N}\sigma_i^\alpha\sigma_i^\beta,
+ \]
+ Here, replicas ($\alpha, \beta$) are identical copies of the spin glass that share the exact same quenched disorder (the random interaction matrix $J_{ij}$) but undergo independent thermal fluctuations, and $\sigma_i^\alpha$ is the spin of the $i$-th particle in replica $\alpha$. Under low temperature, the system freezes into a spin glass phase. The energy landscape dictates the dynamics, trapping replicas into deep, mutually inaccessible valleys (local energy minima). When replicas fall into the same valley (or its global inversion), they exhibit high similarity, causing $P(q)$ to split into distinct peaks. This splitting and the emergence of multiple structural overlaps is the direct manifestation of Replica Symmetry Breaking (RSB).}. 
 
 \begin{figure}[H]
     \centering
-    % Replace with your actual image filename
-    \includegraphics[width=0.7\textwidth]{figures/sk.pdf}
-    \caption{\footnotesize\textbf{Overlap distribution $P(q)$ for the Sherrington-Kirkpatrick (SK) model.} 
-    The histogram displays the probability density $P(q)$ of finding a specific overlap $q_{\alpha\beta}$ between two independent replicas of the system, defined as $q_{\alpha\beta} = \frac{1}{N}\sum_{i=1}^{N}\sigma_i^\alpha\sigma_i^\beta$. Here, replicas ($\alpha, \beta$) are identical copies of the spin glass that share the exact same quenched disorder (the random interaction matrix $J_{ij}$) but undergo independent thermal fluctuations. 
-    \textbf{High Temperature ($T > T_c$, blue):} Thermal energy dominates the rugged energy landscape. Replicas act essentially as paramagnets, freely exploring uncorrelated configurations without getting trapped. This results in a single Gaussian peak centered at $q=0$, preserving Replica Symmetry (RS). 
-    \textbf{Low Temperature ($T < T_c$, red):} The system freezes into a spin glass phase. The energy landscape dictates the dynamics, trapping replicas into deep, mutually inaccessible valleys (local energy minima). When replicas fall into the same valley (or its global inversion), they exhibit high similarity, causing $P(q)$ to split into distinct peaks at $\pm q_{EA}$ (the Edwards-Anderson order parameter). This splitting and the emergence of multiple structural overlaps is the direct manifestation of Replica Symmetry Breaking (RSB).}
+    \includegraphics[width=0.7\textwidth]{sk.pdf}
+    \caption{\textbf{Overlap distribution for the SK model.} 
+    The histogram displays the probability density $P(q)$ of finding a specific overlap $q_{\alpha\beta}$ between two independent replicas of the system, with total number of spin $N = 100$ and under high temperature $T=2.0$ ({\color[HTML]{003366}\rule[0ex]{1.5ex}{1.5ex}} paramagnetic) and low temperature $T=0.4$ ({\color[HTML]{d9b7fa}\rule[0ex]{1.5ex}{1.5ex}} spin glass) respectively. 
+     \githublink{https://github.com/jixh-KPZ-1020/spde-mf/blob/main/scripts/stat_mech/sk.py}}
     \label{fig:sk_pq_distribution}
 \end{figure}
 
-The mathematical concept of propagation of chaos was refined through the nonlinear Markov process framework of McKean~\cite{mckean1966class} after the foundational work by Kac, who introduced what are now known as McKean--Vlasov stochastic differential equations, whose ``coefficients depend on the distribution of the process itself''. They were further developed into a general theory by Sznitman~\cite{sznitman1991topics}. In this setting, empirical measures of $N$--particle systems converge to solutions of nonlinear Fokker--Planck equations, and quantitative versions of propagation of chaos provide explicit convergence rates under Lipschitz or monotone interaction assumptions.\\
+On the other hand, the mathematical concept of propagation of chaos was refined through the nonlinear Markov process framework of McKean~\cite{mckean1966class} after the foundational work by Kac, who introduced what are now known as McKean--Vlasov stochastic differential equations, whose ``coefficients depend on the distribution of the process itself''. They were further developed into a general theory by Sznitman~\cite{sznitman1991topics}. In this setting, empirical measures of $N$--particle systems converge to solutions of nonlinear Fokker--Planck equations, and quantitative versions of propagation of chaos provide explicit convergence rates under Lipschitz or monotone interaction assumptions.\\
 
 Due to the singularity of the interactions that are physically relevant, e.g. Coulomb or Riesz potentials, the rigorous justification of the mean--field limit PDE together with its corresponding particle systems has only been achieved by the works of Serfaty, Jabin--Wang and others. The modulated energy was introduced by Serfaty \cite{S20}, whose dynamic was monitored via a Grönwall--type inequality. The technique was later combined with the relative entropy method by Jabin, Wang and Bresch \cite{JW18,BJW19} to quantify the mean--field limit for a general class of singular kernels including the Biot--Savart law and Patlak--Keller--Segel kernel. We refer the readers to \cite{serfaty2024lecturescoulombrieszgases} for a comprehensive overview on related topics in classical mechanics.
 
@@ -170,14 +172,14 @@ $\mathbb{R}^2$.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.85\textwidth]{figures/nls.pdf}
-    \caption{\footnotesize
+    \includegraphics[width=0.7\textwidth]{nls.pdf}
+    \caption{
         Relative growth of the Sobolev $H^s$ norm
         $\|u(t)\|_{H^s}/\|u(0)\|_{H^s}$ (log scale)
         for the 2D cubic NLS equation on $[0,2\pi)^2$,
         integrated via the split-step Fourier method
         with a Gaussian spectral initial condition.
-        Each curve corresponds to a different regularity exponent: regularity exponent: $s=2$ {\color[HTML]{8000FF}\rule[0.4ex]{0.5cm}{1.5pt}}, $4$ {\color[rgb]{0.35,0.28,0.78}\rule[0.4ex]{0.5cm}{1.5pt}} and $8$ {\color[HTML]{003366}\rule[0.4ex]{0.5cm}{1.5pt}}.}
+        Each curve corresponds to a different regularity exponent: regularity exponent: $s=2$ {\color[HTML]{8000FF}\rule[0.4ex]{0.5cm}{1.5pt}}, $4$ {\color[rgb]{0.35,0.28,0.78}\rule[0.4ex]{0.5cm}{1.5pt}} and $8$ {\color[HTML]{003366}\rule[0.4ex]{0.5cm}{1.5pt}}. \githublink{https://github.com/jixh-KPZ-1020/spde-mf/blob/main/scripts/waves/nls.py}}
     \label{figures:nls_hs_norm}
 \end{figure}
 
@@ -199,13 +201,13 @@ noise. Also using Strichartz estimates and modified energies, global
 well-posedness in the energy space and in the domain of the Anderson
 Hamiltonian was shown in {\cite{Z19}} for general nonlinearities. \\
 
-The dispersion is expected to be much weaker than the classical case, since due to Anderson localization, any dynamic wave packet placed in this system is decomposed into this basis of strictly localized states; as time evolves, these individual components merely undergo local phase rotations rather than continuous outward propagation, effectively halting macroscopic spatial dispersion. Therefore the estimates realized in \cite{Z19} is truly delicate. 
+The dispersion is expected to be much weaker than the classical case, since due to Anderson localization, any dynamic wave packet placed in this system is decomposed into this basis of strictly localized states as shown by fig. \ref{fig:ah_eigen_wn}; as time evolves, these individual components merely undergo local phase rotations rather than continuous outward propagation, effectively halting macroscopic spatial dispersion. Therefore, the estimates realized in \cite{Z19} is truly delicate. \\
 
-\begin{figure}[H]
+\begin{figure}[h]
     \centering
-    \includegraphics[width=0.75\textwidth]{figures/ah_eigen_wn.pdf}
-    \caption{ \footnotesize
-        Log-density profiles of the lowest four eigenfunctions for the two-dimensional Anderson Hamiltonian $H = -\Delta + c \xi$ on the periodic torus $\mathbb{T}^2 = [0, L)^2$ for suitable coupling $c$. For genuine Anderson localization to be observed, the domain size $L$ must be significantly larger than the characteristic localization length. Once this properly scaled regime is reached, the random potential completely shatters the continuous spectrum of the free Laplacian into a pure point spectrum, meaning all energy eigenstates are spatially trapped.
+    \includegraphics[width=0.75\textwidth]{ah_eigen_wn.pdf}
+    \caption{
+        Log-density profiles of the lowest four eigenfunctions for the two-dimensional Anderson Hamiltonian $H = -\Delta + c \xi$ on the periodic torus $\mathbb{T}^2 = [0, L)^2$ for suitable coupling $c$. For genuine Anderson localization to be observed, the domain size $L$ must be significantly larger than the characteristic localization length. Once this properly scaled regime is reached, the random potential completely shatters the continuous spectrum of the free Laplacian into a pure point spectrum, meaning all energy eigenstates are spatially trapped. \githublink{https://github.com/jixh-KPZ-1020/spde-mf/blob/main/scripts/waves/anderson_eigen.py}
     }
     \label{fig:ah_eigen_wn}
 \end{figure}
@@ -234,10 +236,10 @@ Despite the huge success of singular SPDE theories that has been discussed so fa
 
 The short answer is no, and one could still hope for the existence of solution with a weaker notion, while the uniqueness is definitely more challenging and requires more knowledge of the structure of the specific equation. Fundamental results of the energy solution theory have been achieved by Gubinelli--Perkowski in \cite{GubinelliPerkowski2018, GubinelliPerkowski2020} for KPZ--Burgers equation\footnote{The original results obtained in \cite{GubinelliPerkowski2018, GubinelliPerkowski2020} are still restricted to subcritical equations, but it turns out that the methodology extends to critical and supercritical setting in comparison with pathwise techniques. We also refer the readers to \cite{graefner2024weakwellposednessenergysolutions,graefner2025energysolutionssdessupercritical} for similar techniques used for SDEs with singular drifts}, where the Gaussian invariant measure and the underlying Fock--Bosonic structure is crucially used, and it is realized that the corresponding infinite--dimensional Kolmogorov equation mimics the structure of the transport--diffusion equation.
 
-\begin{figure}[H]
+\begin{figure}[h]
 \centering
-\includegraphics[width=0.6\textwidth]{figures/kpz.pdf}
-\caption{\footnotesize Time--evolution plot of a one-dimensional KPZ interface simulated on a periodic domain via Euler--Maruyama discretisation. Higher the interface, brighter the color.}
+\includegraphics[width=0.6\textwidth]{kpz.pdf}
+\caption{Time--evolution plot of a one-dimensional KPZ interface simulated on a periodic domain via Euler--Maruyama discretisation. Higher the interface, brighter the color. \githublink{https://github.com/jixh-KPZ-1020/spde-mf/blob/main/scripts/spdes/kpz.py}}
 \label{fig:intro_KPZ}
 \end{figure}
 
@@ -265,7 +267,7 @@ Regarding the simplified case of SDEs of the form $\mathrm{d}X_t = b(X_t) + \sqr
 
 under regularity conditions on the coefficients and as $\varepsilon \to 0$. The extension of such results into infinite--dimensional settings is a classical topic in SPDEs, and we refer the readers to Faris, Jona--Lasinio, Mitter and many others \cite{FJ82,JM90,QY98,M10,CM11,HW15}, direct consequences including the exponential--tail control of exit times, exploited in e.g.\ \cite{Tsatsoulis2020}.\\
 
-The weak convergence approach of \cite{DE11,BDM11} has been used to derive small--noise LDP by translating the problem into the well-posedness and stability of the so-called \textbf{skeleton equations}. The philosophy behind is that the core of the weak--convergence method, namely the Boué--Dupuis formula, formally linearizes the estimates of exponential moments with control, and the skeleton equation is exactly the perturbation of the SPDEs in the direction of the Cameron--Martin space of the space--time white noise. \\
+The weak convergence approach of \cite{DE11,BDM11} has been used to derive small--noise LDP by translating the problem into the well-posedness and stability of the so-called skeleton equations. The philosophy behind is that the core of the weak--convergence method, namely the Boué--Dupuis formula, formally linearizes the estimates of exponential moments with control, and the skeleton equation is exactly the perturbation of the SPDEs in the direction of the Cameron--Martin space of the space--time white noise. \\
 
 In terms of the approximation of the particle systems using the Dean--Kawasaki equation, large deviation principles have been established in \cite{FG23,WZ22} using the method of weak convergence. \cite{FG23} further showed that the rate function of the zero-range process coincides with its lower semi-continuous envelope on all trajectories with finite entropy dissipation, owing to the well-posedness and stability of the associated skeleton equation. Building on this, \cite{GessHeydecker2023} established a full large deviation principle for a rescaled zero-range process using a pathwise entropy dissipation approach. \\
 
@@ -315,8 +317,8 @@ where $\mu$ denotes the evolution of the probability measure, as part of the dif
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=1\textwidth]{figures/unimodal.pdf}
-\caption{\footnotesize Heat map snorapshots of the Stratonovich SDE \eqref{eq:SDE_FDR} on $S^2$ started from an arbitrary initial distribution, where the mobility is given by the inverse Riemannian tensor and we consider the potential to be unimodal (peak at the north pole). As time evolves, the empirical density relaxes toward the Gibbs invariant measure.}
+\includegraphics[width=1\textwidth]{unimodal.pdf}
+\caption{Heat map snorapshots of the Stratonovich SDE \eqref{eq:SDE_FDR} on $S^2$ started from an arbitrary initial distribution, where the mobility is given by the inverse Riemannian tensor and we consider the potential to be unimodal (peak at the north pole highlighted by the light color). As time evolves, the empirical density relaxes toward the Gibbs invariant measure. \githublink{https://github.com/jixh-KPZ-1020/spde-mf/blob/main/scripts/langevin/unimodal.py}}
 \label{fig:intro_FDR}
 \end{figure}
 
@@ -328,11 +330,11 @@ as the noise term in \eqref{eq:reduced-DK-main} can be interpreted as $(2\beta^{
 
 Despite the choice of Stratonovich integrations in the thermal noises motivated from the geometric interpretation, the original idea of Kawasaki and Dean \cite{K73, D96} suggests using the It\^o integration instead. The latter can be explained using elementary stochastic analysis, as we will do next.\\
 
-We consider the general weakly interacting particle system
+We consider the general weakly interacting particle system of Mckean--Vlasov type given by the following SDE system:
 \begin{align}\label{eq:def-IPS}
 \mathrm{d}X^i_t = b(X_t^i, {\rho}_{X_t})\mathrm{d}t +\sqrt{2}\Sigma(X_t^i, {\rho}_{X_t})\cdot \mathrm{d}W^i_t, 
 \end{align}
-on the $d$-dimensional torus, where $i \in  \{1, ..., N\}$ is the particle index, the coefficients $b: \mathbb{T}^d \times \mcl{P}(\mathbb{T}^d) \to \mathbb{R}^{d}$ and $\Sigma: \mathbb{T}^d \times \mcl{P}(\mathbb{T}^d) \to \mathbb{R}^{d\times d}$ are periodic functions, $\{W^i\}_{i=1}^N$ are independent $d$-dimensional Brownian motions,  and the empirical measure\footnote{When writing ${\rho}_{X_t} \in \mcl{P}(\mathbb{T}^d)$ we have already used that the periodicity of the coefficients allows us to interpret $X$ as a $(\mathbb{T}^d)^N$-valued Markov process, which we will always do.}  is defined by
+on the $d$-dimensional torus, where $i \in  \{1, ..., N\}$ is the particle index, the coefficients $b: \mathbb{T}^d \times \mcl{P}(\mathbb{T}^d) \to \mathbb{R}^{d}$ and $\Sigma: \mathbb{T}^d \times \mcl{P}(\mathbb{T}^d) \to \mathbb{R}^{d\times d}$ are periodic functions in the first argument, $\{W^i\}_{i=1}^N$ are independent $d$-dimensional Brownian motions,  and the empirical measure\footnote{When writing ${\rho}_{X_t} \in \mcl{P}(\mathbb{T}^d)$ we have already used that the periodicity of the coefficients allows us to interpret $X$ as a $(\mathbb{T}^d)^N$-valued Markov process, which we will always do.}  is defined by
 \begin{equation*}
 {\rho}_{X_t} := \frac{1}{N} \sum_{i=1}^N \delta_{X_t^i} \in \mcl{P}(\mathbb{T}^d).
 \end{equation*}
@@ -357,12 +359,12 @@ where $\{e_k\}_{k \in \mathbb{Z}^d}$ is the Fourier orthonormal basis of $L^2(\m
 so the above calculation suggests that $\rho_{X_t}$ is a solution to the following SPDE:
 \begin{equation}\label{eq:DK_full}
 \begin{split}
-\mathrm{d}\rho^N_t =  \nabla^2 : \big[a(\cdot, \rho^N_t) \rho^N_t\big]\mathrm{d}t - \nabla \cdot \big[ b(\cdot, \rho^N_t) \rho^N_t \big]\mathrm{d}t\\ + \frac{\sqrt{2}}{\sqrt{N}}\nabla \cdot\big[(\rho^N_t)^{\frac{1}{2}} \Sigma (\cdot, \rho^N_t) \cdot \mathrm{d}W_t\big],
+\mathrm{d}\rho^N_t =  \nabla^2 : \big[a(\cdot, \rho^N_t) \rho^N_t\big]\mathrm{d}t & - \nabla \cdot \big[ b(\cdot, \rho^N_t) \rho^N_t \big]\mathrm{d}t\\ & + \frac{\sqrt{2}}{\sqrt{N}}\nabla \cdot\big[(\rho^N_t)^{\frac{1}{2}} \Sigma (\cdot, \rho^N_t) \cdot \mathrm{d}W_t\big],
 \end{split}
 \end{equation}
 where $(W_t)_{t \geq 0}$ is the $d$-dimensional real cylindrical Wiener process on $L^2(\mathbb{T}^d)$, that is the time integral of the space-time white noise. It is also not hard to see that \eqref{eq:DK_full} is a nonlinear generalization of \eqref{eq:reduced-DK-main} if we neglect the difference of the stochastic integrations.\\
 
-As for stochastic transport equations~\cite{Kunita1990} we could then hope to solve \eqref{eq:DK_full} with absolutely continuous initial condition to obtain a description of the flow of particles without resolving individual particles.  However, this is impossible by the triviality result from \cite{KLvR19,KLvR20}, which says that~\eqref{eq:DK_full} is a tautologic description of the original particle system which does not allow for any simplification or model reduction. Therefore, we follow \cite{FG21,DKP23} in considering a regularized version of \eqref{eq:DK_full}, 
+As for stochastic transport equations~\cite{Kunita1990} we could then hope to solve \eqref{eq:DK_full} with absolutely continuous initial condition to obtain a description of the flow of particles without resolving individual particles.  However, this is impossible for at least a large class of \eqref{eq:DK_full} by the triviality result from \cite{KLvR19,KLvR20}, which says that~\eqref{eq:DK_full} is a tautologic description of the original particle system which does not allow for any simplification or model reduction. Therefore, we follow \cite{FG21,DKP23} in considering a regularized version of \eqref{eq:DK_full}, 
 \begin{equation}\label{eq:DK_reg-intro}
 \begin{split}
     \mathrm{d}m^N_t = \nabla^2: \big[a(\cdot, m^N_t) m^N_t\big]\mathrm{d}t - \nabla \cdot \big[ b(\cdot, m^N_t)m^N_t \big]\mathrm{d}t \\ + \frac{\sqrt{2}}{\sqrt{N}}\nabla \cdot (f^N(m^N_t) \Sigma (\cdot, m^N_t) \cdot \mathrm{d}W^N_t),
@@ -374,7 +376,9 @@ m \mapsto \nabla^2 :[ a(\cdot, m)m] + \nabla \cdot [ b(\cdot, m)m]
 $$
 is the nonlinear Fokker-Planck operator governing the evolution of the law of the mean-field limit of~\eqref{eq:main_particle}, $f^N: \mathbb{R} \to \mathbb{R}^+ \cup \{0\}$ is a well-chosen approximation of the square root, and the noise $W^N$ is colored in space and white in time and it approximates the space-time white noise.\\
 
-To quantify the effectiveness of \eqref{eq:DK_full} approximating the particle systems \eqref{eq:def-IPS}, it is then natural to compare arbitrary statistics of the two dynamics at any given time, namely the weak--error rate of the approximation. From the perspective of stochastic analysis, this problem boils down to the ``regularity'' of corresponding Kolmogorov equations. In the previous work \cite{DKP23}, it is realized however that if we simplify the model by setting the drift to be zero and the diffusion coefficient to be constant, then the corresponding Kolmogorov equation decouples on each ``chaos'' (sectors of fixed particle numbers), namely each homogeneity component of the test polynomial functionals, and the problem is reduced to the analysis of a family of finite--dimensional Hamilton--Jacobi equations with smooth initial conditions. It turns out that for a fully nonlinear system as \eqref{eq:DK_reg-intro}, a rigorous analytic setup of the Wasserstein space is required. 
+To quantify the effectiveness of \eqref{eq:DK_full} approximating the particle systems \eqref{eq:def-IPS}, it is then natural to compare arbitrary statistics of the two dynamics at any given time, namely the weak--error rate of the approximation. From the perspective of stochastic analysis, this problem boils down to the ``regularity'' of corresponding Kolmogorov equations.\\
+
+In the previous work \cite{DKP23}, it is realized however that if we simplify the model by setting the drift to be zero and the diffusion coefficient to be constant, then the corresponding Kolmogorov equation decouples on each ``chaos'' (sectors of fixed particle numbers), namely each homogeneity component of the test polynomial functionals, and the problem is reduced to the analysis of a family of finite--dimensional Hamilton--Jacobi equations with smooth initial conditions, while for a fully nonlinear system as \eqref{eq:DK_reg-intro}, a rigorous analytic setup of the Wasserstein space is required. 
 
 
 \subsection{Wasserstein Space and Lions' Calculus}\label{sec:Wasserstein-Lions}
@@ -431,7 +435,8 @@ as a reduced linear version of \eqref{eq:MFG-Master}. Since the generator of the
 \section{Content Overview}
 
 The content of the thesis is summarized in the following Table \ref{table:thesis-content}.
-
+{
+\renewcommand{\arraystretch}{1.6}
 \begin{table}[h!]
 \centering
 \begin{tabular}{|>{\centering\arraybackslash}m{2cm}|>{\centering\arraybackslash}m{9cm}|>{\centering\arraybackslash}m{2cm}|}
@@ -449,11 +454,17 @@ Chapter \ref{ch:BEC} & Qualitative and Quantitative Dynamical Bose--Einstein con
 \end{tabular}
 \caption{Summary Table for Chapters \ref{ch:weak}--\ref{ch:BEC}}
 \label{table:thesis-content}
-\end{table}
+\end{table}}
 
-Chapter \ref{ch:weak} of the thesis is devoted to the weak--error estimate of the Dean--Kawasaki equation. In Section \ref{ch:GWP}, we prove the existence and uniqueness of the equation in Corollary \ref{thm:main_thm_1_full} under the regularity Assumption~\ref{assu:b_Sigma}. The proof combines the variational solutions provided by \cite{RSZ22} in a Gelfand tripe suitable for the gradient multiplicative structure of the noise, a taming procedure (\ref{eq:var_AB_tamed}) and the $L^1$ conservation law for non-negative initial data in Remark \ref{rem:positivity_DK_reg}. In Section \ref{sec:ito-Kol}, we derive an It\^o formula for the SPDE and for the empirical measure by using the approximation arguments, following \cite{CD22}. We also quantify the difference of the generators of these two measure-valued processes in Lemma \ref{lem:approximation_quadratic_variation} which relies on the key technical Lemma \ref{lem:approx_delta_x(y)}. In this estimate, the Fisher information of the SPDE appears and this can be controlled by the entropy estimate Lemma \ref{lem:entropy_DK_reg} which mimicks \cite{FG21}. In Section \ref{sec:weak_error}, we derive our weak error estimate by using the Kolmogorov backward (transport) equation for the mean-field limit together with Lemma \ref{lem:approximation_quadratic_variation}, whose conditions (essentially the $W^{2,\infty}$-bound in (\ref{eq:apprximation of V_F})) are translated into  spatial regularity assumptions for the solution to the Kolmogorov backward equation, which we establish in (\ref{eq:reg_D_mu2}) in Corollary \ref{thm:reg_D_mu2F_m_mu}. The main result is then stated and proved in Theorem \ref{thm:main_weak_error}.\\
+Chapter \ref{ch:weak} of the thesis is devoted to the weak--error estimate of the Dean--Kawasaki equation. In Section \ref{ch:GWP}, we prove the existence and uniqueness of the equation in Corollary \ref{thm:main_thm_1_full} under the regularity Assumption~\ref{assu:b_Sigma}. The proof combines the variational solutions provided by \cite{RSZ22} in a Gelfand tripe suitable for the gradient multiplicative structure of the noise, a taming procedure (\ref{eq:var_AB_tamed}) and the $L^1$ conservation law for non-negative initial data in Remark \ref{rem:positivity_DK_reg}.\\
 
-In Chapter \ref{ch:LDP}, we consider the LDP of Dean--Kawasaki equations with the singular interaction kernels of Coulomb type. Section \ref{sec:existence} is devoted the existence of renormalized kinetic solutions to equation \eqref{SPDE-0-intro} via compactness argument. In Section \ref{sec-4}, we derive exponential estimates that indicate the exponential tightness of the laws of solutions to \eqref{SPDE-1} in the space $L^1([0,T] \times \mathbb{T}^2))$. In Section \ref{sec:LB-LDP}, we focus the derivation of the lower bound with the entropy method of the LDP 
+In Section \ref{sec:ito-Kol}, we derive an It\^o formula for the SPDE and for the empirical measure by using the approximation arguments, following \cite{CD22}. We also quantify the difference of the generators of these two measure-valued processes in Lemma \ref{lem:approximation_quadratic_variation} which relies on the key technical Lemma \ref{lem:approx_delta_x(y)}. In this estimate, the Fisher information of the SPDE appears and this can be controlled by the entropy estimate Lemma \ref{lem:entropy_DK_reg} which mimicks \cite{FG21}. \\
+
+In Section \ref{sec:weak_error}, we derive our weak error estimate by using the Kolmogorov backward (transport) equation for the mean-field limit together with Lemma \ref{lem:approximation_quadratic_variation}, whose conditions (essentially the $W^{2,\infty}$-bound in (\ref{eq:apprximation of V_F})) are translated into  spatial regularity assumptions for the solution to the Kolmogorov backward equation, which we establish in (\ref{eq:reg_D_mu2}) in Corollary \ref{thm:reg_D_mu2F_m_mu}. The main result is then stated and proved in Theorem \ref{thm:main_weak_error}.\\
+
+In Chapter \ref{ch:LDP}, we consider the LDP of Dean--Kawasaki equations with the singular interaction kernels of Coulomb type. Section \ref{sec:existence} is devoted the existence of renormalized kinetic solutions to equation \eqref{SPDE-0-intro} via compactness argument. In Section \ref{sec-4}, we derive exponential estimates that indicate the exponential tightness of the laws of solutions to \eqref{SPDE-1} in the space $L^1([0,T] \times \mathbb{T}^2))$. \\ 
+
+In Section \ref{sec:LB-LDP}, we focus the derivation of the lower bound with the entropy method of the LDP 
 in Theorem \ref{thm:LDP}, and crucially use the weak-strong uniqueness Proposition \ref{L1uniq} for the associated skeleton equation, whose proof is presented in Section \ref{sec-ws!}. More specifically, the verification of the entropy method requires the construction of a sequence of probability measures concentrating on an arbitrarily chosen trajectory. We show in Proposition \ref{C1} that the compactness is relatively easier to achieve and the passage to the limit for the skeleton equation \eqref{ske} still hold as in \cite{FG24,WZ22}, and as the the skeleton equation is supercritical, we verify the entropy method partially by selecting a trajectory within the more regular class $\mathcal{C}_0$ as defined in \eqref{S-intro}, and establish the uniqueness therein. We complete the proof of Theorem \ref{thm:LDP} in Section \ref{sec:LDP-UB} by proving the corresponding upper bound using the exponential martingale approach and min--max principle, which also concludes our discussion on Dean--Kawasaki equations.\\
 
 
@@ -462,7 +473,9 @@ Proposition \ref{thm:Vinftyenergywellposedeness}, we establish the
 well-posedness results of the Anderson NLS \eqref{eq:main1} under different
 conditions\footnote{We remark here that since we follow the general methodology of {\cite{GUZ20}}, all of the
 solutions we obtain are also limits of solutions of regularised equations as
-was proved rigorously therein.}, and the proofs are divided into several concrete steps. As the first step, we obtain all the necessary properties of the Anderson Hamiltonian: The rigorous definitions of the domain and form domain of the operator are given in Section \ref{sec:AH} using paracontrolled calculus, together with various ``musical transformations'' of the Anderson Hamiltonian. The transformation introduced in Lemma \ref{lem:homeom-Theta} is in particular essential for the method of modified energy. In Section \ref{sec:strichartz}, Strichartz estimates concerning the transformed Anderson Hamiltonian are established using micro--local argument. Secondly, we obtain local--wellposedness result in Section \ref{chapter-LWP} and blowup alternatives of the ANLS with the help of the classical fixed--point argument. Lastly in Section \ref{chapter:GWP}, we combine all the ingredients above with the modified energy method in the ``nonlinear Strichartz'' Lemma \ref{lem:nonlinear-strichartz} to derive global well--posedness results for the ANLS. \\
+was proved rigorously therein.}, and the proofs are divided into several concrete steps.\\
+
+As the first step, we obtain all the necessary properties of the Anderson Hamiltonian: The rigorous definitions of the domain and form domain of the operator are given in Section \ref{sec:AH} using paracontrolled calculus, together with various ``musical transformations'' of the Anderson Hamiltonian. The transformation introduced in Lemma \ref{lem:homeom-Theta} is in particular essential for the method of modified energy. In Section \ref{sec:strichartz}, Strichartz estimates concerning the transformed Anderson Hamiltonian are established using micro--local argument. Secondly, we obtain local--wellposedness result in Section \ref{chapter-LWP} and blowup alternatives of the ANLS with the help of the classical fixed--point argument. Lastly in Section \ref{chapter:GWP}, we combine all the ingredients above with the modified energy method in the ``nonlinear Strichartz'' Lemma \ref{lem:nonlinear-strichartz} to derive global well--posedness results for the ANLS. \\
 
 In the last Chapter \ref{ch:BEC}, we justify the use of the ANLS as an effective description of the condensation of many--body Bosons with a white external potential. The formal derivation is performed in Section \ref{sec:ANLS-derivation}, which we make rigorous in the following Sections
 \ref{sec:conv-bbgky-proof} and \ref{section:uniqueness} respectively under
@@ -477,10 +490,70 @@ sufficiently large, which is the content of Corollary \ref{corollary:main}.\\
 
 \newpage
 
+\begin{figure}[htbp]
+\usetikzlibrary{trees}
+\begin{tikzpicture}[
+  grow=right,
+  edge from parent fork right,
+  level 1/.style={level distance=4.5cm},
+  level 2/.style={level distance=6cm},
+  every node/.style={
+    draw,
+    rectangle,
+    rounded corners,
+    align=left,
+    font=\sffamily\small,
+    inner sep=6pt
+  },
+  edge from parent/.style={draw, thick, -}
+]
+
+  % ==========================================
+  % First Independent Tree: DK Equation
+  % ==========================================
+  \node[text=violet!100!white] at (0, 0) {\textbf{Dean--Kawasaki}\\ \textbf{(DK) Equation}}
+    child[sibling distance=6.5cm] { node {Chapter 3: Restricted\\LDP (Coulomb kernels)}
+      child[sibling distance=1.3cm] { node {Sec 3.5: Upper bound derivation} }
+      child[sibling distance=1.3cm] { node {Sec 3.4: Skeleton eq. analysis} }
+      child[sibling distance=1.3cm] { node {Sec 3.3: Lower bound derivation} }
+      child[sibling distance=1.3cm] { node {Sec 3.2: Exponential estimates} }
+      child[sibling distance=1.3cm] { node {Sec 3.1: Renormalized \\ \quad kinetic solutions} }
+    }
+    child[sibling distance=6.5cm] { node {Chapter 2:\\Weak-error estimate}
+      child[sibling distance=1.5cm] { node {Sec 2.3: Weak error estimate} }
+      child[sibling distance=1.5cm] { node {Sec 2.2: It\^o formula} }
+      child[sibling distance=1.5cm] { node {Sec 2.1: Variational solutions} }
+    };
+
+  % ==========================================
+  % Second Independent Tree: ANLS Equation
+  % ==========================================
+  % Positioned far enough down (y = -13) to avoid leaf collision with the DK tree above
+  \node[text=violet!100!white] at (0, -13) {\textbf{Anderson Nonlinear}\\ \textbf{Schr\"odinger (ANLS)}}
+    child[sibling distance=5.5cm] { node {Chapter 5:\\Effective Description}
+      child[sibling distance=1.5cm] { node {Sec 5.2.3: Uniqueness of BBGKY} }
+      child[sibling distance=1.5cm] { node {Sec 5.2.2: Limit to BBGKY} }
+      child[sibling distance=1.5cm] { node {Sec 5.1: Formal derivation} }
+    }
+    child[sibling distance=5.5cm] { node {Chapter 4:\\Well-posedness}
+      child[sibling distance=1.4cm] { node {Sec 4.4: Global well-posedness} }
+      child[sibling distance=1.4cm] { node {Sec 4.3: Local well-posedness} }
+      child[sibling distance=1.4cm] { node {Sec 4.2: Strichartz estimates} }
+      child[sibling distance=1.4cm] { node {Sec 4.1: Anderson Hamiltonian} }
+    };
+
+\end{tikzpicture}
+\caption{Structure of the thesis.}
+  \label{fig:thesis_structure}
+\end{figure}
+
+\newpage
+
 \subsection*{Omitted Details}
 For brevity and readability of the thesis, we omit some technical details that either are tangential to the main focus on the thesis or follow directly from classical arguments; we refer interested readers to the corresponding papers for details and summarize those points with the precise reference to the literature in the following table \ref{tab:omit}. 
 
 {\footnotesize
+\renewcommand{\arraystretch}{1.5}
 \begin{longtable}{|m{3.6cm}|m{3.2cm}!{\vrule width 1pt}m{3.6cm}|m{3.2cm}|}
 \hline
 \textbf{Statement} & \textbf{Reference} & \textbf{Statement} & \textbf{Reference} \\

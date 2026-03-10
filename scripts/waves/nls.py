@@ -119,8 +119,7 @@ def plot_nls(result, outpath=None, colors=None):
         ax.plot(times, norms, color=c)
 
     ax.set_yscale("log")
-    ax.set_xlabel(r"time $t$")
-    ax.set_ylabel(r"$\|u(t)\|_{H^s} / \|u(0)\|_{H^s}$")
+    ax.set_xlabel(r"time $t$", fontsize=16, fontweight='bold')
     from matplotlib.ticker import LogLocator, ScalarFormatter, NullFormatter
     ax.yaxis.set_major_locator(LogLocator(base=10, subs=[1.0, 2.0, 5.0]))
     _sf = ScalarFormatter()

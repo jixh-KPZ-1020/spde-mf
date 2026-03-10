@@ -17,6 +17,7 @@ __pycache__/
 
 # LaTeX build artifacts (inside thesis/)
 thesis/build/
+!thesis/build/main.pdf
 thesis/thesis-source.tar.gz
 thesis/**/*.aux
 thesis/**/*.log

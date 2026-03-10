@@ -2,7 +2,7 @@ import matplotlib
 
 COLORS = {
     "fuBlue":     "#003366",
-    "citeViolet": "#8000ff",
+    "citeViolet": "#d9b7fa",
     "fu_green":   "#CCFF00",   # RGB (204, 255, 0)
 }
 

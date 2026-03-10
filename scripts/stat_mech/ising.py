@@ -75,10 +75,10 @@ def plot_ising_tc(result, outpath=None, colors=None):
         color=colors["fuBlue"],
         label=r"Exact (Onsager): $T_c=\frac{2J}{\ln(1+\sqrt{2})}$",
     )
-    ax.set_xlabel(r"Coupling $J$")
-    ax.set_ylabel(r"Critical temperature $T_c$")
-    ax.set_title(r"$T_c$ vs.\ coupling strength")
-    ax.legend()
+    ax.set_xlabel(
+        r"Coupling constant $J$ (with Boltzmann constant $k_B=1$)",
+        fontsize=16,         # Changes the size
+    fontweight='bold')
 
     fig.tight_layout()
     if outpath:
@@ -118,7 +118,7 @@ def plot_ising_lattice(result, outpath=None, colors=None):
 
 if __name__ == "__main__":
     import sys, os
-    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
     from viz_style import apply_thesis_style
     colors = apply_thesis_style()
 
